@@ -27,6 +27,9 @@ from librarian_core.contrib.templates.renderer import template, view
 from .files import FileManager
 
 
+EXPORTS = {
+    'routes': {'required_by': ['librarian_system.routes.routes']}
+}
 SHELL = '/bin/sh'
 
 
@@ -194,12 +197,23 @@ def run_path(path):
 
 
 @login_required(superuser_only=True)
+def init_file_action(path):
+    action = request.query.get('action')
+    if action == 'delete':
+        return delete_path_confirm(path)
+
+    return show_file_list(path)
+
+
+@login_required(superuser_only=True)
 def handle_file_action(path):
     action = request.forms.get('action')
     files = init_filemanager()
     path = files.get_full_path(path)
     if action == 'rename':
-        rename_path(path)
+        return rename_path(path)
+    elif action == 'delete':
+        return delete_path(path)
     elif action == 'exec':
         if os.path.splitext(path)[1] != '.sh':
             # For now we only support running BASH scripts
@@ -216,11 +230,7 @@ def routes(config):
     return (
         ('files:list', show_file_list,
          'GET', '/files/', dict(unlocked=True)),
-        ('files:delete_confirm', delete_path_confirm,
-         'GET', '/files/<path:path>/delete/', dict(unlocked=True)),
-        ('files:delete', delete_path,
-         'POST', '/files/<path:path>/delete/', dict(unlocked=True)),
-        ('files:path', show_file_list,
+        ('files:path', init_file_action,
          'GET', '/files/<path:path>', dict(unlocked=True)),
         ('files:action', handle_file_action,
          'POST', '/files/<path:path>', dict(unlocked=True)),
