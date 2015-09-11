@@ -56,12 +56,12 @@ ${library_submenu.body()}
             % else:
                 % for d in dirs:
                 <tr class="dir">
-                    <% dpath = i18n_url('files:path', path=d.path) %>
+                    <% dpath = h.to_unicode(i18n_url('files:path', path=d.path)) %>
                     <td class="icon"><a href="${dpath}"><span class="icon"></span></a></td>
-                    <td class="name" colspan="2"><a href="${dpath}">${d.name}</a></td>
+                    <td class="name" colspan="2"><a href="${dpath}">${h.to_unicode(d.name)}</a></td>
                     <td class="actions">
                         ${h.form('post', action=dpath, _class="files-rename")}
-                            <input type="text" name="name" value="${d.name}">
+                            <input type="text" name="name" value="${h.to_unicode(d.name)}">
                             <button name="action" value="rename" type="submit">${_('Rename')}</button>
                         </form>
                         ${h.form('get', action=dpath, _class="files-delete")}
@@ -72,9 +72,9 @@ ${library_submenu.body()}
                 % endfor
                 % for f in files:
                 <tr class="file">
-                    <% fpath = i18n_url('files:path', path=f.path) %>
-                    <td class="icon"><a href="${fpath}?filename=${f.name}"><span class="icon"></span></a></td>
-                    <td class="name"><a href="${fpath}?filename=${f.name}">${f.name}</a></td>
+                    <% fpath = h.to_unicode(i18n_url('files:path', path=f.path)) %>
+                    <td class="icon"><a href="${fpath + h.set_qparam(filename=f.name).to_qs()}"><span class="icon"></span></a></td>
+                    <td class="name"><a href="${fpath + h.set_qparam(filename=f.name).to_qs()}">${h.to_unicode(f.name)}</a></td>
                     <td class="size">${h.hsize(f.size)}</td>
                     <td class="actions">
                         % if f.path.endswith('.sh'):
@@ -84,7 +84,7 @@ ${library_submenu.body()}
                         </form>
                         % endif
                         ${h.form('post', action=fpath, _class="files-rename")}
-                            <input type="text" name="name" value="${f.name}">
+                            <input type="text" name="name" value="${h.to_unicode(f.name)}">
                             <button name="action" value="rename" type="submit">${_('Rename')}</button>
                         </form>
                         ${h.form('get', action=fpath, _class="files-delete")}
