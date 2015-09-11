@@ -16,7 +16,7 @@ setup(
     version=VERSION,
     license='BSD',
     packages=[pkg.__name__],
-    install_package_data=True,
+    include_package_data=True,
     long_description=read('README.rst'),
     install_requires=[
         'scandir',
