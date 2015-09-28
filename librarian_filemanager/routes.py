@@ -9,22 +9,19 @@ file that comes with the source code, or http://www.gnu.org/licenses/gpl.txt.
 """
 
 import functools
-import json
 import logging
 import os
 import shutil
-import stat
 import subprocess
 
-from bottle import request, abort, static_file, redirect, response
-from bottle_utils.common import to_unicode
+from bottle import request, abort, static_file, redirect
+from bottle_utils.ajax import roca_view
 from bottle_utils.csrf import csrf_protect, csrf_token
 from bottle_utils.i18n import lazy_gettext as _, i18n_url
 
-from librarian_auth.decorators import login_required
 from librarian_core.contrib.templates.renderer import template, view
 
-from .files import FileManager
+import fsal
 
 
 EXPORTS = {
@@ -33,85 +30,47 @@ EXPORTS = {
 SHELL = '/bin/sh'
 
 
-def init_filemanager():
-    return FileManager(request.app.config['files.rootdir'])
+def get_full_path(path):
+    filedir = os.path.normpath(request.app.config['files.rootdir'])
+    path = os.path.normpath(path.replace('..', '.'))
+    full = os.path.normpath(os.path.join(filedir, path))
+    if full.startswith(filedir):
+        return full
+    return filedir
 
 
-def dictify_file_list(file_list):
-    return [{
-        'path': f[0],
-        'name': f[1],
-        'size': f[2],
-    } for f in file_list]
-
-
-@login_required(superuser_only=True)
 @view('file_list')
 def show_file_list(path=None):
     search = request.params.get('p')
-    query = search or path or '.'
-    resp_format = request.params.get('f', '')
-    conf = request.app.config
-    is_missing = False
-    is_search = False
-    files = init_filemanager()
+    rootdir = request.app.config['files.rootdir']
+    query = get_full_path(search or path or '.')
     try:
-        dir_contents = files.get_dir_contents(query)
-        (path, relpath, dirs, file_list, readme) = dir_contents
-    except files.DoesNotExist:
+        (dirs, files) = fsal.listdir(query, relative_to=rootdir)
+    except OSError:
+        relpath = '.'
         if search:
-            relpath = '.'
-            up = ''
-            dirs, file_list = files.get_search_results(search)
-            is_search = True
-            if not len(file_list) and len(dirs) == 1:
-                redirect(i18n_url('files:path',
-                                  path=dirs[0].path.replace('\\', '/')))
-            if not dirs and not file_list:
-                is_missing = True
-                readme = _('The files you were looking for could not be found')
-            else:
-                readme = _('This list represents the search results')
+            (dirs, files) = fsal.find(search)
         else:
-            is_missing = True
-            relpath = '.'
-            dirs = []
-            file_list = []
-            readme = _('This folder does not exist')
-    except files.IsFileError as err:
-        if resp_format == 'json':
-            fstat = os.stat(query)
-            response.content_type = 'application/json'
-            return json.dumps(dict(
-                name=os.path.basename(query),
-                size=fstat[stat.ST_SIZE],
-            ))
-        options = {'download': request.params.get('filename', False)}
-        return static_file(err.path, root=files.filedir, **options)
+            dirs = files = []
+    else:
+        relpath = os.path.relpath(query, rootdir)
 
-    up = os.path.normpath(os.path.join(files.get_full_path(query), '..'))
-    up = os.path.relpath(up, conf['files.rootdir'])
-    if resp_format == 'json':
-        response.content_type = 'application/json'
-        return json.dumps(dict(
-            dirs=dirs,
-            files=dictify_file_list(file_list),
-            readme=to_unicode(readme),
-            is_missing=is_missing,
-            is_search=is_search,
-        ))
-    return dict(path=relpath, dirs=dirs, files=file_list, up=up, readme=readme,
-                is_missing=is_missing, is_search=is_search)
+    up = os.path.relpath(os.path.normpath(os.path.join(query, '..')), rootdir)
+    return dict(path=relpath,
+                dirs=dirs,
+                files=files,
+                up=up,
+                openers=request.app.supervisor.exts.openers)
+
+
+def direct_file(path):
+    return static_file(path, root=request.app.config['files.rootdir'])
 
 
 def get_parent_url(path):
-    files = init_filemanager()
     parent_dir = os.path.dirname(path)
-    if parent_dir:
-        parent_path = os.path.relpath(parent_dir, files.filedir)
-    else:
-        parent_path = ''
-
+    filedir = request.app.config['files.rootdir']
+    parent_path = os.path.relpath(parent_dir, filedir) if parent_dir else ''
     return i18n_url('files:path', path=parent_path)
 
 
@@ -122,8 +81,7 @@ def go_to_parent(path):
 def guard_already_removed(func):
     @functools.wraps(func)
     def wrapper(path, **kwargs):
-        files = init_filemanager()
-        path = files.get_full_path(path)
+        path = get_full_path(path)
         if not os.path.exists(path):
             # Translators, used as page title when a file's removal is
             # retried, but it was already deleted before
@@ -153,11 +111,10 @@ def delete_path_confirm(path):
 @guard_already_removed
 @view('feedback')
 def delete_path(path):
-    files = init_filemanager()
     if not os.path.exists(path):
         abort(404)
     if os.path.isdir(path):
-        if path == files.filedir:
+        if path == request.app.config['files.filedir']:
             # FIXME: handle this case
             abort(400)
         shutil.rmtree(path)
@@ -196,7 +153,6 @@ def run_path(path):
     return ret, out, err
 
 
-@login_required(superuser_only=True)
 def init_file_action(path):
     action = request.query.get('action')
     if action == 'delete':
@@ -205,11 +161,9 @@ def init_file_action(path):
     return show_file_list(path)
 
 
-@login_required(superuser_only=True)
 def handle_file_action(path):
     action = request.forms.get('action')
-    files = init_filemanager()
-    path = files.get_full_path(path)
+    path = get_full_path(path)
     if action == 'rename':
         return rename_path(path)
     elif action == 'delete':
@@ -226,6 +180,24 @@ def handle_file_action(path):
         abort(400)
 
 
+@roca_view('opener_list', '_opener_list', template_func=template)
+def opener_list():
+    path = request.query.get('path', '')
+    filename = os.path.basename(path)
+    (_, ext) = os.path.splitext(filename)
+    opener_ids = request.app.supervisor.exts.openers.filter_for(ext.strip('.'))
+    return dict(opener_ids=opener_ids, path=path)
+
+
+@view('opener_detail')
+def opener_detail(opener_id):
+    path = request.query.get('path', '')
+    opener_route = request.app.supervisor.exts.openers.get(opener_id)
+    context = opener_route(path)
+    context.update(dict(opener_id=opener_id, filename=os.path.basename(path)))
+    return context
+
+
 def routes(config):
     return (
         ('files:list', show_file_list,
@@ -234,4 +206,10 @@ def routes(config):
          'GET', '/files/<path:path>', dict(unlocked=True)),
         ('files:action', handle_file_action,
          'POST', '/files/<path:path>', dict(unlocked=True)),
+        ('files:direct', direct_file,
+         'GET', '/direct/<path:path>', dict(unlocked=True)),
+        ('opener:list', opener_list,
+         'GET', '/openers/', dict(unlocked=True)),
+        ('opener:detail', opener_detail,
+         'GET', '/openers/<opener_id>/', dict(unlocked=True)),
     )
