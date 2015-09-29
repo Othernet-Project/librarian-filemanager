@@ -19,6 +19,8 @@ from bottle_utils.ajax import roca_view
 from bottle_utils.csrf import csrf_protect, csrf_token
 from bottle_utils.i18n import lazy_gettext as _, i18n_url
 
+from librarian_content.library import metadata
+from librarian_content.library.archive import Archive
 from librarian_core.contrib.templates.renderer import template, view
 
 import fsal
@@ -157,6 +159,8 @@ def init_file_action(path):
     action = request.query.get('action')
     if action == 'delete':
         return delete_path_confirm(path)
+    elif action == 'open':
+        return opener_detail(path, request.query.get('opener_id'))
 
     return show_file_list(path)
 
@@ -190,12 +194,29 @@ def opener_list():
 
 
 @view('opener_detail')
-def opener_detail(opener_id):
+def opener_detail(path, opener_id):
+    conf = request.app.config
+    archive = Archive.setup(conf['library.backend'],
+                            request.db.content,
+                            contentdir=conf['library.contentdir'],
+                            meta_filename=conf['library.metadata'])
+    content = archive.get_single(path)
+    if content:
+        content_path = os.path.join(archive.config['contentdir'], path)
+        meta = metadata.Meta(content, content_path)
+    else:
+        meta = None
+
+    return dict(opener_id=opener_id,
+                path=path,
+                filename=os.path.basename(path),
+                meta=meta)
+
+
+def opener_dispatch(opener_id):
     path = request.query.get('path', '')
-    opener_route = request.app.supervisor.exts.openers.get(opener_id)
-    context = opener_route(path)
-    context.update(dict(opener_id=opener_id, filename=os.path.basename(path)))
-    return context
+    opener = request.app.supervisor.exts.openers.get(opener_id)
+    return opener(path)
 
 
 def routes(config):
@@ -210,6 +231,6 @@ def routes(config):
          'GET', '/direct/<path:path>', dict(unlocked=True)),
         ('opener:list', opener_list,
          'GET', '/openers/', dict(unlocked=True)),
-        ('opener:detail', opener_detail,
+        ('opener:dispatch', opener_dispatch,
          'GET', '/openers/<opener_id>/', dict(unlocked=True)),
     )

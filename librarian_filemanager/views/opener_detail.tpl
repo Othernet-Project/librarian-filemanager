@@ -1,5 +1,4 @@
 <%inherit file="base.tpl"/>
-<%namespace name='opener' file='${"openers/%s.tpl" % context["opener_id"]}'/>
 
 <%block name="title">
 ${meta.title if meta else filename}
@@ -7,19 +6,32 @@ ${meta.title if meta else filename}
 
 <%block name="extra_head">
 <link rel="stylesheet" type="text/css" href="${assets['css/filemanager']}" />
-${opener.extra_head()}
 </%block>
 
 <%block name="main">
 <div class="opener ${opener_id}" data-opener-id="${opener_id}">
     <div class="opener-frame reduced">
-        ${opener.opener_display()}
+        <iframe src="${i18n_url('opener:dispatch', opener_id=opener_id) + h.set_qparam(path=path).to_qs()}"></iframe>
     </div>
     <div class="opener-meta data expanded">
         <div class="inner">
             <div class="toggle"><span class="icon"></span></div>
             <div class="meta-container">
-                ${opener.meta_display()}
+                % if meta:
+                <div class="content-info">
+                    <div class="title">${meta.title}</div>
+                    <div class="download-date">${meta.timestamp.date()}</div>
+                </div>
+                ## Translators, attribution line appearing in the content list
+                <p class="attrib">
+                % if meta.publisher:
+                ${_('%(date)s by %(publisher)s.') % dict(date=meta.timestamp.strftime('%Y-%m-%d'), publisher=meta.publisher)}
+                % else:
+                ${meta.timestamp.strftime('%Y-%m-%d')}
+                % endif
+                ${th.readable_license(meta.license)}
+                </p>
+                % endif
             </div>
         </div>
     </div>
@@ -28,5 +40,4 @@ ${opener.extra_head()}
 
 <%block name="extra_scripts">
 <script type="text/javascript" src="${assets['js/filemanager']}"></script>
-${opener.extra_scripts()}
 </%block>
