@@ -21,12 +21,10 @@ setup(
     install_requires=[
         'scandir',
         'librarian_core',
-        'librarian_auth',
         'librarian_content',
     ],
     dependency_links=[
         'git+ssh://git@github.com/Outernet-Project/librarian-core.git#egg=librarian_core-0.1',
-        'git+ssh://git@github.com/Outernet-Project/librarian-auth.git#egg=librarian_auth-0.1',
         'git+ssh://git@github.com/Outernet-Project/librarian-content.git#egg=librarian_content-0.1',
     ],
     classifiers=[
