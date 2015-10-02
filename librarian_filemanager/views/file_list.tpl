@@ -58,9 +58,12 @@ ${_('Files')}
             % else:
                 % for d in dirs:
                 <tr class="dir">
-                    <% dpath = h.to_unicode(i18n_url('files:path', path=d.relpath)) %>
-                    <td class="icon"><a href="${dpath}"><span class="icon"></span></a></td>
-                    <td class="name" colspan="2"><a href="${dpath}">${h.to_unicode(d.dirinfo.get(request.locale, 'name', d.name))}</a></td>
+                    <%
+                        dpath = h.to_unicode(i18n_url('files:path', path=d.relpath))
+                        open_url = d.openers_url if d.openers_url else dpath
+                    %>
+                    <td class="icon"><a href="${open_url}"><span class="icon"></span></a></td>
+                    <td class="name" colspan="2"><a href="${open_url}">${h.to_unicode(d.dirinfo.get(request.locale, 'name', d.name))}</a></td>
                     <td class="actions">
                         ${h.form('post', action=dpath, _class="files-rename")}
                             <input type="text" name="name" value="${h.to_unicode(d.name)}">

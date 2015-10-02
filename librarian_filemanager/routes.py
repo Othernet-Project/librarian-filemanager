@@ -187,10 +187,18 @@ def handle_file_action(path):
 
 @roca_view('opener_list', '_opener_list', template_func=template)
 def opener_list():
+    openers = request.app.supervisor.exts.openers
     path = request.query.get('path', '')
-    filename = os.path.basename(path)
-    (_, ext) = os.path.splitext(filename)
-    opener_ids = request.app.supervisor.exts.openers.filter_for(ext.strip('.'))
+    content_types = request.query.getall('content_type')
+    if content_types:
+        opener_ids = []
+        for ct in content_types:
+            opener_ids.extend(openers.for_content_type(ct))
+    else:
+        filename = os.path.basename(path)
+        (_, ext) = os.path.splitext(filename)
+        opener_ids = openers.for_extension(ext.strip('.'))
+
     return dict(opener_ids=opener_ids, path=path)
 
 
