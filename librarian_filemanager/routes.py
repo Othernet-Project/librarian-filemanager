@@ -23,7 +23,7 @@ from librarian_content.library import metadata
 from librarian_content.library.archive import Archive
 from librarian_core.contrib.templates.renderer import template, view
 
-import fsal
+from .manager import Manager
 
 
 EXPORTS = {
@@ -46,12 +46,13 @@ def show_file_list(path=None):
     search = request.params.get('p')
     rootdir = request.app.config['files.rootdir']
     query = get_full_path(search or path or '.')
+    manager = Manager(request.app.supervisor)
     try:
-        (dirs, files) = fsal.listdir(query, relative_to=rootdir)
+        (dirs, files, meta) = manager.list(query, relative_to=rootdir)
     except OSError:
         relpath = '.'
         if search:
-            (dirs, files) = fsal.find(search)
+            (dirs, files, meta) = manager.find(search)
         else:
             dirs = files = []
     else:

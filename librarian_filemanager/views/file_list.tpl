@@ -58,12 +58,12 @@ ${_('Files')}
             % else:
                 % for d in dirs:
                 <tr class="dir">
-                    <% dpath = h.to_unicode(i18n_url('files:path', path=d['path'])) %>
+                    <% dpath = h.to_unicode(i18n_url('files:path', path=d.relpath)) %>
                     <td class="icon"><a href="${dpath}"><span class="icon"></span></a></td>
-                    <td class="name" colspan="2"><a href="${dpath}">${h.to_unicode(d['name'])}</a></td>
+                    <td class="name" colspan="2"><a href="${dpath}">${h.to_unicode(d.dirinfo.get(request.locale, 'name', d.name))}</a></td>
                     <td class="actions">
                         ${h.form('post', action=dpath, _class="files-rename")}
-                            <input type="text" name="name" value="${h.to_unicode(d['name'])}">
+                            <input type="text" name="name" value="${h.to_unicode(d.name)}">
                             <button name="action" value="rename" type="submit">${_('Rename')}</button>
                         </form>
                         ${h.form('get', action=dpath, _class="files-delete")}
@@ -74,20 +74,20 @@ ${_('Files')}
                 % endfor
                 % for f in files:
                 <tr class="file">
-                    <% fpath = h.to_unicode(i18n_url('files:path', path=f['path'])) %>
-                    <% list_openers_url = h.to_unicode(i18n_url('opener:list') + h.set_qparam(path=f['path']).to_qs()) %>
+                    <% fpath = h.to_unicode(i18n_url('files:path', path=f.relpath)) %>
+                    <% list_openers_url = h.to_unicode(i18n_url('opener:list') + h.set_qparam(path=f.relpath).to_qs()) %>
                     <td class="icon"><a href="${list_openers_url}"><span class="icon"></span></a></td>
-                    <td class="name"><a href="${list_openers_url}">${h.to_unicode(f['name'])}</a></td>
-                    <td class="size">${h.hsize(f['size'])}</td>
+                    <td class="name"><a href="${list_openers_url}">${h.to_unicode(f.name)}</a></td>
+                    <td class="size">${h.hsize(f.size)}</td>
                     <td class="actions">
-                        % if f['path'].endswith('.sh'):
+                        % if f.relpath.endswith('.sh'):
                         ${h.form('post', action=fpath, _class="files-run")}
                             ## Translators, label for button in file listing that allows user to run a script
                             <button class="small" name="action" value="exec" type="submit">${_('Run')}</button>
                         </form>
                         % endif
                         ${h.form('post', action=fpath, _class="files-rename")}
-                            <input type="text" name="name" value="${h.to_unicode(f['name'])}">
+                            <input type="text" name="name" value="${h.to_unicode(f.name)}">
                             <button name="action" value="rename" type="submit">${_('Rename')}</button>
                         </form>
                         ${h.form('get', action=fpath, _class="files-delete")}
