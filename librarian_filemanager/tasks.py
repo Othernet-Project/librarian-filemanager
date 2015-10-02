@@ -1,6 +1,6 @@
-from .manager import DirInfo, DIRINFO_FILENAME
+from .dirinfo import DirInfo
 
 
 def check_new_dirinfo(supervisor, fsobj):
-    if fsobj.name == DIRINFO_FILENAME:
+    if fsobj.name == DirInfo.FILENAME:
         DirInfo.from_file(supervisor, fsobj.path)
