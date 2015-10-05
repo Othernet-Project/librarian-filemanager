@@ -1,43 +1,13 @@
 import os
 
-import scandir
-
 from bottle_utils import html
 from bottle_utils.i18n import i18n_url
+from fsal.client import FSAL
 
 from librarian_content.library import metadata
 from librarian_content.library.archive import Archive
 
 from .dirinfo import DirInfo
-
-
-class FSObject(object):
-
-    def __init__(self, path, size=None, date_created=None, date_modified=None):
-        self.path = path
-        self.size = size
-        self.date_created = date_created
-        self.date_modified = date_modified
-
-
-def listdir(path):
-    dirs = []
-    files = []
-    for entry in scandir.scandir(path):
-        if entry.is_dir():
-            fso = FSObject(path=entry.path,
-                           size=None,
-                           date_created=None,
-                           date_modified=None)
-            dirs.append(fso)
-        else:
-            fso = FSObject(path=entry.path,
-                           size=entry.stat().st_size,
-                           date_created=None,
-                           date_modified=None)
-            files.append(fso)
-
-    return (dirs, files)
 
 
 class Manager(object):
@@ -50,6 +20,7 @@ class Manager(object):
                                      contentdir=conf['library.contentdir'],
                                      meta_filename=conf['library.metadata'])
         self.META_FILES = (DirInfo.FILENAME, conf['library.metadata'])
+        self.fsal_client = FSAL(conf['files.fsal_socket'])
 
     def get_dirinfo(self, path):
         return DirInfo.from_db(self.supervisor, path)
@@ -74,15 +45,13 @@ class Manager(object):
         meta = {}
         files = []
         dirs = []
-        (dirs, unfiltered_files) = listdir(path)
+        (dirs, unfiltered_files) = self.fsal_client.list_dir(path)
         for fs_obj in dirs:
-            fs_obj.name = os.path.basename(fs_obj.path)
-            fs_obj.relpath = os.path.relpath(fs_obj.path, relative_to)
-            fs_obj.dirinfo = self.get_dirinfo(fs_obj.relpath)
-            fs_obj.contentinfo = self.get_contentinfo(fs_obj.relpath)
+            fs_obj.dirinfo = self.get_dirinfo(fs_obj.path)
+            fs_obj.contentinfo = self.get_contentinfo(fs_obj.path)
             if fs_obj.contentinfo:
                 query = html.QueryDict()
-                query.add_qparam(path=fs_obj.relpath)
+                query.add_qparam(path=fs_obj.path)
                 for content_type in fs_obj.contentinfo.content_type_names:
                     query.add_qparam(content_type=content_type)
 
@@ -91,8 +60,6 @@ class Manager(object):
                 fs_obj.openers_url = None
 
         for fs_obj in unfiltered_files:
-            fs_obj.name = os.path.basename(fs_obj.path)
-            fs_obj.relpath = os.path.relpath(fs_obj.path, relative_to)
             if fs_obj.name in self.META_FILES:
                 meta[fs_obj.name] = fs_obj
             else:
