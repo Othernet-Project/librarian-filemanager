@@ -67,7 +67,9 @@ def show_file_list(path=None):
 
 
 def direct_file(path):
-    return static_file(path, root=request.app.config['files.rootdir'])
+    return static_file(path,
+                       root=request.app.config['files.rootdir'],
+                       download=request.params.get('filename', False))
 
 
 def get_parent_url(path):
@@ -117,7 +119,7 @@ def delete_path(path):
     if not os.path.exists(path):
         abort(404)
     if os.path.isdir(path):
-        if path == request.app.config['files.filedir']:
+        if path == request.app.config['files.rootdir']:
             # FIXME: handle this case
             abort(400)
         shutil.rmtree(path)
@@ -189,17 +191,22 @@ def handle_file_action(path):
 def opener_list():
     openers = request.app.supervisor.exts.openers
     path = request.query.get('path', '')
+    name = os.path.basename(path)
+    fullpath = os.path.join(request.app.config['files.rootdir'], path)
+    is_folder = os.path.isdir(fullpath)
     content_types = request.query.getall('content_type')
     if content_types:
         opener_ids = []
         for ct in content_types:
             opener_ids.extend(openers.for_content_type(ct))
     else:
-        filename = os.path.basename(path)
-        (_, ext) = os.path.splitext(filename)
+        (_, ext) = os.path.splitext(name)
         opener_ids = openers.for_extension(ext.strip('.'))
 
-    return dict(opener_ids=opener_ids, path=path)
+    return dict(opener_ids=opener_ids,
+                path=path,
+                name=name,
+                is_folder=is_folder)
 
 
 @view('opener_detail')
