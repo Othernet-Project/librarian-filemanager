@@ -20,7 +20,7 @@ class Manager(object):
                                      contentdir=conf['library.contentdir'],
                                      meta_filename=conf['library.metadata'])
         self.META_FILES = (DirInfo.FILENAME, conf['library.metadata'])
-        self.fsal_client = FSAL(conf['files.fsal_socket'])
+        self.fsal_client = FSAL(conf['fsal.socket'])
 
     def get_dirinfo(self, path):
         return DirInfo.from_db(self.supervisor, path)
