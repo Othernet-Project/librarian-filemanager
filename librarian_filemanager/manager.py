@@ -47,11 +47,11 @@ class Manager(object):
         dirs = []
         (dirs, unfiltered_files) = self.fsal_client.list_dir(path)
         for fs_obj in dirs:
-            fs_obj.dirinfo = self.get_dirinfo(fs_obj.path)
-            fs_obj.contentinfo = self.get_contentinfo(fs_obj.path)
+            fs_obj.dirinfo = self.get_dirinfo(fs_obj.relpath)
+            fs_obj.contentinfo = self.get_contentinfo(fs_obj.relpath)
             if fs_obj.contentinfo:
                 query = html.QueryDict()
-                query.add_qparam(path=fs_obj.path)
+                query.add_qparam(path=fs_obj.relpath)
                 for content_type in fs_obj.contentinfo.content_type_names:
                     query.add_qparam(content_type=content_type)
 

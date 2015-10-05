@@ -59,7 +59,7 @@ ${_('Files')}
                 % for d in dirs:
                 <tr class="dir">
                     <%
-                        dpath = h.to_unicode(i18n_url('files:path', path=d.path))
+                        dpath = h.to_unicode(i18n_url('files:path', path=d.relpath))
                         open_url = d.openers_url if d.openers_url else dpath
                     %>
                     <td class="icon"><a href="${open_url}"><span class="icon"></span></a></td>
@@ -77,13 +77,13 @@ ${_('Files')}
                 % endfor
                 % for f in files:
                 <tr class="file">
-                    <% fpath = h.to_unicode(i18n_url('files:path', path=f.path)) %>
-                    <% list_openers_url = h.to_unicode(i18n_url('opener:list') + h.set_qparam(path=f.path).to_qs()) %>
+                    <% fpath = h.to_unicode(i18n_url('files:path', path=f.relpath)) %>
+                    <% list_openers_url = h.to_unicode(i18n_url('opener:list') + h.set_qparam(path=f.relpath).to_qs()) %>
                     <td class="icon"><a href="${list_openers_url}"><span class="icon"></span></a></td>
                     <td class="name"><a href="${list_openers_url}">${h.to_unicode(f.name)}</a></td>
                     <td class="size">${h.hsize(f.size)}</td>
                     <td class="actions">
-                        % if f.path.endswith('.sh'):
+                        % if f.relpath.endswith('.sh'):
                         ${h.form('post', action=fpath, _class="files-run")}
                             ## Translators, label for button in file listing that allows user to run a script
                             <button class="small" name="action" value="exec" type="submit">${_('Run')}</button>
