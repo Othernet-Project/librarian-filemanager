@@ -70,7 +70,7 @@ ${_('Files')}
                             <button name="action" value="rename" type="submit">${_('Rename')}</button>
                         </form>
                         ${h.form('get', action=dpath, _class="files-delete")}
-                            <button class="delete" value="delete" type="submit">${_('Delete')}</button>
+                            <button name="action" class="delete" value="delete" type="submit">${_('Delete')}</button>
                         </form>
                     </td>
                 </tr>
