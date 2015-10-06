@@ -167,7 +167,6 @@ def init_file_action(path):
 
 def handle_file_action(path):
     action = request.forms.get('action')
-    print('handle', action)
     if action == 'rename':
         return rename_path(path)
     elif action == 'delete':
