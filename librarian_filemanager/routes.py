@@ -70,7 +70,7 @@ def show_file_list(path=None):
 
 def direct_file(path):
     return static_file(path,
-                       root=request.app.config['files.rootdir'],
+                       root=request.app.config['library.contentdir'],
                        download=request.params.get('filename', False))
 
 
@@ -144,7 +144,7 @@ def rename_path(path):
 
 
 def run_path(path):
-    path = os.path.join(request.app.config['files.rootdir'], path)
+    path = os.path.join(request.app.config['library.contentdir'], path)
     callargs = [SHELL, path]
     proc = subprocess.Popen(callargs,
                             stdin=subprocess.PIPE,
