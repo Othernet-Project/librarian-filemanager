@@ -26,7 +26,7 @@ from .manager import Manager
 
 
 EXPORTS = {
-    'routes': {'required_by': ['librarian_system.routes.routes']}
+    'routes': {'required_by': ['librarian_core.contrib.system.routes.routes']}
 }
 SHELL = '/bin/sh'
 
