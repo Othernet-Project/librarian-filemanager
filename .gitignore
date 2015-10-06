@@ -6,3 +6,6 @@
 /build
 /docs/build
 /.ropeproject
+/.coffee_pid
+/.compass_pid
+/.sass-cache
