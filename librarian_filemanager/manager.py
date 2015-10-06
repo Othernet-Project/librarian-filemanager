@@ -41,7 +41,7 @@ class Manager(object):
 
         return None
 
-    def list(self, path, relative_to):
+    def list(self, path):
         meta = {}
         files = []
         dirs = []
@@ -71,3 +71,21 @@ class Manager(object):
         dirs = []
         files = []
         return (dirs, files, {})
+
+    def isdir(self, path):
+        return self.fsal_client.isdir(path)
+
+    def isfile(self, path):
+        return self.fsal_client.isfile(path)
+
+    def exists(self, path):
+        return self.fsal_client.exists(path)
+
+    def remove(self, path):
+        return self.fsal_client.remove(path)
+
+    def move(self, src, dst):
+        return self.fsal_client.move(src, dst)
+
+    def copy(self, src, dst):
+        return self.fsal_client.copy(src, dst)

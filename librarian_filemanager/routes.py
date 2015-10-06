@@ -11,7 +11,6 @@ file that comes with the source code, or http://www.gnu.org/licenses/gpl.txt.
 import functools
 import logging
 import os
-import shutil
 import subprocess
 
 from bottle import request, abort, static_file, redirect
@@ -32,23 +31,26 @@ EXPORTS = {
 SHELL = '/bin/sh'
 
 
-def get_full_path(path):
-    filedir = os.path.normpath(request.app.config['files.rootdir'])
-    path = os.path.normpath(path.replace('..', '.'))
-    full = os.path.normpath(os.path.join(filedir, path))
-    if full.startswith(filedir):
-        return full
-    return filedir
+def get_parent_path(path):
+    return os.path.normpath(os.path.join(path, '..'))
+
+
+def get_parent_url(path):
+    parent_path = get_parent_path(path)
+    return i18n_url('files:path', path=parent_path)
+
+
+def go_to_parent(path):
+    redirect(get_parent_url(path))
 
 
 @view('file_list')
 def show_file_list(path=None):
     search = request.params.get('p')
-    rootdir = request.app.config['files.rootdir']
-    query = get_full_path(search or path or '.')
+    query = search or path or '.'
     manager = Manager(request.app.supervisor)
     try:
-        (dirs, files, meta) = manager.list(query, relative_to=rootdir)
+        (dirs, files, meta) = manager.list(query)
     except OSError:
         relpath = '.'
         if search:
@@ -56,9 +58,9 @@ def show_file_list(path=None):
         else:
             dirs = files = []
     else:
-        relpath = os.path.relpath(query, rootdir)
+        relpath = query
 
-    up = os.path.relpath(os.path.normpath(os.path.join(query, '..')), rootdir)
+    up = get_parent_path(query)
     return dict(path=relpath,
                 dirs=dirs,
                 files=files,
@@ -72,22 +74,11 @@ def direct_file(path):
                        download=request.params.get('filename', False))
 
 
-def get_parent_url(path):
-    parent_dir = os.path.dirname(path)
-    filedir = request.app.config['files.rootdir']
-    parent_path = os.path.relpath(parent_dir, filedir) if parent_dir else ''
-    return i18n_url('files:path', path=parent_path)
-
-
-def go_to_parent(path):
-    redirect(get_parent_url(path))
-
-
 def guard_already_removed(func):
     @functools.wraps(func)
     def wrapper(path, **kwargs):
-        path = get_full_path(path)
-        if not os.path.exists(path):
+        manager = Manager(request.app.supervisor)
+        if not manager.exists(path):
             # Translators, used as page title when a file's removal is
             # retried, but it was already deleted before
             title = _("File already removed")
@@ -116,21 +107,24 @@ def delete_path_confirm(path):
 @guard_already_removed
 @view('feedback')
 def delete_path(path):
-    if not os.path.exists(path):
-        abort(404)
-    if os.path.isdir(path):
-        if path == request.app.config['files.rootdir']:
-            # FIXME: handle this case
-            abort(400)
-        shutil.rmtree(path)
-    else:
-        os.unlink(path)
+    manager = Manager(request.app.supervisor)
+    (success, error) = manager.remove(path)
+    if success:
+        # Translators, used as page title of successful file removal feedback
+        page_title = _("File removed")
+        # Translators, used as message of successful file removal feedback
+        message = _("File successfully removed.")
+        return dict(status='success',
+                    page_title=page_title,
+                    message=message,
+                    redirect_url=get_parent_url(path),
+                    redirect_target=_("Files"))
 
-    # Translators, used as page title of successful file removal feedback
-    page_title = _("File removed")
-    # Translators, used as message of successful file removal feedback
-    message = _("File successfully removed.")
-    return dict(status='success',
+    # Translators, used as page title of unsuccessful file removal feedback
+    page_title = _("File not removed")
+    # Translators, used as message of unsuccessful file removal feedback
+    message = _("File could not be removed.")
+    return dict(status='error',
                 page_title=page_title,
                 message=message,
                 redirect_url=get_parent_url(path),
@@ -141,13 +135,16 @@ def rename_path(path):
     new_name = request.forms.get('name')
     if not new_name:
         go_to_parent(path)
+
+    manager = Manager(request.app.supervisor)
     new_name = os.path.normpath(new_name)
     new_path = os.path.join(os.path.dirname(path), new_name)
-    shutil.move(path, new_path)
+    manager.move(path, new_path)
     go_to_parent(path)
 
 
 def run_path(path):
+    path = os.path.join(request.app.config['files.rootdir'], path)
     callargs = [SHELL, path]
     proc = subprocess.Popen(callargs,
                             stdin=subprocess.PIPE,
@@ -170,7 +167,7 @@ def init_file_action(path):
 
 def handle_file_action(path):
     action = request.forms.get('action')
-    path = get_full_path(path)
+    print('handle', action)
     if action == 'rename':
         return rename_path(path)
     elif action == 'delete':
@@ -190,10 +187,10 @@ def handle_file_action(path):
 @roca_view('opener_list', '_opener_list', template_func=template)
 def opener_list():
     openers = request.app.supervisor.exts.openers
+    manager = Manager(request.app.supervisor)
     path = request.query.get('path', '')
     name = os.path.basename(path)
-    fullpath = os.path.join(request.app.config['files.rootdir'], path)
-    is_folder = os.path.isdir(fullpath)
+    is_folder = manager.isdir(path)
     content_types = request.query.getall('content_type')
     if content_types:
         opener_ids = []
