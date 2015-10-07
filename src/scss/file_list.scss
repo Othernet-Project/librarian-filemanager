@@ -1,0 +1,46 @@
+@import "compass/css3";
+@import "base/params";
+
+.file-list {
+  
+  .file-list-item {
+    // Basic geometry
+    padding: 1rem;
+
+    // Styling
+    background: $o-foreground-material;
+    border-bottom: $o-separator-border;
+
+    &:last-child {
+      border-bottom: 0;
+      @include border-bottom-left-radius($o-clickable-target-corner-radius);
+      @include border-bottom-right-radius($o-clickable-target-corner-radius);
+    }
+
+    &:first-child {
+      @include border-top-left-radius($o-clickable-target-corner-radius);
+      @include border-top-right-radius($o-clickable-target-corner-radius);
+    }
+
+    .file-list-icon {
+      // Basic geometry
+      vertical-align: middle;
+
+      // Icon size
+      font-size: 180%;
+    }
+
+    a {
+      // Typography
+      text-decoration: none;
+
+      // Styling
+      color: $o-base-text-color;
+
+      &:hover,
+      &:focus {
+        color: $o-accent;
+      }
+    }
+  }
+}
