@@ -44,16 +44,19 @@ def go_to_parent(path):
     redirect(get_parent_url(path))
 
 
-@view('file_list')
+@view('filemanager/list')
 def show_file_list(path=None):
     search = request.params.get('p')
     query = search or path or '.'
     manager = Manager(request.app.supervisor)
+    is_search = False
+
     try:
         (dirs, files, meta) = manager.list(query)
     except OSError:
         relpath = '.'
         if search:
+            is_search = True
             (dirs, files, meta) = manager.find(search)
         else:
             dirs = files = []
@@ -61,10 +64,12 @@ def show_file_list(path=None):
         relpath = query
 
     up = get_parent_path(query)
+
     return dict(path=relpath,
                 dirs=dirs,
                 files=files,
                 up=up,
+                is_search=is_search,
                 openers=request.app.supervisor.exts.openers)
 
 
