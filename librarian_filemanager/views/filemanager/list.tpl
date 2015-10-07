@@ -80,12 +80,14 @@ ${_('Files')}
             ## *** FOLDER LISTING ***
 
             % if (not dirs) and (not files):
+
                 ## If the listing is empty, then only the empty listing li is shown
                 <li class="file-list-empty file-list-item">
-                    <span class="note">
-                        ${_('There are currently no files or folders here.')}
-                    </span>
+                <span class="note">
+                    ${_('There are currently no files or folders here.')}
+                </span>
                 </li>
+
             % else:
 
                 ## Directories
@@ -137,16 +139,21 @@ ${_('Files')}
 </%block>
 
 <%block name="extra_body">
-    <script type="text/template" id="renameButton">
-        <button class="files-rename-button">${_('Rename')}</button>
-    </script>
-
-    <script type="text/template" id="renameFormAlt">
-        ${h.form('post', _class="files-rename")}
-            <input type="text" name="name" value="">
-            <button class="confirm primary" name="action" value="rename" type="submit">${_('Save')}</button>
-            <button type="button" class="files-rename-cancel">${_('Cancel')}</button>
-        </form>
+    <script type="text/template" id="modalDialogCancelOnly">
+        <div class="o-modal-overlay" id="modal-dialog-cancel-only">
+            <div class="o-modal-window" role="window" id="modal-dialog-cancel-only-window" tabindex>
+                <div class="o-modal-content o-modal-panel" role="document" id="modal-panel">
+                    <span class="o-modal-spinner">${_('Loading')}<span class="o-modal-spinner-loading-indicator">...</span></span>
+                </div>
+                <div class="o-modal-dialog-button-bar">
+                    <button id="modal-dialog-cancel-only-close" class="o-modal-close" role="button" aria-controls="modal-dialog-cancel-only-window">
+                        ## Translators, appears in a pop-up dialog and allows 
+                        ## user to cancel a choice of activities.
+                        <span class="o-modal-close-label">${_('Cancel')}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
     </script>
 </%block>
 
