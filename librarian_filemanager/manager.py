@@ -46,7 +46,7 @@ class Manager(object):
         return None
 
     def _extend_dir(self, fs_obj):
-        fs_obj.dirinfo = self.get_dirinfo(fs_obj.rel_path)
+        fs_obj.dirinfo = self.get_dirinfo(fs_obj.path)
         fs_obj.contentinfo = self.get_contentinfo(fs_obj.rel_path)
         if fs_obj.contentinfo:
             query = html.QueryDict()
