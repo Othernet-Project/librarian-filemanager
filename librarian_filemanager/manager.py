@@ -24,7 +24,10 @@ class Manager(object):
         self.fsal_client = FSAL(conf['fsal.socket'])
 
     def get_dirinfo(self, path):
-        return DirInfo.from_db(self.supervisor, path)
+        # return DirInfo.from_db(self.supervisor, path)
+        # FIXME: This is a temprary workaround while the backend is being
+        # worked on. VERY SLOW!!!
+        return DirInfo.from_file(self.supervisor, path)
 
     def get_contentinfo(self, path):
         key = 'meta_{0}'.format(path)
