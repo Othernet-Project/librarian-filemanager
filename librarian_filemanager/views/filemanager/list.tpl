@@ -117,6 +117,7 @@ ${_('Files')}
                     fpath = h.to_unicode(i18n_url('files:path', path=f.rel_path)) 
                     list_openers_url = h.to_unicode(i18n_url('opener:list') + h.set_qparam(path=f.rel_path).to_qs())
                     %>
+                    ## FIXME: fpath doesn't lead to download, what's the download URL?
                     <a 
                         href="${fpath}"
                         data-action-url="${fpath}"
