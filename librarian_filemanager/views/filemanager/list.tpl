@@ -1,6 +1,18 @@
 <%inherit file="/base.tpl"/>
 <%namespace name="forms" file="/ui/forms.tpl"/>
 
+<%!
+    # Mapping between MIME type and icon class
+    ICON_MAPPINGS = {
+        'text/x-python': 'file-xml',
+        'text/html': 'file-document',
+        'text/plain': 'file-document',
+        'image/png': 'file-image',
+        'image/jpeg': 'file-image',
+    }
+    DEFAULT_ICON = 'file'
+%>
+
 <%block name="title">
 ## Translators, used as page title
 ${_('Files')}
@@ -55,7 +67,7 @@ ${_('Files')}
 
             % if is_search:
                 <li class="file-list-top file-list-item file-list-special">
-                <a href="${i18n_url('files:list', path='/')}" class="file-list-link">
+                <a href="${i18n_url('files:path', path='')}" class="file-list-link">
                     ${self.file_list_icon('folder-multiple')}
                     <%self:file_list_name>
                         ## Translators, label for a link that takes the user to 
@@ -66,7 +78,8 @@ ${_('Files')}
                 </li>
             % elif path != '.':
                 <li class="file-list-top file-list-item file-list-special">
-                <a href="${i18n_url('files:list', path=up)}" class="file-list-link">
+                <% uppath = '' if up == '.' else up + '/'%>
+                <a href="${i18n_url('files:path', path=up)}" class="file-list-link">
                     ${self.file_list_icon('folder-upload')}
                     <%self:file_list_name>
                         ## Translators, label for a link that takes the user up 
@@ -105,7 +118,7 @@ ${_('Files')}
                         >
                         ${self.file_list_icon('folder')}
                         <%self:file_list_name>
-                            ${h.to_unicode(d.name)}
+                            ${h.to_unicode(d.dirinfo.get('en', 'name', d.name))}
                         </%self:file_list_name>
                     </a>
                     </li>
@@ -124,9 +137,10 @@ ${_('Files')}
                         href="${fpath}"
                         data-action-url="${fpath}"
                         data-opener="${list_openers_url}"
+                        data-mimetype="${f.mimetype or ''}"
                         class="file-list-link"
                         >
-                        ${self.file_list_icon('file')}
+                        ${self.file_list_icon(ICON_MAPPINGS.get(f.mimetype, DEFAULT_ICON))}
                         <%self:file_list_name>
                             ${h.to_unicode(f.name)}
                         </%self:file_list_name>
