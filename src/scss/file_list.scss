@@ -24,14 +24,22 @@
 
     .file-list-icon {
       // Basic geometry
+      display: inline-block;
+      width: 32px;
       vertical-align: middle;
 
       // Icon size
       font-size: 180%;
+
+      img {
+        width: 32px;
+        height: 32px;
+      }
     }
 
     a {
       // Typography
+      font-size: 120%;
       text-decoration: none;
 
       // Styling
@@ -42,5 +50,14 @@
         color: $o-accent;
       }
     }
+  }
+
+  .file-list-description {
+    // Typography
+    font-style: italic;
+
+    // Basic geometry
+    margin: 0;
+    margin-left: 38px;
   }
 }

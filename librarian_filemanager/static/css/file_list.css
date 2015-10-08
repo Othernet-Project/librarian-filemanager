@@ -32,15 +32,29 @@
 }
 /* line 25, ../../../src/scss/file_list.scss */
 .file-list .file-list-item .file-list-icon {
+  display: inline-block;
+  width: 32px;
   vertical-align: middle;
   font-size: 180%;
 }
-/* line 33, ../../../src/scss/file_list.scss */
+/* line 34, ../../../src/scss/file_list.scss */
+.file-list .file-list-item .file-list-icon img {
+  width: 32px;
+  height: 32px;
+}
+/* line 40, ../../../src/scss/file_list.scss */
 .file-list .file-list-item a {
+  font-size: 120%;
   text-decoration: none;
   color: #333;
 }
-/* line 40, ../../../src/scss/file_list.scss */
+/* line 48, ../../../src/scss/file_list.scss */
 .file-list .file-list-item a:hover, .file-list .file-list-item a:focus {
   color: #089bd2;
+}
+/* line 55, ../../../src/scss/file_list.scss */
+.file-list .file-list-description {
+  font-style: italic;
+  margin: 0;
+  margin-left: 38px;
 }
