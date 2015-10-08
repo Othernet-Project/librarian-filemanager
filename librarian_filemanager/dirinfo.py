@@ -43,7 +43,7 @@ class DirInfo(object):
                         language = self.NO_LANGUAGE
 
                     self._info.setdefault(language, {})
-                    self._info[language][key] = to_unicode(value)
+                    self._info[language][key] = to_unicode(value).strip()
             except Exception:
                 self._info = dict()
                 msg = ".dirinfo reading of {0} failed.".format(self.path)
