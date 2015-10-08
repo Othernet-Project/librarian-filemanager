@@ -48,10 +48,12 @@
       res.done (data) ->
         container.html(data)
         window.history.pushState data, null, url
+        container.find('a').first().focus()
       res.fail () ->
         alert templates.alertLoadError
 
   $(window).on 'popstate', (e) ->
     container.html window.history.state
+    container.find('a').first().focus()
 
 ) this, this.jQuery, this.templates

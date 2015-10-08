@@ -44,7 +44,8 @@
       res = $.get(elem.attr('href'));
       res.done(function(data) {
         container.html(data);
-        return window.history.pushState(data, null, url);
+        window.history.pushState(data, null, url);
+        return container.find('a').first().focus();
       });
       return res.fail(function() {
         return alert(templates.alertLoadError);
@@ -52,6 +53,7 @@
     }
   });
   return $(window).on('popstate', function(e) {
-    return container.html(window.history.state);
+    container.html(window.history.state);
+    return container.find('a').first().focus();
   });
 })(this, this.jQuery, this.templates);
