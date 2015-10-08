@@ -9,6 +9,16 @@
   mainPanel = $ "##{window.o.pageVars.mainPanelId}"
   modalDialogTemplate = window.templates.modalDialogCancelOnly
 
+  loadContent = (url) ->
+    res = $.get url
+    res.done (data) ->
+      container.html(data)
+      window.history.pushState data, null, url
+      container.find('a').first().focus()
+    res.fail () ->
+      alert templates.alertLoadError
+    return
+
   # Keyboard navigation
 
   mainPanel.on 'keydown', '.file-list-link', (e) ->
@@ -37,23 +47,21 @@
       e.preventDefault()
       e.stopPropagation()
       $.modalContent openerUrl, successTemplate: modalDialogTemplate
-      return
 
-    console.log elem
     if elem.data('type') == 'directory'
       e.preventDefault()
       e.stopPropagation()
       url = elem.attr 'href'
-      res = $.get elem.attr 'href'
-      res.done (data) ->
-        container.html(data)
-        window.history.pushState data, null, url
-        container.find('a').first().focus()
-      res.fail () ->
-        alert templates.alertLoadError
+      loadContent elem.attr 'href'
+
+    return
 
   $(window).on 'popstate', (e) ->
-    container.html window.history.state
-    container.find('a').first().focus()
+    if window.history.state?
+      container.html window.history.state
+      container.find('a').first().focus()
+    else
+      loadContent window.location
+    return
 
 ) this, this.jQuery, this.templates
