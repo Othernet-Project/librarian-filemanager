@@ -49,27 +49,14 @@ def show_file_list(path=None):
     search = request.params.get('p')
     query = search or path or '.'
     manager = Manager(request.app.supervisor)
-    is_search = False
-
-    try:
-        (dirs, files, meta) = manager.list(query)
-    except OSError:
-        relpath = '.'
-        if search:
-            is_search = True
-            (dirs, files, meta) = manager.find(search)
-        else:
-            dirs = files = []
-    else:
-        relpath = query
-
+    (dirs, files, meta, is_match) = manager.search(query)
+    relpath = '.' if not is_match else query
     up = get_parent_path(query)
-
     return dict(path=relpath,
                 dirs=dirs,
                 files=files,
                 up=up,
-                is_search=is_search,
+                is_search=not is_match,
                 openers=request.app.supervisor.exts.openers)
 
 

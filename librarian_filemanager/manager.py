@@ -64,10 +64,9 @@ class Manager(object):
         fs_obj.mimetype = mimetype
         return fs_obj
 
-    def list(self, path):
+    def _process_listing(self, dirs, unfiltered_files):
         meta = {}
         files = []
-        (dirs, unfiltered_files) = self.fsal_client.list_dir(path)
         for fs_obj in dirs:
             self._extend_dir(fs_obj)
         for fs_obj in unfiltered_files:
@@ -78,10 +77,14 @@ class Manager(object):
                 files.append(fs_obj)
         return (dirs, files, meta)
 
-    def find(self, query):
-        dirs = []
-        files = []
-        return (dirs, files, {})
+    def list(self, path):
+        (dirs, files) = self.fsal_client.list_dir(path)
+        return self._process_listing(dirs, files)
+
+    def search(self, query):
+        (dirs, unfiltered_files, is_match) = self.fsal_client.search(query)
+        (dirs, files, meta) = self._process_listing(dirs, unfiltered_files)
+        return (dirs, files, meta, is_match)
 
     def isdir(self, path):
         return self.fsal_client.isdir(path)
