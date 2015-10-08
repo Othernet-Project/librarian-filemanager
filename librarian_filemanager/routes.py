@@ -44,7 +44,7 @@ def go_to_parent(path):
     redirect(get_parent_url(path))
 
 
-@view('filemanager/list')
+@roca_view('filemanager/list', 'filemanager/_list', template_func=template)
 def show_file_list(path=None):
     search = request.params.get('p')
     query = search or path or '.'
