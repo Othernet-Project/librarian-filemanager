@@ -1,9 +1,10 @@
-((window, $) ->
+((window, $, templates) ->
   'use strict'
 
   UP = 38
   DOWN = 40
   fileList = $ '#file-list'
+  container = $ '#file-list-container'
   body = $ document.body
   mainPanel = $ "##{window.o.pageVars.mainPanelId}"
   modalDialogTemplate = window.templates.modalDialogCancelOnly
@@ -27,19 +28,30 @@
 
   # Opener support
 
-  mainPanel.on 'click', (e) ->
+  mainPanel.on 'click', '.file-list-link', (e) ->
     elem = $ @
     openerUrl = elem.data 'opener-url'
+    isDir = elem.hasClass 'file-list-directory'
 
-    if not openerUrl?
+    if openerUrl?
+      e.preventDefault()
+      e.stopPropagation()
+      $.modalContent openerUrl, successTemplate: modalDialogTemplate
       return
 
-    e.preventDefault()
-    e.stopPropagation()
+    console.log elem
+    if elem.data('type') == 'directory'
+      e.preventDefault()
+      e.stopPropagation()
+      url = elem.attr 'href'
+      res = $.get elem.attr 'href'
+      res.done (data) ->
+        container.html(data)
+        window.history.pushState data, null, url
+      res.fail () ->
+        alert templates.alertLoadError
 
-    $.modalContent openerUrl, successTemplate: modalDialogTemplate
-    return
+  $(window).on 'popstate', (e) ->
+    container.html window.history.state
 
-
-
-) this, this.jQuery
+) this, this.jQuery, this.templates

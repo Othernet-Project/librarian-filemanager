@@ -1,4 +1,5 @@
 <%inherit file="/base.tpl"/>
+<%namespace name="ui" file="/ui/widgets.tpl"/>
 <%namespace name="forms" file="/ui/forms.tpl"/>
 <%namespace name="list" file="_list.tpl"/>
 
@@ -34,27 +35,22 @@ ${_('Files')}
 </%block>
 
 <%block name="main">
-    <div class="o-main-inner">
+    <div class="o-main-inner" id="file-list-container">
         ${list.body()}
     </div>
 </%block>
 
 <%block name="extra_body">
     <script type="text/template" id="modalDialogCancelOnly">
-        <div class="o-modal-overlay" id="modal-dialog-cancel-only">
-            <div class="o-modal-window" role="window" id="modal-dialog-cancel-only-window" tabindex>
-                <div class="o-modal-content o-modal-panel" role="document" id="modal-panel">
-                    <span class="o-modal-spinner">${_('Loading')}<span class="o-modal-spinner-loading-indicator">...</span></span>
-                </div>
-                <div class="o-modal-dialog-button-bar">
-                    <button id="modal-dialog-cancel-only-close" class="o-modal-close" role="button" aria-controls="modal-dialog-cancel-only-window">
-                        ## Translators, appears in a pop-up dialog and allows 
-                        ## user to cancel a choice of activities.
-                        <span class="o-modal-close-label">${_('Cancel')}</span>
-                    </button>
-                </div>
+        <%ui:modal_container id="dialog-cancel-only" close_button_label="_('Close')">
+            <div class="o-modal-content o-modal-panel" role="document">
+                <span class="o-modal-spinner">${_('Loading')}<span class="o-modal-spinner-loading-indicator">...</span></span>
             </div>
-        </div>
+        </%ui:modal_container>
+    </script>
+
+    <script type="text/template" id="alertLoadError">
+        ${_('Folder listing could not be loaded. Please try again in a few seconds.')}
     </script>
 </%block>
 
