@@ -28,20 +28,14 @@ class OpenerRegistry(object):
             self.extensions.setdefault(ext, [])
             self.extensions[ext].append(opener_id)
 
-    def for_extension(self, ext):
-        return self.extensions.get(ext, [])
+    def filter_by(self, content_type=None, extension=None):
+        if content_type:
+            return self.content_types.get(content_type, [])
+        return self.extensions.get(extension, [])
 
-    def for_content_type(self, content_type):
-        return self.content_types.get(content_type, [])
-
-    def first_extension(self, ext):
-        openers = self.for_extension(ext)
-        if not openers:
-            return None
-        return openers[0]
-
-    def first_content_type(self, content_type):
-        openers = self.for_content_type(content_type)
+    def first(self, content_type=None, extension=None):
+        openers = self.filter_by(content_type=content_type,
+                                 extension=extension)
         if not openers:
             return None
         return openers[0]

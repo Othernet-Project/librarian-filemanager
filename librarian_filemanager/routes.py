@@ -199,10 +199,10 @@ def opener_list():
     if content_types:
         opener_ids = []
         for ct in content_types:
-            opener_ids.extend(openers.for_content_type(ct))
+            opener_ids.extend(openers.filter_by(content_type=ct))
     else:
         (_, ext) = os.path.splitext(name)
-        opener_ids = openers.for_extension(ext.strip('.'))
+        opener_ids = openers.filter_by(extension=ext.strip('.'))
 
     return dict(opener_ids=opener_ids,
                 path=path,
