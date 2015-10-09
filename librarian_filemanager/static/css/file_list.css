@@ -5,13 +5,19 @@
  * Recommended way to customize the variables is to load a separate module 
  * containing customized values _before_ this module.
  */
-/* line 6, ../../../src/scss/file_list.scss */
+/* line 4, ../../../src/scss/file_list.scss */
+.file-list {
+  -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+/* line 7, ../../../src/scss/file_list.scss */
 .file-list .file-list-item {
   padding: 1rem;
-  background: white;
+  background: rgba(255, 255, 255, 0.75);
   border-bottom: 1px solid #ddd;
 }
-/* line 14, ../../../src/scss/file_list.scss */
+/* line 15, ../../../src/scss/file_list.scss */
 .file-list .file-list-item:last-child {
   border-bottom: 0;
   -moz-border-radius-bottomleft: 0.3rem;
@@ -21,7 +27,7 @@
   -webkit-border-bottom-right-radius: 0.3rem;
   border-bottom-right-radius: 0.3rem;
 }
-/* line 20, ../../../src/scss/file_list.scss */
+/* line 21, ../../../src/scss/file_list.scss */
 .file-list .file-list-item:first-child {
   -moz-border-radius-topleft: 0.3rem;
   -webkit-border-top-left-radius: 0.3rem;
@@ -30,29 +36,29 @@
   -webkit-border-top-right-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
 }
-/* line 25, ../../../src/scss/file_list.scss */
+/* line 26, ../../../src/scss/file_list.scss */
 .file-list .file-list-item .file-list-icon {
   display: inline-block;
   width: 32px;
   vertical-align: middle;
   font-size: 180%;
 }
-/* line 34, ../../../src/scss/file_list.scss */
+/* line 35, ../../../src/scss/file_list.scss */
 .file-list .file-list-item .file-list-icon img {
   width: 32px;
   height: 32px;
 }
-/* line 40, ../../../src/scss/file_list.scss */
+/* line 41, ../../../src/scss/file_list.scss */
 .file-list .file-list-item a {
   font-size: 120%;
   text-decoration: none;
   color: #333;
 }
-/* line 48, ../../../src/scss/file_list.scss */
+/* line 49, ../../../src/scss/file_list.scss */
 .file-list .file-list-item a:hover, .file-list .file-list-item a:focus {
   color: #089bd2;
 }
-/* line 55, ../../../src/scss/file_list.scss */
+/* line 56, ../../../src/scss/file_list.scss */
 .file-list .file-list-description {
   font-style: italic;
   margin: 0;
