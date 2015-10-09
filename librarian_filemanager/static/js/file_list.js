@@ -9,15 +9,13 @@
   body = $(document.body);
   mainPanel = $("#" + window.o.pageVars.mainPanelId);
   modalDialogTemplate = window.templates.modalDialogCancelOnly;
-  container.on('reloaded', function() {
-    return container.find('a').first().focus();
-  });
   loadContent = function(url) {
     var res;
-    res = $.history.push(url);
+    res = $.get(url);
     res.done(function(data) {
       container.html(data);
-      return container.trigger('reloaded');
+      window.history.pushState(data, null, url);
+      return container.find('a').first().focus();
     });
     res.fail(function() {
       return alert(templates.alertLoadError);
@@ -38,7 +36,7 @@
     }
   });
   mainPanel.on('click', '.file-list-link', function(e) {
-    var elem, isDir, openerUrl, url;
+    var elem, isDir, openerUrl, res, url;
     elem = $(this);
     openerUrl = elem.data('opener-url');
     isDir = elem.hasClass('file-list-directory');
@@ -48,20 +46,31 @@
       $.modalContent(openerUrl, {
         successTemplate: modalDialogTemplate
       });
+      return;
     }
     if (elem.data('type') === 'directory') {
       e.preventDefault();
       e.stopPropagation();
       url = elem.attr('href');
-      loadContent(elem.attr('href'));
+      res = $.get(elem.attr('href'));
+      res.done(function(data) {
+        container.html(data);
+        window.history.pushState(null, null, url);
+        return container.find('a').first().focus();
+      });
+      res.fail(function() {
+        return alert(templates.alertLoadError);
+      });
     }
   });
   return $(window).on('popstate', function(e) {
+    var url;
     if (window.history.state != null) {
       container.html(window.history.state);
-      container.trigger('reloaded');
+      return container.find('a').first().focus();
     } else {
-      loadContent(window.location);
+      url = window.location;
+      return loadContent(url);
     }
   });
 })(this, this.jQuery, this.templates);

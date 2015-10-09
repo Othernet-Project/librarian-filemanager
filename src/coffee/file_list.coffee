@@ -9,14 +9,12 @@
   mainPanel = $ "##{window.o.pageVars.mainPanelId}"
   modalDialogTemplate = window.templates.modalDialogCancelOnly
 
-  container.on 'reloaded', () ->
-    container.find('a').first().focus()
-
   loadContent = (url) ->
-    res = $.history.push url
+    res = $.get url
     res.done (data) ->
-      container.html data
-      container.trigger 'reloaded'
+      container.html(data)
+      window.history.pushState data, null, url
+      container.find('a').first().focus()
     res.fail () ->
       alert templates.alertLoadError
     return
@@ -49,21 +47,28 @@
       e.preventDefault()
       e.stopPropagation()
       $.modalContent openerUrl, successTemplate: modalDialogTemplate
+      return
 
     if elem.data('type') == 'directory'
       e.preventDefault()
       e.stopPropagation()
       url = elem.attr 'href'
-      loadContent elem.attr 'href'
-
-    return
+      res = $.get elem.attr 'href'
+      res.done (data) ->
+        container.html(data)
+        window.history.pushState null, null, url
+        container.find('a').first().focus()
+      res.fail () ->
+        alert templates.alertLoadError
+      return
 
   $(window).on 'popstate', (e) ->
     if window.history.state?
       container.html window.history.state
-      container.trigger 'reloaded'
+      container.find('a').first().focus()
     else
-      loadContent window.location
-    return
+      url = window.location
+      loadContent url
+
 
 ) this, this.jQuery, this.templates
