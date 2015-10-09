@@ -9,12 +9,14 @@
   mainPanel = $ "##{window.o.pageVars.mainPanelId}"
   modalDialogTemplate = window.templates.modalDialogCancelOnly
 
+  container.on 'reloaded', () ->
+    container.find('a').first().focus()
+
   loadContent = (url) ->
-    res = $.get url
+    res = $.history.push url
     res.done (data) ->
-      container.html(data)
-      window.history.pushState data, null, url
-      container.find('a').first().focus()
+      container.html data
+      container.trigger 'reloaded'
     res.fail () ->
       alert templates.alertLoadError
     return
@@ -59,7 +61,7 @@
   $(window).on 'popstate', (e) ->
     if window.history.state?
       container.html window.history.state
-      container.find('a').first().focus()
+      container.trigger 'reloaded'
     else
       loadContent window.location
     return

@@ -9,13 +9,15 @@
   body = $(document.body);
   mainPanel = $("#" + window.o.pageVars.mainPanelId);
   modalDialogTemplate = window.templates.modalDialogCancelOnly;
+  container.on('reloaded', function() {
+    return container.find('a').first().focus();
+  });
   loadContent = function(url) {
     var res;
-    res = $.get(url);
+    res = $.history.push(url);
     res.done(function(data) {
       container.html(data);
-      window.history.pushState(data, null, url);
-      return container.find('a').first().focus();
+      return container.trigger('reloaded');
     });
     res.fail(function() {
       return alert(templates.alertLoadError);
@@ -57,7 +59,7 @@
   return $(window).on('popstate', function(e) {
     if (window.history.state != null) {
       container.html(window.history.state);
-      container.find('a').first().focus();
+      container.trigger('reloaded');
     } else {
       loadContent(window.location);
     }
