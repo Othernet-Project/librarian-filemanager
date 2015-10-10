@@ -68,16 +68,12 @@ class DirInfo(object):
     def save_to_db(self):
         """Store dirinfo data structure in database."""
         db = self.supervisor.exts.databases.files
-        if not self._info.items():
-            to_write = dict(path=self.path, language=self.NO_LANGUAGE)
+        info = self._info or {self.NO_LANGUAGE: {}}
+        for language, data in info.items():
+            to_write = dict(path=self.path, language=language)
+            to_write.update(data)
             query = db.Replace('dirinfo', cols=to_write.keys())
             db.query(query, **to_write)
-        else:
-            for language, data in self._info.items():
-                to_write = dict(path=self.path, language=language)
-                to_write.update(data)
-                query = db.Replace('dirinfo', cols=to_write.keys())
-                db.query(query, **to_write)
 
     def get_data(self):
         return self._info
