@@ -9,6 +9,7 @@ class DirInfo(object):
     FILENAME = '.dirinfo'
     CACHE_KEY_TEMPLATE = 'dirinfo_{0}'
     NO_LANGUAGE = ''
+    ENTRY_REGEX = re.compile(r'(\w+)\[(\w+)\]')
 
     def __init__(self, supervisor, path, data=None):
         self.supervisor = supervisor
@@ -36,7 +37,7 @@ class DirInfo(object):
 
                 for line in info:
                     key, value = line.split('=')
-                    match = re.match('(\w+)\[(\w+)\]', key)
+                    match = self.ENTRY_REGEX.match(key)
                     if match:
                         (key, language) = match.groups()
                     else:
