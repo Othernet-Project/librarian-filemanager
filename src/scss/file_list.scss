@@ -2,14 +2,14 @@
 @import "base/params";
 
 .file-list {
-  @include box-shadow(0 0 3px transparentize(black, 0.9));
+  @include box-shadow($o-thin-overlay-shadow);
 
   .file-list-item {
     // Basic geometry
     padding: 1rem;
 
     // Styling
-    background: transparentize($o-foreground-material, 0.25);
+    background: $o-thin-overlay-background;
     border-bottom: $o-separator-border;
 
     &:last-child {
