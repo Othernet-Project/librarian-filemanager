@@ -2,8 +2,8 @@
     # Mapping between MIME type and icon class
     ICON_MAPPINGS = {
         'text/x-python': 'file-xml',
-        'text/html': 'file-document',
-        'text/plain': 'file-document',
+        'text/html': 'file-text-image',
+        'text/plain': 'file-text',
         'image/png': 'file-image',
         'image/jpeg': 'file-image',
     }
@@ -32,7 +32,7 @@
     % if is_search:
         <li class="file-list-top file-list-item file-list-special">
         <a href="${i18n_url('files:path', path='')}" class="file-list-link" data-type="directory">
-            ${self.file_list_icon('folder-multiple')}
+            ${self.file_list_icon('folder-left')}
             <%self:file_list_name>
                 ## Translators, label for a link that takes the user to 
                 ## main file/folder list from search results.
@@ -44,7 +44,7 @@
         <li class="file-list-top file-list-item file-list-special">
         <% uppath = '' if up == '.' else up + '/'%>
         <a href="${i18n_url('files:path', path=up)}" class="file-list-link" data-type="directory">
-            ${self.file_list_icon('folder-upload')}
+            ${self.file_list_icon('folder-up')}
             <%self:file_list_name>
                 ## Translators, label for a link that takes the user up 
                 ## one level in folder hierarchy.
