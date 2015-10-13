@@ -9,7 +9,7 @@
     padding: 1rem;
 
     // Styling
-    background: $o-thin-overlay-background;
+    background: $o-thin-overlay-material;
     border-bottom: $o-separator-border;
 
     &:last-child {
@@ -27,7 +27,6 @@
       // Basic geometry
       display: inline-block;
       width: 32px;
-      vertical-align: middle;
 
       // Icon size
       font-size: 180%;
@@ -35,6 +34,7 @@
       img {
         width: 32px;
         height: 32px;
+        vertical-align: middle;
       }
     }
 

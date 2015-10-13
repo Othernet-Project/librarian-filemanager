@@ -40,13 +40,13 @@
 .file-list .file-list-item .file-list-icon {
   display: inline-block;
   width: 32px;
-  vertical-align: middle;
   font-size: 180%;
 }
-/* line 35, ../../../src/scss/file_list.scss */
+/* line 34, ../../../src/scss/file_list.scss */
 .file-list .file-list-item .file-list-icon img {
   width: 32px;
   height: 32px;
+  vertical-align: middle;
 }
 /* line 41, ../../../src/scss/file_list.scss */
 .file-list .file-list-item a {
