@@ -11,7 +11,6 @@
   modalDialogTemplate = window.templates.modalDialogCancelOnly;
   loadContent = function(url) {
     var res;
-    console.log('loading url', url);
     res = $.get(url);
     res.done(function(data) {
       container.html(data);
@@ -41,7 +40,6 @@
     openerUrl = elem.data('opener-url');
     isDir = elem.hasClass('file-list-directory');
     if (openerUrl != null) {
-      console.log('has opener');
       e.preventDefault();
       e.stopPropagation();
       $.modalContent(openerUrl, {
@@ -50,7 +48,6 @@
       return;
     }
     if (elem.data('type') === 'directory') {
-      console.log('directory');
       e.preventDefault();
       e.stopPropagation();
       url = elem.attr('href');
@@ -58,10 +55,8 @@
       window.history.pushState(null, null, url);
       return;
     }
-    console.log('nothing to do');
   });
   return $(window).on('popstate', function(e) {
-    console.log('popstate', window.location);
     return loadContent(window.location);
   });
 })(this, this.jQuery, this.templates);

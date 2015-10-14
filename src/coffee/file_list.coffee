@@ -10,7 +10,6 @@
   modalDialogTemplate = window.templates.modalDialogCancelOnly
 
   loadContent = (url) ->
-    console.log 'loading url', url
     res = $.get url
     res.done (data) ->
       container.html(data)
@@ -44,14 +43,12 @@
     isDir = elem.hasClass 'file-list-directory'
 
     if openerUrl?
-      console.log 'has opener'
       e.preventDefault()
       e.stopPropagation()
       $.modalContent openerUrl, successTemplate: modalDialogTemplate
       return
 
     if elem.data('type') is 'directory'
-      console.log 'directory'
       e.preventDefault()
       e.stopPropagation()
       url = elem.attr 'href'
@@ -59,11 +56,9 @@
       window.history.pushState null, null, url
       return
 
-    console.log 'nothing to do'
     return
 
   $(window).on 'popstate', (e) ->
-    console.log 'popstate', window.location
     loadContent window.location
 
 
