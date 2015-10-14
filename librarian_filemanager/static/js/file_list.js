@@ -11,10 +11,10 @@
   modalDialogTemplate = window.templates.modalDialogCancelOnly;
   loadContent = function(url) {
     var res;
+    console.log('loading url', url);
     res = $.get(url);
     res.done(function(data) {
       container.html(data);
-      window.history.pushState(data, null, url);
       return container.find('a').first().focus();
     });
     res.fail(function() {
@@ -36,11 +36,12 @@
     }
   });
   mainPanel.on('click', '.file-list-link', function(e) {
-    var elem, isDir, openerUrl, res, url;
+    var elem, isDir, openerUrl, url;
     elem = $(this);
     openerUrl = elem.data('opener-url');
     isDir = elem.hasClass('file-list-directory');
     if (openerUrl != null) {
+      console.log('has opener');
       e.preventDefault();
       e.stopPropagation();
       $.modalContent(openerUrl, {
@@ -49,28 +50,18 @@
       return;
     }
     if (elem.data('type') === 'directory') {
+      console.log('directory');
       e.preventDefault();
       e.stopPropagation();
       url = elem.attr('href');
-      res = $.get(elem.attr('href'));
-      res.done(function(data) {
-        container.html(data);
-        window.history.pushState(null, null, url);
-        return container.find('a').first().focus();
-      });
-      res.fail(function() {
-        return alert(templates.alertLoadError);
-      });
+      loadContent(url);
+      window.history.pushState(null, null, url);
+      return;
     }
+    console.log('nothing to do');
   });
   return $(window).on('popstate', function(e) {
-    var url;
-    if (window.history.state != null) {
-      container.html(window.history.state);
-      return container.find('a').first().focus();
-    } else {
-      url = window.location;
-      return loadContent(url);
-    }
+    console.log('popstate', window.location);
+    return loadContent(window.location);
   });
 })(this, this.jQuery, this.templates);

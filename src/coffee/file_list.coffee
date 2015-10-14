@@ -10,10 +10,10 @@
   modalDialogTemplate = window.templates.modalDialogCancelOnly
 
   loadContent = (url) ->
+    console.log 'loading url', url
     res = $.get url
     res.done (data) ->
       container.html(data)
-      window.history.pushState data, null, url
       container.find('a').first().focus()
     res.fail () ->
       alert templates.alertLoadError
@@ -44,31 +44,27 @@
     isDir = elem.hasClass 'file-list-directory'
 
     if openerUrl?
+      console.log 'has opener'
       e.preventDefault()
       e.stopPropagation()
       $.modalContent openerUrl, successTemplate: modalDialogTemplate
       return
 
-    if elem.data('type') == 'directory'
+    if elem.data('type') is 'directory'
+      console.log 'directory'
       e.preventDefault()
       e.stopPropagation()
       url = elem.attr 'href'
-      res = $.get elem.attr 'href'
-      res.done (data) ->
-        container.html(data)
-        window.history.pushState null, null, url
-        container.find('a').first().focus()
-      res.fail () ->
-        alert templates.alertLoadError
+      loadContent url
+      window.history.pushState null, null, url
       return
 
+    console.log 'nothing to do'
+    return
+
   $(window).on 'popstate', (e) ->
-    if window.history.state?
-      container.html window.history.state
-      container.find('a').first().focus()
-    else
-      url = window.location
-      loadContent url
+    console.log 'popstate', window.location
+    loadContent window.location
 
 
 ) this, this.jQuery, this.templates
