@@ -1,5 +1,12 @@
 @import "compass/css3";
 @import "base/params";
+@import "base/media_query";
+
+#file-list-container {
+  @include narrower-than(520px) {
+    padding: 0;
+  }
+}
 
 .file-list {
   @include box-shadow($o-thin-overlay-shadow);
@@ -21,6 +28,14 @@
     &:first-child {
       @include border-top-left-radius($o-clickable-target-corner-radius);
       @include border-top-right-radius($o-clickable-target-corner-radius);
+    }
+
+    .file-list-link {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      max-width: 80%;
     }
 
     .file-list-icon {
