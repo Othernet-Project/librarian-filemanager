@@ -20,7 +20,7 @@ ${_('Files')}
                 ${_('Search in folders:')}
             </label>
         </div>
-`       <div class="o-panel">
+        <div class="o-panel">
             ## Translators, used in file search box
             ${forms.text('p', _('Folder path or search keywords'))}
         </div>
