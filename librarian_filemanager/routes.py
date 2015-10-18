@@ -175,7 +175,7 @@ def handle_file_action(path):
         abort(400)
 
 
-@roca_view('opener_list', '_opener_list', template_func=template)
+@roca_view('opener/opener_list', 'opener/_opener_list', template_func=template)
 def opener_list():
     openers = request.app.supervisor.exts.openers
     manager = Manager(request.app.supervisor)
@@ -197,7 +197,7 @@ def opener_list():
                 is_folder=is_folder)
 
 
-@view('opener_detail')
+@roca_view('opener/opener_detail', 'opener/_opener', template_func=template)
 def opener_detail(path, opener_id):
     conf = request.app.config
     archive = Archive.setup(conf['library.backend'],
