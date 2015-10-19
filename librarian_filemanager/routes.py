@@ -152,7 +152,7 @@ def init_file_action(path):
     if action == 'delete':
         return delete_path_confirm(path)
     elif action == 'open':
-        return opener_detail(path, request.query.get('opener_id'))
+        return opener_detail(request.query.get('opener_id'), path=path)
 
     return show_file_list(path)
 
@@ -197,8 +197,9 @@ def opener_list():
                 is_folder=is_folder)
 
 
-@view('opener_detail')
-def opener_detail(path, opener_id):
+def opener_detail(opener_id, path=None):
+    path = path or request.query.get('path', '')
+    opener = request.app.supervisor.exts.openers.get(opener_id)
     conf = request.app.config
     archive = Archive.setup(conf['library.backend'],
                             request.db.content,
@@ -211,16 +212,16 @@ def opener_detail(path, opener_id):
     else:
         meta = None
 
-    return dict(opener_id=opener_id,
-                path=path,
-                filename=os.path.basename(path),
-                meta=meta)
+    opener_html = opener(path)
+    if request.is_xhr:
+        return opener_html
 
-
-def opener_dispatch(opener_id):
-    path = request.query.get('path', '')
-    opener = request.app.supervisor.exts.openers.get(opener_id)
-    return opener(path)
+    return template('opener_detail',
+                    opener_id=opener_id,
+                    opener_html=opener_html,
+                    path=path,
+                    filename=os.path.basename(path),
+                    meta=meta)
 
 
 def routes(config):
@@ -235,6 +236,6 @@ def routes(config):
          'GET', '/direct/<path:path>', dict(unlocked=True)),
         ('opener:list', opener_list,
          'GET', '/openers/', dict(unlocked=True)),
-        ('opener:dispatch', opener_dispatch,
+        ('opener:detail', opener_detail,
          'GET', '/openers/<opener_id>/', dict(unlocked=True)),
     )

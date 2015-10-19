@@ -10,9 +10,7 @@ ${meta.title if meta else filename}
 
 <%block name="main">
 <div class="opener ${opener_id}" data-opener-id="${opener_id}">
-    <div class="opener-frame reduced">
-        <iframe src="${i18n_url('opener:dispatch', opener_id=opener_id) + h.set_qparam(path=path).to_qs()}"></iframe>
-    </div>
+    <div class="opener-frame reduced">${opener_html}</div>
     <div class="opener-meta data expanded">
         <div class="inner">
             <div class="toggle"><span class="icon"></span></div>
