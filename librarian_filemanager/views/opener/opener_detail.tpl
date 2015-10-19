@@ -1,4 +1,5 @@
-<%inherit file="base.tpl"/>
+<%inherit file="/base.tpl"/>
+<%namespace name="opener" file="_opener.tpl"/>
 
 <%block name="title">
 ${meta.title if meta else filename}
@@ -10,7 +11,7 @@ ${meta.title if meta else filename}
 
 <%block name="main">
 <div class="opener ${opener_id}" data-opener-id="${opener_id}">
-    <div class="opener-frame reduced">${opener_html}</div>
+    ${opener.body(**context.kwargs)}
     <div class="opener-meta data expanded">
         <div class="inner">
             <div class="toggle"><span class="icon"></span></div>

@@ -1,4 +1,4 @@
-<%inherit file="base.tpl"/>
+<%inherit file="/base.tpl"/>
 <%namespace name='opener_list' file='_opener_list.tpl'/>
 
 <%block name="title">

@@ -20,13 +20,13 @@ ${_('Files')}
                 ${_('Search in folders:')}
             </label>
         </div>
-`       <div class="o-panel">
+        <div class="o-panel">
             ## Translators, used in file search box
             ${forms.text('p', _('Folder path or search keywords'))}
         </div>
         <div class="o-panel">
-            ## Translators, used as button in file view address bar
             <button id="files-multisearch-button" type="submit" class="o-multisearch-button">
+                ## Translators, used as button in file view address bar
                 <span class="o-multisearch-button-label">${_('Start search')}</span>
                 <span class="o-multisearch-button-icon icon"></span>
             </button>
