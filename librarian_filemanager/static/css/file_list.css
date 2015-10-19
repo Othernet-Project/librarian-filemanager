@@ -54,7 +54,7 @@
   border-top-right-radius: 0.3rem;
 }
 /* line 33, ../../../src/scss/file_list.scss */
-.file-list .file-list-item .file-list-link {
+.file-list .file-list-item .file-list-name {
   display: inline-block;
   overflow: hidden;
   white-space: nowrap;
