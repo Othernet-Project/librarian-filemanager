@@ -20,7 +20,7 @@ class Manager(object):
                                      supervisor.exts.databases.content,
                                      contentdir=conf['library.contentdir'],
                                      meta_filenames=conf['library.metadata'])
-        self.META_FILES = (DirInfo.FILENAME, conf['library.metadata'])
+        self.META_FILES = [DirInfo.FILENAME] + conf['library.metadata']
         self.fsal_client = FSAL(conf['fsal.socket'])
 
     def get_dirinfo(self, path):
