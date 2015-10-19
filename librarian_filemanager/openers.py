@@ -1,4 +1,7 @@
+from bottle import request
+
 from librarian_content.library.metadata import CONTENT_TYPE_EXTENSIONS
+from librarian_core.contrib.templates.decorators import template_helper
 
 
 class OpenerRegistry(object):
@@ -42,3 +45,9 @@ class OpenerRegistry(object):
 
     def get(self, opener_id):
         return self.openers[opener_id]
+
+
+@template_helper
+def first_opener(meta):
+    content_type = meta.content_type_names[0]
+    return request.app.supervisor.exts.openers.first(content_type=content_type)
