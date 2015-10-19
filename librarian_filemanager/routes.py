@@ -203,7 +203,7 @@ def opener_detail(path, opener_id):
     archive = Archive.setup(conf['library.backend'],
                             request.db.content,
                             contentdir=conf['library.contentdir'],
-                            meta_filename=conf['library.metadata'])
+                            meta_filenames=conf['library.metadata'])
     content = archive.get_single(path)
     if content:
         content_path = os.path.join(archive.config['contentdir'], path)
