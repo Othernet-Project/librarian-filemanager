@@ -37,9 +37,9 @@
   mainPanel.on('click', '.file-list-link', function(e) {
     var elem, isDir, openerUrl, url;
     elem = $(this);
-    openerUrl = elem.data('opener-url');
-    isDir = elem.hasClass('file-list-directory');
-    if (openerUrl != null) {
+    openerUrl = elem.data('opener');
+    isDir = elem.data('type') === 'directory';
+    if ((openerUrl != null) && !isDir) {
       e.preventDefault();
       e.stopPropagation();
       $.modalContent(openerUrl, {

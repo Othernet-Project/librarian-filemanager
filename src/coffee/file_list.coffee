@@ -39,10 +39,10 @@
 
   mainPanel.on 'click', '.file-list-link', (e) ->
     elem = $ @
-    openerUrl = elem.data 'opener-url'
-    isDir = elem.hasClass 'file-list-directory'
+    openerUrl = elem.data 'opener'
+    isDir = elem.data('type') is 'directory'
 
-    if openerUrl?
+    if openerUrl? and not isDir
       e.preventDefault()
       e.stopPropagation()
       $.modalContent openerUrl, successTemplate: modalDialogTemplate
