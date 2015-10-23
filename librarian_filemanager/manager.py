@@ -3,7 +3,6 @@ import mimetypes
 
 from bottle_utils import html
 from bottle_utils.i18n import i18n_url
-from fsal.client import FSAL
 
 from librarian_content.library import metadata
 from librarian_content.library.archive import Archive
@@ -15,13 +14,13 @@ class Manager(object):
 
     def __init__(self, supervisor):
         self.supervisor = supervisor
+        self.fsal_client = self.supervisor.exts.fsal
         conf = supervisor.config
         self.archive = Archive.setup(conf['library.backend'],
                                      supervisor.exts.databases.content,
                                      contentdir=conf['library.contentdir'],
                                      meta_filenames=conf['library.metadata'])
         self.META_FILES = [DirInfo.FILENAME] + conf['library.metadata']
-        self.fsal_client = FSAL(conf['fsal.socket'])
 
     def get_dirinfo(self, path):
         # return DirInfo.from_db(self.supervisor, path)
