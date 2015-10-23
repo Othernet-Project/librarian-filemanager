@@ -217,7 +217,7 @@ def opener_detail(opener_id, path=None):
     if request.is_xhr:
         return opener_html
 
-    return template('opener_detail',
+    return template('opener/opener_detail',
                     opener_id=opener_id,
                     openers=request.app.supervisor.exts.openers,
                     opener_html=opener_html,
