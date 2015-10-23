@@ -9,12 +9,14 @@ class OpenerRegistry(object):
     def __init__(self):
         self.extensions = dict()
         self.content_types = dict()
+        self.labels = dict()
         self.openers = dict()
 
-    def register(self, opener_id, opener_route, content_type):
+    def register(self, opener_id, label, route, content_type):
         """Register an opener to be associated with one or more extensions.
         :param opener_id:     unique string identifying the opener
-        :param opener_route:  function that should return a dict with any data
+        :param label:         label to be show as name of opener
+        :param route:         function that should return a dict with any data
                               that could be needed by the opener's template
         :param content_type:  string: content type name that the opener handles
         """
@@ -22,7 +24,8 @@ class OpenerRegistry(object):
             msg = "Opener with id: {0} already exists.".format(opener_id)
             raise ValueError(msg)
 
-        self.openers[opener_id] = opener_route
+        self.openers[opener_id] = route
+        self.labels[opener_id] = label
 
         self.content_types.setdefault(content_type, [])
         self.content_types[content_type].append(opener_id)
@@ -45,6 +48,9 @@ class OpenerRegistry(object):
 
     def get(self, opener_id):
         return self.openers[opener_id]
+
+    def label(self, opener_id):
+        return self.labels[opener_id]
 
 
 @template_helper
