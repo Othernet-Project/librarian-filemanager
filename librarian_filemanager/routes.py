@@ -192,6 +192,7 @@ def opener_list():
         opener_ids = openers.filter_by(extension=ext.strip('.'))
 
     return dict(opener_ids=opener_ids,
+                openers=request.app.supervisor.exts.openers,
                 path=path,
                 name=name,
                 is_folder=is_folder)
@@ -218,6 +219,7 @@ def opener_detail(opener_id, path=None):
 
     return template('opener_detail',
                     opener_id=opener_id,
+                    openers=request.app.supervisor.exts.openers,
                     opener_html=opener_html,
                     path=path,
                     filename=os.path.basename(path),
