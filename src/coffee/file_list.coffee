@@ -3,6 +3,7 @@
 
   UP = 38
   DOWN = 40
+  openerLinkSelector = '.opener-link'
   fileList = $ '#file-list'
   container = $ '#file-list-container'
   body = $ document.body
@@ -39,13 +40,21 @@
 
   mainPanel.on 'click', '.file-list-link', (e) ->
     elem = $ @
-    openerUrl = elem.data 'opener'
+    openerListUrl = elem.data 'opener'
     isDir = elem.data('type') is 'directory'
 
-    if openerUrl? and not isDir
+    if openerListUrl? and not isDir
       e.preventDefault()
       e.stopPropagation()
-      $.modalContent openerUrl, successTemplate: modalDialogTemplate
+      res = $.modalContent openerListUrl, successTemplate: modalDialogTemplate
+      res.done (data) ->
+        links = $ openerLinkSelector
+        links.click (e) ->
+          linkEl = $ @
+          openerUrl = linkEl.attr 'href'
+          $.modalContent openerUrl, fullScreen: true
+          e.preventDefault()
+          e.stopPropagation()
       return
 
     if elem.data('type') is 'directory'
