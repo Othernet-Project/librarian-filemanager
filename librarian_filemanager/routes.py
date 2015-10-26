@@ -203,6 +203,7 @@ def opener_detail(opener_id, path=None):
     opener = request.app.supervisor.exts.openers.get(opener_id)
     conf = request.app.config
     archive = Archive.setup(conf['library.backend'],
+                            request.app.supervisor.exts.fsal,
                             request.db.content,
                             contentdir=conf['library.contentdir'],
                             meta_filenames=conf['library.metadata'])

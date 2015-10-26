@@ -17,6 +17,7 @@ class Manager(object):
         self.fsal_client = self.supervisor.exts.fsal
         conf = supervisor.config
         self.archive = Archive.setup(conf['library.backend'],
+                                     supervisor.exts.fsal,
                                      supervisor.exts.databases.content,
                                      contentdir=conf['library.contentdir'],
                                      meta_filenames=conf['library.metadata'])
