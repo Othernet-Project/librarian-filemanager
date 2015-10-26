@@ -1,4 +1,3 @@
-import os
 import mimetypes
 
 from bottle_utils import html
@@ -38,12 +37,7 @@ class Manager(object):
         if not content:
             content = self.archive.get_single(path)
 
-        if content:
-            content_path = os.path.join(self.archive.config['contentdir'],
-                                        path)
-            return metadata.Meta(content, content_path)
-
-        return None
+        return metadata.Meta(content) if content else None
 
     def _extend_dir(self, fs_obj):
         fs_obj.dirinfo = self.get_dirinfo(fs_obj.path)
