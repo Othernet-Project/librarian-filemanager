@@ -1,4 +1,11 @@
-/* line 1, ../../../src/scss/opener.scss */
+/**
+ * This module contains base variables that are used to re-skin (customize) the 
+ * Librarian UI toolkit.
+ *
+ * Recommended way to customize the variables is to load a separate module 
+ * containing customized values _before_ this module.
+ */
+/* line 3, ../../../src/scss/opener.scss */
 .opener-frame {
   position: absolute;
   top: 3rem;
@@ -6,9 +13,26 @@
   right: 0;
   bottom: 0;
 }
-/* line 8, ../../../src/scss/opener.scss */
+/* line 10, ../../../src/scss/opener.scss */
 .opener-frame iframe {
   width: 100%;
   height: 100%;
   overflow: auto;
+}
+
+/* line 18, ../../../src/scss/opener.scss */
+.openers a {
+  display: block;
+  padding: 0.3rem 0 0.7rem;
+  margin: 0.5rem 0;
+  font-size: 140%;
+  border-bottom: 1px solid #ddd;
+}
+/* line 28, ../../../src/scss/opener.scss */
+.openers a .icon {
+  font-size: 180%;
+}
+/* line 33, ../../../src/scss/opener.scss */
+.openers li:last-child a {
+  border-bottom: 0;
 }
