@@ -12,9 +12,6 @@
   @include box-shadow($o-thin-overlay-shadow);
 
   .file-list-item {
-    // Basic geometry
-    padding: 1rem;
-
     // Styling
     background: $o-thin-overlay-material;
     border-bottom: $o-separator-border;
@@ -58,6 +55,11 @@
       font-size: 120%;
       text-decoration: none;
 
+      // Basic geometry
+      display: inline-block;
+      padding: 1rem;
+      width: 100%;
+
       // Styling
       color: $o-base-text-color;
 
@@ -70,10 +72,10 @@
 
   .file-list-description {
     // Typography
-    font-style: italic;
+    font-size: 90%;
 
     // Basic geometry
-    margin: 0;
-    margin-left: 38px;
+    display: block;
+    padding-left: $o-clickable-target-size;
   }
 }

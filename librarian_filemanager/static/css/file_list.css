@@ -30,11 +30,10 @@
 }
 /* line 14, ../../../src/scss/file_list.scss */
 .file-list .file-list-item {
-  padding: 1rem;
   background: rgba(255, 255, 255, 0.75);
   border-bottom: 1px solid #ddd;
 }
-/* line 22, ../../../src/scss/file_list.scss */
+/* line 19, ../../../src/scss/file_list.scss */
 .file-list .file-list-item:last-child {
   border-bottom: 0;
   -moz-border-radius-bottomleft: 0.3rem;
@@ -44,7 +43,7 @@
   -webkit-border-bottom-right-radius: 0.3rem;
   border-bottom-right-radius: 0.3rem;
 }
-/* line 28, ../../../src/scss/file_list.scss */
+/* line 25, ../../../src/scss/file_list.scss */
 .file-list .file-list-item:first-child {
   -moz-border-radius-topleft: 0.3rem;
   -webkit-border-top-left-radius: 0.3rem;
@@ -53,7 +52,7 @@
   -webkit-border-top-right-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
 }
-/* line 33, ../../../src/scss/file_list.scss */
+/* line 30, ../../../src/scss/file_list.scss */
 .file-list .file-list-item .file-list-name {
   display: inline-block;
   overflow: hidden;
@@ -61,31 +60,34 @@
   text-overflow: ellipsis;
   max-width: 80%;
 }
-/* line 41, ../../../src/scss/file_list.scss */
+/* line 38, ../../../src/scss/file_list.scss */
 .file-list .file-list-item .file-list-icon {
   display: inline-block;
   width: 32px;
   font-size: 180%;
 }
-/* line 49, ../../../src/scss/file_list.scss */
+/* line 46, ../../../src/scss/file_list.scss */
 .file-list .file-list-item .file-list-icon img {
   width: 32px;
   height: 32px;
   vertical-align: middle;
 }
-/* line 56, ../../../src/scss/file_list.scss */
+/* line 53, ../../../src/scss/file_list.scss */
 .file-list .file-list-item a {
   font-size: 120%;
   text-decoration: none;
+  display: inline-block;
+  padding: 1rem;
+  width: 100%;
   color: #333;
 }
-/* line 64, ../../../src/scss/file_list.scss */
+/* line 66, ../../../src/scss/file_list.scss */
 .file-list .file-list-item a:hover, .file-list .file-list-item a:focus {
   color: #089bd2;
 }
-/* line 71, ../../../src/scss/file_list.scss */
+/* line 73, ../../../src/scss/file_list.scss */
 .file-list .file-list-description {
-  font-style: italic;
-  margin: 0;
-  margin-left: 38px;
+  font-size: 90%;
+  display: block;
+  padding-left: 3rem;
 }

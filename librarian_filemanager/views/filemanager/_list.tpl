@@ -100,14 +100,14 @@
                     % if icon_url:
                         <span class="icon icon-folder"></span>
                     % endif
-                    ${name}
+                    <span>${name}</span>
                 </%self:file_list_name>
+                % if description:
+                    <span class="file-list-description">
+                        ${description}
+                    </span>
+                % endif
             </a>
-            % if description:
-                <p class="file-list-description">
-                    ${description}
-                </p>
-            % endif
             </li>
         % endfor
 
