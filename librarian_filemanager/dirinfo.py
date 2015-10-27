@@ -7,7 +7,7 @@ from bottle_utils.common import to_unicode
 
 class DirInfo(object):
     FILENAME = '.dirinfo'
-    CACHE_KEY_TEMPLATE = 'dirinfo_{0}'
+    CACHE_KEY_TEMPLATE = u'dirinfo_{0}'
     NO_LANGUAGE = ''
     ENTRY_REGEX = re.compile(r'(\w+)\[(\w+)\]')
 
