@@ -34,7 +34,7 @@
         <a href="${i18n_url('files:path', path='')}" class="file-list-link" data-type="directory">
             ${self.file_list_icon('folder-left')}
             <%self:file_list_name>
-                ## Translators, label for a link that takes the user to 
+                ## Translators, label for a link that takes the user to
                 ## main file/folder list from search results.
                 ${_('Go to complete file list')}
             </%self:file_list_name>
@@ -46,7 +46,7 @@
         <a href="${i18n_url('files:path', path=up)}" class="file-list-link" data-type="directory">
             ${self.file_list_icon('folder-up')}
             <%self:file_list_name>
-                ## Translators, label for a link that takes the user up 
+                ## Translators, label for a link that takes the user up
                 ## one level in folder hierarchy.
                 ${_('Go up one level')}
             </%self:file_list_name>
@@ -70,8 +70,8 @@
         ## Directories
 
         % for d in dirs:
-            <% 
-            dpath = h.to_unicode(i18n_url('files:path', path=d.rel_path)) 
+            <%
+            dpath = h.to_unicode(i18n_url('files:path', path=h.to_bytes(d.rel_path)))
             custom_icon = d.dirinfo.get(request.locale, 'icon', None)
             name = h.to_unicode(d.dirinfo.get(request.locale, 'name', d.name))
             if custom_icon:
@@ -81,8 +81,8 @@
             description = d.dirinfo.get(request.locale, 'description', None)
             %>
             <li class="file-list-item file-list-directory" role="row" aria-selected="false" tabindex>
-            <a 
-                href="${dpath}" 
+            <a
+                href="${dpath}"
                 data-action-url="${dpath}"
                 data-opener="${d.openers_url}"
                 data-type="directory"
@@ -115,13 +115,13 @@
 
         % for f in files:
             <li class="file-list-item file-list-file" role="row" aria-selected="false" tabindex>
-            <% 
+            <%
             fpath = h.to_unicode(i18n_url('files:direct', path=f.rel_path))
             apath = h.to_unicode(i18n_url('files:path', path=f.rel_path))
             list_openers_url = h.to_unicode(i18n_url('opener:list') + h.set_qparam(path=f.rel_path).to_qs())
             %>
             ## FIXME: fpath doesn't lead to download, what's the download URL?
-            <a 
+            <a
                 href="${fpath}"
                 data-action-url="${apath}"
                 data-opener="${list_openers_url}"
