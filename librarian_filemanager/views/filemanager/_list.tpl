@@ -71,11 +71,11 @@
 
         % for d in dirs:
             <%
-            dpath = h.to_unicode(i18n_url('files:path', path=h.to_bytes(d.rel_path)))
+            dpath = i18n_url('files:path', path=d.rel_path)
             custom_icon = d.dirinfo.get(request.locale, 'icon', None)
-            name = h.to_unicode(d.dirinfo.get(request.locale, 'name', d.name))
+            name = d.dirinfo.get(request.locale, 'name', d.name)
             if custom_icon:
-                icon_url = h.to_unicode(i18n_url('files:direct', path=d.other_path(custom_icon)))
+                icon_url = i18n_url('files:direct', path=d.other_path(custom_icon))
             else:
                 icon_url = None
             description = d.dirinfo.get(request.locale, 'description', None)
@@ -116,9 +116,9 @@
         % for f in files:
             <li class="file-list-item file-list-file" role="row" aria-selected="false" tabindex>
             <%
-            fpath = h.to_unicode(i18n_url('files:direct', path=f.rel_path))
-            apath = h.to_unicode(i18n_url('files:path', path=f.rel_path))
-            list_openers_url = h.to_unicode(i18n_url('opener:list') + h.set_qparam(path=f.rel_path).to_qs())
+            fpath = i18n_url('files:direct', path=f.rel_path)
+            apath = i18n_url('files:path', path=f.rel_path)
+            list_openers_url = i18n_url('opener:list') + h.set_qparam(path=f.rel_path).to_qs()
             %>
             ## FIXME: fpath doesn't lead to download, what's the download URL?
             <a
