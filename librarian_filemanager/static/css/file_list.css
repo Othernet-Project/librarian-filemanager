@@ -91,3 +91,8 @@
   display: block;
   padding-left: 3rem;
 }
+/* line 84, ../../../src/scss/file_list.scss */
+.file-list.search .file-list-item a {
+  vertical-align: middle;
+  width: auto;
+}

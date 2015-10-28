@@ -21,6 +21,7 @@ from bottle_utils.i18n import lazy_gettext as _, i18n_url
 
 from librarian_content.library import metadata
 from librarian_content.library.archive import Archive
+from librarian_core.contrib.templates.decorators import template_helper
 from librarian_core.contrib.templates.renderer import template, view
 
 from .manager import Manager
@@ -36,6 +37,7 @@ def get_parent_path(path):
     return os.path.normpath(os.path.join(path, '..'))
 
 
+@template_helper
 def get_parent_url(path):
     parent_path = get_parent_path(path)
     return i18n_url('files:path', path=parent_path)

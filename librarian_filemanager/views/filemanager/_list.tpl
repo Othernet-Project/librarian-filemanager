@@ -22,7 +22,7 @@
     </span>
 </%def>
 
-<ul class="file-list" id="file-list" role="grid" aria-multiselectable="true">
+<ul class="file-list ${'search' if is_search else ''}" id="file-list" role="grid" aria-multiselectable="true">
     ## The first item is:
     ##
     ## - Blank if current path is top-level and there is no search query
@@ -119,6 +119,7 @@
             fpath = i18n_url('files:direct', path=f.rel_path)
             apath = i18n_url('files:path', path=f.rel_path)
             list_openers_url = i18n_url('opener:list') + h.set_qparam(path=f.rel_path).to_qs()
+            parent_url = th.get_parent_url(f.rel_path)
             %>
             ## FIXME: fpath doesn't lead to download, what's the download URL?
             <a
@@ -134,6 +135,16 @@
                     ${h.to_unicode(f.name)}
                 </%self:file_list_name>
             </a>
+            % if is_search:
+            <a
+                href="${parent_url}"
+                data-action-url="${parent_url}"
+                data-type="directory"
+                class="file-list-link"
+                >
+                <span>(${_('jump to parent folder')})</span>
+            </a>
+            % endif
             </li>
         % endfor
     % endif
