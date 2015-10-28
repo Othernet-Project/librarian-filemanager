@@ -40,7 +40,7 @@
     elem = $(this);
     openerListUrl = elem.data('opener');
     isDir = elem.data('type') === 'directory';
-    if ((openerListUrl != null) && !isDir) {
+    if (!!openerListUrl) {
       e.preventDefault();
       e.stopPropagation();
       res = $.modalContent(openerListUrl, {

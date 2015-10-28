@@ -43,7 +43,7 @@
     openerListUrl = elem.data 'opener'
     isDir = elem.data('type') is 'directory'
 
-    if openerListUrl? and not isDir
+    if !!openerListUrl
       e.preventDefault()
       e.stopPropagation()
       res = $.modalContent openerListUrl, successTemplate: modalDialogTemplate

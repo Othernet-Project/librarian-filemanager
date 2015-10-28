@@ -86,7 +86,7 @@
                     query.add_qparam(content_type=content_type)
                 openers_url = i18n_url('opener:list') + query.to_qs()
             else:
-                openers_url = None
+                openers_url = ''
             %>
             <li class="file-list-item file-list-directory" role="row" aria-selected="false" tabindex>
             <a
