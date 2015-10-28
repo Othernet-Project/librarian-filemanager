@@ -1,7 +1,7 @@
 <ul class="openers">
     <%
         list_url = i18n_url('files:path', path=path)
-        download_url = url('files:direct', path=path) + h.set_qparam(filename=name).to_qs()
+        download_url = h.quoted_url('files:direct', path=path) + h.set_qparam(filename=name).to_qs()
     %>
     % for oid in opener_ids:
     <li>
