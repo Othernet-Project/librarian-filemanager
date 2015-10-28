@@ -78,4 +78,13 @@
     display: block;
     padding-left: $o-clickable-target-size;
   }
+
+  &.search {
+    .file-list-item {
+      a {
+        vertical-align: middle;
+        width: auto;
+      }
+    }
+  }
 }

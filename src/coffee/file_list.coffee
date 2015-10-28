@@ -4,6 +4,7 @@
   UP = 38
   DOWN = 40
   openerLinkSelector = '.opener-link'
+  searchInput = $ '#files-multisearch #p'
   fileList = $ '#file-list'
   container = $ '#file-list-container'
   body = $ document.body
@@ -17,6 +18,13 @@
       container.find('a').first().focus()
     res.fail () ->
       alert templates.alertLoadError
+    return
+
+  setPath = (path) ->
+    if path is '.'
+      searchInput.val ''
+    else
+      searchInput.val path
     return
 
   # Keyboard navigation
@@ -43,7 +51,7 @@
     openerListUrl = elem.data 'opener'
     isDir = elem.data('type') is 'directory'
 
-    if openerListUrl? and not isDir
+    if !!openerListUrl
       e.preventDefault()
       e.stopPropagation()
       res = $.modalContent openerListUrl, successTemplate: modalDialogTemplate
@@ -63,6 +71,7 @@
       url = elem.attr 'href'
       loadContent url
       window.history.pushState null, null, url
+      setPath elem.data 'relpath'
       return
 
     return

@@ -16,10 +16,12 @@ import subprocess
 from bottle import request, abort, static_file, redirect
 from bottle_utils.ajax import roca_view
 from bottle_utils.csrf import csrf_protect, csrf_token
+from bottle_utils.html import urlunquote
 from bottle_utils.i18n import lazy_gettext as _, i18n_url
 
 from librarian_content.library import metadata
 from librarian_content.library.archive import Archive
+from librarian_core.contrib.templates.decorators import template_helper
 from librarian_core.contrib.templates.renderer import template, view
 
 from .manager import Manager
@@ -35,6 +37,7 @@ def get_parent_path(path):
     return os.path.normpath(os.path.join(path, '..'))
 
 
+@template_helper
 def get_parent_url(path):
     parent_path = get_parent_path(path)
     return i18n_url('files:path', path=parent_path)
@@ -46,7 +49,7 @@ def go_to_parent(path):
 
 @roca_view('filemanager/list', 'filemanager/_list', template_func=template)
 def show_file_list(path=None):
-    search = request.params.get('p')
+    search = urlunquote(request.params.get('p', ''))
     query = search or path or '.'
     manager = Manager(request.app.supervisor)
     (dirs, files, meta, is_match) = manager.search(query)
@@ -61,6 +64,7 @@ def show_file_list(path=None):
 
 
 def direct_file(path):
+    path = urlunquote(path)
     return static_file(path,
                        root=request.app.config['library.contentdir'],
                        download=request.params.get('filename', False))
@@ -148,6 +152,7 @@ def run_path(path):
 
 
 def init_file_action(path):
+    path = urlunquote(path)
     action = request.query.get('action')
     if action == 'delete':
         return delete_path_confirm(path)
@@ -158,6 +163,7 @@ def init_file_action(path):
 
 
 def handle_file_action(path):
+    path = urlunquote(path)
     action = request.forms.get('action')
     if action == 'rename':
         return rename_path(path)
@@ -179,7 +185,7 @@ def handle_file_action(path):
 def opener_list():
     openers = request.app.supervisor.exts.openers
     manager = Manager(request.app.supervisor)
-    path = request.query.get('path', '')
+    path = urlunquote(request.query.get('path', ''))
     name = os.path.basename(path)
     is_folder = manager.isdir(path)
     content_types = request.query.getall('content_type')
@@ -199,7 +205,7 @@ def opener_list():
 
 
 def opener_detail(opener_id, path=None):
-    path = path or request.query.get('path', '')
+    path = path or urlunquote(request.query.get('path', ''))
     opener = request.app.supervisor.exts.openers.get(opener_id)
     conf = request.app.config
     archive = Archive.setup(conf['library.backend'],

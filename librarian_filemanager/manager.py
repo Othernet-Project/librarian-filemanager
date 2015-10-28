@@ -1,8 +1,5 @@
 import mimetypes
 
-from bottle_utils import html
-from bottle_utils.i18n import i18n_url
-
 from librarian_content.library import metadata
 from librarian_content.library.archive import Archive
 
@@ -42,15 +39,6 @@ class Manager(object):
     def _extend_dir(self, fs_obj):
         fs_obj.dirinfo = self.get_dirinfo(fs_obj.path)
         fs_obj.contentinfo = self.get_contentinfo(fs_obj.rel_path)
-        if fs_obj.contentinfo:
-            query = html.QueryDict()
-            query.add_qparam(path=fs_obj.rel_path)
-            for content_type in fs_obj.contentinfo.content_type_names:
-                query.add_qparam(content_type=content_type)
-
-            fs_obj.openers_url = i18n_url('opener:list') + query.to_qs()
-        else:
-            fs_obj.openers_url = None
         return fs_obj
 
     def _extend_file(self, fs_obj):

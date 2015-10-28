@@ -22,7 +22,7 @@
     </span>
 </%def>
 
-<ul class="file-list" id="file-list" role="grid" aria-multiselectable="true">
+<ul class="file-list ${'search' if is_search else ''}" id="file-list" role="grid" aria-multiselectable="true">
     ## The first item is:
     ##
     ## - Blank if current path is top-level and there is no search query
@@ -31,7 +31,7 @@
 
     % if is_search:
         <li class="file-list-top file-list-item file-list-special">
-        <a href="${i18n_url('files:path', path='')}" class="file-list-link" data-type="directory">
+        <a href="${i18n_url('files:path', path='')}" class="file-list-link" data-type="directory" data-relpath="">
             ${self.file_list_icon('folder-left')}
             <%self:file_list_name>
                 ## Translators, label for a link that takes the user to
@@ -43,7 +43,7 @@
     % elif path != '.':
         <li class="file-list-top file-list-item file-list-special">
         <% uppath = '' if up == '.' else up + '/'%>
-        <a href="${i18n_url('files:path', path=up)}" class="file-list-link" data-type="directory">
+        <a href="${i18n_url('files:path', path=up)}" class="file-list-link" data-type="directory" data-relpath="${up}">
             ${self.file_list_icon('folder-up')}
             <%self:file_list_name>
                 ## Translators, label for a link that takes the user up
@@ -71,20 +71,29 @@
 
         % for d in dirs:
             <%
-            dpath = h.to_unicode(i18n_url('files:path', path=h.to_bytes(d.rel_path)))
+            dpath = i18n_url('files:path', path=d.rel_path)
             custom_icon = d.dirinfo.get(request.locale, 'icon', None)
-            name = h.to_unicode(d.dirinfo.get(request.locale, 'name', d.name))
+            name = d.dirinfo.get(request.locale, 'name', d.name)
             if custom_icon:
-                icon_url = h.to_unicode(i18n_url('files:direct', path=d.other_path(custom_icon)))
+                icon_url = i18n_url('files:direct', path=d.other_path(custom_icon))
             else:
                 icon_url = None
             description = d.dirinfo.get(request.locale, 'description', None)
+            if d.contentinfo:
+                query = h.QueryDict()
+                query.add_qparam(path=d.rel_path)
+                for content_type in d.contentinfo.content_type_names:
+                    query.add_qparam(content_type=content_type)
+                openers_url = i18n_url('opener:list') + query.to_qs()
+            else:
+                openers_url = ''
             %>
             <li class="file-list-item file-list-directory" role="row" aria-selected="false" tabindex>
             <a
                 href="${dpath}"
                 data-action-url="${dpath}"
-                data-opener="${d.openers_url}"
+                data-opener="${openers_url}"
+                data-relpath="${d.rel_path}"
                 data-type="directory"
                 class="file-list-link"
                 >
@@ -116,15 +125,17 @@
         % for f in files:
             <li class="file-list-item file-list-file" role="row" aria-selected="false" tabindex>
             <%
-            fpath = h.to_unicode(i18n_url('files:direct', path=f.rel_path))
-            apath = h.to_unicode(i18n_url('files:path', path=f.rel_path))
-            list_openers_url = h.to_unicode(i18n_url('opener:list') + h.set_qparam(path=f.rel_path).to_qs())
+            fpath = i18n_url('files:direct', path=f.rel_path)
+            apath = i18n_url('files:path', path=f.rel_path)
+            list_openers_url = i18n_url('opener:list') + h.set_qparam(path=f.rel_path).to_qs()
+            parent_url = th.get_parent_url(f.rel_path)
             %>
             ## FIXME: fpath doesn't lead to download, what's the download URL?
             <a
                 href="${fpath}"
                 data-action-url="${apath}"
                 data-opener="${list_openers_url}"
+                data-relpath="${f.rel_path}"
                 data-mimetype="${f.mimetype or ''}"
                 data-type="file"
                 class="file-list-link"
@@ -134,6 +145,16 @@
                     ${h.to_unicode(f.name)}
                 </%self:file_list_name>
             </a>
+            % if is_search:
+            <a
+                href="${parent_url}"
+                data-action-url="${parent_url}"
+                data-type="directory"
+                class="file-list-link"
+                >
+                <span>(${_('jump to parent folder')})</span>
+            </a>
+            % endif
             </li>
         % endfor
     % endif
