@@ -47,7 +47,7 @@ def go_to_parent(path):
 
 @roca_view('filemanager/list', 'filemanager/_list', template_func=template)
 def show_file_list(path=None):
-    search = request.params.get('p')
+    search = urlunquote(request.params.get('p', ''))
     query = search or path or '.'
     manager = Manager(request.app.supervisor)
     (dirs, files, meta, is_match) = manager.search(query)
@@ -62,6 +62,7 @@ def show_file_list(path=None):
 
 
 def direct_file(path):
+    path = urlunquote(path)
     return static_file(path,
                        root=request.app.config['library.contentdir'],
                        download=request.params.get('filename', False))
@@ -149,6 +150,7 @@ def run_path(path):
 
 
 def init_file_action(path):
+    path = urlunquote(path)
     action = request.query.get('action')
     if action == 'delete':
         return delete_path_confirm(path)
@@ -159,6 +161,7 @@ def init_file_action(path):
 
 
 def handle_file_action(path):
+    path = urlunquote(path)
     action = request.forms.get('action')
     if action == 'rename':
         return rename_path(path)
