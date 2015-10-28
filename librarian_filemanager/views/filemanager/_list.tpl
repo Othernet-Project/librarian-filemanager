@@ -79,12 +79,20 @@
             else:
                 icon_url = None
             description = d.dirinfo.get(request.locale, 'description', None)
+            if d.contentinfo:
+                query = h.QueryDict()
+                query.add_qparam(path=d.rel_path)
+                for content_type in d.contentinfo.content_type_names:
+                    query.add_qparam(content_type=content_type)
+                openers_url = i18n_url('opener:list') + query.to_qs()
+            else:
+                openers_url = None
             %>
             <li class="file-list-item file-list-directory" role="row" aria-selected="false" tabindex>
             <a
                 href="${dpath}"
                 data-action-url="${dpath}"
-                data-opener="${d.openers_url}"
+                data-opener="${openers_url}"
                 data-type="directory"
                 class="file-list-link"
                 >
