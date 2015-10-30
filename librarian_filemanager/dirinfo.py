@@ -2,7 +2,7 @@ import logging
 import os
 import re
 
-from bottle_utils.common import to_unicode
+from bottle_utils.common import to_bytes, to_unicode
 
 
 class DirInfo(object):
@@ -80,14 +80,17 @@ class DirInfo(object):
         return self._info
 
     @classmethod
+    def get_cache_key(cls, path):
+        return to_bytes(cls.CACHE_KEY_TEMPLATE.format(path))
+
+    @classmethod
     def from_file(cls, supervisor, path):
         """Read dirinfo from disk, store it in database and put the retrieved
         in the cache."""
         dirinfo = cls(supervisor, path)
         dirinfo.read_file()
         dirinfo.save_to_db()
-        supervisor.exts.cache.set(cls.CACHE_KEY_TEMPLATE.format(path),
-                                  dirinfo.get_data())
+        supervisor.exts.cache.set(cls.get_cache_key(path), dirinfo.get_data())
         return dirinfo
 
     @classmethod
@@ -97,14 +100,14 @@ class DirInfo(object):
         scheduled to read the file from disk."""
         # attempt reading from cache first
         if supervisor.exts.is_installed('cache'):
-            key = cls.CACHE_KEY_TEMPLATE.format(path)
+            key = cls.get_cache_key(path)
             data = supervisor.exts.cache.get(key)
             if data:
                 return cls(supervisor, path, data=data)
         # if not in cache, get it from the database
         dirinfo = cls(supervisor, path)
         if dirinfo.read_db():
-            supervisor.exts.cache.set(cls.CACHE_KEY_TEMPLATE.format(path),
+            supervisor.exts.cache.set(cls.get_cache_key(path),
                                       dirinfo.get_data())
         else:
             supervisor.exts.tasks.schedule(DirInfo.from_file,

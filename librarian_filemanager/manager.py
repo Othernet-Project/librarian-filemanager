@@ -1,5 +1,7 @@
 import mimetypes
 
+from bottle_utils.common import to_bytes
+
 from librarian_content.library import metadata
 from librarian_content.library.archive import Archive
 
@@ -26,7 +28,7 @@ class Manager(object):
         return DirInfo.from_file(self.supervisor, path)
 
     def get_contentinfo(self, path):
-        key = u'meta_{0}'.format(path)
+        key = to_bytes(u'meta_{0}'.format(path))
         content = None
         if self.supervisor.exts.is_installed('cache'):
             content = self.supervisor.exts.cache.get(key)

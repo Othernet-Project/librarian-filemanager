@@ -61,7 +61,11 @@
         ## If the listing is empty, then only the empty listing li is shown
         <li class="file-list-empty file-list-item">
         <span class="note">
+            % if is_search:
+            ${_('No files or folders match your search keywords.')}
+            % else:
             ${_('There are currently no files or folders here.')}
+            % endif
         </span>
         </li>
 

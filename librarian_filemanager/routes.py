@@ -181,7 +181,6 @@ def handle_file_action(path):
         abort(400)
 
 
-@roca_view('opener/opener_list', 'opener/_opener_list', template_func=template)
 def opener_list():
     openers = request.app.supervisor.exts.openers
     manager = Manager(request.app.supervisor)
@@ -197,11 +196,25 @@ def opener_list():
         (_, ext) = os.path.splitext(name)
         opener_ids = openers.filter_by(extension=ext.strip('.'))
 
-    return dict(opener_ids=opener_ids,
-                openers=request.app.supervisor.exts.openers,
-                path=path,
-                name=name,
-                is_folder=is_folder)
+    context = dict(opener_ids=opener_ids,
+                   openers=request.app.supervisor.exts.openers,
+                   path=path,
+                   name=name,
+                   is_folder=is_folder)
+
+    if request.is_xhr:
+        return template('opener/_opener_list', **context)
+
+    # for non-ajax requests, if there are no openers available, use the generic
+    # opener automatically
+    if not opener_ids:
+        if not is_folder:
+            # the selected path is a file, just trigger the download
+            return direct_file(path)
+        # redirect to show the contents of the folder
+        redirect(i18n_url('files:path', path=path))
+    # show list of openers
+    return template('opener/opener_list', **context)
 
 
 def opener_detail(opener_id, path=None):
