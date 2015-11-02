@@ -4,6 +4,8 @@ import re
 
 from bottle_utils.common import to_bytes, to_unicode
 
+from librarian_core.contrib.cache.utils import generate_key
+
 
 class DirInfo(object):
     FILENAME = '.dirinfo'
@@ -81,7 +83,8 @@ class DirInfo(object):
 
     @classmethod
     def get_cache_key(cls, path):
-        return to_bytes(cls.CACHE_KEY_TEMPLATE.format(path))
+        generated = generate_key(path)
+        return to_bytes(cls.CACHE_KEY_TEMPLATE.format(generated))
 
     @classmethod
     def from_file(cls, supervisor, path):

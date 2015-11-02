@@ -4,6 +4,7 @@ from bottle_utils.common import to_bytes
 
 from librarian_content.library import metadata
 from librarian_content.library.archive import Archive
+from librarian_core.contrib.cache.utils import generate_key
 
 from .dirinfo import DirInfo
 
@@ -28,7 +29,8 @@ class Manager(object):
         return DirInfo.from_file(self.supervisor, path)
 
     def get_contentinfo(self, path):
-        key = to_bytes(u'meta_{0}'.format(path))
+        generated = generate_key(path)
+        key = to_bytes(u'meta_{0}'.format(generated))
         content = None
         if self.supervisor.exts.is_installed('cache'):
             content = self.supervisor.exts.cache.get(key)
