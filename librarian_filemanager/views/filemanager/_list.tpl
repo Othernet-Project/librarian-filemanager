@@ -79,7 +79,7 @@
             custom_icon = d.dirinfo.get(request.locale, 'icon', None)
             name = d.dirinfo.get(request.locale, 'name', d.name)
             if custom_icon:
-                icon_url = i18n_url('files:direct', path=d.other_path(custom_icon))
+                icon_url = h.quoted_url('files:direct', path=d.other_path(custom_icon))
             else:
                 icon_url = None
             description = d.dirinfo.get(request.locale, 'description', None)
@@ -129,7 +129,7 @@
         % for f in files:
             <li class="file-list-item file-list-file" role="row" aria-selected="false" tabindex>
             <%
-            fpath = i18n_url('files:direct', path=f.rel_path)
+            fpath = h.quoted_url('files:direct', path=f.rel_path)
             apath = i18n_url('files:path', path=f.rel_path)
             list_openers_url = i18n_url('opener:list') + h.set_qparam(path=f.rel_path).to_qs()
             parent_url = th.get_parent_url(f.rel_path)
