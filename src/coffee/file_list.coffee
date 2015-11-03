@@ -18,7 +18,7 @@
       container.find('a').first().focus()
     res.fail () ->
       alert templates.alertLoadError
-    return
+    return res
 
   setPath = (path) ->
     if path is '.'
@@ -69,9 +69,10 @@
       e.preventDefault()
       e.stopPropagation()
       url = elem.attr 'href'
-      loadContent url
-      window.history.pushState null, null, url
-      setPath elem.data 'relpath'
+      res = loadContent url
+      res.done () ->
+        window.history.pushState null, null, url
+        setPath elem.data 'relpath'
       return
 
     return
