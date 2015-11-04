@@ -49,17 +49,28 @@ def go_to_parent(path):
 
 @roca_view('filemanager/list', 'filemanager/_list', template_func=template)
 def show_file_list(path=None):
-    search = urlunquote(request.params.get('p', ''))
-    query = search or path or '.'
+    try:
+        query = urlunquote(request.params['p'])
+    except KeyError:
+        query = path or '.'
+        is_search = False
+    else:
+        is_search = True
+
     manager = Manager(request.app.supervisor)
-    (dirs, files, meta, is_match) = manager.search(query)
-    relpath = '.' if not is_match else query
+    if is_search:
+        (dirs, files, meta, is_match) = manager.search(query)
+        relpath = '.' if not is_match else query
+    else:
+        (success, dirs, files, meta) = manager.list(query)
+        relpath = '.' if not success else query
+
     up = get_parent_path(query)
     return dict(path=relpath,
                 dirs=dirs,
                 files=files,
                 up=up,
-                is_search=not is_match,
+                is_search=is_search,
                 openers=request.app.supervisor.exts.openers)
 
 

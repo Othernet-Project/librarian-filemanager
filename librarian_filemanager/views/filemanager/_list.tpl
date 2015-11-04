@@ -29,7 +29,7 @@
     ## - Link to complete file list if there is search query
     ## - Link to parent directory if no search query and not at top-level
 
-    % if is_search:
+    % if is_search or (not dirs) and (not files):
         <li class="file-list-top file-list-item file-list-special">
         <a href="${i18n_url('files:path', path='')}" class="file-list-link" data-type="directory" data-relpath="">
             ${self.file_list_icon('folder-left')}

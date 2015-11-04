@@ -64,8 +64,9 @@ class Manager(object):
         return (dirs, files, meta)
 
     def list(self, path):
-        (dirs, files) = self.fsal_client.list_dir(path)
-        return self._process_listing(dirs, files)
+        (success, dirs, files) = self.fsal_client.list_dir(path)
+        (dirs, files, meta) = self._process_listing(dirs, files)
+        return (success, dirs, files, meta)
 
     def search(self, query):
         (dirs, unfiltered_files, is_match) = self.fsal_client.search(query)

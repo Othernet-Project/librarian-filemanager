@@ -21,6 +21,7 @@
     res.fail(function() {
       return alert(templates.alertLoadError);
     });
+    return res;
   };
   setPath = function(path) {
     if (path === '.') {
@@ -74,9 +75,11 @@
       e.preventDefault();
       e.stopPropagation();
       url = elem.attr('href');
-      loadContent(url);
-      window.history.pushState(null, null, url);
-      setPath(elem.data('relpath'));
+      res = loadContent(url);
+      res.done(function() {
+        window.history.pushState(null, null, url);
+        return setPath(elem.data('relpath'));
+      });
       return;
     }
   });
