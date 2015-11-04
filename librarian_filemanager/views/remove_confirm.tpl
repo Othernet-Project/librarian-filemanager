@@ -9,7 +9,7 @@ ${_("Confirm Removal")}
     <span class="icon"></span>
     ${h.form('post')}
         ## Translators, used as confirmation message before content removal
-        <p class="main">${_("Are you sure you want to remove the item named '%(item_name)s'?") % {'item_name': item_name}}</p>
+        <p class="main">${_("Are you sure you want to remove the item named '{item_name}'?").format(item_name=item_name)}</p>
         ${csrf_tag()}
         <p class="buttons">
             ## Translators, used as title of content removal confirmation button
