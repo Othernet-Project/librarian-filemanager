@@ -61,9 +61,10 @@ def show_file_list(path=None):
     if is_search:
         (dirs, files, meta, is_match) = manager.search(query)
         relpath = '.' if not is_match else query
+        is_successful = True  # search is always successful
     else:
-        (success, dirs, files, meta) = manager.list(query)
-        relpath = '.' if not success else query
+        (is_successful, dirs, files, meta) = manager.list(query)
+        relpath = '.' if not is_successful else query
 
     up = get_parent_path(query)
     return dict(path=relpath,
@@ -71,6 +72,7 @@ def show_file_list(path=None):
                 files=files,
                 up=up,
                 is_search=is_search,
+                is_successful=is_successful,
                 openers=request.app.supervisor.exts.openers)
 
 

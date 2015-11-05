@@ -27,9 +27,10 @@
     ##
     ## - Blank if current path is top-level and there is no search query
     ## - Link to complete file list if there is search query
+    ## - Link to complete file list if invalid path is requested
     ## - Link to parent directory if no search query and not at top-level
 
-    % if is_search or (not dirs) and (not files):
+    % if is_search or not is_successful:
         <li class="file-list-top file-list-item file-list-special">
         <a href="${i18n_url('files:path', path='')}" class="file-list-link" data-type="directory" data-relpath="">
             ${self.file_list_icon('folder-left')}
