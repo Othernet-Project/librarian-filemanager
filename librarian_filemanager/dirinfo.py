@@ -102,16 +102,14 @@ class DirInfo(object):
         no entries are found in the database, a background task will be
         scheduled to read the file from disk."""
         # attempt reading from cache first
-        if supervisor.exts.is_installed('cache'):
-            key = cls.get_cache_key(path)
-            data = supervisor.exts.cache.get(key)
-            if data:
-                return cls(supervisor, path, data=data)
+        key = cls.get_cache_key(path)
+        data = supervisor.exts(onfail=None).cache.get(key)
+        if data:
+            return cls(supervisor, path, data=data)
         # if not in cache, get it from the database
         dirinfo = cls(supervisor, path)
         if dirinfo.read_db():
-            supervisor.exts.cache.set(cls.get_cache_key(path),
-                                      dirinfo.get_data())
+            supervisor.exts.cache.set(key, dirinfo.get_data())
         else:
             supervisor.exts.tasks.schedule(DirInfo.from_file,
                                            args=(supervisor, path))
