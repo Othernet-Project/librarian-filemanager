@@ -81,6 +81,12 @@ class DirInfo(object):
     def get_data(self):
         return self._info
 
+    def delete(self):
+        db = self.supervisor.exts.databases.files
+        query = db.Delete('dirinfo', where='path = ?')
+        db.query(query, self.path)
+        self.supervisor.exts.cache.delete(self.get_cache_key(self.path))
+
     @classmethod
     def get_cache_key(cls, path):
         generated = generate_key(path)
