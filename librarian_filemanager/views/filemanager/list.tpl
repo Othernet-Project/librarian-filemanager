@@ -49,6 +49,10 @@ ${_('Files')}
         </%ui:modal_container>
     </script>
 
+    <script type="text/template" id="spinnerIcon">
+        <span class="file-list-icon icon icon-spinning-loader"></span>
+    </script>
+
     <script type="text/template" id="alertLoadError">
         ${_('Folder listing could not be loaded. Please try again in a few seconds.')}
     </script>

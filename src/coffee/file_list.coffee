@@ -10,6 +10,7 @@
   body = $ document.body
   mainPanel = $ "##{window.o.pageVars.mainPanelId}"
   modalDialogTemplate = window.templates.modalDialogCancelOnly
+  spinnerIcon = window.templates.spinnerIcon
 
   loadContent = (url) ->
     res = $.get url
@@ -68,11 +69,23 @@
     if elem.data('type') is 'directory'
       e.preventDefault()
       e.stopPropagation()
+      icon = elem.find '.file-list-icon'
       url = elem.attr 'href'
+
+      # Show spinner
+      originalIcon = icon.html()
+      spinner = $ spinnerIcon
+      icon.after spinner
+      icon.hide()
+
       res = loadContent url
       res.done () ->
         window.history.pushState null, null, url
         setPath elem.data 'relpath'
+      res.always () ->
+        icon.show()
+        spinner.remove()
+
       return
 
     return
