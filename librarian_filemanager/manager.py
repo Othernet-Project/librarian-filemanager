@@ -28,12 +28,10 @@ class Manager(object):
     def get_contentinfo(self, path):
         generated = generate_key(path)
         key = to_bytes(u'meta_{0}'.format(generated))
-        content = None
-        if self.supervisor.exts.is_installed('cache'):
-            content = self.supervisor.exts.cache.get(key)
-
+        content = self.supervisor.exts(onfail=None).cache.get(key)
         if not content:
             content = self.archive.get_single(path)
+            self.supervisor.exts.cache.set(key, content)
 
         return metadata.Meta(content) if content else None
 
