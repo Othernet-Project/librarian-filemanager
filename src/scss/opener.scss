@@ -28,6 +28,11 @@
     .icon {
       font-size: 180%;
     }
+
+    &:hover,
+    &:focus {
+      color: $o-base-text-color;
+    }
   }
 
   li:last-child a {

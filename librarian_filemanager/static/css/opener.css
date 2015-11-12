@@ -32,7 +32,11 @@
 .openers a .icon {
   font-size: 180%;
 }
-/* line 33, ../../../src/scss/opener.scss */
+/* line 32, ../../../src/scss/opener.scss */
+.openers a:hover, .openers a:focus {
+  color: #333;
+}
+/* line 38, ../../../src/scss/opener.scss */
 .openers li:last-child a {
   border-bottom: 0;
 }
