@@ -177,7 +177,12 @@
                     data-type="directory"
                     class="file-list-link"
                     >
-                    <span>(${_('jump to parent folder')})</span>
+                    <span>
+                        <span class="icon icon-folder"></span>
+                        ## Translators, link to containing folder of a file in 
+                        ## the search results.
+                        <span>${_('containing folder')}</span>
+                    </span>
                 </a>
             % else:
                 <span class="file-list-controls">
