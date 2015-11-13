@@ -1,6 +1,8 @@
 @import "compass/css3";
 @import "base/params";
 @import "base/media_query";
+@import "compass/typography/text/replacement";
+
 
 #file-list-container {
   @include narrower-than(520px) {
@@ -15,6 +17,9 @@
     // Styling
     background: $o-thin-overlay-material;
     border-bottom: $o-separator-border;
+
+    // Basic geometry
+    position: relative;
 
     &:last-child {
       border-bottom: 0;
@@ -85,6 +90,34 @@
         vertical-align: middle;
         width: auto;
       }
+    }
+  }
+}
+
+.file-list-controls {
+  // Basic geometry
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: 0.7rem 0.4rem;
+
+  .file-list-delete {
+    button {
+      color: $o-base-text-color;
+
+      &:hover,
+      &:focus {
+        color: $o-critical;
+      }
+    }
+
+    .icon {
+      font-size: 200%;
+    }
+
+    .label {
+      display: none;
     }
   }
 }
