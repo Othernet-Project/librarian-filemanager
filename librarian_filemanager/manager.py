@@ -1,10 +1,6 @@
 import mimetypes
 
-from bottle_utils.common import to_bytes
-
 from librarian_content.library import metadata
-from librarian_content.library.archive import Archive
-from librarian_core.contrib.cache.utils import generate_key
 
 from .dirinfo import DirInfo
 
@@ -15,30 +11,22 @@ class Manager(object):
         self.supervisor = supervisor
         self.fsal_client = self.supervisor.exts.fsal
         conf = supervisor.config
-        self.archive = Archive.setup(conf['library.backend'],
-                                     supervisor.exts.fsal,
-                                     supervisor.exts.databases.content,
-                                     contentdir=conf['library.contentdir'],
-                                     meta_filenames=conf['library.metadata'])
         self.META_FILES = [DirInfo.FILENAME] + conf['library.metadata']
 
-    def get_dirinfo(self, path):
-        return DirInfo.from_db(self.supervisor, path)
+    def get_dirinfos(self, paths):
+        return DirInfo.from_db(self.supervisor, paths)
 
-    def get_contentinfo(self, path):
-        generated = generate_key(path)
-        key = to_bytes(u'meta_{0}'.format(generated))
-        content = self.supervisor.exts(onfail=None).cache.get(key)
-        if not content:
-            content = self.archive.get_single(path)
-            self.supervisor.exts.cache.set(key, content)
+    def get_contentinfos(self, paths):
+        return metadata.Meta.from_db(self.supervisor, paths)
 
-        return metadata.Meta(content) if content else None
-
-    def _extend_dir(self, fs_obj):
-        fs_obj.dirinfo = self.get_dirinfo(fs_obj.path)
-        fs_obj.contentinfo = self.get_contentinfo(fs_obj.rel_path)
-        return fs_obj
+    def _extend_dirs(self, dirs):
+        dirpaths = [fs_obj.rel_path for fs_obj in dirs]
+        dirinfos = self.get_dirinfos(dirpaths)
+        contentinfos = self.get_contentinfos(dirpaths)
+        for fs_obj in dirs:
+            fs_obj.dirinfo = dirinfos[fs_obj.rel_path]
+            fs_obj.contentinfo = contentinfos.get(fs_obj.rel_path)
+        return dirs
 
     def _extend_file(self, fs_obj):
         mimetype, encoding = mimetypes.guess_type(fs_obj.rel_path)
@@ -48,8 +36,7 @@ class Manager(object):
     def _process_listing(self, dirs, unfiltered_files):
         meta = {}
         files = []
-        for fs_obj in dirs:
-            self._extend_dir(fs_obj)
+        self._extend_dirs(dirs)
         for fs_obj in unfiltered_files:
             self._extend_file(fs_obj)
             if fs_obj.name in self.META_FILES:
