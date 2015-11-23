@@ -240,7 +240,9 @@ def opener_detail(opener_id, path=None):
                             contentdir=conf['library.contentdir'],
                             meta_filenames=conf['library.metadata'])
     content = archive.get_single(path)
-    meta = metadata.Meta(content) if content else None
+    meta = metadata.Meta(request.app.supervisor,
+                         path,
+                         data=content) if content else None
     opener_html = opener(path)
     if request.is_xhr:
         return opener_html
