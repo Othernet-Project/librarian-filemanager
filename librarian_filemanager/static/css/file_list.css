@@ -16,24 +16,25 @@
  * http://www.gnu.org/licenses/gpl.txt.
  */
 @media only screen and (max-width: 520px) {
-  /* line 5, ../../../src/scss/file_list.scss */
+  /* line 7, ../../../src/scss/file_list.scss */
   #file-list-container {
     padding: 0;
   }
 }
 
-/* line 11, ../../../src/scss/file_list.scss */
+/* line 13, ../../../src/scss/file_list.scss */
 .file-list {
   -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
 }
-/* line 14, ../../../src/scss/file_list.scss */
+/* line 16, ../../../src/scss/file_list.scss */
 .file-list .file-list-item {
   background: rgba(255, 255, 255, 0.75);
   border-bottom: 1px solid #ddd;
+  position: relative;
 }
-/* line 19, ../../../src/scss/file_list.scss */
+/* line 24, ../../../src/scss/file_list.scss */
 .file-list .file-list-item:last-child {
   border-bottom: 0;
   -moz-border-radius-bottomleft: 0.3rem;
@@ -43,7 +44,7 @@
   -webkit-border-bottom-right-radius: 0.3rem;
   border-bottom-right-radius: 0.3rem;
 }
-/* line 25, ../../../src/scss/file_list.scss */
+/* line 30, ../../../src/scss/file_list.scss */
 .file-list .file-list-item:first-child {
   -moz-border-radius-topleft: 0.3rem;
   -webkit-border-top-left-radius: 0.3rem;
@@ -52,7 +53,7 @@
   -webkit-border-top-right-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
 }
-/* line 30, ../../../src/scss/file_list.scss */
+/* line 35, ../../../src/scss/file_list.scss */
 .file-list .file-list-item .file-list-name {
   display: inline-block;
   overflow: hidden;
@@ -60,19 +61,19 @@
   text-overflow: ellipsis;
   max-width: 80%;
 }
-/* line 38, ../../../src/scss/file_list.scss */
+/* line 43, ../../../src/scss/file_list.scss */
 .file-list .file-list-item .file-list-icon {
   display: inline-block;
   width: 32px;
   font-size: 180%;
 }
-/* line 46, ../../../src/scss/file_list.scss */
+/* line 51, ../../../src/scss/file_list.scss */
 .file-list .file-list-item .file-list-icon img {
   width: 32px;
   height: 32px;
   vertical-align: middle;
 }
-/* line 53, ../../../src/scss/file_list.scss */
+/* line 58, ../../../src/scss/file_list.scss */
 .file-list .file-list-item a {
   font-size: 120%;
   text-decoration: none;
@@ -81,18 +82,43 @@
   width: 100%;
   color: #333;
 }
-/* line 66, ../../../src/scss/file_list.scss */
+/* line 71, ../../../src/scss/file_list.scss */
 .file-list .file-list-item a:hover, .file-list .file-list-item a:focus {
   color: #089bd2;
 }
-/* line 73, ../../../src/scss/file_list.scss */
+/* line 78, ../../../src/scss/file_list.scss */
 .file-list .file-list-description {
   font-size: 90%;
   display: block;
   padding-left: 3rem;
 }
-/* line 84, ../../../src/scss/file_list.scss */
+/* line 89, ../../../src/scss/file_list.scss */
 .file-list.search .file-list-item a {
   vertical-align: middle;
   width: auto;
+}
+
+/* line 97, ../../../src/scss/file_list.scss */
+.file-list-controls {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: 0.7rem 0.4rem;
+}
+/* line 106, ../../../src/scss/file_list.scss */
+.file-list-controls .file-list-delete button {
+  color: #333;
+}
+/* line 109, ../../../src/scss/file_list.scss */
+.file-list-controls .file-list-delete button:hover, .file-list-controls .file-list-delete button:focus {
+  color: #cc3737;
+}
+/* line 115, ../../../src/scss/file_list.scss */
+.file-list-controls .file-list-delete .icon {
+  font-size: 200%;
+}
+/* line 119, ../../../src/scss/file_list.scss */
+.file-list-controls .file-list-delete .label {
+  display: none;
 }

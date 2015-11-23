@@ -22,6 +22,19 @@
     </span>
 </%def>
 
+<%def name="file_delete(path)">
+    <form action="${i18n_url('files:path', path=path)}" class="file-list-delete">
+        <input type="hidden" name="action" value="delete">
+        <button class="nobutton" type="submit">
+            <span class="icon icon-no"></span>
+            ## Translators, used as label for folder/file delete button
+            <span class="label">${_('Delete')}</span>
+        </button>
+    </form>
+</%def>
+
+<% is_super = request.user.is_superuser %>
+
 <ul class="file-list ${'search' if is_search else ''}" id="file-list" role="grid" aria-multiselectable="true">
     ## The first item is:
     ##
@@ -122,6 +135,13 @@
                     </span>
                 % endif
             </a>
+            % if not is_search:
+                <span class="file-list-controls">
+                    % if is_super:
+                        ${self.file_delete(d.rel_path)}
+                    % endif
+                </span>
+            % endif
             </li>
         % endfor
 
@@ -151,14 +171,25 @@
                 </%self:file_list_name>
             </a>
             % if is_search:
-            <a
-                href="${parent_url}"
-                data-action-url="${parent_url}"
-                data-type="directory"
-                class="file-list-link"
-                >
-                <span>(${_('jump to parent folder')})</span>
-            </a>
+                <a
+                    href="${parent_url}"
+                    data-action-url="${parent_url}"
+                    data-type="directory"
+                    class="file-list-link"
+                    >
+                    <span>
+                        <span class="icon icon-folder"></span>
+                        ## Translators, link to containing folder of a file in 
+                        ## the search results.
+                        <span>${_('containing folder')}</span>
+                    </span>
+                </a>
+            % else:
+                <span class="file-list-controls">
+                    % if is_super:
+                        ${self.file_delete(f.rel_path)}
+                    % endif
+                </span>
             % endif
             </li>
         % endfor

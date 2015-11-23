@@ -106,7 +106,7 @@ def guard_already_removed(func):
 
 @csrf_token
 @guard_already_removed
-@view('remove_confirm')
+@view('filemanager/remove_confirm')
 def delete_path_confirm(path):
     cancel_url = request.headers.get('Referer', get_parent_url(path))
     return dict(item_name=os.path.basename(path), cancel_url=cancel_url)
@@ -114,7 +114,7 @@ def delete_path_confirm(path):
 
 @csrf_protect
 @guard_already_removed
-@view('feedback')
+@view('ui/feedback')
 def delete_path(path):
     manager = Manager(request.app.supervisor)
     (success, error) = manager.remove(path)
@@ -127,7 +127,7 @@ def delete_path(path):
                     page_title=page_title,
                     message=message,
                     redirect_url=get_parent_url(path),
-                    redirect_target=_("Files"))
+                    redirect_target=_("file list"))
 
     # Translators, used as page title of unsuccessful file removal feedback
     page_title = _("File not removed")
@@ -137,7 +137,7 @@ def delete_path(path):
                 page_title=page_title,
                 message=message,
                 redirect_url=get_parent_url(path),
-                redirect_target=_("Files"))
+                redirect_target=_("file list"))
 
 
 def rename_path(path):
