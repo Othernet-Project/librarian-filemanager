@@ -6,7 +6,7 @@ create table dirinfo
     name varchar,
     description varchar,
     icon varchar,
-    unique(path, language) on conflict replace
+    unique(path, language)
 );
 """
 
