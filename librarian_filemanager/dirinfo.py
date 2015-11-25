@@ -33,11 +33,9 @@ class DirInfo(CDFObject):
         for language, info in data.items():
             to_write = dict(path=self.path, language=language)
             to_write.update(info)
-            query = db.Replace(
-                self.TABLE_NAME,
-                where='path = %(path)s AND language = %(language)s',
-                cols=to_write.keys()
-            )
+            query = db.Replace(self.TABLE_NAME,
+                               constraints=['path', 'language'],
+                               cols=to_write.keys())
             db.execute(query, to_write)
 
     def delete(self):
