@@ -33,12 +33,16 @@ class DirInfo(CDFObject):
         for language, info in data.items():
             to_write = dict(path=self.path, language=language)
             to_write.update(info)
-            query = db.Replace(self.TABLE_NAME, cols=to_write.keys())
-            db.query(query, **to_write)
+            query = db.Replace(
+                self.TABLE_NAME,
+                where='path = %(path)s AND language = %(language)s',
+                cols=to_write.keys()
+            )
+            db.execute(query, to_write)
 
     def delete(self):
         db = self.supervisor.exts.databases[self.DATABASE_NAME]
-        query = db.Delete(self.TABLE_NAME, where='path = ?')
+        query = db.Delete(self.TABLE_NAME, where='path = %s')
         db.query(query, self.path)
         self.supervisor.exts.cache.delete(self.get_cache_key(self.path))
 
@@ -69,8 +73,7 @@ class DirInfo(CDFObject):
     @classmethod
     def fetch(cls, db, paths):
         query = db.Select(sets=cls.TABLE_NAME, where=db.sqlin('path', paths))
-        db.query(query, *paths)
-        for row in db.results:
+        for row in db.fetchiter(query, paths):
             if row:
                 raw_data = cls.row_to_dict(row)
                 language = raw_data.pop('language', None) or cls.NO_LANGUAGE
