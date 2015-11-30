@@ -12,9 +12,16 @@
     </li>
     % endfor
     <li class="opener">
-        <a class="opener-generic" href="${list_url if is_folder else download_url}">
-            <span class="icon icon-download"></span>
-            <span class="name">${_("Explore") if is_folder else _("Download")}</span>
+    <a class="opener-generic" href="${list_url if is_folder else download_url}">
+            % if is_folder:
+                <span class="icon icon-folder"></span>
+                ## Translators, label for an icon view folder contents
+                <span class="name">${_("List files")}</span>
+            % else:
+                <span class="icon icon-download"></span>
+                ## Translators, label for an icon to download content
+                <span class="name">${_("Download")}</span>
+            % endif
         </a>
     </li>
 </ul>
