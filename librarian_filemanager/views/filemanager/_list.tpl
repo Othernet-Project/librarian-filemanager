@@ -103,7 +103,14 @@
                 for content_type in d.contentinfo.content_type_names:
                     query.add_qparam(content_type=content_type)
                 openers_url = i18n_url('opener:list') + query.to_qs()
+                ctypes = d.contentinfo.content_type_names
+                if len(ctypes) > 1:
+                    icon_name = 'multi-type'
+                else:
+                    icon_name = ctypes[0]
+                icon_url = None  # Disable custom icon if content type is used
             else:
+                icon_name = 'folder'
                 openers_url = ''
             %>
             <li class="file-list-item file-list-directory" role="row" aria-selected="false" tabindex>
@@ -121,7 +128,7 @@
                         <img src="${icon_url}">
                     </span>
                 % else:
-                    ${self.file_list_icon('folder')}
+                    ${self.file_list_icon(icon_name)}
                 % endif
                 <%self:file_list_name>
                     % if icon_url:
