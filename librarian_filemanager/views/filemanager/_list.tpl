@@ -35,7 +35,7 @@
 
 <% is_super = request.user.is_superuser %>
 
-<ul class="file-list ${'search' if is_search else ''}" id="file-list" role="grid" aria-multiselectable="true">
+<ul class="file-list" id="file-list" role="grid" aria-multiselectable="true">
     ## The first item is:
     ##
     ## - Blank if current path is top-level and there is no search query
@@ -155,7 +155,7 @@
         ## Files
 
         % for f in files:
-            <li class="file-list-item file-list-file" role="row" aria-selected="false" tabindex>
+            <li class="file-list-item file-list-file${' file-list-search-result' if is_search else ''}" role="row" aria-selected="false" tabindex>
             <%
             fpath = h.quoted_url('files:direct', path=f.rel_path)
             apath = i18n_url('files:path', path=f.rel_path)
@@ -170,7 +170,7 @@
                 data-relpath="${f.rel_path}"
                 data-mimetype="${f.mimetype or ''}"
                 data-type="file"
-                class="file-list-link"
+                class="file-list-link${' file-list-search-result' if is_search else ''}"
                 >
                 ${self.file_list_icon(ICON_MAPPINGS.get(f.mimetype, DEFAULT_ICON))}
                 <%self:file_list_name>
@@ -182,13 +182,16 @@
                     href="${parent_url}"
                     data-action-url="${parent_url}"
                     data-type="directory"
-                    class="file-list-link"
+                    class="file-list-search-result file-list-parent-folder"
                     >
                     <span>
                         <span class="icon icon-folder"></span>
-                        ## Translators, link to containing folder of a file in 
-                        ## the search results.
-                        <span>${_('containing folder')}</span>
+                        <span>
+                            ## Translators, link to containing folder of a file
+                            ## in the search results. {} is a placeholder for
+                            ## the folder name.
+                            ${_(u"in {}").format(f.parent)}
+                        </span>
                     </span>
                 </a>
             % else:

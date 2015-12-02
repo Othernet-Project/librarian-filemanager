@@ -3,6 +3,11 @@
 @import "base/media_query";
 @import "compass/typography/text/replacement";
 
+@mixin ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 
 #file-list-container {
   @include narrower-than(520px) {
@@ -17,6 +22,7 @@
     // Styling
     background: $o-thin-overlay-material;
     border-bottom: $o-separator-border;
+    overflow: hidden;
 
     // Basic geometry
     position: relative;
@@ -33,11 +39,13 @@
     }
 
     .file-list-name {
+      // Basic geometry
       display: inline-block;
       overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
       max-width: 80%;
+
+      // Styling
+      @include ellipsis;
     }
 
     .file-list-icon {
@@ -84,12 +92,46 @@
     padding-left: $o-clickable-target-size;
   }
 
-  &.search {
-    .file-list-item {
-      a {
-        vertical-align: middle;
-        width: auto;
+  .file-list-file.file-list-search-result {
+    a.file-list-link {
+      width: 30%;
+
+      @include narrower-than(1024px) {
+        width: 50%;
       }
+
+      @include narrower-than(640px) {
+        width: 100%;
+      }
+    }
+
+    &::after {
+      // When file appears in search, parent folder is displayed next to it. This
+      // rule prevents the folder link appearing below the file icon.
+      content: '';
+      display: block;
+      clear: both;
+    }
+  }
+
+  a.file-list-search-result {
+    float: left;
+    width: auto;
+    vertical-align: middle;
+
+  }
+
+  a.file-list-parent-folder {
+    width: 70%;
+    font-size: 100%;
+    @include ellipsis;
+
+    @include narrower-than(1024px) {
+      width: 50%;
+    }
+
+    @include narrower-than(640px) {
+      display: none;
     }
   }
 }

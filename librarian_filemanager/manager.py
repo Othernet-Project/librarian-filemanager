@@ -1,6 +1,8 @@
+import os
 import mimetypes
 
 from librarian_content.library import metadata
+from bottle_utils.common import to_unicode
 
 from .dirinfo import DirInfo
 
@@ -31,6 +33,8 @@ class Manager(object):
     def _extend_file(self, fs_obj):
         mimetype, encoding = mimetypes.guess_type(fs_obj.rel_path)
         fs_obj.mimetype = mimetype
+        fs_obj.parent = to_unicode(
+            os.path.basename(os.path.dirname(fs_obj.path)))
         return fs_obj
 
     def _process_listing(self, dirs, unfiltered_files):
