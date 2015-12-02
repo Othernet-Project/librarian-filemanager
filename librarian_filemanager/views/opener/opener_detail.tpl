@@ -24,7 +24,7 @@ ${(meta.title if meta else filename) | h}
                 ## Translators, attribution line appearing in the content list
                 <p class="attrib">
                 % if meta.publisher:
-                ${_('{date} by {publisher}.').format(date=meta.timestamp.strftime('%Y-%m-%d'), publisher=h.attr_escape(meta.publisher))}
+                ${_('{date} by {publisher}.').format(date=meta.timestamp.strftime('%Y-%m-%d'), publisher=h.html_escape(meta.publisher))}
                 % else:
                 ${meta.timestamp.strftime('%Y-%m-%d')}
                 % endif

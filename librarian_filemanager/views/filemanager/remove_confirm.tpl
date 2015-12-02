@@ -15,7 +15,7 @@ ${_("Confirm removal")}
     ${h.form('post')}
         <p class="main">
             ## Translators, used as confirmation message before content removal
-            ${_("You are about to delete '{item_name}'.").format(item_name=h.attr_escape(item_name))}
+            ${_("You are about to delete '{item_name}'.").format(item_name=h.html_escape(item_name))}
             <strong>
                 ## Translators, message warning users about deleted files and
                 ## folders.
