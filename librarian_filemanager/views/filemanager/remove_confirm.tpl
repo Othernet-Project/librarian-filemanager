@@ -8,16 +8,16 @@ ${_("Confirm removal")}
 <div class="full-page-form confirm remove">
     <h2>
         <span class="icon icon-alert-question"></span>
-        ## Translators, used title at top of the removal confirmation page, 
+        ## Translators, used title at top of the removal confirmation page,
         ## asking user to confirm file/folder deletion.
         <span>${_("Delete permanently?")}</span>
     </h2>
     ${h.form('post')}
         <p class="main">
             ## Translators, used as confirmation message before content removal
-            ${_("You are about to delete '{item_name}'.").format(item_name=item_name)}
+            ${_("You are about to delete '{item_name}'.").format(item_name=h.attr_escape(item_name))}
             <strong>
-                ## Translators, message warning users about deleted files and 
+                ## Translators, message warning users about deleted files and
                 ## folders.
                 ${_("Deleted files and folders cannot be recovered.")}
             </strong>

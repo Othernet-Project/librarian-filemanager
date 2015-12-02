@@ -2,7 +2,7 @@
 <%namespace name="opener" file="_opener.tpl"/>
 
 <%block name="title">
-${meta.title if meta else filename}
+${(meta.title if meta else filename) | h}
 </%block>
 
 <%block name="extra_head">
@@ -18,13 +18,13 @@ ${meta.title if meta else filename}
             <div class="meta-container">
                 % if meta:
                 <div class="content-info">
-                    <div class="title">${meta.title}</div>
+                    <div class="title">${meta.title | h}</div>
                     <div class="download-date">${meta.timestamp.date()}</div>
                 </div>
                 ## Translators, attribution line appearing in the content list
                 <p class="attrib">
                 % if meta.publisher:
-                ${_('{date} by {publisher}.').format(date=meta.timestamp.strftime('%Y-%m-%d'), publisher=meta.publisher)}
+                ${_('{date} by {publisher}.').format(date=meta.timestamp.strftime('%Y-%m-%d'), publisher=h.attr_escape(meta.publisher))}
                 % else:
                 ${meta.timestamp.strftime('%Y-%m-%d')}
                 % endif

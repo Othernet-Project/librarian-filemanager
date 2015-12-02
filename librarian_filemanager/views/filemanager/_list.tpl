@@ -118,7 +118,7 @@
                 href="${dpath}"
                 data-action-url="${dpath}"
                 data-opener="${openers_url}"
-                data-relpath="${d.rel_path}"
+                data-relpath="${d.rel_path | h.urlquote}"
                 data-type="directory"
                 class="file-list-link"
                 >
@@ -138,7 +138,7 @@
                 </%self:file_list_name>
                 % if description:
                     <span class="file-list-description">
-                        ${description}
+                        ${description | h}
                     </span>
                 % endif
             </a>
@@ -167,14 +167,14 @@
                 href="${fpath}"
                 data-action-url="${apath}"
                 data-opener="${list_openers_url}"
-                data-relpath="${f.rel_path}"
-                data-mimetype="${f.mimetype or ''}"
+                data-relpath="${f.rel_path | h.urlquote}"
+                data-mimetype="${(f.mimetype or '') | h}"
                 data-type="file"
                 class="file-list-link${' file-list-search-result' if is_search else ''}"
                 >
                 ${self.file_list_icon(ICON_MAPPINGS.get(f.mimetype, DEFAULT_ICON))}
                 <%self:file_list_name>
-                    ${h.to_unicode(f.name)}
+                    ${h.to_unicode(f.name) | h}
                 </%self:file_list_name>
             </a>
             % if is_search:
@@ -190,7 +190,7 @@
                             ## Translators, link to containing folder of a file
                             ## in the search results. {} is a placeholder for
                             ## the folder name.
-                            ${_(u"in {}").format(f.parent)}
+                            ${_(u"in {}").format(h.urlquote(f.parent))}
                         </span>
                     </span>
                 </a>
