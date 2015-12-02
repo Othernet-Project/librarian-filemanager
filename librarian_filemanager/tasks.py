@@ -8,4 +8,6 @@ def check_dirinfo(supervisor, event):
         if event.event_type == 'created':
             DirInfo.from_file(supervisor, event.src)
         elif event.event_type == 'deleted':
-            DirInfo.from_db(supervisor, event.src).delete()
+            entries = DirInfo.from_db(supervisor, [event.src])
+            for dirinfo in entries.values():
+                dirinfo.delete()
