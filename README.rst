@@ -22,6 +22,12 @@ To enable this component, add it to the list of components in librarian_'s
     +components =
         librarian_filemanager
 
+And to make the menuitem show up::
+
+    [menu]
+    +main =
+        files
+
 Development
 -----------
 
