@@ -190,7 +190,7 @@
                             ## Translators, link to containing folder of a file
                             ## in the search results. {} is a placeholder for
                             ## the folder name.
-                            ${_(u"in {}").format(h.urlquote(f.parent))}
+                            ${_(u"in {}").format(esc(f.parent))}
                         </span>
                     </span>
                 </a>

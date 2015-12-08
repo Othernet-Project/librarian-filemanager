@@ -22,7 +22,7 @@ ${_('Files')}
         </div>
         <div class="o-panel">
             ## Translators, used in file search box
-            ${forms.text('p', _('Folder path or search keywords'), value=None if is_search else (path if path != '.' else ''))}
+            ${forms.text('p', _('Folder path or search keywords'), value=None if is_search else (esc(h.urlunquote(path)) if path != '.' else ''))}
         </div>
         <div class="o-panel">
             <button id="files-multisearch-button" type="submit" class="o-multisearch-button">
