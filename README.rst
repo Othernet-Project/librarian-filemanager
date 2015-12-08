@@ -5,7 +5,7 @@ librarian-filemanager
 The filemanager component provides a GUI for browsing and managing the content
 library (similar to conventional file managers), and an API for registering
 openers of specific content types, which are librarian_'s equivalent of file
-type associactions.
+type associations.
 
 Installation
 ------------
