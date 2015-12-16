@@ -11,7 +11,7 @@
   sendOpenerEvent = (opener) ->
     path = opener.data 'path'
     type = opener.data 'type'
-    ($ window).trigger 'opener-click', {path: path, type: type}
+    ($ window).trigger 'opener-click', [{path: path, type: type}]
 
   openers.on 'click', () ->
     el = $ this

@@ -12,10 +12,12 @@
     var path, type;
     path = opener.data('path');
     type = opener.data('type');
-    return ($(window)).trigger('opener-click', {
-      path: path,
-      type: type
-    });
+    return ($(window)).trigger('opener-click', [
+      {
+        path: path,
+        type: type
+      }
+    ]);
   };
   openers.on('click', function() {
     var el;
