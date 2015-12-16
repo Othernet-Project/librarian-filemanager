@@ -12,7 +12,7 @@
     </li>
     % endfor
     <li class="opener">
-    <a class="opener-generic" href="${list_url if is_folder else download_url}" data-path="${path}" data-type="${'list' if is_folder else 'download'}">
+    <a class="opener-generic" href="${list_url if is_folder else download_url}" data-path="${path}" data-type="${'folder' if is_folder else 'download'}">
             % if is_folder:
                 <span class="icon icon-folder"></span>
                 ## Translators, label for an icon view folder contents
