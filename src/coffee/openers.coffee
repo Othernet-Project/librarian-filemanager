@@ -21,7 +21,7 @@
 
 
   if openers.length is 1
-    geenricOpener.trigger 'click'
+    genericOpener[0].click()
 
   return
 

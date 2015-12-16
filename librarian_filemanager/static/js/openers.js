@@ -23,6 +23,6 @@
     sendOpenerEvent(el);
   });
   if (openers.length === 1) {
-    geenricOpener.trigger('click');
+    genericOpener[0].click();
   }
 })(this, this.jQuery);
