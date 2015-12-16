@@ -1,31 +1,28 @@
 ((window, $) ->
-  AUTOCLICK_DELAY = 500  # 500ms
+  AUTOCLICK_DELAY = 1500  # 500ms
 
-  openers = $ '.opener'
+  openers = $ '.opener a'
   modalOverlay = openers.parents '.o-modal-overlay'
   genericOpener = $ '.opener-generic'
 
-  closeOverlay = () ->
-    modalOverlay.trigger 'click'
 
   sendOpenerEvent = (opener) ->
     path = opener.data 'path'
     type = opener.data 'type'
     ($ window).trigger 'opener-click', [{path: path, type: type}]
+    return
+
 
   openers.on 'click', () ->
+    modalOverlay.trigger 'click'
     el = $ this
     sendOpenerEvent el
+    return
+
 
   if openers.length is 1
-    url = genericOpener.attr 'href'
-    sendOpenerEvent genericOpener
-    closeOverlay()
-    # jQuery prevents programmatic clicks on links
-    setTimeout () ->
-      window.location = url
-    , AUTOCLICK_DELAY
-  else
+    geenricOpener.trigger 'click'
 
+  return
 
 ) this, this.jQuery
