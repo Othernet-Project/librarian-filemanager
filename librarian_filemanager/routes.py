@@ -61,6 +61,7 @@ def show_file_list(path=None):
     if is_search:
         (dirs, files, meta, is_match) = manager.search(query)
         relpath = '.' if not is_match else query
+        is_search = not is_match
         is_successful = True  # search is always successful
     else:
         (is_successful, dirs, files, meta) = manager.list(query)
