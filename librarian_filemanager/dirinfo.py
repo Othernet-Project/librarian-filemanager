@@ -41,7 +41,7 @@ class DirInfo(CDFObject):
     def delete(self):
         db = self.supervisor.exts.databases[self.DATABASE_NAME]
         query = db.Delete(self.TABLE_NAME, where='path = %s')
-        db.execute(query, self.path)
+        db.execute(query, (self.path,))
         self.supervisor.exts.cache.delete(self.get_cache_key(self.path))
 
     def read_file(self):
