@@ -1,7 +1,34 @@
 <%inherit file="/base.tpl"/>
 <%namespace name="ui" file="/ui/widgets.tpl"/>
 <%namespace name="forms" file="/ui/forms.tpl"/>
-<%namespace name="list" file="_list.tpl"/>
+<%namespace name="files" file="_list.tpl"/>
+<%namespace name="gallery" file="_gallery.tpl"/>
+<%namespace name="playlist" file="_playlist.tpl"/>
+<%namespace name="clips" file="_clips.tpl"/>
+<%namespace name="html" file="_html.tpl"/>
+
+<%!
+# Mappings between facets and view urls
+FACET_VIEW_MAPPINGS = (
+    ('generic', 'files', 'Browse'),
+    ('image', 'gallery', 'Gallery'),
+    ('audio', 'playlist', 'Audio'),
+    ('video', 'clips', 'Watch'),
+    ('read', 'html', 'Read')
+)
+
+
+def get_views(facets):
+    result = list()
+    if not facets:
+        default = FACET_VIEW_MAPPINGS[0]
+        result.append((default[1], default[2]))
+        return result
+    for facet_type, name, label in FACET_VIEW_MAPPINGS:
+        if facets.has_type(facet_type):
+            result.append((name, label))
+    return result
+%>
 
 <%block name="title">
 ## Translators, used as page title
@@ -35,8 +62,26 @@ ${_('Files')}
 </%block>
 
 <%block name="main">
+    <div class="o-main-inner" id="views-tabs-container">
+        <ul id="views-tabs-strip" class="views-tabs-strip" role="tablist">
+            % for name, label in get_views(facets):
+                <%
+                view_url = i18n_url('files:path', path=path, view=name)
+                %>
+                 <li class="views-tabs-strip-tab" role="tab">
+                     <span class="icon view-icon-${name}"></span>
+                     <a href="${view_url}">${_(label)}</a>
+                 </li>
+            % endfor
+        </ul>
+    </div>
     <div class="o-main-inner" id="file-list-container">
-        ${list.body()}
+        % for ns in context.namespaces.values():
+            % if ns.name == view:
+                ${ns.body()}
+                <% break %>
+            % endif
+        % endfor
     </div>
 </%block>
 

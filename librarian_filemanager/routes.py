@@ -25,6 +25,7 @@ from librarian_core.contrib.templates.decorators import template_helper
 from librarian_core.contrib.templates.renderer import template, view
 
 from .manager import Manager
+from .helpers import get_facets
 
 
 EXPORTS = {
@@ -48,7 +49,7 @@ def go_to_parent(path):
 
 
 @roca_view('filemanager/list', 'filemanager/_list', template_func=template)
-def show_file_list(path=None):
+def show_file_list(path=None, defaults=dict()):
     try:
         query = urlunquote(request.params['p'])
     except KeyError:
@@ -68,13 +69,15 @@ def show_file_list(path=None):
         relpath = '.' if not is_successful else query
 
     up = get_parent_path(query)
-    return dict(path=relpath,
-                dirs=dirs,
-                files=files,
-                up=up,
-                is_search=is_search,
-                is_successful=is_successful,
-                openers=request.app.supervisor.exts.openers)
+    data = defaults.copy()
+    data.update(dict(path=relpath,
+                     dirs=dirs,
+                     files=files,
+                     up=up,
+                     is_search=is_search,
+                     is_successful=is_successful,
+                     openers=request.app.supervisor.exts.openers))
+    return data
 
 
 def direct_file(path):
@@ -165,15 +168,35 @@ def run_path(path):
     return ret, out, err
 
 
-def init_file_action(path):
-    path = urlunquote(path)
+@roca_view('filemanager/list', 'filemanager/_list', template_func=template)
+def show_view(path, view, defaults=dict()):
+    return defaults
+
+
+def init_file_action(path=None):
+    if path:
+        path = urlunquote(path)
+    else:
+        path = '.'
+    # Use 'files' as default view
+    view = request.query.get('view', 'files')
+    defaults = dict(path=path,
+                    view=view,
+                    facets=get_facets(path))
+    if view == 'files':
+        return show_files_view(path, defaults)
+    else:
+        return show_view(path, view, defaults)
+
+
+def show_files_view(path, defaults):
     action = request.query.get('action')
     if action == 'delete':
         return delete_path_confirm(path)
     elif action == 'open':
         return opener_detail(request.query.get('opener_id'), path=path)
 
-    return show_file_list(path)
+    return show_file_list(path, defaults=defaults)
 
 
 def handle_file_action(path):
@@ -259,7 +282,7 @@ def opener_detail(opener_id, path=None):
 
 def routes(config):
     return (
-        ('files:list', show_file_list,
+        ('files:list', init_file_action,
          'GET', '/files/', dict(unlocked=True)),
         ('files:path', init_file_action,
          'GET', '/files/<path:path>', dict(unlocked=True)),
