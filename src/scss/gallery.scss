@@ -1,0 +1,29 @@
+@import "base";
+
+.gallery-list {
+  @include box-shadow($o-thin-overlay-shadow);
+
+  .gallery-list-item {
+    // Styling
+    background: $o-thin-overlay-material;
+    border: $o-separator-border;
+
+    // Basic geometry
+    position: relative;
+
+    a {
+      // Basic geometry
+      display: inline;
+      padding: 1rem;
+      width: 100%;
+    }
+    
+    .gallery-list-item-thumbnail {
+        @include background-size(cover);
+        background-position: center center;
+        padding: 0;
+        border-bottom: 0;
+    }
+  }
+}
+

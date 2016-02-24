@@ -5,8 +5,7 @@
   DOWN = 40
   openerLinkSelector = '.opener-link'
   searchInput = $ '#files-multisearch #p'
-  fileList = $ '#file-list'
-  container = $ '#file-list-container'
+  container = $ '#main-container'
   body = $ document.body
   mainPanel = $ "##{window.o.pageVars.mainPanelId}"
   modalDialogTemplate = window.templates.modalDialogCancelOnly

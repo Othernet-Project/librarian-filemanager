@@ -1,0 +1,52 @@
+/**
+ * This module contains base variables that are used to re-skin (customize) the 
+ * Librarian UI toolkit.
+ *
+ * Recommended way to customize the variables is to load a separate module 
+ * containing customized values _before_ this module.
+ */
+/**
+ * _media_query.scss: media query support
+ *
+ * Copyright 2014-2015, Outernet Inc.
+ * Some rights reserved.
+ *
+ * This software is free software licensed under the terms of GPLv3. See
+ * COPYING file that comes with the source code, or
+ * http://www.gnu.org/licenses/gpl.txt.
+ */
+@media only screen and (max-width: 520px) {
+  /* line 12, ../../../src/scss/_base.scss */
+  #views-container {
+    padding: 0;
+  }
+}
+
+/* line 3, ../../../src/scss/gallery.scss */
+.gallery-list {
+  -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+/* line 6, ../../../src/scss/gallery.scss */
+.gallery-list .gallery-list-item {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid #ddd;
+  position: relative;
+}
+/* line 14, ../../../src/scss/gallery.scss */
+.gallery-list .gallery-list-item a {
+  display: inline;
+  padding: 1rem;
+  width: 100%;
+}
+/* line 21, ../../../src/scss/gallery.scss */
+.gallery-list .gallery-list-item .gallery-list-item-thumbnail {
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-position: center center;
+  padding: 0;
+  border-bottom: 0;
+}

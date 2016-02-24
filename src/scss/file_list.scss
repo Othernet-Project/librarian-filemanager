@@ -1,19 +1,4 @@
-@import "compass/css3";
-@import "base/params";
-@import "base/media_query";
-@import "compass/typography/text/replacement";
-
-@mixin ellipsis {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-#file-list-container {
-  @include narrower-than(520px) {
-    padding: 0;
-  }
-}
+@import "base";
 
 .file-list {
   @include box-shadow($o-thin-overlay-shadow);

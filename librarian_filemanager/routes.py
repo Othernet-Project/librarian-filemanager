@@ -48,7 +48,7 @@ def go_to_parent(path):
     redirect(get_parent_url(path))
 
 
-@roca_view('filemanager/list', 'filemanager/_list', template_func=template)
+@roca_view('filemanager/main', 'filemanager/_main', template_func=template)
 def show_file_list(path=None, defaults=dict()):
     try:
         query = urlunquote(request.params['p'])
@@ -168,7 +168,7 @@ def run_path(path):
     return ret, out, err
 
 
-@roca_view('filemanager/list', 'filemanager/_list', template_func=template)
+@roca_view('filemanager/main', 'filemanager/_main', template_func=template)
 def show_view(path, view, defaults=dict()):
     return defaults
 
