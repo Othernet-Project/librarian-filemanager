@@ -35,7 +35,7 @@ ${_('Files')}
 </%block>
 
 <%block name="main">
-    <div id="main-container">
+    <div class="o-main-inner" id="main-container">
         ${main_view.body()}
     </div>
 </%block>

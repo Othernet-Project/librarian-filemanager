@@ -80,6 +80,14 @@ def show_file_list(path=None, defaults=dict()):
     return data
 
 
+@roca_view('filemanager/main', 'filemanager/_main', template_func=template)
+def show_view(path, view, defaults=dict()):
+    selected = request.query.get('selected', None)
+    data = defaults.copy()
+    data.update(dict(selected=selected))
+    return data
+
+
 def direct_file(path):
     path = urlunquote(path)
     return static_file(path,
@@ -166,11 +174,6 @@ def run_path(path):
     out, err = proc.communicate()
     ret = proc.returncode
     return ret, out, err
-
-
-@roca_view('filemanager/main', 'filemanager/_main', template_func=template)
-def show_view(path, view, defaults=dict()):
-    return defaults
 
 
 def init_file_action(path=None):

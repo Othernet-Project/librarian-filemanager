@@ -8,9 +8,3 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-
-#views-container {
-  @include narrower-than(520px) {
-    padding: 0;
-  }
-}

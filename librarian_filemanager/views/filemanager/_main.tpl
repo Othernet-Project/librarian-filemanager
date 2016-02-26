@@ -25,18 +25,19 @@ def get_views(facets):
 
 <div id="views-tabs-container">
     <ul id="views-tabs-strip" class="views-tabs-strip" role="tablist">
-        % for name, label in get_views(facets):
-            <%
-            view_url = i18n_url('files:path', path=path, view=name)
-            %>
-             <li class="views-tabs-strip-tab" role="tab">
-                 <span class="icon view-icon-${name}"></span>
-                 <a href="${view_url}">${_(label)}</a>
-             </li>
-        % endfor
+    % for name, label in get_views(facets):
+        <%
+        view_url = i18n_url('files:path', path=path, view=name)
+        current = name == view
+        %>
+         <li class="views-tabs-strip-tab ${'view-tabs-tab-current' if current else ''}" role="tab">
+             <span class="icon view-icon-${name}"></span>
+             <a class="views-tabs-tab-link" href="${view_url}">${_(label)}</a>
+         </li>
+    % endfor
     </ul>
 </div>
-<div class="o-main-inner" id="views-container">
+<div class="views-container" id="views-container">
     ${current_view.body()}
 </div>
 

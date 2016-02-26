@@ -19,7 +19,6 @@
     }
 
     &:first-child {
-      @include border-top-left-radius($o-clickable-target-corner-radius);
       @include border-top-right-radius($o-clickable-target-corner-radius);
     }
 

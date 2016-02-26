@@ -1,0 +1,27 @@
+((window, $, templates) ->
+  'use strict'
+
+  mainContainer = $ '#main-container'
+
+  window.loadContent = (url) ->
+    res = $.get url
+    res.done (data) ->
+      mainContainer.html(data)
+      mainContainer.find('a').first().focus()
+    res.fail () ->
+      alert templates.alertLoadError
+    return res
+
+  mainContainer.on 'click', '.views-tabs-tab-link', (e) ->
+    e.preventDefault()
+    e.stopPropagation()
+
+    elem = $ @
+    url = elem.attr 'href'
+    res = loadContent url
+    res.done () ->
+      window.history.pushState null, null, url
+
+  return
+) this, this.jQuery, this.templates
+
