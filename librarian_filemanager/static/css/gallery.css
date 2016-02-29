@@ -15,38 +15,98 @@
  * COPYING file that comes with the source code, or
  * http://www.gnu.org/licenses/gpl.txt.
  */
-@media only screen and (max-width: 520px) {
-  /* line 12, ../../../src/scss/_base.scss */
-  #views-container {
-    padding: 0;
-  }
+/* line 6, ../../../src/scss/gallery.scss */
+.gallery-container {
+  -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  -moz-border-radius: 0.3rem;
+  -webkit-border-radius: 0.3rem;
+  border-radius: 0.3rem;
+  background: rgba(255, 255, 255, 0.75);
+  width: 100%;
+  min-height: 40rem;
+}
+/* line 14, ../../../src/scss/gallery.scss */
+.gallery-container .gallery-current-image {
+  -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  -moz-border-radius: 0.3rem;
+  -webkit-border-radius: 0.3rem;
+  border-radius: 0.3rem;
+  width: 60%;
+  height: 60%;
+  margin: auto;
+  padding-top: 50px;
+  border: 1px solid;
+}
+/* line 24, ../../../src/scss/gallery.scss */
+.gallery-container .gallery-current-image .gallery-current-image-img {
+  max-width: 300px;
+  max-height: 300px;
+  display: block;
+  margin: 0 auto;
 }
 
-/* line 3, ../../../src/scss/gallery.scss */
+/* line 35, ../../../src/scss/gallery.scss */
+.gallery-controls {
+  width: 60%;
+  margin: auto;
+  /*TODO: Add Icons*/
+}
+/* line 39, ../../../src/scss/gallery.scss */
+.gallery-controls a.gallery-controls-control {
+  width: 25px;
+  height: 25px;
+}
+/* line 44, ../../../src/scss/gallery.scss */
+.gallery-controls a.gallery-controls-control-previous {
+  float: left;
+  padding-left: 30%;
+}
+/* line 49, ../../../src/scss/gallery.scss */
+.gallery-controls a.gallery-controls-control-next {
+  float: right;
+  padding-right: 30%;
+}
+/* line 54, ../../../src/scss/gallery.scss */
+.gallery-controls .gallery-controls-image-title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+  width: 30%;
+  text-align: center;
+}
+
+/* line 63, ../../../src/scss/gallery.scss */
+.gallery-controls:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/* line 69, ../../../src/scss/gallery.scss */
 .gallery-list {
   -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  width: 60%;
+  height: 60%;
+  margin: auto;
 }
-/* line 6, ../../../src/scss/gallery.scss */
+/* line 76, ../../../src/scss/gallery.scss */
 .gallery-list .gallery-list-item {
   background: rgba(255, 255, 255, 0.75);
-  border: 1px solid #ddd;
-  position: relative;
+  border: 1px solid #aaa;
+  display: inline-block;
+  width: 100px;
+  height: 100px;
 }
-/* line 14, ../../../src/scss/gallery.scss */
-.gallery-list .gallery-list-item a {
-  display: inline;
-  padding: 1rem;
-  width: 100%;
-}
-/* line 21, ../../../src/scss/gallery.scss */
+/* line 84, ../../../src/scss/gallery.scss */
 .gallery-list .gallery-list-item .gallery-list-item-thumbnail {
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  -webkit-background-size: cover;
-  background-size: cover;
-  background-position: center center;
-  padding: 0;
-  border-bottom: 0;
+  width: auto;
+  height: auto;
+  margin: 0 auto;
 }

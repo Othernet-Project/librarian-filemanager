@@ -1,28 +1,90 @@
 @import "base";
 
+$thumbnail-size: 100px;
+$current-image-size: 300px;
+
+.gallery-container {
+  @include box-shadow($o-thin-overlay-shadow);
+  @include border-radius($o-clickable-target-corner-radius);
+
+  background: $o-thin-overlay-material;
+  width: 100%;
+  min-height: 40rem;
+
+  .gallery-current-image {
+    @include box-shadow($o-thin-overlay-shadow);
+    @include border-radius($o-clickable-target-corner-radius);
+
+    width: 60%;
+    height: 60%;
+    margin: auto;
+    padding-top: 50px;
+    border: 1px solid;
+
+    .gallery-current-image-img {
+      max-width: $current-image-size;
+      max-height: $current-image-size;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+}
+
+
+.gallery-controls {
+  width: 60%;
+  margin: auto;
+
+  a.gallery-controls-control {
+    width: 25px;
+    height: 25px;
+  }
+
+  a.gallery-controls-control-previous {
+    float: left;
+    padding-left: 30%;
+  }
+
+  a.gallery-controls-control-next {
+    float: right;
+    padding-right: 30%;
+  }
+
+  .gallery-controls-image-title {
+    @include ellipsis;
+    display: inline-block;
+    width: 30%;
+    text-align: center;
+  }
+  /*TODO: Add Icons*/
+}
+
+.gallery-controls:after {
+   content:"";
+   display:block;
+   clear:both;
+}
+
 .gallery-list {
   @include box-shadow($o-thin-overlay-shadow);
 
+  width: 60%;
+  height: 60%;
+  margin: auto;
+
   .gallery-list-item {
-    // Styling
     background: $o-thin-overlay-material;
-    border: $o-separator-border;
+    border: $o-widget-border;
+    display: inline-block;
 
-    // Basic geometry
-    position: relative;
+    width: $thumbnail-size;
+    height: $thumbnail-size;
 
-    a {
-      // Basic geometry
-      display: inline;
-      padding: 1rem;
-      width: 100%;
-    }
-    
     .gallery-list-item-thumbnail {
-        @include background-size(cover);
-        background-position: center center;
-        padding: 0;
-        border-bottom: 0;
+      width: auto;
+      height: auto;
+      margin: 0 auto;
     }
   }
 }
