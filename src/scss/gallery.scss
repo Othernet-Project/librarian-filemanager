@@ -1,29 +1,25 @@
 @import "base";
 
-$thumbnail-size: 100px;
 $current-image-size: 300px;
 
 .gallery-container {
-  @include box-shadow($o-thin-overlay-shadow);
   @include border-radius($o-clickable-target-corner-radius);
 
   background: $o-thin-overlay-material;
   width: 100%;
-  min-height: 40rem;
+  height: 32rem;
 
   .gallery-current-image {
-    @include box-shadow($o-thin-overlay-shadow);
+    border: 1px solid;
     @include border-radius($o-clickable-target-corner-radius);
 
     width: 60%;
-    height: 60%;
-    margin: auto;
-    padding-top: 50px;
-    border: 1px solid;
+    height: 100%;
+    margin: 0 auto;
 
     .gallery-current-image-img {
-      max-width: $current-image-size;
-      max-height: $current-image-size;
+      max-width: 100%;
+      height: auto;
       display: block;
       margin: 0 auto;
     }
@@ -66,25 +62,35 @@ $current-image-size: 300px;
    clear:both;
 }
 
-.gallery-list {
-  @include box-shadow($o-thin-overlay-shadow);
+$thumbnail-margin: 0.2rem;
+$thumbnail-padding: 0.2rem;
+$thumbnail-width: 7.5rem;
+$thumbnail-size: $thumbnail-margin + $thumbnail-padding + $thumbnail-width;
 
+.gallery-list-container {
+  min-height: $thumbnail-size;
   width: 60%;
-  height: 60%;
-  margin: auto;
+  margin: 0 auto;
+
+  .gallery-list {
+    margin: 0.2rem;
+    border: 0.1rem solid;
+    text-align: center;
+    overflow: hidden;
+    word-wrap: normal;
+    white-space: nowrap;
+  }
 
   .gallery-list-item {
-    background: $o-thin-overlay-material;
     border: $o-widget-border;
     display: inline-block;
 
-    width: $thumbnail-size;
-    height: $thumbnail-size;
+    margin: $thumbnail-margin;
+    padding: $thumbnail-padding;
 
     .gallery-list-item-thumbnail {
-      width: auto;
-      height: auto;
-      margin: 0 auto;
+      max-width: $thumbnail-width;
+      max-height: $thumbnail-width;
     }
   }
 }
