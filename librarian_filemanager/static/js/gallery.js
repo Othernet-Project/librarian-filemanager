@@ -8,24 +8,21 @@
     currentItemClass = 'gallery-list-item-current';
 
     function Gallery(container) {
-      var i, image, index, j, len, ref;
+      var i, image, index, len, ref;
       this.container = container;
       this.currentImage = this.container.find('.gallery-current-image-img').first();
       this.currentImageLabel = this.container.find('#gallery-controls-image-title').first();
       this.imagesList = this.container.find('#gallery-list .gallery-list-item');
-      this.currentIndex = index = -1;
+      this.currentIndex = 0;
       ref = this.imagesList;
-      for (i = j = 0, len = ref.length; j < len; i = ++j) {
-        image = ref[i];
-        if ($(image).hasClass(this.currentItemClass)) {
-          index = i;
+      for (index = i = 0, len = ref.length; i < len; index = ++i) {
+        image = ref[index];
+        if ($(image).hasClass(currentItemClass)) {
+          this.currentIndex = index;
           break;
         }
       }
-      if (index === -1) {
-        index = 0;
-      }
-      this.moveTo(index);
+      this.moveTo(this.currentIndex);
       this.imagesList.on('click', 'a', (function(_this) {
         return function(e) {
           _this.onClick(e);
@@ -35,13 +32,11 @@
 
     Gallery.prototype.updateImage = function(newIndex) {
       var image_url, item, prevItem, title;
-      if (this.currentIndex && this.currentIndex >= 0) {
-        prevItem = $(this.imagesList.get(this.currentIndex));
-        prevItem.removeClass(this.currentItemClass);
-      }
+      prevItem = $(this.imagesList.get(this.currentIndex));
+      prevItem.removeClass(currentItemClass);
       this.currentIndex = newIndex;
       item = $(this.imagesList.get(this.currentIndex));
-      item.addClass(this.currentItemClass);
+      item.addClass(currentItemClass);
       title = item.data('title');
       image_url = item.data('direct-url');
       this.currentImage.attr({
@@ -52,11 +47,19 @@
       this.currentImageLabel.html(title);
     };
 
+    Gallery.prototype.updateLocation = function() {
+      var item, url;
+      item = $(this.imagesList.get(this.currentIndex));
+      url = item.data('url');
+      window.history.pushState(null, null, url);
+    };
+
     Gallery.prototype.moveTo = function(index) {
       if (index < 0 || index >= this.imagesList.length) {
         return;
       }
-      return this.updateImage(index);
+      this.updateImage(index);
+      this.updateLocation();
     };
 
     Gallery.prototype.next = function() {

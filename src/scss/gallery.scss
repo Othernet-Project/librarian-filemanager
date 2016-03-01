@@ -27,7 +27,6 @@ $current-image-size: 300px;
 
 }
 
-
 .gallery-controls {
   width: 60%;
   margin: auto;
@@ -53,7 +52,6 @@ $current-image-size: 300px;
     width: 30%;
     text-align: center;
   }
-  /*TODO: Add Icons*/
 }
 
 .gallery-controls:after {
@@ -92,6 +90,11 @@ $thumbnail-size: $thumbnail-margin + $thumbnail-padding + $thumbnail-width;
       max-width: $thumbnail-width;
       max-height: $thumbnail-width;
     }
+  }
+
+  .gallery-list-item-current {
+    // TODO: Use good values below
+    border: 0.3rem solid #AAA;
   }
 }
 

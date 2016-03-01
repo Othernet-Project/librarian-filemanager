@@ -35,12 +35,13 @@
                 img_width = entry['width']
                 img_height = entry['height']
                 %>
-                <li 
+                <li
                     class="gallery-list-item ${'gallery-list-item-current' if current else ''}"
                     role="row"
                     aria-selected="false"
                     data-title="${title | h}"
                     data-direct-url="${direct_url}"
+                    data-url="${url}"
                     data-img-width="${img_width}"
                     data-img-height="${img_height}">
                     <a class="gallery-list-item-link" href="${url}">

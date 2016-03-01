@@ -8,25 +8,22 @@
       @currentImage = @container.find('.gallery-current-image-img').first()
       @currentImageLabel = @container.find('#gallery-controls-image-title').first()
       @imagesList = @container.find('#gallery-list .gallery-list-item')
-      @currentIndex = index = -1
-      for image, i in @imagesList
-        if $(image).hasClass @currentItemClass
-          index = i
+      @currentIndex = 0
+      for image, index in @imagesList
+        if $(image).hasClass currentItemClass
+          @currentIndex = index
           break
-      if index == -1
-        index = 0
-      @moveTo(index)
+      @moveTo(@currentIndex)
       @imagesList.on 'click', 'a', (e) =>
         @onClick(e)
         return
 
     updateImage: (newIndex) ->
-      if @currentIndex and @currentIndex >= 0
-        prevItem = $(@imagesList.get @currentIndex)
-        prevItem.removeClass @currentItemClass
+      prevItem = $(@imagesList.get @currentIndex)
+      prevItem.removeClass currentItemClass
       @currentIndex = newIndex
       item = $(@imagesList.get @currentIndex)
-      item.addClass @currentItemClass
+      item.addClass currentItemClass
       title = item.data('title')
       image_url = item.data('direct-url')
       @currentImage.attr
@@ -36,10 +33,18 @@
       @currentImageLabel.html(title)
       return
 
+    updateLocation: () ->
+      item = $(@imagesList.get @currentIndex)
+      url = item.data('url')
+      window.history.pushState null, null, url
+      return
+
     moveTo: (index) ->
       if index < 0 or index >= @imagesList.length
         return
       @updateImage(index)
+      @updateLocation()
+      return
 
     next: () ->
       index = (@currentIndex + 1) % @imagesList.length

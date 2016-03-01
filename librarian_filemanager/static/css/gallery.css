@@ -42,28 +42,27 @@
   margin: 0 auto;
 }
 
-/* line 31, ../../../src/scss/gallery.scss */
+/* line 30, ../../../src/scss/gallery.scss */
 .gallery-controls {
   width: 60%;
   margin: auto;
-  /*TODO: Add Icons*/
 }
-/* line 35, ../../../src/scss/gallery.scss */
+/* line 34, ../../../src/scss/gallery.scss */
 .gallery-controls a.gallery-controls-control {
   width: 25px;
   height: 25px;
 }
-/* line 40, ../../../src/scss/gallery.scss */
+/* line 39, ../../../src/scss/gallery.scss */
 .gallery-controls a.gallery-controls-control-previous {
   float: left;
   padding-left: 30%;
 }
-/* line 45, ../../../src/scss/gallery.scss */
+/* line 44, ../../../src/scss/gallery.scss */
 .gallery-controls a.gallery-controls-control-next {
   float: right;
   padding-right: 30%;
 }
-/* line 50, ../../../src/scss/gallery.scss */
+/* line 49, ../../../src/scss/gallery.scss */
 .gallery-controls .gallery-controls-image-title {
   overflow: hidden;
   white-space: nowrap;
@@ -73,20 +72,20 @@
   text-align: center;
 }
 
-/* line 59, ../../../src/scss/gallery.scss */
+/* line 57, ../../../src/scss/gallery.scss */
 .gallery-controls:after {
   content: "";
   display: block;
   clear: both;
 }
 
-/* line 70, ../../../src/scss/gallery.scss */
+/* line 68, ../../../src/scss/gallery.scss */
 .gallery-list-container {
   min-height: 7.9rem;
   width: 60%;
   margin: 0 auto;
 }
-/* line 75, ../../../src/scss/gallery.scss */
+/* line 73, ../../../src/scss/gallery.scss */
 .gallery-list-container .gallery-list {
   margin: 0.2rem;
   border: 0.1rem solid;
@@ -95,15 +94,19 @@
   word-wrap: normal;
   white-space: nowrap;
 }
-/* line 84, ../../../src/scss/gallery.scss */
+/* line 82, ../../../src/scss/gallery.scss */
 .gallery-list-container .gallery-list-item {
   border: 1px solid #aaa;
   display: inline-block;
   margin: 0.2rem;
   padding: 0.2rem;
 }
-/* line 91, ../../../src/scss/gallery.scss */
+/* line 89, ../../../src/scss/gallery.scss */
 .gallery-list-container .gallery-list-item .gallery-list-item-thumbnail {
   max-width: 7.5rem;
   max-height: 7.5rem;
+}
+/* line 95, ../../../src/scss/gallery.scss */
+.gallery-list-container .gallery-list-item-current {
+  border: 0.3rem solid #AAA;
 }
