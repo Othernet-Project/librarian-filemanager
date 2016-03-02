@@ -62,16 +62,23 @@
       return false
 
 
-  galleryContainer = $ '#gallery-container'
-  gallery = new Gallery galleryContainer
+  prepareGallery = () ->
+    galleryContainer = $ '#gallery-container'
+    if !!galleryContainer.length
+        return
+    gallery = new Gallery galleryContainer
 
-  $('#gallery-controls-control-previous').click () ->
-    gallery.previous()
+    $('#gallery-controls-control-previous').click () ->
+      gallery.previous()
+      return
+
+    $('#gallery-controls-control-next').click () ->
+      gallery.next()
+      return
     return
 
-  $('#gallery-controls-control-next').click () ->
-    gallery.next()
-    return
+  $ prepareGallery
+  window.onTabChange prepareGallery
 
   return
 ) this, this.jQuery

@@ -7,9 +7,7 @@
       return
 
   $ prepareAudio
-  window.mainContainer.on 'filemanager:tabchanged', (event) ->
-    prepareAudio()
-    return
+  window.onTabChange prepareAudio
 
   return
 

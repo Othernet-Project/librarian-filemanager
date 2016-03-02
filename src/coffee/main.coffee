@@ -22,8 +22,16 @@
     res = loadContent url
     res.done () ->
       window.history.pushState null, null, url
-      window.mainContainer.trigger('filemanager:tabchanged')
+      window.triggerTabChange()
       return
+
+  window.onTabChange = (func) ->
+    window.mainContainer.on 'filemanager:tabchanged', func
+    return
+
+  window.triggerTabChange = () ->
+    window.mainContainer.trigger('filemanager:tabchanged')
+    return
 
   return
 ) this, this.jQuery, this.templates

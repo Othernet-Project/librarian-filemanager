@@ -10,7 +10,5 @@
     }
   };
   $(prepareAudio);
-  window.mainContainer.on('filemanager:tabchanged', function(event) {
-    prepareAudio();
-  });
+  window.onTabChange(prepareAudio);
 })(this, this.jQuery);

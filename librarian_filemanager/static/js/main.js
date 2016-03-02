@@ -25,7 +25,13 @@
     res = loadContent(url);
     return res.done(function() {
       window.history.pushState(null, null, url);
-      window.mainContainer.trigger('filemanager:tabchanged');
+      window.triggerTabChange();
     });
   });
+  window.onTabChange = function(func) {
+    window.mainContainer.on('filemanager:tabchanged', func);
+  };
+  window.triggerTabChange = function() {
+    window.mainContainer.trigger('filemanager:tabchanged');
+  };
 })(this, this.jQuery, this.templates);
