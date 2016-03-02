@@ -5,7 +5,7 @@
 FACET_VIEW_MAPPINGS = (
     ('generic', 'files', 'Browse'),
     ('image', 'gallery', 'Gallery'),
-    ('audio', 'playlist', 'Audio'),
+    ('audio', 'playlist', 'Listen'),
     ('video', 'clips', 'Watch'),
     ('html', 'read', 'Read')
 )

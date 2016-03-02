@@ -1,0 +1,49 @@
+@import "base";
+
+.playlist-container {
+  @include border-radius($o-clickable-target-corner-radius);
+
+  background: $o-thin-overlay-material;
+  width: 100%;
+  height: 32rem;
+
+  .playlist-controls {
+    float: left;
+    padding: 3rem;
+    width: 50%;
+    height: 100%;
+    border: 0.2rem solid;
+
+    .playlist-controls-albumart {
+      width: 300px;
+      height: 300px;
+      margin: auto;
+
+      &:after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+    }
+
+  }
+  .playlist-list-container {
+    float: left;
+    width: 50%;
+    height: 100%;
+    border: 0.2rem solid;
+    padding-left: 1rem;
+    overflow-y: auto;
+
+    .playlist-list-item {
+      overflow: hidden;
+      width: 90%;
+      margin-top: 0.1rem;
+
+      @include ellipsis;
+    }
+  }
+
+}
+
+

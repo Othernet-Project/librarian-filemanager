@@ -1,0 +1,64 @@
+/**
+ * This module contains base variables that are used to re-skin (customize) the 
+ * Librarian UI toolkit.
+ *
+ * Recommended way to customize the variables is to load a separate module 
+ * containing customized values _before_ this module.
+ */
+/**
+ * _media_query.scss: media query support
+ *
+ * Copyright 2014-2015, Outernet Inc.
+ * Some rights reserved.
+ *
+ * This software is free software licensed under the terms of GPLv3. See
+ * COPYING file that comes with the source code, or
+ * http://www.gnu.org/licenses/gpl.txt.
+ */
+/* line 3, ../../../src/scss/playlist.scss */
+.playlist-container {
+  -moz-border-radius: 0.3rem;
+  -webkit-border-radius: 0.3rem;
+  border-radius: 0.3rem;
+  background: rgba(255, 255, 255, 0.75);
+  width: 100%;
+  height: 32rem;
+}
+/* line 10, ../../../src/scss/playlist.scss */
+.playlist-container .playlist-controls {
+  float: left;
+  padding: 3rem;
+  width: 50%;
+  height: 100%;
+  border: 0.2rem solid;
+}
+/* line 17, ../../../src/scss/playlist.scss */
+.playlist-container .playlist-controls .playlist-controls-albumart {
+  width: 300px;
+  height: 300px;
+  margin: auto;
+}
+/* line 22, ../../../src/scss/playlist.scss */
+.playlist-container .playlist-controls .playlist-controls-albumart:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+/* line 30, ../../../src/scss/playlist.scss */
+.playlist-container .playlist-list-container {
+  float: left;
+  width: 50%;
+  height: 100%;
+  border: 0.2rem solid;
+  padding-left: 1rem;
+  overflow-y: auto;
+}
+/* line 38, ../../../src/scss/playlist.scss */
+.playlist-container .playlist-list-container .playlist-list-item {
+  overflow: hidden;
+  width: 90%;
+  margin-top: 0.1rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

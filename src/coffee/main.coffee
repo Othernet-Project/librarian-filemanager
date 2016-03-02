@@ -2,6 +2,7 @@
   'use strict'
 
   mainContainer = $ '#main-container'
+  window.mainContainer = mainContainer
 
   window.loadContent = (url) ->
     res = $.get url
@@ -21,6 +22,8 @@
     res = loadContent url
     res.done () ->
       window.history.pushState null, null, url
+      window.mainContainer.trigger('filemanager:tabchanged')
+      return
 
   return
 ) this, this.jQuery, this.templates

@@ -3,6 +3,7 @@
   'use strict';
   var mainContainer;
   mainContainer = $('#main-container');
+  window.mainContainer = mainContainer;
   window.loadContent = function(url) {
     var res;
     res = $.get(url);
@@ -23,7 +24,8 @@
     url = elem.attr('href');
     res = loadContent(url);
     return res.done(function() {
-      return window.history.pushState(null, null, url);
+      window.history.pushState(null, null, url);
+      window.mainContainer.trigger('filemanager:tabchanged');
     });
   });
 })(this, this.jQuery, this.templates);
