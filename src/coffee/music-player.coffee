@@ -17,28 +17,31 @@
       @playlist = new Playlist @container, options
       return
 
-    onReady: (func) ->
+    onReady: () =>
       @controls = @container.find('#audio-controls-audio').first()
       @controls.mediaelementplayer {
         features: ['prevtrack', 'playpause', 'nexttrack', 'progress', 'duration', 'volume'],
-        success: func
+        success: (mediaElement) =>
+          @player = mediaElement
+          return
         error: () =>
           @controls.prepend templates.audioLoadFailure
       }
+      return
 
     onSetCurrent: (item) ->
       @updatePlayer(item)
-      window.updateLocation item.data('url')
+      window.changeLocation item.data('url')
       return
 
     updatePlayer: (item) ->
       audio_url = item.data('direct-url')
-      wasPlaying = not @controls.paused
+      wasPlaying = not @player.paused
       if wasPlaying
-        @controls.pause()
-      @controls.setSrc(audio_url)
+        @player.pause()
+      @player.setSrc(audio_url)
       if wasPlaying
-        @controls.play()
+        @player.play()
       return
 
   prepareAudio = () ->
