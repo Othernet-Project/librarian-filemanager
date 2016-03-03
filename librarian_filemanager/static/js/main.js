@@ -34,4 +34,7 @@
   window.triggerTabChange = function() {
     window.mainContainer.trigger('filemanager:tabchanged');
   };
+  window.changeLocation = function(url) {
+    window.history.pushState(null, null, url);
+  };
 })(this, this.jQuery, this.templates);

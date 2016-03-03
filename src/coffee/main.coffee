@@ -33,6 +33,10 @@
     window.mainContainer.trigger('filemanager:tabchanged')
     return
 
+  window.changeLocation = (url) ->
+      window.history.pushState null, null, url
+      return
+
   return
 ) this, this.jQuery, this.templates
 

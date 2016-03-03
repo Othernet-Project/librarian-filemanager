@@ -15,7 +15,7 @@
  * COPYING file that comes with the source code, or
  * http://www.gnu.org/licenses/gpl.txt.
  */
-/* line 3, ../../../src/scss/playlist.scss */
+/* line 3, ../../../src/scss/music-player.scss */
 .playlist-container {
   -moz-border-radius: 0.3rem;
   -webkit-border-radius: 0.3rem;
@@ -24,7 +24,7 @@
   width: 100%;
   height: 32rem;
 }
-/* line 10, ../../../src/scss/playlist.scss */
+/* line 10, ../../../src/scss/music-player.scss */
 .playlist-container .playlist-controls {
   float: left;
   padding: 3rem;
@@ -32,19 +32,19 @@
   height: 100%;
   border: 0.2rem solid;
 }
-/* line 17, ../../../src/scss/playlist.scss */
+/* line 17, ../../../src/scss/music-player.scss */
 .playlist-container .playlist-controls .playlist-controls-albumart {
   width: 300px;
   height: 300px;
   margin: auto;
 }
-/* line 22, ../../../src/scss/playlist.scss */
+/* line 22, ../../../src/scss/music-player.scss */
 .playlist-container .playlist-controls .playlist-controls-albumart:after {
   content: "";
   display: block;
   clear: both;
 }
-/* line 30, ../../../src/scss/playlist.scss */
+/* line 30, ../../../src/scss/music-player.scss */
 .playlist-container .playlist-list-container {
   float: left;
   width: 50%;
@@ -53,11 +53,11 @@
   padding-left: 1rem;
   overflow-y: auto;
 }
-/* line 38, ../../../src/scss/playlist.scss */
+/* line 38, ../../../src/scss/music-player.scss */
 .playlist-container .playlist-list-container .playlist-list {
   list-style: decimal inside;
 }
-/* line 42, ../../../src/scss/playlist.scss */
+/* line 42, ../../../src/scss/music-player.scss */
 .playlist-container .playlist-list-container .playlist-list-item {
   overflow: hidden;
   width: 90%;

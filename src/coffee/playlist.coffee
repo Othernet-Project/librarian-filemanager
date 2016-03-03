@@ -1,87 +1,53 @@
 ((window, $) ->
   'use strict'
 
-  class MusicPlayer
-    currentItemClass = 'playlist-list-item-current'
+  class Playlist
+    expectedKeys = []
 
-    constructor: (@container) ->
-      @audioList = @container.find('#playlist-list .playlist-list-item')
-      @currentIndex = 0
-      for item, index in @audioList
-        if $(item).hasClass currentItemClass
-          @currentIndex = index
-          break
-      @controls = @container.find('#audio-controls-audio').first()
-      @controls.mediaelementplayer {
-        'features': ['prevtrack', 'playpause', 'nexttrack', 'progress', 'duration', 'volume'],
-        'success': (mediaElement, domElement) =>
-          @player = mediaElement
-          @updateAudio(@currentIndex)
-          return
-      }
-      @audioList.on 'click', 'a', (e) =>
-        @onClick(e)
+    constructor: (@container, @options) ->
+      @items = @container.find(@options['itemSelector'])
+      @items.on 'click', 'a', (e) =>
+        @_onClick(e)
+        return
+      current = @items.find(@options['currentItemSelector']).first()
+      currentIndex = current.index()
+      @options.ready? () =>
+        @_setCurrent(currentIndex)
         return
 
-    updateAudio: (newIndex) ->
-      @currentIndex = newIndex
-      item = @audioList.eq(@currentIndex)
-      @updatePlaylistState(item)
-      @updatePlayer(item)
+    _setCurrent: (index) ->
+      @currentIndex = index
+      current = @items.eq index
+      current.siblings().removeClass(@options['currentItemSelector'])
+      current.addClass(@options['currentItemSelector'])
+      @options.setCurrent?(current)
       return
 
-    updatePlaylistState: (item) ->
-      item.addClass(currentItemClass).siblings().removeClass(currentItemClass)
-      return
-
-    updatePlayer: (item) ->
-      audio_url = item.data('direct-url')
-      wasPlaying = not @player.paused
-      if wasPlaying
-        @player.pause()
-      @player.setSrc(audio_url)
-      if wasPlaying
-        @player.play()
-      return
-
-    updateLocation: () ->
-      item = $(@audioList.get @currentIndex)
-      url = item.data('url')
-      window.history.pushState null, null, url
-      return
+    len: () ->
+      @items.length
 
     moveTo: (index) ->
-      if index < 0 or index >= @audioList.length
+      if index < 0 or index >= @len
         return
-      @updateAudio(index)
-      @updateLocation()
+      setCurrent(index)
       return
 
     next: () ->
-      index = (@currentIndex + 1) % @audioList.length
+      index = (@currentIndex + 1) % @len
       @moveTo(index)
 
     previous: () ->
-      index = (@audioList.length + @currentIndex - 1) % @audioList.length
+      index = (@len + @currentIndex - 1) % @len
       @moveTo(index)
 
-    onClick: (e) ->
+    _onClick: (e) ->
       e.preventDefault()
       e.stopPropagation()
-      item = $(e.target).closest('.playlist-list-item')
-      @moveTo(@audioList.index item)
+      item = $(e.target).closest(@options['itemSelector'])
+      index = @items.index item
+      @moveTo index
       return false
 
-
-  prepareAudio = () ->
-    container = $ '#playlist-container'
-    if container.length
-      player = new MusicPlayer container
-      return
-
-  $ prepareAudio
-  window.onTabChange prepareAudio
-
-  return
+  window.Playlist = Playlist
 
 ) this, this.jQuery

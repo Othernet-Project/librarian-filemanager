@@ -62,4 +62,5 @@ ${_('Files')}
     <script type="text/javascript" src="${assets['js/filemanager']}"></script>
     <script type="text/javascript" src="${assets['js/mediaelement']}"></script>
     <script type="text/javascript" src="${assets['js/audio']}"></script>
+    <script type="text/javascript" src="${assets['js/video']}"></script>
 </%block>
