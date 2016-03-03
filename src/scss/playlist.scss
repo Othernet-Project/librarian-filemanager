@@ -35,10 +35,15 @@
     padding-left: 1rem;
     overflow-y: auto;
 
+    .playlist-list {
+      list-style: decimal inside;
+    }
+
     .playlist-list-item {
       overflow: hidden;
       width: 90%;
       margin-top: 0.1rem;
+      //padding-left: 2rem;
 
       @include ellipsis;
     }

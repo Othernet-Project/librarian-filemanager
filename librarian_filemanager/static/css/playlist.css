@@ -54,6 +54,10 @@
   overflow-y: auto;
 }
 /* line 38, ../../../src/scss/playlist.scss */
+.playlist-container .playlist-list-container .playlist-list {
+  list-style: decimal inside;
+}
+/* line 42, ../../../src/scss/playlist.scss */
 .playlist-container .playlist-list-container .playlist-list-item {
   overflow: hidden;
   width: 90%;

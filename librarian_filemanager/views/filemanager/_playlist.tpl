@@ -1,11 +1,17 @@
+<%
+DEFAULT_TITLE = _('Untitled')
+
+DEFAULT_ARTIST = _('Unknown')
+%>
+
 <%def name="audio_control(url)">
     <div id="audio-control-wrapper" class="audio-control-wrapper">
-        <audio id="audio-control-audio" controls="controls">
-        <source src="${url}" />
-        <object type="application/x-shockwave-flash" data="${assets.url}vendor/mediaelement/flashmediaelement.swf">
-            <param name="movie" value="${assets.url}vendor/mediaelement/flashmediaelement.swf" />
-            <param name="flashvars" value="controls=true&file=${url}" />
-        </object>
+        <audio id="audio-controls-audio" controls="controls">
+            <source src="${url | h}" />
+            <object type="application/x-shockwave-flash" data="${assets.url}vendor/mediaelement/flashmediaelement.swf">
+                <param name="movie" value="${assets.url}vendor/mediaelement/flashmediaelement.swf" />
+                <param name="flashvars" value="controls=true&file=${url | h}" />
+            </object>
         </audio>
     </div>
 </%def>
@@ -43,7 +49,7 @@
     </div>
     <div class="playlist-list-container" id="playlist-list-container">
         <h2 style="border-bottom: none;">${_('Playlist')}</h2>
-        <ul class="playlist-list" id="playlist-list" role="grid">
+        <ol class="playlist-list" id="playlist-list" role="grid">
         % for entry in facets['audio']['playlist']:
             <%
             file = entry['file']
@@ -51,8 +57,8 @@
             file_path = entry['file_path']
             url = h.quoted_url('files:path', view=view, path=path, selected=file)
             direct_url = h.quoted_url('files:direct', path=file_path)
-            title = entry['title']
-            artist = entry['artist']
+            title = entry['title'] or DEFAULT_TITLE
+            artist = entry['artist'] or DEFAULT_ARTIST
             duration = entry['duration']
             %>
             <li
@@ -67,7 +73,7 @@
                 <a class="playlist-list-item-link" href="${url}">${title | h} - ${artist | h}</a>
           </li>
         % endfor
-        </ul>
+        </ol>
     </div>
     % endif
 </div>
