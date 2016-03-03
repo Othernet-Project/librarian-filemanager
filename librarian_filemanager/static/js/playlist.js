@@ -17,15 +17,13 @@
           _this._onClick(e);
         };
       })(this));
+      if (typeof (base = this.options).ready === "function") {
+        base.ready();
+      }
       current = this.items.find(this.options['currentItemSelector']).first();
       currentIndex = current.index();
-      if (typeof (base = this.options).ready === "function") {
-        base.ready((function(_this) {
-          return function() {
-            _this._setCurrent(currentIndex);
-          };
-        })(this));
-      }
+      this._setCurrent(currentIndex);
+      return;
     }
 
     Playlist.prototype._setCurrent = function(index) {
@@ -47,7 +45,7 @@
       if (index < 0 || index >= this.len) {
         return;
       }
-      setCurrent(index);
+      this._setCurrent(index);
     };
 
     Playlist.prototype.next = function() {

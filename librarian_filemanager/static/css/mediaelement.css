@@ -449,9 +449,9 @@
 
 /*
 .mejs-controls .mejs-time-rail:hover .mejs-time-handle {
-	visibility:visible;
+  visibility:visible;
 }
-*/
+ */
 /* End: Progress Bar */
 /* Start: Fullscreen */
 /* line 384, ../../../src/scss/mediaelement.scss */
@@ -507,9 +507,9 @@
 
 /*
 .mejs-controls .mejs-volume-button:hover .mejs-volume-slider {
-	display: block;
+  display: block;
 }
-*/
+ */
 /* line 438, ../../../src/scss/mediaelement.scss */
 .mejs-controls .mejs-volume-button .mejs-volume-slider .mejs-volume-total {
   position: absolute;
@@ -644,9 +644,9 @@
 
 /*
 .mejs-controls .mejs-captions-button:hover  .mejs-captions-selector {
-	visibility: visible;
+  visibility: visible;
 }
-*/
+ */
 /* line 566, ../../../src/scss/mediaelement.scss */
 .mejs-controls .mejs-captions-button .mejs-captions-selector ul {
   margin: 0;

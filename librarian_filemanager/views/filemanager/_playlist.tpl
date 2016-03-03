@@ -6,7 +6,7 @@ DEFAULT_ARTIST = _('Unknown')
 
 <%def name="audio_control(url)">
     <div id="audio-control-wrapper" class="audio-control-wrapper">
-        <audio id="audio-controls-audio" controls="controls">
+        <audio id="audio-controls-audio" controls="controls" class="mejs-oskin">
             <source src="${url | h}" />
             <object type="application/x-shockwave-flash" data="${assets.url}vendor/mediaelement/flashmediaelement.swf">
                 <param name="movie" value="${assets.url}vendor/mediaelement/flashmediaelement.swf" />

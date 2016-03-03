@@ -1,4 +1,5 @@
 @import "base";
+@import "audio-skin";
 
 .playlist-container {
   @include border-radius($o-clickable-target-corner-radius);
@@ -26,6 +27,11 @@
       }
     }
 
+    .audio-control-wrapper {
+      position: relative;
+      margin-top: 3rem;
+    }
+
   }
   .playlist-list-container {
     float: left;
@@ -48,7 +54,4 @@
       @include ellipsis;
     }
   }
-
 }
-
-

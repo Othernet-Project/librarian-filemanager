@@ -9,11 +9,11 @@
       @items.on 'click', 'a', (e) =>
         @_onClick(e)
         return
+      @options.ready?()
       current = @items.find(@options['currentItemSelector']).first()
       currentIndex = current.index()
-      @options.ready? () =>
-        @_setCurrent(currentIndex)
-        return
+      @_setCurrent(currentIndex)
+      return
 
     _setCurrent: (index) ->
       @currentIndex = index
@@ -29,7 +29,7 @@
     moveTo: (index) ->
       if index < 0 or index >= @len
         return
-      setCurrent(index)
+      @_setCurrent(index)
       return
 
     next: () ->
