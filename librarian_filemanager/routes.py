@@ -83,6 +83,8 @@ def show_file_list(path=None, defaults=dict()):
 @roca_view('filemanager/main', 'filemanager/_main', template_func=template)
 def show_view(path, view, defaults=dict()):
     selected = request.query.get('selected', None)
+    if selected:
+        selected = urlunquote(selected)
     data = defaults.copy()
     data.update(dict(selected=selected, titlify=title_name, durify=durify))
     return data

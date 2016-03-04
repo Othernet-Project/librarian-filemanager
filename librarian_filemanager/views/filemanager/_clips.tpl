@@ -42,7 +42,7 @@ DEFAULT_ARTIST = _('Unknown')
                         file = entry['file']
                         current = entry['file'] == selected_entry['file']
                         file_path = entry['file_path']
-                        url = h.quoted_url('files:path', view=view, path=path, selected=file)
+                        url = i18n_url('files:path', view=view, path=path, selected=file)
                         direct_url = h.quoted_url('files:direct', path=file_path)
                         title = entry['title'] or titlify(entry['file'])
                         duration = entry['duration']
