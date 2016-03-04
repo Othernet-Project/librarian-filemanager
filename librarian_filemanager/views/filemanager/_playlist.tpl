@@ -38,14 +38,6 @@ DEFAULT_ARTIST = _('Unknown')
             <img src="${assets.url}img/albumart-placeholder.png"/>
         </div>
         ${audio_control(audio_url)}
-        <!--
-        <div class="playlist-controls-progressbar" id="playlist-controls-progressbar"></div>
-        <div class="playlist-controls-navigation" id="playlist-controls-navigation">
-        <div class="playlist-controls-navigation-previous" id="playlist-controls-navigation-previous"></div>
-        <div class="playlist-controls-navigation-pause" id="playlist-controls-navigation-pause"></div>
-        <div class="playlist-controls-navigation-stop" id="playlist-controls-navigation-stop"></div>
-        <div class="playlist-controls-navigation-next" id="playlist-controls-navigation-next"></div>
-        -->
     </div>
     <div class="playlist-list-container" id="playlist-list-container">
         <h2 style="border-bottom: none;">${_('Playlist')}</h2>
