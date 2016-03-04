@@ -46,11 +46,9 @@ DEFAULT_ARTIST = _('Unknown')
                         direct_url = h.quoted_url('files:direct', path=file_path)
                         title = entry['title'] or titlify(entry['file'])
                         duration = entry['duration']
+                        hduration = durify(duration)
                         width = entry['width']
                         height = entry['height']
-                        hours, minutes, seconds = durify(entry['duration'])
-                        hduration = '{}:{:02d}:{:02d}'.format(
-                            hours, minutes, seconds) 
                     %>
                     <li
                     class="clips-list-item ${'clips-list-item-current' if current else ''}"

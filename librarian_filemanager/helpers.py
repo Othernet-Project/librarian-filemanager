@@ -40,4 +40,4 @@ def title_name(path):
 def durify(seconds):
     hours, seconds = divmod(seconds, 3600.0)
     minutes, seconds = divmod(seconds, 60.0)
-    return (int(hours), int(minutes), int(seconds))
+    return '{}:{:02d}:{:02d}'.format(int(hours), int(minutes), int(seconds))
