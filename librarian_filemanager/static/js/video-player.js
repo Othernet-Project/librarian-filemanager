@@ -28,7 +28,7 @@
     VideoPlayer.prototype.onReady = function() {
       this.controls = this.container.find('#video-controls-video').first();
       return this.controls.mediaelementplayer({
-        features: ['prevtrack', 'playpause', 'nexttrack', 'progress', 'duration', 'volume'],
+        features: ['prevtrack', 'playpause', 'nexttrack', 'progress', 'duration', 'volume', 'fullscreen'],
         success: (function(_this) {
           return function(mediaElement) {
             _this.onPlayerReady(mediaElement);

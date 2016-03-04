@@ -22,7 +22,7 @@
     onReady: () ->
       @controls = @container.find('#video-controls-video').first()
       @controls.mediaelementplayer {
-        features: ['prevtrack', 'playpause', 'nexttrack', 'progress', 'duration', 'volume'],
+        features: ['prevtrack', 'playpause', 'nexttrack', 'progress', 'duration', 'volume', 'fullscreen'],
         success: (mediaElement) =>
           @onPlayerReady(mediaElement)
           return
