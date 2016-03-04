@@ -8,7 +8,7 @@
       this.container = container1;
       options = {
         itemSelector: '#clips-list .clips-list-item',
-        currentItemSelector: 'clips-list-item-current',
+        currentItemSelector: '.clips-list-item-current',
         ready: (function(_this) {
           return function() {
             _this.onReady();
@@ -20,21 +20,29 @@
           };
         })(this)
       };
-      this.clips = new Playlist(this.container, options);
+      this.playlist = new Playlist(this.container, options);
       return;
     }
 
-    VideoPlayer.prototype.onReady = function(func) {
+    VideoPlayer.prototype.onReady = function() {
       this.controls = this.container.find('#video-controls-video').first();
       return this.controls.mediaelementplayer({
         features: ['prevtrack', 'playpause', 'nexttrack', 'progress', 'duration', 'volume'],
-        success: func,
+        success: (function(_this) {
+          return function(mediaElement) {
+            _this.onPlayerReady(mediaElement);
+          };
+        })(this),
         error: (function(_this) {
           return function() {
-            return _this.controls.prepend(templates.videoLoadFailure);
+            _this.controls.prepend(templates.videoLoadFailure);
           };
         })(this)
       });
+    };
+
+    VideoPlayer.prototype.onPlayerReady = function() {
+      this.player = mediaElement;
     };
 
     VideoPlayer.prototype.onSetCurrent = function(item) {
@@ -43,18 +51,16 @@
     };
 
     VideoPlayer.prototype.updatePlayer = function(item) {
-      var audio_url, height, ref, wasPlaying, width;
-      audio_url = item.data('direct-url');
+      var height, ref, video_url, wasPlaying, width;
+      video_url = item.data('direct-url');
       ref = [item.data('width'), item.data('height')], width = ref[0], height = ref[1];
-      wasPlaying = !this.controls.paused;
+      wasPlaying = !this.player.paused;
       if (wasPlaying) {
-        this.controls.pause();
+        this.player.pause();
       }
-      this.controls.setSrc(audio_url);
-      this.controls.setVideoSize(width, height);
-      if (wasPlaying) {
-        this.controls.play();
-      }
+      this.player.setSrc(audio_url);
+      this.player.setVideoSize(width, height);
+      this.player.play();
     };
 
     return VideoPlayer;

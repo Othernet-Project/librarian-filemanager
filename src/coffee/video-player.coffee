@@ -6,7 +6,7 @@
     constructor: (@container) ->
       options = {
         itemSelector: '#clips-list .clips-list-item'
-        currentItemSelector: 'clips-list-item-current'
+        currentItemSelector: '.clips-list-item-current'
         ready: () =>
           @onReady()
           return
@@ -14,17 +14,24 @@
           @onSetCurrent(item)
           return
       }
-      @clips = new Playlist @container, options
+      @playlist = new Playlist @container, options
       return
 
-    onReady: (func) ->
+    onReady: () ->
       @controls = @container.find('#video-controls-video').first()
       @controls.mediaelementplayer {
         features: ['prevtrack', 'playpause', 'nexttrack', 'progress', 'duration', 'volume'],
-        success: func
+        success: (mediaElement) =>
+          @onPlayerReady(mediaElement)
+          return
         error: () =>
           @controls.prepend templates.videoLoadFailure
+          return
       }
+
+    onPlayerReady: () ->
+      @player = mediaElement
+      return
 
     onSetCurrent: (item) ->
       @updatePlayer(item)
@@ -32,15 +39,14 @@
       return
 
     updatePlayer: (item) ->
-      audio_url = item.data('direct-url')
+      video_url = item.data('direct-url')
       [width, height] = [item.data('width'), item.data('height')]
-      wasPlaying = not @controls.paused
+      wasPlaying = not @player.paused
       if wasPlaying
-        @controls.pause()
-      @controls.setSrc(audio_url)
-      @controls.setVideoSize(width, height)
-      if wasPlaying
-        @controls.play()
+        @player.pause()
+      @player.setSrc(audio_url)
+      @player.setVideoSize(width, height)
+      @player.play()
       return
 
   prepareVideo = () ->
