@@ -183,12 +183,16 @@ def init_file_action(path=None):
         path = '.'
     # Use 'files' as default view
     view = request.query.get('view', 'files')
+    facets = get_facets(path)
     defaults = dict(path=path,
                     view=view,
-                    facets=get_facets(path))
+                    facets=facets)
     if view == 'files':
         return show_files_view(path, defaults)
     else:
+        is_successful = facets != None
+        up = get_parent_path(path)
+        defaults.update(up=up, is_successful=is_successful)
         return show_view(path, view, defaults)
 
 
