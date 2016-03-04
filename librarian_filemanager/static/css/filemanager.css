@@ -1524,7 +1524,7 @@ div.mejs-speed-button {
 .mejs-oskin .mejs-controls .mejs-prev button {
   width: 40px;
   height: 40px;
-  background: transparent url('../img/controls-wmp-playlist.png?1457107911') no-repeat 0 -40px;
+  background: transparent url('../img/controls-wmp-playlist.png?1457109194') no-repeat 0 -40px;
   margin: 0;
   padding: 0;
 }
@@ -1532,7 +1532,7 @@ div.mejs-speed-button {
 .mejs-oskin .mejs-controls .mejs-next button {
   width: 40px;
   height: 40px;
-  background: transparent url('../img/controls-wmp-playlist.png?1457107911') no-repeat;
+  background: transparent url('../img/controls-wmp-playlist.png?1457109194') no-repeat;
   margin: 0;
   padding: 0;
 }
@@ -1670,12 +1670,12 @@ div.mejs-speed-button {
 }
 /* line 133, ../../../src/scss/partials/_audio-skin.scss */
 .mejs-oskin .mejs-controls .mejs-prevtrack button {
-  background: transparent url('../img/controls-wmp-playlist.png?1457107911') no-repeat;
+  background: transparent url('../img/controls-wmp-playlist.png?1457109194') no-repeat;
   background-position: 0 -16px;
 }
 /* line 138, ../../../src/scss/partials/_audio-skin.scss */
 .mejs-oskin .mejs-controls .mejs-nexttrack button {
-  background: transparent url('../img/controls-wmp-playlist.png?1457107911') no-repeat;
+  background: transparent url('../img/controls-wmp-playlist.png?1457109194') no-repeat;
 }
 
 /* line 143, ../../../src/scss/partials/_audio-skin.scss */
