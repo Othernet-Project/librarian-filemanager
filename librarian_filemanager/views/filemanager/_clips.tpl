@@ -36,26 +36,21 @@ DEFAULT_ARTIST = _('Unknown')
     </div>
     <div class="clips-list-container" id="clips-list-container">
         <div class="clip-list-container-meta">
-            <h2>${selected_entry.get('title') or titlify(selected_entry['file']) | h}</h2>
-            <p class="clip-author">
-                ${selected_entry.get('author') or _('Unkown author')}
-            </p>
-            <p class="clip-description">
-                ${selected_entry.get('description', _('No description'))}
-            </p>
-            <h2>${_('Playlist')}</h2>
-            <ol class="clips-list" id="clips-list" role="grid">
+            <ul class="clips-list" id="clips-list" role="grid">
                 % for entry in facets['video']['clips']:
                     <%
                         file = entry['file']
-                        current = entry == selected_entry
+                        current = entry['file'] == selected_entry['file']
                         file_path = entry['file_path']
                         url = h.quoted_url('files:path', view=view, path=path, selected=file)
                         direct_url = h.quoted_url('files:direct', path=file_path)
-                        title = entry['title'] or DEFAULT_TITLE
+                        title = entry['title'] or titlify(entry['file'])
                         duration = entry['duration']
                         width = entry['width']
                         height = entry['height']
+                        hours, minutes, seconds = durify(entry['duration'])
+                        hduration = '{}:{:02d}:{:02d}'.format(
+                            hours, minutes, seconds) 
                     %>
                     <li
                     class="clips-list-item ${'clips-list-item-current' if current else ''}"
@@ -67,11 +62,25 @@ DEFAULT_ARTIST = _('Unknown')
                     data-height="${height}"
                     data-url="${url}"
                     data-direct-url="${direct_url}">
-                    <a class="clips-list-item-link" href="${url}">${(title or file) | h}</a>
+                    <a class="clips-list-item-link" href="${url}">
+                        <span class="clips-list-duration">
+                            ${hduration}
+                        </span>
+                        <span class="clips-list-title">
+                            ${title | h}
+                        </span>
+                    </a>
                     </li>
               % endfor
-            </div>
-        </ol>
+          </ul>
+          <h2>${selected_entry.get('title') or titlify(selected_entry['file']) | h}</h2>
+          <p class="clip-author">
+              ${selected_entry.get('author') or _('Unkown author')}
+          </p>
+          <p class="clip-description">
+              ${selected_entry.get('description', _('No description'))}
+          </p>
+      </div>
     </div>
     % endif
 </div>

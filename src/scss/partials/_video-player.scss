@@ -35,22 +35,38 @@ $clip-sidebar-animation-speed: 0.5s;
     width: $clip-sidebar-width;
     overflow-x: hidden;
     overflow-y: auto;
-    padding: 1rem;
 
     background: $o-dark-material;
 
     @include transition(right $clip-sidebar-animation-speed);
 
     .clips-list {
-      list-style: decimal inside;
+      margin: 2rem 0;
     }
 
     .clips-list-item {
+      background: darken($o-dark-material, 10);
       overflow: hidden;
-      width: 90%;
-      margin-top: 0.1rem;
+      margin: 0 0 0.5rem;
 
-      @include ellipsis;
+      a {
+        width: 100%;
+        display: inline-block;
+        color: $o-base-text-color;
+        padding: 0.3rem 0.5rem;
+        @include ellipsis;
+      }
+
+      &.clips-list-item-current {
+        background: $o-thin-overlay-material;
+      }
+    }
+
+    .clips-list-duration {
+      display: inline-block;
+      text-align: right;
+      width: 5rem;
+      margin-right: 0.5rem;
     }
 
     .clip-list-container-meta {
@@ -59,15 +75,20 @@ $clip-sidebar-animation-speed: 0.5s;
     }
 
     h2 {
-      margin-top: 1rem;
+      margin: 1rem;
       font-size: 120%;
       border-bottom-color: darken($o-dark-material, 20);
+    }
+
+    p {
+      margin: 0 1rem 1rem;
     }
   }
 
   .clips-list-container-retract {
     display: inline-block;
     color: lighten($o-base-text-color, 30);
+    margin: 0.5rem 0.5rem 0;
 
     &:hover {
       color: $o-accent;

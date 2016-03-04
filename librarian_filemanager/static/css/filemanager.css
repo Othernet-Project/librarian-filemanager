@@ -1736,27 +1736,44 @@ div.mejs-speed-button {
   width: 300px;
   overflow-x: hidden;
   overflow-y: auto;
-  padding: 1rem;
   background: #ddd;
   -moz-transition: right 0.5s;
   -o-transition: right 0.5s;
   -webkit-transition: right 0.5s;
   transition: right 0.5s;
 }
-/* line 44, ../../../src/scss/partials/_video-player.scss */
+/* line 43, ../../../src/scss/partials/_video-player.scss */
 .clips-container .clips-list-container .clips-list {
-  list-style: decimal inside;
+  margin: 2rem 0;
 }
-/* line 48, ../../../src/scss/partials/_video-player.scss */
+/* line 47, ../../../src/scss/partials/_video-player.scss */
 .clips-container .clips-list-container .clips-list-item {
+  background: #c4c4c4;
   overflow: hidden;
-  width: 90%;
-  margin-top: 0.1rem;
+  margin: 0 0 0.5rem;
+}
+/* line 52, ../../../src/scss/partials/_video-player.scss */
+.clips-container .clips-list-container .clips-list-item a {
+  width: 100%;
+  display: inline-block;
+  color: #333;
+  padding: 0.3rem 0.5rem;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-/* line 56, ../../../src/scss/partials/_video-player.scss */
+/* line 60, ../../../src/scss/partials/_video-player.scss */
+.clips-container .clips-list-container .clips-list-item.clips-list-item-current {
+  background: rgba(255, 255, 255, 0.75);
+}
+/* line 65, ../../../src/scss/partials/_video-player.scss */
+.clips-container .clips-list-container .clips-list-duration {
+  display: inline-block;
+  text-align: right;
+  width: 5rem;
+  margin-right: 0.5rem;
+}
+/* line 72, ../../../src/scss/partials/_video-player.scss */
 .clips-container .clips-list-container .clip-list-container-meta {
   opacity: 1;
   -moz-transition: opacity 0.5s;
@@ -1764,22 +1781,27 @@ div.mejs-speed-button {
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
 }
-/* line 61, ../../../src/scss/partials/_video-player.scss */
+/* line 77, ../../../src/scss/partials/_video-player.scss */
 .clips-container .clips-list-container h2 {
-  margin-top: 1rem;
+  margin: 1rem;
   font-size: 120%;
   border-bottom-color: #aaaaaa;
 }
-/* line 68, ../../../src/scss/partials/_video-player.scss */
+/* line 83, ../../../src/scss/partials/_video-player.scss */
+.clips-container .clips-list-container p {
+  margin: 0 1rem 1rem;
+}
+/* line 88, ../../../src/scss/partials/_video-player.scss */
 .clips-container .clips-list-container-retract {
   display: inline-block;
   color: gray;
+  margin: 0.5rem 0.5rem 0;
 }
-/* line 72, ../../../src/scss/partials/_video-player.scss */
+/* line 93, ../../../src/scss/partials/_video-player.scss */
 .clips-container .clips-list-container-retract:hover {
   color: #089bd2;
 }
-/* line 76, ../../../src/scss/partials/_video-player.scss */
+/* line 97, ../../../src/scss/partials/_video-player.scss */
 .clips-container .clips-list-container-retract .icon {
   -moz-transition: -moz-transform 3s;
   -o-transition: -o-transform 3s;
@@ -1787,52 +1809,52 @@ div.mejs-speed-button {
   transition: transform 3s;
   font-size: 220%;
 }
-/* line 81, ../../../src/scss/partials/_video-player.scss */
+/* line 102, ../../../src/scss/partials/_video-player.scss */
 .clips-container .clips-list-container-retract .label {
   text-transform: uppercase;
 }
-/* line 87, ../../../src/scss/partials/_video-player.scss */
+/* line 108, ../../../src/scss/partials/_video-player.scss */
 .clips-container.wide .clips-controls {
   right: 48px;
 }
-/* line 91, ../../../src/scss/partials/_video-player.scss */
+/* line 112, ../../../src/scss/partials/_video-player.scss */
 .clips-container.wide .clips-list-container {
   right: -252px;
 }
-/* line 95, ../../../src/scss/partials/_video-player.scss */
+/* line 116, ../../../src/scss/partials/_video-player.scss */
 .clips-container.wide .clip-list-container-meta {
   opacity: 0.2;
 }
-/* line 99, ../../../src/scss/partials/_video-player.scss */
+/* line 120, ../../../src/scss/partials/_video-player.scss */
 .clips-container.wide .clips-list-container-retract .icon {
   -moz-transform: rotateY(180deg);
   -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
 }
 
-/* line 106, ../../../src/scss/partials/_video-player.scss */
+/* line 127, ../../../src/scss/partials/_video-player.scss */
 #video-control-wrapper {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
 }
-/* line 113, ../../../src/scss/partials/_video-player.scss */
+/* line 134, ../../../src/scss/partials/_video-player.scss */
 #video-control-wrapper .mejs-container {
   width: 100% !important;
   height: 100% !important;
 }
-/* line 117, ../../../src/scss/partials/_video-player.scss */
+/* line 138, ../../../src/scss/partials/_video-player.scss */
 #video-control-wrapper .mejs-container .mejs-inner {
   width: 100%;
   height: 100%;
 }
-/* line 122, ../../../src/scss/partials/_video-player.scss */
+/* line 143, ../../../src/scss/partials/_video-player.scss */
 #video-control-wrapper .mejs-container .mejs-overlay {
   width: 100% !important;
   height: 100% !important;
 }
-/* line 127, ../../../src/scss/partials/_video-player.scss */
+/* line 148, ../../../src/scss/partials/_video-player.scss */
 #video-control-wrapper .mejs-container video {
   width: 100%;
   height: 100%;

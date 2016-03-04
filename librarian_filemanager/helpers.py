@@ -35,3 +35,9 @@ def title_name(path):
     """ Return best-effort-titlified file path """
     name, _ = os.path.splitext(path)
     return name.replace('_', ' ').replace('-', ' ')
+
+
+def durify(seconds):
+    hours, seconds = divmod(seconds, 3600.0)
+    minutes, seconds = divmod(seconds, 60.0)
+    return (int(hours), int(minutes), int(seconds))
