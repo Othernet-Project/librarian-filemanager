@@ -8,21 +8,21 @@
     expectedKeys = [];
 
     function Playlist(container, options) {
-      var base, current, currentIndex;
+      var base, current;
       this.container = container;
       this.options = options;
       this.items = this.container.find(this.options['itemSelector']);
-      this.items.on('click', 'a', (function(_this) {
-        return function(e) {
-          _this._onClick(e);
-        };
-      })(this));
+      this.items.on('click', 'a', this._onClick);
       if (typeof (base = this.options).ready === "function") {
         base.ready();
       }
-      current = this.items.find(this.options['currentItemSelector']).first();
-      currentIndex = current.index();
-      this._setCurrent(currentIndex);
+      current = this.container.find(this.options['currentItemSelector']).first();
+      if (current.length) {
+        this.currentIndex = current.index();
+      } else {
+        this.currentIndex = 0;
+      }
+      this._setCurrent(this.currentIndex);
       return;
     }
 
@@ -37,12 +37,12 @@
       }
     };
 
-    Playlist.prototype.len = function() {
+    Playlist.prototype.length = function() {
       return this.items.length;
     };
 
     Playlist.prototype.moveTo = function(index) {
-      if (index < 0 || index >= this.len) {
+      if (index < 0 || index >= this.length()) {
         return;
       }
       this._setCurrent(index);
@@ -50,13 +50,13 @@
 
     Playlist.prototype.next = function() {
       var index;
-      index = (this.currentIndex + 1) % this.len;
+      index = (this.currentIndex + 1) % this.length();
       return this.moveTo(index);
     };
 
     Playlist.prototype.previous = function() {
       var index;
-      index = (this.len + this.currentIndex - 1) % this.len;
+      index = (this.length + this.currentIndex - 1) % this.length();
       return this.moveTo(index);
     };
 

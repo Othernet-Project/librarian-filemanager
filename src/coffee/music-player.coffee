@@ -5,8 +5,8 @@
 
     constructor: (@container) ->
       options = {
-        itemSelector: '#playlist-list .playlist-list-item'
-        currentItemSelector: 'playlist-list-item-current'
+        itemSelector: '#playlist-list .playlist-list-item',
+        currentItemSelector: '.playlist-list-item-current',
         ready: () =>
           @onReady()
           return
@@ -20,13 +20,25 @@
     onReady: () =>
       @controls = @container.find('#audio-controls-audio').first()
       @controls.mediaelementplayer {
-        features: ['prevtrack', 'playpause', 'nexttrack', 'progress', 'duration', 'volume'],
+        features: ['prev', 'playpause', 'next', 'progress', 'duration', 'volume'],
         success: (mediaElement) =>
-          @player = mediaElement
+          @onPlayerReady(mediaElement)
           return
         error: () =>
           @controls.prepend templates.audioLoadFailure
+          return
       }
+      return
+
+    onPlayerReady: (mediaElement) =>
+      @player = mediaElement
+      $(@player).on 'mep-ext-playprev', () =>
+        @previous()
+        return
+
+      $(@player).on 'mep-ext-playnext', () =>
+        @next()
+        return
       return
 
     onSetCurrent: (item) ->
@@ -42,6 +54,14 @@
       @player.setSrc(audio_url)
       if wasPlaying
         @player.play()
+      return
+
+    next: () ->
+      @playlist.next()
+      return
+
+    previous: () ->
+      @playlist.previous()
       return
 
   prepareAudio = () ->

@@ -1,0 +1,32 @@
+/* line 4, ../../../src/scss/mejs-ext.scss */
+.mejs-oskin .mejs-controls .mejs-prev-button {
+  top: 10px;
+  left: 25%;
+  margin: 10px 0 0 -20px;
+  width: 40px;
+  height: 40px;
+}
+/* line 12, ../../../src/scss/mejs-ext.scss */
+.mejs-oskin .mejs-controls .mejs-next-button {
+  top: 10px;
+  right: 20%;
+  margin: 10px 0 0 -20px;
+  width: 40px;
+  height: 40px;
+}
+/* line 20, ../../../src/scss/mejs-ext.scss */
+.mejs-oskin .mejs-controls .mejs-prev button {
+  width: 40px;
+  height: 40px;
+  background: transparent url('../img/controls-wmp-playlist.png?1457094527') no-repeat 0 -40px;
+  margin: 0;
+  padding: 0;
+}
+/* line 28, ../../../src/scss/mejs-ext.scss */
+.mejs-oskin .mejs-controls .mejs-next button {
+  width: 40px;
+  height: 40px;
+  background: transparent url('../img/controls-wmp-playlist.png?1457094527') no-repeat;
+  margin: 0;
+  padding: 0;
+}

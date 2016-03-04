@@ -1,5 +1,9 @@
 @import "compass/css3/images";
 
+.mejs-container {
+  background: unset;
+}
+
 .mejs-oskin .mejs-controls {
   background: transparent image-url('controls-wmp-bg.png') center 16px no-repeat;
   height: 65px;

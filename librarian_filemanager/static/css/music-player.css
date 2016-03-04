@@ -16,27 +16,32 @@
  * http://www.gnu.org/licenses/gpl.txt.
  */
 /* line 3, ../../../src/scss/_audio-skin.scss */
+.mejs-container {
+  background: unset;
+}
+
+/* line 7, ../../../src/scss/_audio-skin.scss */
 .mejs-oskin .mejs-controls {
   background: transparent url('../img/controls-wmp-bg.png?1456895944') center 16px no-repeat;
   height: 65px;
 }
-/* line 7, ../../../src/scss/_audio-skin.scss */
+/* line 11, ../../../src/scss/_audio-skin.scss */
 .mejs-oskin .mejs-controls .mejs-time-rail .mejs-time-total {
   background-color: transparent;
   border: solid 1px #ccc;
   height: 3px;
 }
-/* line 13, ../../../src/scss/_audio-skin.scss */
+/* line 17, ../../../src/scss/_audio-skin.scss */
 .mejs-oskin .mejs-controls .mejs-time-rail .mejs-time-buffering {
   height: 3px;
 }
-/* line 17, ../../../src/scss/_audio-skin.scss */
+/* line 21, ../../../src/scss/_audio-skin.scss */
 .mejs-oskin .mejs-controls .mejs-time-rail .mejs-time-loaded {
   background-color: rgba(255, 255, 255, 0.3);
   width: 0;
   height: 3px;
 }
-/* line 23, ../../../src/scss/_audio-skin.scss */
+/* line 27, ../../../src/scss/_audio-skin.scss */
 .mejs-oskin .mejs-controls .mejs-time-rail .mejs-time-current {
   width: 0;
   height: 1px;
@@ -45,7 +50,7 @@
   border-width: 1px 0;
   border-color: #7FC9FA #fff #619FF2 #fff;
 }
-/* line 32, ../../../src/scss/_audio-skin.scss */
+/* line 36, ../../../src/scss/_audio-skin.scss */
 .mejs-oskin .mejs-controls .mejs-time-rail .mejs-time-handle {
   display: block;
   margin: 0;
@@ -55,11 +60,11 @@
   border: 0;
   background: url('../img/controls-wmp.png?1456895944') no-repeat 0 -80px;
 }
-/* line 42, ../../../src/scss/_audio-skin.scss */
+/* line 46, ../../../src/scss/_audio-skin.scss */
 .mejs-oskin .mejs-controls .mejs-time-rail .mejs-time-float {
   display: none;
 }
-/* line 46, ../../../src/scss/_audio-skin.scss */
+/* line 50, ../../../src/scss/_audio-skin.scss */
 .mejs-oskin .mejs-controls .mejs-playpause-button {
   top: 10px;
   left: 50%;
@@ -67,7 +72,7 @@
   width: 40px;
   height: 40px;
 }
-/* line 55, ../../../src/scss/_audio-skin.scss */
+/* line 59, ../../../src/scss/_audio-skin.scss */
 .mejs-oskin .mejs-controls .mejs-playpause-button button {
   width: 40px;
   height: 40px;
@@ -75,25 +80,25 @@
   margin: 0;
   padding: 0;
 }
-/* line 63, ../../../src/scss/_audio-skin.scss */
+/* line 67, ../../../src/scss/_audio-skin.scss */
 .mejs-oskin .mejs-controls .mejs-pause button {
   background-position: 0 -40px;
 }
-/* line 67, ../../../src/scss/_audio-skin.scss */
+/* line 71, ../../../src/scss/_audio-skin.scss */
 .mejs-oskin .mejs-controls .mejs-currenttime-container {
   position: absolute;
   top: 25px;
   left: 50%;
   margin-left: -93px;
 }
-/* line 74, ../../../src/scss/_audio-skin.scss */
+/* line 78, ../../../src/scss/_audio-skin.scss */
 .mejs-oskin .mejs-controls .mejs-duration-container {
   position: absolute;
   top: 25px;
   left: 50%;
   margin-left: -58px;
 }
-/* line 81, ../../../src/scss/_audio-skin.scss */
+/* line 85, ../../../src/scss/_audio-skin.scss */
 .mejs-oskin .mejs-controls .mejs-volume-button {
   top: 32px;
   right: 50%;
@@ -101,7 +106,7 @@
   width: 20px;
   height: 15px;
 }
-/* line 89, ../../../src/scss/_audio-skin.scss */
+/* line 93, ../../../src/scss/_audio-skin.scss */
 .mejs-oskin .mejs-controls .mejs-volume-button button {
   margin: 0;
   padding: 0;
@@ -109,7 +114,7 @@
   width: 20px;
   height: 15px;
 }
-/* line 97, ../../../src/scss/_audio-skin.scss */
+/* line 101, ../../../src/scss/_audio-skin.scss */
 .mejs-oskin .mejs-controls .mejs-unmute button {
   margin: 0;
   padding: 0;
@@ -117,11 +122,11 @@
   width: 20px;
   height: 15px;
 }
-/* line 105, ../../../src/scss/_audio-skin.scss */
+/* line 109, ../../../src/scss/_audio-skin.scss */
 .mejs-oskin .mejs-controls .mejs-volume-button .mejs-volume-slider {
   background: rgba(102, 102, 102, 0.6);
 }
-/* line 109, ../../../src/scss/_audio-skin.scss */
+/* line 113, ../../../src/scss/_audio-skin.scss */
 .mejs-oskin .mejs-controls .mejs-fullscreen-button {
   top: 32px;
   right: 50%;
@@ -129,7 +134,7 @@
   width: 15px;
   height: 14px;
 }
-/* line 117, ../../../src/scss/_audio-skin.scss */
+/* line 121, ../../../src/scss/_audio-skin.scss */
 .mejs-oskin .mejs-controls .mejs-fullscreen-button button {
   margin: 0;
   padding: 0;
@@ -137,21 +142,21 @@
   width: 15px;
   height: 14px;
 }
-/* line 125, ../../../src/scss/_audio-skin.scss */
+/* line 129, ../../../src/scss/_audio-skin.scss */
 .mejs-oskin .mejs-controls .mejs-captions-button {
   display: none;
 }
-/* line 129, ../../../src/scss/_audio-skin.scss */
+/* line 133, ../../../src/scss/_audio-skin.scss */
 .mejs-oskin .mejs-controls .mejs-prevtrack button {
-  background: transparent url('../img/controls-playlist.png?1457020945') no-repeat;
+  background: transparent url('../img/controls-playlist.png') no-repeat;
   background-position: 0 -16px;
 }
-/* line 134, ../../../src/scss/_audio-skin.scss */
+/* line 138, ../../../src/scss/_audio-skin.scss */
 .mejs-oskin .mejs-controls .mejs-nexttrack button {
-  background: transparent url('../img/controls-playlist.png?1457020945') no-repeat;
+  background: transparent url('../img/controls-playlist.png') no-repeat;
 }
 
-/* line 139, ../../../src/scss/_audio-skin.scss */
+/* line 143, ../../../src/scss/_audio-skin.scss */
 .mejs-oskin .mejs-button,
 .mejs-oskin .mejs-time {
   position: absolute;

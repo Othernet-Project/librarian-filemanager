@@ -8,10 +8,11 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
     function MusicPlayer(container1) {
       var options;
       this.container = container1;
+      this.onPlayerReady = bind(this.onPlayerReady, this);
       this.onReady = bind(this.onReady, this);
       options = {
         itemSelector: '#playlist-list .playlist-list-item',
-        currentItemSelector: 'playlist-list-item-current',
+        currentItemSelector: '.playlist-list-item-current',
         ready: (function(_this) {
           return function() {
             _this.onReady();
@@ -30,18 +31,32 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
     MusicPlayer.prototype.onReady = function() {
       this.controls = this.container.find('#audio-controls-audio').first();
       this.controls.mediaelementplayer({
-        features: ['prevtrack', 'playpause', 'nexttrack', 'progress', 'duration', 'volume'],
+        features: ['prev', 'playpause', 'next', 'progress', 'duration', 'volume'],
         success: (function(_this) {
           return function(mediaElement) {
-            _this.player = mediaElement;
+            _this.onPlayerReady(mediaElement);
           };
         })(this),
         error: (function(_this) {
           return function() {
-            return _this.controls.prepend(templates.audioLoadFailure);
+            _this.controls.prepend(templates.audioLoadFailure);
           };
         })(this)
       });
+    };
+
+    MusicPlayer.prototype.onPlayerReady = function(mediaElement) {
+      this.player = mediaElement;
+      $(this.player).on('mep-ext-playprev', (function(_this) {
+        return function() {
+          _this.previous();
+        };
+      })(this));
+      $(this.player).on('mep-ext-playnext', (function(_this) {
+        return function() {
+          _this.next();
+        };
+      })(this));
     };
 
     MusicPlayer.prototype.onSetCurrent = function(item) {
@@ -60,6 +75,14 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
       if (wasPlaying) {
         this.player.play();
       }
+    };
+
+    MusicPlayer.prototype.next = function() {
+      this.playlist.next();
+    };
+
+    MusicPlayer.prototype.previous = function() {
+      this.playlist.previous();
     };
 
     return MusicPlayer;

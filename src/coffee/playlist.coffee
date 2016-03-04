@@ -6,13 +6,16 @@
 
     constructor: (@container, @options) ->
       @items = @container.find(@options['itemSelector'])
-      @items.on 'click', 'a', (e) =>
-        @_onClick(e)
-        return
+      @items.on 'click', 'a', @_onClick
+
       @options.ready?()
-      current = @items.find(@options['currentItemSelector']).first()
-      currentIndex = current.index()
-      @_setCurrent(currentIndex)
+
+      current = @container.find(@options['currentItemSelector']).first()
+      if current.length
+        @currentIndex = current.index()
+      else
+        @currentIndex = 0
+      @_setCurrent(@currentIndex)
       return
 
     _setCurrent: (index) ->
@@ -23,21 +26,21 @@
       @options.setCurrent?(current)
       return
 
-    len: () ->
+    length: () ->
       @items.length
 
     moveTo: (index) ->
-      if index < 0 or index >= @len
+      if index < 0 or index >= @length()
         return
       @_setCurrent(index)
       return
 
     next: () ->
-      index = (@currentIndex + 1) % @len
+      index = (@currentIndex + 1) % @length()
       @moveTo(index)
 
     previous: () ->
-      index = (@len + @currentIndex - 1) % @len
+      index = (@length + @currentIndex - 1) % @length()
       @moveTo(index)
 
     _onClick: (e) ->
