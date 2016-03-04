@@ -49,8 +49,19 @@
   border-top-right-radius: 0.3rem;
 }
 /* line 41, ../../../src/scss/main.scss */
-.views-tabs-strip .view-tabs-tab-current {
-  position: relative;
+.views-tabs-strip .views-tabs-tab-current {
   background: rgba(255, 255, 255, 0.75);
-  z-index: 10;
+}
+/* line 45, ../../../src/scss/main.scss */
+.views-tabs-strip .views-tabs-special {
+  background: #089bd2;
+  color: #fff;
+}
+/* line 49, ../../../src/scss/main.scss */
+.views-tabs-strip .views-tabs-special .icon {
+  font-size: 150%;
+}
+/* line 53, ../../../src/scss/main.scss */
+.views-tabs-strip .views-tabs-special .label {
+  display: none;
 }

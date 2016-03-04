@@ -38,9 +38,20 @@
     @include border-top-right-radius($o-clickable-target-corner-radius);
   }
 
-  .view-tabs-tab-current {
-    position: relative;
+  .views-tabs-tab-current {
     background: $o-thin-overlay-material;
-    z-index: 10;
+  }
+
+  .views-tabs-special {
+    background: $o-accent;
+    color: $o-negative-base;
+
+    .icon {
+      font-size: 150%;
+    }
+
+    .label {
+      display: none;
+    }
   }
 }

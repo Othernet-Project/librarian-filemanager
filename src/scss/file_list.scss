@@ -1,8 +1,6 @@
 @import "base";
 
 .file-list {
-  @include box-shadow($o-thin-overlay-shadow);
-
   .file-list-item {
     // Styling
     background: $o-thin-overlay-material;
