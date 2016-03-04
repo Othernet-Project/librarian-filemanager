@@ -1,31 +1,45 @@
 @import "base";
 
-.clips-container {
-  @include border-radius($o-clickable-target-corner-radius);
+$clip-sidebar-width: 300px;
+$clip-sidebar-closed-width: 48px;
+$clip-sidebar-animation-speed: 0.5s;
 
+.clips-container {
+  // Geometry
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-x: hidden;
+
+  // Styling
   background: $o-thin-overlay-material;
-  width: 100%;
-  height: 32rem;
 
   .clips-controls {
-    float: left;
-    padding: 3rem;
-    width: 50%;
-    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: $clip-sidebar-width;
+    bottom: 0;
+    padding: 1rem;
 
-    &:after {
-      content: "";
-      display: block;
-      clear: both;
-    }
-
+    @include transition(right $clip-sidebar-animation-speed);
   }
+
   .clips-list-container {
-    float: left;
-    width: 50%;
-    height: 100%;
-    padding-left: 1rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: $clip-sidebar-width;
+    overflow-x: hidden;
     overflow-y: auto;
+    padding: 1rem;
+
+    background: $o-dark-material;
+
+    @include transition(right $clip-sidebar-animation-speed);
 
     .clips-list {
       list-style: decimal inside;
@@ -38,18 +52,63 @@
 
       @include ellipsis;
     }
+
+    .clip-list-container-meta {
+      opacity: 1;
+      @include transition(opacity $clip-sidebar-animation-speed);
+    }
+
+    h2 {
+      margin-top: 1rem;
+      font-size: 120%;
+      border-bottom-color: darken($o-dark-material, 20);
+    }
   }
 
+  .clips-list-container-retract {
+    display: inline-block;
+    color: lighten($o-base-text-color, 30);
+
+    &:hover {
+      color: $o-accent;
+    }
+
+    .icon {
+      @include transition(transform 3s);
+      font-size: 220%;
+    }
+
+    .label {
+      text-transform: uppercase;
+    }
+  }
+
+  &.wide {
+    .clips-controls {
+      right: $clip-sidebar-closed-width;
+    }
+
+    .clips-list-container {
+      right: $clip-sidebar-closed-width - $clip-sidebar-width;
+    }
+
+    .clip-list-container-meta {
+      opacity: 0.2;
+    }
+
+    .clips-list-container-retract .icon {
+      @include rotateY(180deg);
+    }
+  }
 }
 
 
 #video-control-wrapper {
-    // Basic geometry
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 95%;
-    //background: black;
+  // Basic geometry
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
 
   .mejs-container {
     width: 100% !important;

@@ -29,3 +29,9 @@ def pathify(data):
     elif isinstance(data, list):
         for item in data:
             pathify(item)
+
+
+def title_name(path):
+    """ Return best-effort-titlified file path """
+    name, _ = os.path.splitext(path)
+    return name.replace('_', ' ').replace('-', ' ')

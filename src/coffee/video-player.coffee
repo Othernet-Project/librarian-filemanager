@@ -1,6 +1,8 @@
 ((window, $, templates) ->
   'use strict'
 
+  clipListRetract = templates.clipListRetract
+
   class VideoPlayer
 
     constructor: (@container) ->
@@ -43,13 +45,20 @@
         @controls.play()
       return
 
+  toggleSidebar = (e) ->
+    ($ '#clips-container').toggleClass 'wide'
+
   prepareVideo = () ->
     container = $ '#clips-container'
-    if container.length
-      player = new VideoPlayer container
+    if not container.length
+      return
+    clipListRetractButton = $ clipListRetract
+    (container.find '.clips-list-container').prepend clipListRetractButton
+    clipListRetractButton.on 'click', toggleSidebar
+    player = new VideoPlayer container
     return
 
-  $ prepareVideo
+  prepareVideo()
   window.onTabChange prepareVideo
 
   return

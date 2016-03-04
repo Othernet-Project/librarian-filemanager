@@ -4,7 +4,7 @@ DEFAULT_TITLE = _('Untitled')
 DEFAULT_ARTIST = _('Unknown')
 %>
 
-<%def name="video_control(url, width, height)">
+<%def name="video_control(url)">
     <div id="video-control-wrapper" class="video-control-wrapper">
         <video id="video-controls-video" controls="controls" width="100%" height="100%" preload="none">
             <source src="${url | h}" />
@@ -30,41 +30,55 @@ DEFAULT_ARTIST = _('Unknown')
       else:
           selected_entry = entries[0]
       video_url = h.quoted_url('files:direct', path=selected_entry['file_path'])
-      width = selected_entry['width']
-      height = selected_entry['height']
     %>
     <div class="clips-controls" id="clips-controls">
-        ${video_control(video_url, width, height)}
+        ${video_control(video_url)}
     </div>
     <div class="clips-list-container" id="clips-list-container">
-        <h2 style="border-bottom: none;">${_('Clips')}</h2>
-        <ol class="clips-list" id="clips-list" role="grid">
-        % for entry in facets['video']['clips']:
-            <%
-            file = entry['file']
-            current = entry == selected_entry
-            file_path = entry['file_path']
-            url = h.quoted_url('files:path', view=view, path=path, selected=file)
-            direct_url = h.quoted_url('files:direct', path=file_path)
-            title = entry['title'] or DEFAULT_TITLE
-            duration = entry['duration']
-            width = entry['width']
-            height = entry['height']
-            %>
-            <li
-                class="clips-list-item ${'clips-list-item-current' if current else ''}"
-                role="row"
-                aria-selected="false"
-                data-title="${title | h}"
-                data-duration="${duration}"
-                data-width="${width}"
-                data-height="${height}"
-                data-url="${url}"
-                data-direct-url="${direct_url}">
-                <a class="clips-list-item-link" href="${url}">${(title or file) | h}</a>
-          </li>
-        % endfor
+        <div class="clip-list-container-meta">
+            <h2>${selected_entry.get('title') or titlify(selected_entry['file']) | h}</h2>
+            <p class="clip-author">
+                ${selected_entry.get('author') or _('Unkown author')}
+            </p>
+            <p class="clip-description">
+                ${selected_entry.get('description', _('No description'))}
+            </p>
+            <h2>${_('Playlist')}</h2>
+            <ol class="clips-list" id="clips-list" role="grid">
+                % for entry in facets['video']['clips']:
+                    <%
+                        file = entry['file']
+                        current = entry == selected_entry
+                        file_path = entry['file_path']
+                        url = h.quoted_url('files:path', view=view, path=path, selected=file)
+                        direct_url = h.quoted_url('files:direct', path=file_path)
+                        title = entry['title'] or DEFAULT_TITLE
+                        duration = entry['duration']
+                        width = entry['width']
+                        height = entry['height']
+                    %>
+                    <li
+                    class="clips-list-item ${'clips-list-item-current' if current else ''}"
+                    role="row"
+                    aria-selected="false"
+                    data-title="${title | h}"
+                    data-duration="${duration}"
+                    data-width="${width}"
+                    data-height="${height}"
+                    data-url="${url}"
+                    data-direct-url="${direct_url}">
+                    <a class="clips-list-item-link" href="${url}">${(title or file) | h}</a>
+                    </li>
+              % endfor
+            </div>
         </ol>
     </div>
     % endif
 </div>
+
+<script type="text/template" id="clipListRetract">
+    <a class="clips-list-container-retract" href="javascript:void(0);" data-alt-label="${_('Show')}">
+        <span class="icon icon-expand-right"></span>
+        <span class="label">${_('Hide')}</span>
+    </a>
+</script>
