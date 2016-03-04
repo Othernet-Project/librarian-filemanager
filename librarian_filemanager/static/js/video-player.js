@@ -41,24 +41,24 @@
       });
     };
 
-    VideoPlayer.prototype.onPlayerReady = function() {
+    VideoPlayer.prototype.onPlayerReady = function(mediaElement) {
       this.player = mediaElement;
     };
 
     VideoPlayer.prototype.onSetCurrent = function(item) {
       this.updatePlayer(item);
-      window.updateLocation(item.data('url'));
+      window.changeLocation(item.data('url'));
     };
 
     VideoPlayer.prototype.updatePlayer = function(item) {
-      var height, ref, video_url, wasPlaying, width;
-      video_url = item.data('direct-url');
+      var height, ref, videoUrl, wasPlaying, width;
+      videoUrl = item.data('direct-url');
       ref = [item.data('width'), item.data('height')], width = ref[0], height = ref[1];
       wasPlaying = !this.player.paused;
       if (wasPlaying) {
         this.player.pause();
       }
-      this.player.setSrc(audio_url);
+      this.player.setSrc(videoUrl);
       this.player.setVideoSize(width, height);
       this.player.play();
     };

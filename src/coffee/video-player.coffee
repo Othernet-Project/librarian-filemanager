@@ -29,22 +29,22 @@
           return
       }
 
-    onPlayerReady: () ->
+    onPlayerReady: (mediaElement) ->
       @player = mediaElement
       return
 
     onSetCurrent: (item) ->
       @updatePlayer(item)
-      window.updateLocation item.data('url')
+      window.changeLocation item.data('url')
       return
 
     updatePlayer: (item) ->
-      video_url = item.data('direct-url')
+      videoUrl = item.data('direct-url')
       [width, height] = [item.data('width'), item.data('height')]
       wasPlaying = not @player.paused
       if wasPlaying
         @player.pause()
-      @player.setSrc(audio_url)
+      @player.setSrc(videoUrl)
       @player.setVideoSize(width, height)
       @player.play()
       return
