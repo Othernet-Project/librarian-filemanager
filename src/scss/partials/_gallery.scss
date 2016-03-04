@@ -1,0 +1,147 @@
+@import "compass/css3";
+@import "compass/typography/text/replacement";
+@import "base";
+
+$current-image-size: 300px;
+$gallery-controls-height: 120px;
+
+@include keyframes(fade-out) {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.gallery-container {
+  background: $o-thin-overlay-material;
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  .gallery-current-image {
+    position: absolute;
+    top: 0;
+    bottom: $gallery-controls-height;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    overflow: hidden;
+
+    .gallery-current-image-img {
+      max-width: 100%;
+      height: auto;
+      max-height: 100%;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+}
+
+.gallery-control {
+  // Geometry
+  position: absolute;
+  top: 0;
+  bottom: $gallery-controls-height;
+  width: 20%;
+
+  // Styling
+  background: transparentize(black, 0.5);
+  color: white;
+
+  .icon {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    margin-top: -21px;
+    font-size: 400%;
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+    @include text-shadow(0px 1px black);
+  }
+
+  .label {
+    display: none;
+  }
+
+  &:hover {
+    opacity: 1;
+    color: white;
+    @include animation-name(none);
+  }
+
+  // FX
+  @include transition(opacity 0.3s);
+  @include animation-name(fade-out);
+  @include animation-duration(3s);
+  @include animation-fill-mode(forwards);
+}
+
+.gallery-control-previous {
+  left: 0;
+}
+
+.gallery-control-next {
+  right: 0;
+}
+
+.gallery-image-title {
+  // TODO: Image title
+  // Geometry
+  margin-top: 1rem;
+  max-width: 30%;
+  margin: 0 auto;
+  z-index: 1;
+
+  // Styling
+  @include ellipsis;
+  background: transparentize(black, 0.3);
+}
+
+.gallery-list-container {
+  position: absolute;
+  bottom: 0;
+  height: $gallery-controls-height;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+
+  background: $o-dark-material;
+
+  .gallery-list {
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    overflow: hidden;
+    overflow-y: auto;
+    word-wrap: normal;
+    white-space: nowrap;
+  }
+
+  .gallery-list-item {
+    display: inline-block;
+    height: 100%;
+    width: $gallery-controls-height;
+
+    a {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .img {
+      max-width: 100%;
+      max-height: 100%;
+      vertical-align: middle;
+    }
+  }
+
+  .gallery-list-item-current {
+    opacity: 0.5;
+  }
+}
+

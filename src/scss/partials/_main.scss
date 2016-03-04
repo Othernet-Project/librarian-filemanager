@@ -1,0 +1,57 @@
+@import "base";
+
+.views-container {
+  // We make views container take up as much space as possible so that the 
+  // layout of individual facet UIs can be as flexible as possible. Note that 
+  // we're **not** using the overflow property here so that UIs that require a 
+  // long scrolling list can do that without additional CSS. It's the job of 
+  // the facet's own UI to select an appropriate overflow value.
+  position: absolute;
+  top: 3rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  clear: both;
+}
+
+.views-tabs-strip {
+  height: 2rem;
+
+  .views-tabs-strip-tab {
+    // Geometry
+    display: inline-block;
+    padding: 0 1rem;
+    line-height: 2rem;
+    height: 2rem;
+    margin: 0 0.2rem;
+
+    background-color: darken($o-material, 20);
+    color: $o-base-text-color;
+
+    // Text styling
+    text-transform: uppercase;
+
+    border-right: $o-separator-border;
+    border-top: $o-separator-border;
+
+    @include border-top-left-radius($o-clickable-target-corner-radius);
+    @include border-top-right-radius($o-clickable-target-corner-radius);
+  }
+
+  .views-tabs-tab-current {
+    background: $o-thin-overlay-material;
+  }
+
+  .views-tabs-special {
+    background: $o-accent;
+    color: $o-negative-base;
+
+    .icon {
+      font-size: 150%;
+    }
+
+    .label {
+      display: none;
+    }
+  }
+}

@@ -14,14 +14,24 @@
       direct_url = h.quoted_url('files:direct', path=selected_entry['file_path'])
       title = selected_entry['title']
     %>
+    <h3 class="gallery-image-title" id="gallery-controls-image-title">
+        ${title}
+    </h3>
     <div class="gallery-current-image" id="gallery-current-image">
         <img class="gallery-current-image-img" src='${direct_url}'/>
     </div>
-    <div class="gallery-controls" id="gallery-controls">
-        <a class="gallery-controls-control gallery-controls-control-previous" id="gallery-controls-control-previous">P</a>
-        <span class="gallery-controls-image-title" id="gallery-controls-image-title">${title}</span>
-        <a class="gallery-controls-control gallery-controls-control-next" id="gallery-controls-control-next">N</a>
-    </div>
+    <a class="gallery-control gallery-control-previous" id="gallery-control-previous">
+        <span class="icon icon-expand-left"></span>
+        <span class="label">
+            ${_('Previous')}
+        </span>
+    </a>
+    <a class="gallery-control gallery-control-next" id="gallery-control-next">
+        <span class="icon icon-expand-right"></span>
+        <span class="label">
+            ${_('Next')}
+        </span>
+    </a>
     <div class="gallery-list-container" id="gallery-list-container">
         <ul class="gallery-list" id="gallery-list" role="grid">
             % for entry in facets['image']['gallery']:

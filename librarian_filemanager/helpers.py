@@ -29,3 +29,15 @@ def pathify(data):
     elif isinstance(data, list):
         for item in data:
             pathify(item)
+
+
+def title_name(path):
+    """ Return best-effort-titlified file path """
+    name, _ = os.path.splitext(path)
+    return name.replace('_', ' ').replace('-', ' ')
+
+
+def durify(seconds):
+    hours, seconds = divmod(seconds, 3600.0)
+    minutes, seconds = divmod(seconds, 60.0)
+    return '{}:{:02d}:{:02d}'.format(int(hours), int(minutes), int(seconds))
