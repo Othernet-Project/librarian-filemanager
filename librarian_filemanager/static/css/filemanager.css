@@ -1485,6 +1485,25 @@ div.mejs-speed-button {
   opacity: 0.5;
 }
 
+/* line 1, ../../../src/scss/partials/_reader.scss */
+.views-reader {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.75);
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+}
+
+/* line 25, ../../../src/scss/partials/_reader.scss */
+.views-reader-frame {
+  display: block;
+  width: 100%;
+  min-height: 100%;
+}
+
 /* line 3, ../../../src/scss/partials/_audio-skin.scss */
 .mejs-oskin .mejs-controls {
   background: transparent url('../img/controls-wmp-bg.png?1457030534') center 16px no-repeat;
