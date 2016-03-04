@@ -12,7 +12,11 @@
       this.container = container;
       this.options = options;
       this.items = this.container.find(this.options['itemSelector']);
-      this.items.on('click', 'a', this._onClick);
+      this.items.on('click', 'a', (function(_this) {
+        return function(e) {
+          return _this._onClick(e);
+        };
+      })(this));
       if (typeof (base = this.options).ready === "function") {
         base.ready();
       }

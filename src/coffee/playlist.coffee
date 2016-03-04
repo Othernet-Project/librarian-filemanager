@@ -6,7 +6,8 @@
 
     constructor: (@container, @options) ->
       @items = @container.find(@options['itemSelector'])
-      @items.on 'click', 'a', @_onClick
+      @items.on 'click', 'a', (e) =>
+        @_onClick(e)
 
       @options.ready?()
 
