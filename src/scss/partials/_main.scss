@@ -44,7 +44,11 @@ $views-sidebar-cutoff: 740px;
   }
 
   .sidebar-hidden & {
-    right: 10%;
+    right: $views-sidebar-min;
+
+    @include views-at-cutoff {
+      right: 10%;
+    }
   }
 }
 

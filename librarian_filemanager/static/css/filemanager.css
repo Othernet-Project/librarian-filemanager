@@ -1169,10 +1169,16 @@ div.mejs-speed-button {
 }
 /* line 46, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-main {
-  right: 10%;
+  right: 48px;
+}
+@media only screen and (max-width: 740px) {
+  /* line 46, ../../../src/scss/partials/_main.scss */
+  .sidebar-hidden .views-main {
+    right: 10%;
+  }
 }
 
-/* line 51, ../../../src/scss/partials/_main.scss */
+/* line 55, ../../../src/scss/partials/_main.scss */
 .views-sidebar {
   position: absolute;
   top: 0;
@@ -1187,33 +1193,33 @@ div.mejs-speed-button {
   transition: right 0.5s;
 }
 @media only screen and (max-width: 740px) {
-  /* line 51, ../../../src/scss/partials/_main.scss */
+  /* line 55, ../../../src/scss/partials/_main.scss */
   .views-sidebar {
     width: 100%;
   }
 }
-/* line 66, ../../../src/scss/partials/_main.scss */
+/* line 70, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-sidebar {
   right: -252px;
 }
 @media only screen and (max-width: 740px) {
-  /* line 66, ../../../src/scss/partials/_main.scss */
+  /* line 70, ../../../src/scss/partials/_main.scss */
   .sidebar-hidden .views-sidebar {
     right: -90%;
   }
 }
 
-/* line 75, ../../../src/scss/partials/_main.scss */
+/* line 79, ../../../src/scss/partials/_main.scss */
 .views-sidebar-retract {
   display: inline-block;
   color: gray;
   margin: 0.5rem 0.5rem 0;
 }
-/* line 80, ../../../src/scss/partials/_main.scss */
+/* line 84, ../../../src/scss/partials/_main.scss */
 .views-sidebar-retract:hover {
   color: #089bd2;
 }
-/* line 84, ../../../src/scss/partials/_main.scss */
+/* line 88, ../../../src/scss/partials/_main.scss */
 .views-sidebar-retract .icon {
   -moz-transition: -moz-transform 3s;
   -o-transition: -o-transform 3s;
@@ -1221,14 +1227,14 @@ div.mejs-speed-button {
   transition: transform 3s;
   font-size: 220%;
 }
-/* line 88, ../../../src/scss/partials/_main.scss */
+/* line 92, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-sidebar-retract .icon {
   -moz-transform: rotateY(180deg);
   -ms-transform: rotateY(180deg);
   -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
 }
-/* line 93, ../../../src/scss/partials/_main.scss */
+/* line 97, ../../../src/scss/partials/_main.scss */
 .views-sidebar-retract .label {
   text-transform: uppercase;
   -moz-transition: opacity 0.5s;
@@ -1236,12 +1242,12 @@ div.mejs-speed-button {
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
 }
-/* line 97, ../../../src/scss/partials/_main.scss */
+/* line 101, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-sidebar-retract .label {
   opacity: 0;
 }
 
-/* line 103, ../../../src/scss/partials/_main.scss */
+/* line 107, ../../../src/scss/partials/_main.scss */
 .views-sidebar-content {
   opacity: 1;
   -moz-transition: opacity 0.5s;
@@ -1249,16 +1255,16 @@ div.mejs-speed-button {
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
 }
-/* line 107, ../../../src/scss/partials/_main.scss */
+/* line 111, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-sidebar-content {
   opacity: 0.2;
 }
 
-/* line 112, ../../../src/scss/partials/_main.scss */
+/* line 116, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip {
   height: 2rem;
 }
-/* line 115, ../../../src/scss/partials/_main.scss */
+/* line 119, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-strip-tab {
   display: inline-block;
   padding: 0 1rem;
@@ -1277,20 +1283,20 @@ div.mejs-speed-button {
   -webkit-border-top-right-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
 }
-/* line 136, ../../../src/scss/partials/_main.scss */
+/* line 140, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-tab-current {
   background: rgba(255, 255, 255, 0.75);
 }
-/* line 140, ../../../src/scss/partials/_main.scss */
+/* line 144, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-special {
   background: #089bd2;
   color: #fff;
 }
-/* line 144, ../../../src/scss/partials/_main.scss */
+/* line 148, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-special .icon {
   font-size: 150%;
 }
-/* line 148, ../../../src/scss/partials/_main.scss */
+/* line 152, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-special .label {
   display: none;
 }
