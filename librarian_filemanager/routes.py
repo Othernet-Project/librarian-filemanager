@@ -25,7 +25,7 @@ from librarian_core.contrib.templates.decorators import template_helper
 from librarian_core.contrib.templates.renderer import template, view
 
 from .manager import Manager
-from .helpers import get_facets, title_name, durify
+from .helpers import get_facets, title_name, durify, get_selected
 
 
 EXPORTS = {
@@ -84,7 +84,8 @@ def show_file_list(path=None, defaults=dict()):
 def show_view(path, view, defaults=dict()):
     selected = request.query.get('selected', None)
     data = defaults.copy()
-    data.update(dict(selected=selected, titlify=title_name, durify=durify))
+    data.update(dict(selected=selected, titlify=title_name, durify=durify,
+                     get_selected=get_selected))
     return data
 
 

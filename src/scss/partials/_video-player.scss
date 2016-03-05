@@ -4,125 +4,64 @@ $clip-sidebar-width: 300px;
 $clip-sidebar-closed-width: 48px;
 $clip-sidebar-animation-speed: 0.5s;
 
-.clips-container {
-  // Geometry
+.clips-controls {
+  padding: 1rem;
+  background: $o-thin-overlay-material;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   overflow-x: hidden;
-
-  // Styling
-  background: $o-thin-overlay-material;
-
-  .clips-controls {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: $clip-sidebar-width;
-    bottom: 0;
-    padding: 1rem;
-
-    @include transition(right $clip-sidebar-animation-speed);
-  }
-
-  .clips-list-container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: $clip-sidebar-width;
-    overflow-x: hidden;
-    overflow-y: auto;
-
-    background: $o-dark-material;
-
-    @include transition(right $clip-sidebar-animation-speed);
-
-    .clips-list {
-      margin: 2rem 0;
-    }
-
-    .clips-list-item {
-      background: darken($o-dark-material, 10);
-      overflow: hidden;
-      margin: 0 0 0.5rem;
-
-      a {
-        width: 100%;
-        display: inline-block;
-        color: $o-base-text-color;
-        padding: 0.3rem 0.5rem;
-        @include ellipsis;
-      }
-
-      &.clips-list-item-current {
-        background: $o-thin-overlay-material;
-      }
-    }
-
-    .clips-list-duration {
-      display: inline-block;
-      text-align: right;
-      width: 5rem;
-      margin-right: 0.5rem;
-    }
-
-    .clip-list-container-meta {
-      opacity: 1;
-      @include transition(opacity $clip-sidebar-animation-speed);
-    }
-
-    h2 {
-      margin: 1rem;
-      font-size: 120%;
-      border-bottom-color: darken($o-dark-material, 20);
-    }
-
-    p {
-      margin: 0 1rem 1rem;
-    }
-  }
-
-  .clips-list-container-retract {
-    display: inline-block;
-    color: lighten($o-base-text-color, 30);
-    margin: 0.5rem 0.5rem 0;
-
-    &:hover {
-      color: $o-accent;
-    }
-
-    .icon {
-      @include transition(transform 3s);
-      font-size: 220%;
-    }
-
-    .label {
-      text-transform: uppercase;
-    }
-  }
-
-  &.wide {
-    .clips-controls {
-      right: $clip-sidebar-closed-width;
-    }
-
-    .clips-list-container {
-      right: $clip-sidebar-closed-width - $clip-sidebar-width;
-    }
-
-    .clip-list-container-meta {
-      opacity: 0.2;
-    }
-
-    .clips-list-container-retract .icon {
-      @include rotateY(180deg);
-    }
-  }
 }
 
+.clips-list-container {
+  overflow-x: hidden;
+
+  .clips-list {
+    margin: 2rem 0;
+  }
+
+  .clips-list-item {
+    background: darken($o-dark-material, 10);
+    overflow: hidden;
+    margin: 0 0 0.5rem;
+
+    a {
+      width: 100%;
+      display: inline-block;
+      color: $o-base-text-color;
+      padding: 0.3rem 0.5rem;
+      @include ellipsis;
+    }
+
+    &.clips-list-item-current {
+      background: $o-thin-overlay-material;
+    }
+  }
+
+  .clips-list-duration {
+    display: inline-block;
+    text-align: right;
+    width: 5rem;
+    margin-right: 0.5rem;
+  }
+
+  .clip-list-container-meta {
+    opacity: 1;
+    @include transition(opacity $clip-sidebar-animation-speed);
+  }
+
+  h2 {
+    margin: 1rem;
+    font-size: 120%;
+    border-bottom-color: darken($o-dark-material, 20);
+  }
+
+  p {
+    margin: 0 1rem 1rem;
+  }
+}
 
 #video-control-wrapper {
   // Basic geometry

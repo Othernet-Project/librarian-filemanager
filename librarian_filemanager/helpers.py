@@ -41,3 +41,9 @@ def durify(seconds):
     hours, seconds = divmod(seconds, 3600.0)
     minutes, seconds = divmod(seconds, 60.0)
     return '{}:{:02d}:{:02d}'.format(int(hours), int(minutes), int(seconds))
+
+
+def get_selected(collection, selected=None):
+    selected_entries = list(filter(lambda e: e['file'] == selected,
+                                   collection))
+    return selected_entries[0] if selected_entries else collection[0]
