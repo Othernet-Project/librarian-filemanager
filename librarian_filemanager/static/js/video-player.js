@@ -3,9 +3,9 @@
   'use strict';
   var VideoPlayer, prepareVideo;
   VideoPlayer = (function() {
-    function VideoPlayer(container1) {
+    function VideoPlayer(container) {
       var options;
-      this.container = container1;
+      this.container = container;
       options = {
         itemSelector: '#clips-list .clips-list-item',
         currentItemSelector: '.clips-list-item-current',
@@ -67,12 +67,12 @@
 
   })();
   prepareVideo = function() {
-    var container, player;
-    container = $('#clips-container');
-    if (!container.length) {
+    var clipsControls, player;
+    clipsControls = $('#clips-controls');
+    if (!clipsControls.length) {
       return;
     }
-    player = new VideoPlayer(container);
+    player = new VideoPlayer($('#views-container'));
   };
   prepareVideo();
   window.onTabChange(prepareVideo);

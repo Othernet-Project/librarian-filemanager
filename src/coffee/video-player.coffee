@@ -50,10 +50,10 @@
       return
 
   prepareVideo = () ->
-    container = $ '#clips-container'
-    if not container.length
+    clipsControls = $ '#clips-controls'
+    if not clipsControls.length
       return
-    player = new VideoPlayer container
+    player = new VideoPlayer $ '#views-container'
     return
 
   prepareVideo()
