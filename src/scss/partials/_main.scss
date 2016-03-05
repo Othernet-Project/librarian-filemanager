@@ -3,6 +3,13 @@
 $views-sidebar-width: 300px;
 $views-sidebar-min: 48px;
 $views-sidebar-anim: 0.5s;
+$views-sidebar-cutoff: 740px;
+
+@mixin views-at-cutoff {
+  @include narrower-than($views-sidebar-cutoff) {
+    @content;
+  }
+}
 
 .views-container {
   // We make views container take up as much space as possible so that the 
@@ -30,10 +37,14 @@ $views-sidebar-anim: 0.5s;
 
   .with-sidebar & {
     right: $views-sidebar-width;
+
+    @include views-at-cutoff {
+      right: 100%;
+    }
   }
 
   .sidebar-hidden & {
-    right: $views-sidebar-min;
+    right: 10%;
   }
 }
 
@@ -48,8 +59,16 @@ $views-sidebar-anim: 0.5s;
 
   @include transition(right $views-sidebar-anim);
 
+  @include views-at-cutoff {
+    width: 100%;
+  }
+
   .sidebar-hidden & {
     right: $views-sidebar-min - $views-sidebar-width;
+
+    @include views-at-cutoff {
+      right: -90%;
+    }
   }
 }
 
