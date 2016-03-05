@@ -47,6 +47,7 @@
 
   activateSidebar()
   mainContainer.on 'click', '.views-sidebar-retract', toggleSidebar
+  ($ window).on 'views-sidebar-toggle', toggleSidebar
 
   return
 ) this, this.jQuery, this.templates

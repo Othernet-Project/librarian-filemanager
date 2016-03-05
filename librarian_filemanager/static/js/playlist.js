@@ -71,7 +71,7 @@
       item = $(e.target).closest(this.options['itemSelector']);
       index = this.items.index(item);
       this.moveTo(index);
-      return false;
+      ($(window)).trigger('views-sidebar-toggle');
     };
 
     return Playlist;

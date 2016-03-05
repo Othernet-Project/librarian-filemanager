@@ -46,4 +46,5 @@
   };
   activateSidebar();
   mainContainer.on('click', '.views-sidebar-retract', toggleSidebar);
+  ($(window)).on('views-sidebar-toggle', toggleSidebar);
 })(this, this.jQuery, this.templates);
