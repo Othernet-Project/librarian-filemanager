@@ -4,9 +4,12 @@
   class MusicPlayer
 
     constructor: (@container) ->
+      currentItemClass = 'playlist-list-item-current'
       options = {
         itemSelector: '#playlist-list .playlist-list-item',
-        currentItemSelector: '.playlist-list-item-current',
+        currentItemClass: currentItemClass,
+        currentItemSelector: '.' + currentItemClass,
+        toggleSidebarOnSelect: false,
         ready: () =>
           @onReady()
           return

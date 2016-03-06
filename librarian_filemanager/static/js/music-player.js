@@ -6,13 +6,16 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
   var MusicPlayer, prepareAudio;
   MusicPlayer = (function() {
     function MusicPlayer(container1) {
-      var options;
+      var currentItemClass, options;
       this.container = container1;
       this.onPlayerReady = bind(this.onPlayerReady, this);
       this.onReady = bind(this.onReady, this);
+      currentItemClass = 'playlist-list-item-current';
       options = {
         itemSelector: '#playlist-list .playlist-list-item',
-        currentItemSelector: '.playlist-list-item-current',
+        currentItemClass: currentItemClass,
+        currentItemSelector: '.' + currentItemClass,
+        toggleSidebarOnSelect: false,
         ready: (function(_this) {
           return function() {
             _this.onReady();

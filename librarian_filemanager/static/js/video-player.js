@@ -4,11 +4,13 @@
   var VideoPlayer, prepareVideo;
   VideoPlayer = (function() {
     function VideoPlayer(container) {
-      var options;
+      var currentItemClass, options;
       this.container = container;
+      currentItemClass = 'clips-list-item-current';
       options = {
         itemSelector: '#clips-list .clips-list-item',
-        currentItemSelector: '.clips-list-item-current',
+        currentItemClass: currentItemClass,
+        currentItemSelector: '.' + currentItemClass,
         ready: (function(_this) {
           return function() {
             _this.onReady();

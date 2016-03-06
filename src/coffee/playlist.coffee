@@ -2,9 +2,12 @@
   'use strict'
 
   class Playlist
-    expectedKeys = []
+    defaults = {
+      toggleSidebarOnSelect: true
+    }
 
-    constructor: (@container, @options) ->
+    constructor: (@container, options) ->
+      @options = $.extend {}, defaults, options
       @items = @container.find(@options['itemSelector'])
       @items.on 'click', 'a', (e) =>
         @_onClick(e)
@@ -22,8 +25,8 @@
     _setCurrent: (index) ->
       @currentIndex = index
       current = @items.eq index
-      current.siblings().removeClass(@options['currentItemSelector'])
-      current.addClass(@options['currentItemSelector'])
+      current.siblings().removeClass(@options['currentItemClass'])
+      current.addClass(@options['currentItemClass'])
       @options.setCurrent?(current)
       return
 
@@ -50,7 +53,8 @@
       item = $(e.target).closest(@options['itemSelector'])
       index = @items.index item
       @moveTo index
-      ($ window).trigger 'views-sidebar-toggle'
+      if @options.toggleSidebarOnSelect
+        ($ window).trigger 'views-sidebar-toggle'
       return
 
   window.Playlist = Playlist

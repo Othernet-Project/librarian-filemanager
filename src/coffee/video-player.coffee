@@ -4,9 +4,11 @@
   class VideoPlayer
 
     constructor: (@container) ->
+      currentItemClass = 'clips-list-item-current'
       options = {
-        itemSelector: '#clips-list .clips-list-item'
-        currentItemSelector: '.clips-list-item-current'
+        itemSelector: '#clips-list .clips-list-item',
+        currentItemClass: currentItemClass,
+        currentItemSelector: '.' + currentItemClass,
         ready: () =>
           @onReady()
           return

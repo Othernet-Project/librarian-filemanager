@@ -3,14 +3,16 @@
   'use strict';
   var Playlist;
   Playlist = (function() {
-    var expectedKeys;
+    var defaults;
 
-    expectedKeys = [];
+    defaults = {
+      toggleSidebarOnSelect: true
+    };
 
     function Playlist(container, options) {
       var base, current;
       this.container = container;
-      this.options = options;
+      this.options = $.extend({}, defaults, options);
       this.items = this.container.find(this.options['itemSelector']);
       this.items.on('click', 'a', (function(_this) {
         return function(e) {
@@ -34,8 +36,8 @@
       var base, current;
       this.currentIndex = index;
       current = this.items.eq(index);
-      current.siblings().removeClass(this.options['currentItemSelector']);
-      current.addClass(this.options['currentItemSelector']);
+      current.siblings().removeClass(this.options['currentItemClass']);
+      current.addClass(this.options['currentItemClass']);
       if (typeof (base = this.options).setCurrent === "function") {
         base.setCurrent(current);
       }
@@ -71,7 +73,9 @@
       item = $(e.target).closest(this.options['itemSelector']);
       index = this.items.index(item);
       this.moveTo(index);
-      ($(window)).trigger('views-sidebar-toggle');
+      if (this.options.toggleSidebarOnSelect) {
+        ($(window)).trigger('views-sidebar-toggle');
+      }
     };
 
     return Playlist;
