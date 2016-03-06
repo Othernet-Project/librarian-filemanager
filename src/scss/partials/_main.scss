@@ -1,5 +1,16 @@
 @import "base";
 
+$views-sidebar-width: 300px;
+$views-sidebar-min: 48px;
+$views-sidebar-anim: 0.5s;
+$views-sidebar-cutoff: 740px;
+
+@mixin views-at-cutoff {
+  @include narrower-than($views-sidebar-cutoff) {
+    @content;
+  }
+}
+
 .views-container {
   // We make views container take up as much space as possible so that the 
   // layout of individual facet UIs can be as flexible as possible. Note that 
@@ -12,6 +23,94 @@
   right: 0;
   bottom: 0;
   clear: both;
+}
+
+.views-main {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-x: hidden;
+
+  @include transition(right $views-sidebar-anim);
+
+  .with-sidebar & {
+    right: $views-sidebar-width;
+
+    @include views-at-cutoff {
+      right: 100%;
+    }
+  }
+
+  .sidebar-hidden & {
+    right: $views-sidebar-min;
+
+    @include views-at-cutoff {
+      right: 10%;
+    }
+  }
+}
+
+.views-sidebar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: $views-sidebar-width;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  @include transition(right $views-sidebar-anim);
+
+  @include views-at-cutoff {
+    width: 100%;
+  }
+
+  .sidebar-hidden & {
+    right: $views-sidebar-min - $views-sidebar-width;
+
+    @include views-at-cutoff {
+      right: -90%;
+    }
+  }
+}
+
+.views-sidebar-retract {
+  display: inline-block;
+  color: lighten($o-base-text-color, 30);
+  margin: 0.5rem 0.5rem 0;
+
+  &:hover {
+    color: $o-accent;
+  }
+
+  .icon {
+    @include transition(transform 3s);
+    font-size: 220%;
+
+    .sidebar-hidden & {
+      @include transform(rotateY(180deg));
+    }
+  }
+
+  .label {
+    text-transform: uppercase;
+    @include transition(opacity $views-sidebar-anim);
+
+    .sidebar-hidden & {
+      opacity: 0;
+    }
+  }
+}
+
+.views-sidebar-content {
+  opacity: 1;
+  @include transition(opacity $views-sidebar-anim);
+
+  .sidebar-hidden & {
+    opacity: 0.2;
+  }
 }
 
 .views-tabs-strip {

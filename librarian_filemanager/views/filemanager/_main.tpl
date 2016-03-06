@@ -24,6 +24,10 @@ def get_views(facets):
     return result
 %>
 
+<% 
+    view_has_sidebar = hasattr(current_view, 'sidebar')
+%>
+
 <div id="views-tabs-container">
     <nav id="views-tabs-strip" class="views-tabs-strip" role="tablist">
         ## The first item is:
@@ -60,7 +64,22 @@ def get_views(facets):
     % endfor
     </nav>
 </div>
-<div class="views-container" id="views-container">
-    ${current_view.body()}
+<div class="views-container${' with-sidebar' if view_has_sidebar else ''}" id="views-container">
+    <div class="views-main">
+        ${current_view.body()}
+    </div>
+    % if view_has_sidebar:
+        <div class="views-sidebar" id="views-sidebar">
+            <div class="views-sidebar-content">
+                ${current_view.sidebar()}
+            </div>
+        </div>
+    % endif
 </div>
 
+<script type="text/template" id="sidebarRetract">
+    <a class="views-sidebar-retract" href="javascript:void(0);" data-alt-label="${_('Show')}">
+        <span class="icon icon-expand-right"></span>
+        <span class="label">${_('Hide')}</span>
+    </a>
+</script>

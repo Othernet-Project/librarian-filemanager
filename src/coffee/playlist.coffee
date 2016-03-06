@@ -50,7 +50,8 @@
       item = $(e.target).closest(@options['itemSelector'])
       index = @items.index item
       @moveTo index
-      return false
+      ($ window).trigger 'views-sidebar-toggle'
+      return
 
   window.Playlist = Playlist
 

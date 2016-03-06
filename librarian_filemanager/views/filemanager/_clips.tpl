@@ -16,27 +16,24 @@ DEFAULT_ARTIST = _('Unknown')
     </div>
 </%def>
 
-<div class='clips-container' id="clips-container">
-    % if not facets or not facets.has_type('video'):
-    <span class="note">${_('No video files to be played.')}</span>
-    % else:
-    <%
-      entries = facets['video']['clips']
-      if selected:
-          try:
-              selected_entry = filter(lambda e: e['file'] == selected, entries)[0]
-          except IndexError:
-              selected_entry = entries[0]
-      else:
-          selected_entry = entries[0]
-      video_url = h.quoted_url('files:direct', path=selected_entry['file_path'])
-    %>
-    <div class="clips-controls" id="clips-controls">
-        ${video_control(video_url)}
-    </div>
+% if not facets or not facets.has_type('video'):
+<span class="note">${_('No video files to be played.')}</span>
+% else:
+<%
+  entries = facets['video']['clips']
+  selected_entry = get_selected(entries, selected)
+  video_url = h.quoted_url('files:direct', path=selected_entry['file_path'])
+%>
+<div class="clips-controls" id="clips-controls">
+    ${video_control(video_url)}
+</div>
+% endif
+
+<%def name="sidebar()">
     <div class="clips-list-container" id="clips-list-container">
         <div class="clip-list-container-meta">
             <ul class="clips-list" id="clips-list" role="grid">
+                <% selected_entry = get_selected(facets['video']['clips'], selected) %>
                 % for entry in facets['video']['clips']:
                     <%
                         file = entry['file']
@@ -69,23 +66,15 @@ DEFAULT_ARTIST = _('Unknown')
                         </span>
                     </a>
                     </li>
-              % endfor
-          </ul>
-          <h2>${selected_entry.get('title') or titlify(selected_entry['file']) | h}</h2>
-          <p class="clip-author">
-              ${selected_entry.get('author') or _('Unkown author')}
-          </p>
-          <p class="clip-description">
-              ${selected_entry.get('description', _('No description'))}
-          </p>
-      </div>
+                % endfor
+            </ul>
+            <h2>${selected_entry.get('title') or titlify(selected_entry['file']) | h}</h2>
+            <p class="clip-author">
+                ${selected_entry.get('author') or _('Unkown author')}
+            </p>
+            <p class="clip-description">
+                ${selected_entry.get('description', _('No description'))}
+            </p>
+        </div>
     </div>
-    % endif
-</div>
-
-<script type="text/template" id="clipListRetract">
-    <a class="clips-list-container-retract" href="javascript:void(0);" data-alt-label="${_('Show')}">
-        <span class="icon icon-expand-right"></span>
-        <span class="label">${_('Hide')}</span>
-    </a>
-</script>
+</%def>
