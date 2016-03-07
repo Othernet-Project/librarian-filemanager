@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* line 15, ../../../src/scss/partials/_mediaelement.scss */
 .mejs-offscreen {
   /* Accessibility: hide screen reader texts (and prefer "top" for RTL languages). */
@@ -1823,23 +1824,288 @@ div.mejs-speed-button {
   width: 100%;
   background: black;
 }
-/* line 75, ../../../src/scss/partials/_video-player.scss */
-#video-control-wrapper .mejs-container {
+
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  from {
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+/* line 10, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container {
+  background: none;
   width: 100% !important;
   height: 100% !important;
 }
-/* line 79, ../../../src/scss/partials/_video-player.scss */
-#video-control-wrapper .mejs-container .mejs-inner {
+/* line 15, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container .mejs-inner {
   width: 100%;
   height: 100%;
 }
-/* line 84, ../../../src/scss/partials/_video-player.scss */
-#video-control-wrapper .mejs-container .mejs-overlay {
+/* line 20, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container .mejs-overlay {
   width: 100% !important;
   height: 100% !important;
 }
-/* line 89, ../../../src/scss/partials/_video-player.scss */
-#video-control-wrapper .mejs-container video {
+/* line 25, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container video {
   width: 100%;
   height: 100%;
+}
+/* line 30, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container .mejs-controls {
+  background: rgba(68, 68, 68, 0.9);
+  height: 3rem;
+}
+/* line 34, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container .mejs-controls .mejs-button {
+  height: 3rem;
+  width: 3rem;
+  padding: 0;
+  margin: 0;
+}
+/* line 40, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container .mejs-controls .mejs-button button {
+  font-size: 250%;
+  color: #aaa;
+  height: 3rem;
+  width: 3rem;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  line-height: 100%;
+}
+/* line 50, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container .mejs-controls .mejs-button button:hover, .mejs-container .mejs-controls .mejs-button button:focus {
+  color: #089bd2;
+}
+/* line 57, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container .mejs-controls .mejs-horizontal-volume-slider,
+.mejs-container .mejs-controls .mejs-time-rail {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+/* line 64, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container .mejs-controls .mejs-duration-container {
+  margin: 0;
+  padding: 0 0.5rem 0 1rem;
+  line-height: 3rem;
+  height: auto;
+  font-size: 120%;
+  color: #aaa;
+}
+/* line 73, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container .mejs-controls .mejs-play button {
+  font-family: "OIcons";
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  text-transform: none;
+  display: inline-block;
+  speak: none;
+  vertical-align: middle;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* line 176, ../../../src/scss/partials/_icons.scss */
+.mejs-container .mejs-controls .mejs-play button ~ * {
+  vertical-align: middle;
+}
+/* line 183, ../../../src/scss/partials/_icons.scss */
+.mejs-container .mejs-controls .mejs-play button:before {
+  content: "";
+}
+/* line 77, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container .mejs-controls .mejs-pause button {
+  font-family: "OIcons";
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  text-transform: none;
+  display: inline-block;
+  speak: none;
+  vertical-align: middle;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* line 176, ../../../src/scss/partials/_icons.scss */
+.mejs-container .mejs-controls .mejs-pause button ~ * {
+  vertical-align: middle;
+}
+/* line 183, ../../../src/scss/partials/_icons.scss */
+.mejs-container .mejs-controls .mejs-pause button:before {
+  content: "";
+}
+/* line 81, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container .mejs-controls .mejs-fullscreen-button button {
+  font-family: "OIcons";
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  text-transform: none;
+  display: inline-block;
+  speak: none;
+  vertical-align: middle;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* line 176, ../../../src/scss/partials/_icons.scss */
+.mejs-container .mejs-controls .mejs-fullscreen-button button ~ * {
+  vertical-align: middle;
+}
+/* line 183, ../../../src/scss/partials/_icons.scss */
+.mejs-container .mejs-controls .mejs-fullscreen-button button:before {
+  content: "";
+}
+/* line 86, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container .mejs-controls .mejs-volume-button button {
+  font-family: "OIcons";
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  text-transform: none;
+  display: inline-block;
+  speak: none;
+  vertical-align: middle;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* line 176, ../../../src/scss/partials/_icons.scss */
+.mejs-container .mejs-controls .mejs-volume-button button ~ * {
+  vertical-align: middle;
+}
+/* line 183, ../../../src/scss/partials/_icons.scss */
+.mejs-container .mejs-controls .mejs-volume-button button:before {
+  content: "";
+}
+/* line 90, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container .mejs-controls .mejs-volume-button .mejs-volume-slider {
+  width: 100%;
+}
+/* line 93, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container .mejs-controls .mejs-volume-button .mejs-volume-slider .mejs-volume-total {
+  width: 100%;
+  left: 0;
+  top: 0.4rem;
+}
+/* line 99, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container .mejs-controls .mejs-volume-button .mejs-volume-slider .mejs-volume-handle {
+  left: 0;
+  width: 100%;
+}
+/* line 104, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container .mejs-controls .mejs-volume-button .mejs-volume-slider .mejs-volume-current {
+  left: 0;
+  width: 100%;
+  background: #089bd2;
+}
+/* line 112, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container .mejs-controls .mejs-unmute button {
+  font-family: "OIcons";
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  text-transform: none;
+  display: inline-block;
+  speak: none;
+  vertical-align: middle;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* line 176, ../../../src/scss/partials/_icons.scss */
+.mejs-container .mejs-controls .mejs-unmute button ~ * {
+  vertical-align: middle;
+}
+/* line 183, ../../../src/scss/partials/_icons.scss */
+.mejs-container .mejs-controls .mejs-unmute button:before {
+  content: "";
+}
+/* line 116, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container .mejs-controls .mejs-horizontal-volume-total {
+  background: #5e5e5e;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  height: 2rem;
+  top: 0.5rem;
+}
+/* line 123, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container .mejs-controls .mejs-horizontal-volume-current {
+  background: #089bd2;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  top: 0.5rem;
+  height: 2rem;
+}
+/* line 130, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container .mejs-controls .mejs-time-total {
+  padding: 0;
+  margin: 0.5rem 0;
+  height: 2rem;
+  background-image: none;
+  background: #5e5e5e;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+/* line 139, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container .mejs-controls .mejs-time-float {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  border: none;
+}
+/* line 147, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container .mejs-controls .mejs-time-loaded,
+.mejs-container .mejs-controls .mejs-time-current {
+  padding: 0;
+  margin: 0;
+  height: 2rem;
+  background-image: none;
+}
+/* line 155, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container .mejs-controls .mejs-time-loaded {
+  background: #777777;
+}
+/* line 159, ../../../src/scss/partials/_player_skin.scss */
+.mejs-container .mejs-controls .mejs-time-current {
+  background: #089bd2;
 }
