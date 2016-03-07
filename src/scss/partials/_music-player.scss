@@ -4,6 +4,9 @@ $playlist-sidebar-width: 500px;
 $playlist-sidebar-closed-width: 48px;
 $playlist-sidebar-animation-speed: 0.5s;
 
+$albumart-max-width: 300px;
+$albumart-max-height: 300px;
+
 .playlist-controls {
   padding: 1rem;
   background: $o-thin-overlay-material;
@@ -13,6 +16,20 @@ $playlist-sidebar-animation-speed: 0.5s;
   right: 0;
   bottom: 0;
   overflow-x: hidden;
+
+  .playlist-controls-albumart {
+    position: relative;
+    top: 15%;
+    left: 35%;
+    max-width: $albumart-max-width;
+    max-height: $albumart-max-height;
+  }
+
+  .audio-control-wrapper {
+    position: relative;
+    top: 17%;
+    left: 30%;
+  }
 }
 
 .playlist-list-container {

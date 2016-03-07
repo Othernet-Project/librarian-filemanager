@@ -1650,7 +1650,7 @@ div.mejs-speed-button {
   padding: 0;
 }
 
-/* line 7, ../../../src/scss/partials/_music-player.scss */
+/* line 10, ../../../src/scss/partials/_music-player.scss */
 .playlist-controls {
   padding: 1rem;
   background: rgba(255, 255, 255, 0.75);
@@ -1661,22 +1661,36 @@ div.mejs-speed-button {
   bottom: 0;
   overflow-x: hidden;
 }
+/* line 20, ../../../src/scss/partials/_music-player.scss */
+.playlist-controls .playlist-controls-albumart {
+  position: relative;
+  top: 15%;
+  left: 35%;
+  max-width: 300px;
+  max-height: 300px;
+}
+/* line 28, ../../../src/scss/partials/_music-player.scss */
+.playlist-controls .audio-control-wrapper {
+  position: relative;
+  top: 17%;
+  left: 30%;
+}
 
-/* line 18, ../../../src/scss/partials/_music-player.scss */
+/* line 35, ../../../src/scss/partials/_music-player.scss */
 .playlist-list-container {
   overflow-x: hidden;
 }
-/* line 21, ../../../src/scss/partials/_music-player.scss */
+/* line 38, ../../../src/scss/partials/_music-player.scss */
 .playlist-list-container .playlist-list {
   margin: 2rem 0;
 }
-/* line 25, ../../../src/scss/partials/_music-player.scss */
+/* line 42, ../../../src/scss/partials/_music-player.scss */
 .playlist-list-container .playlist-list-item {
   background: #c4c4c4;
   overflow: hidden;
   margin: 0 0 0.5rem;
 }
-/* line 30, ../../../src/scss/partials/_music-player.scss */
+/* line 47, ../../../src/scss/partials/_music-player.scss */
 .playlist-list-container .playlist-list-item a {
   width: 100%;
   display: inline-block;
@@ -1686,18 +1700,18 @@ div.mejs-speed-button {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-/* line 38, ../../../src/scss/partials/_music-player.scss */
+/* line 55, ../../../src/scss/partials/_music-player.scss */
 .playlist-list-container .playlist-list-item.playlist-list-item-current {
   background: rgba(255, 255, 255, 0.75);
 }
-/* line 43, ../../../src/scss/partials/_music-player.scss */
+/* line 60, ../../../src/scss/partials/_music-player.scss */
 .playlist-list-container .playlist-list-duration {
   display: inline-block;
   text-align: right;
   width: 5rem;
   margin-right: 0.5rem;
 }
-/* line 50, ../../../src/scss/partials/_music-player.scss */
+/* line 67, ../../../src/scss/partials/_music-player.scss */
 .playlist-list-container .playlist-list-container-meta {
   opacity: 1;
   -moz-transition: opacity 0.5s;
@@ -1705,13 +1719,13 @@ div.mejs-speed-button {
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
 }
-/* line 55, ../../../src/scss/partials/_music-player.scss */
+/* line 72, ../../../src/scss/partials/_music-player.scss */
 .playlist-list-container h2 {
   margin: 1rem;
   font-size: 120%;
   border-bottom-color: #aaaaaa;
 }
-/* line 61, ../../../src/scss/partials/_music-player.scss */
+/* line 78, ../../../src/scss/partials/_music-player.scss */
 .playlist-list-container p {
   margin: 0 1rem 1rem;
 }
