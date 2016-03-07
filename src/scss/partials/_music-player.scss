@@ -1,13 +1,9 @@
 @import "base";
 
-$playlist-sidebar-width: 500px;
-$playlist-sidebar-closed-width: 48px;
-$playlist-sidebar-animation-speed: 0.5s;
-
 $albumart-max-width: 300px;
 $albumart-max-height: 300px;
 
-.playlist-controls {
+.audio-controls {
   padding: 1rem;
   background: $o-thin-overlay-material;
   position: absolute;
@@ -17,7 +13,7 @@ $albumart-max-height: 300px;
   bottom: 0;
   overflow-x: hidden;
 
-  .playlist-controls-albumart {
+  .audio-controls-albumart {
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -27,58 +23,10 @@ $albumart-max-height: 300px;
     }
   }
 
-  .audio-control-wrapper {
+  .audio-controls-audio-wrapper {
     position: absolute;
     bottom: 1rem;
     left: 1rem;
     right: 1rem;
-  }
-}
-
-.playlist-list-container {
-  overflow-x: hidden;
-
-  .playlist-list {
-    margin: 2rem 0;
-  }
-
-  .playlist-list-item {
-    background: darken($o-dark-material, 10);
-    overflow: hidden;
-    margin: 0 0 0.5rem;
-
-    a {
-      width: 100%;
-      display: inline-block;
-      color: $o-base-text-color;
-      padding: 0.3rem 0.5rem;
-      @include ellipsis;
-    }
-
-    &.playlist-list-item-current {
-      background: $o-thin-overlay-material;
-    }
-  }
-
-  .playlist-list-duration {
-    display: inline-block;
-    text-align: right;
-    width: 5rem;
-    margin-right: 0.5rem;
-  }
-
-  .playlist-list-container-meta {
-    opacity: 1;
-    @include transition(opacity $playlist-sidebar-animation-speed);
-  }
-
-  h2 {
-    margin: 1rem;
-    font-size: 120%;
-    border-bottom-color: darken($o-dark-material, 20);
-  }
-
-  p {
-    margin: 0 1rem 1rem;
   }
 }

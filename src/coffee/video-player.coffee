@@ -4,9 +4,9 @@
   class VideoPlayer
 
     constructor: (@container) ->
-      currentItemClass = 'clips-list-item-current'
+      currentItemClass = 'playlist-list-item-current'
       options = {
-        itemSelector: '#clips-list .clips-list-item',
+        itemSelector: '#playlist-list .playlist-list-item',
         currentItemClass: currentItemClass,
         currentItemSelector: '.' + currentItemClass,
         ready: () =>
@@ -47,13 +47,12 @@
       if wasPlaying
         @player.pause()
       @player.setSrc(videoUrl)
-      @player.setVideoSize(width, height)
       @player.play()
       return
 
   prepareVideo = () ->
-    clipsControls = $ '#clips-controls'
-    if not clipsControls.length
+    controls = $ '#video-controls'
+    if not controls.length
       return
     player = new VideoPlayer $ '#views-container'
     return

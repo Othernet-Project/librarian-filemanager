@@ -1,7 +1,7 @@
 <%inherit file="_sidebar_playlist.tpl" />
 
 <%def name="audio_control(url)">
-    <div id="audio-control-wrapper" class="audio-control-wrapper">
+    <div id="audio-controls-audio-wrapper" class="audio-controls-audio-wrapper">
         <audio id="audio-controls-audio" controls="controls">
             <source src="${url | h}" />
             <object type="application/x-shockwave-flash" data="${assets.url}vendor/mediaelement/flashmediaelement.swf">
@@ -26,8 +26,8 @@
       selected_entry = get_selected(entries, selected)
       audio_url = h.quoted_url('files:direct', path=selected_entry['file_path'])
     %>
-    <div class="playlist-controls" id="playlist-controls">
-        <div class="playlist-controls-albumart" id="playlist-controls-albumart">
+    <div class="audio-controls" id="audio-controls">
+        <div class="audio-controls-albumart" id="audio-controls-albumart">
             <img src="${cover_url}"/>
         </div>
         ${audio_control(audio_url)}

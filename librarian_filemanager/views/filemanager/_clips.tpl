@@ -1,7 +1,7 @@
 <%inherit file="_sidebar_playlist.tpl" />
 
 <%def name="video_control(url)">
-    <div id="video-control-wrapper" class="video-control-wrapper">
+    <div id="video-controls-video-wrapper" class="video-controls-video-wrapper">
         <video id="video-controls-video" controls="controls" width="100%" height="100%" preload="none">
             <source src="${url | h}" />
             <object type="application/x-shockwave-flash" data="${assets.url}vendor/mediaelement/flashmediaelement.swf">
@@ -20,7 +20,7 @@
   selected_entry = get_selected(entries, selected)
   video_url = h.quoted_url('files:direct', path=selected_entry['file_path'])
 %>
-<div class="clips-controls" id="clips-controls">
+<div class="video-controls" id="video-controls">
     ${video_control(video_url)}
 </div>
 % endif

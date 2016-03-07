@@ -127,12 +127,12 @@
   width: 100px;
   height: 100px;
   margin: -50px 0 0 -50px;
-  background: url('../img/bigplay.svg?1457022211') no-repeat;
+  background: url('../img/bigplay.svg?1457010210') no-repeat;
 }
 
 /* line 128, ../../../src/scss/partials/_mediaelement.scss */
 .no-svg .mejs-overlay-button {
-  background-image: url('../img/bigplay.png?1457022211');
+  background-image: url('../img/bigplay.png?1457010210');
 }
 
 /* line 132, ../../../src/scss/partials/_mediaelement.scss */
@@ -149,7 +149,7 @@
   height: 80px;
   margin: -40px 0 0 -40px;
   background: #333;
-  background: url('../img/background.png?1457022211');
+  background: url('../img/background.png?1457010210');
   background: rgba(0, 0, 0, 0.9);
   background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzg4ODg4OCIgc3RvcC1vcGFjaXR5PSIwLjkiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDAwMDAiIHN0b3Atb3BhY2l0eT0iMC45Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
   background-size: 100%;
@@ -164,7 +164,7 @@
   display: block;
   width: 80px;
   height: 80px;
-  background: transparent url('../img/loading.gif?1457022211') 50% 50% no-repeat;
+  background: transparent url('../img/loading.gif?1457010210') 50% 50% no-repeat;
 }
 
 /* End: LAYERS */
@@ -177,7 +177,7 @@
   padding: 0;
   bottom: 0;
   left: 0;
-  background: url('../img/background.png?1457022211');
+  background: url('../img/background.png?1457010210');
   background: rgba(0, 0, 0, 0.7);
   background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzg4ODg4OCIgc3RvcC1vcGFjaXR5PSIwLjciLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDAwMDAiIHN0b3Atb3BhY2l0eT0iMC43Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
   background-size: 100%;
@@ -218,12 +218,12 @@
   height: 16px;
   width: 16px;
   border: 0;
-  background: transparent url('../img/controls.svg?1457022211') no-repeat;
+  background: transparent url('../img/controls.svg?1457010210') no-repeat;
 }
 
 /* line 203, ../../../src/scss/partials/_mediaelement.scss */
 .no-svg .mejs-controls .mejs-button button {
-  background-image: url('../img/controls.png?1457022211');
+  background-image: url('../img/controls.png?1457010210');
 }
 
 /* :focus for accessibility */
@@ -1134,7 +1134,61 @@ div.mejs-speed-button {
  * COPYING file that comes with the source code, or
  * http://www.gnu.org/licenses/gpl.txt.
  */
-/* line 15, ../../../src/scss/partials/_main.scss */
+/* line 7, ../../../src/scss/partials/_sidebar_playlist.scss */
+.playlist-list-container {
+  overflow-x: hidden;
+}
+/* line 10, ../../../src/scss/partials/_sidebar_playlist.scss */
+.playlist-list-container .playlist-list {
+  margin: 2rem 0;
+}
+/* line 14, ../../../src/scss/partials/_sidebar_playlist.scss */
+.playlist-list-container .playlist-list-item {
+  background: #c4c4c4;
+  overflow: hidden;
+  margin: 0 0 0.5rem;
+}
+/* line 19, ../../../src/scss/partials/_sidebar_playlist.scss */
+.playlist-list-container .playlist-list-item a {
+  width: 100%;
+  display: inline-block;
+  color: #333;
+  padding: 0.3rem 0.5rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+/* line 27, ../../../src/scss/partials/_sidebar_playlist.scss */
+.playlist-list-container .playlist-list-item.playlist-list-item-current {
+  background: rgba(255, 255, 255, 0.75);
+}
+/* line 32, ../../../src/scss/partials/_sidebar_playlist.scss */
+.playlist-list-container .playlist-list-duration {
+  display: inline-block;
+  text-align: right;
+  width: 5rem;
+  margin-right: 0.5rem;
+}
+/* line 39, ../../../src/scss/partials/_sidebar_playlist.scss */
+.playlist-list-container .playlist-list-container-meta {
+  opacity: 1;
+  -moz-transition: opacity 0.5s;
+  -o-transition: opacity 0.5s;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+/* line 44, ../../../src/scss/partials/_sidebar_playlist.scss */
+.playlist-list-container h2 {
+  margin: 1rem;
+  font-size: 120%;
+  border-bottom-color: #aaaaaa;
+}
+/* line 50, ../../../src/scss/partials/_sidebar_playlist.scss */
+.playlist-list-container p {
+  margin: 0 1rem 1rem;
+}
+
+/* line 16, ../../../src/scss/partials/_main.scss */
 .views-container {
   position: absolute;
   top: 3rem;
@@ -1144,7 +1198,7 @@ div.mejs-speed-button {
   clear: both;
 }
 
-/* line 29, ../../../src/scss/partials/_main.scss */
+/* line 30, ../../../src/scss/partials/_main.scss */
 .views-main {
   position: absolute;
   top: 0;
@@ -1157,28 +1211,28 @@ div.mejs-speed-button {
   -webkit-transition: right 0.5s;
   transition: right 0.5s;
 }
-/* line 39, ../../../src/scss/partials/_main.scss */
+/* line 40, ../../../src/scss/partials/_main.scss */
 .with-sidebar .views-main {
   right: 300px;
 }
 @media only screen and (max-width: 740px) {
-  /* line 39, ../../../src/scss/partials/_main.scss */
+  /* line 40, ../../../src/scss/partials/_main.scss */
   .with-sidebar .views-main {
     right: 100%;
   }
 }
-/* line 47, ../../../src/scss/partials/_main.scss */
+/* line 48, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-main {
   right: 48px;
 }
 @media only screen and (max-width: 740px) {
-  /* line 47, ../../../src/scss/partials/_main.scss */
+  /* line 48, ../../../src/scss/partials/_main.scss */
   .sidebar-hidden .views-main {
     right: 10%;
   }
 }
 
-/* line 56, ../../../src/scss/partials/_main.scss */
+/* line 57, ../../../src/scss/partials/_main.scss */
 .views-sidebar {
   position: absolute;
   top: 0;
@@ -1193,33 +1247,33 @@ div.mejs-speed-button {
   transition: right 0.5s;
 }
 @media only screen and (max-width: 740px) {
-  /* line 56, ../../../src/scss/partials/_main.scss */
+  /* line 57, ../../../src/scss/partials/_main.scss */
   .views-sidebar {
     width: 100%;
   }
 }
-/* line 71, ../../../src/scss/partials/_main.scss */
+/* line 72, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-sidebar {
   right: -252px;
 }
 @media only screen and (max-width: 740px) {
-  /* line 71, ../../../src/scss/partials/_main.scss */
+  /* line 72, ../../../src/scss/partials/_main.scss */
   .sidebar-hidden .views-sidebar {
     right: -90%;
   }
 }
 
-/* line 80, ../../../src/scss/partials/_main.scss */
+/* line 81, ../../../src/scss/partials/_main.scss */
 .views-sidebar-retract {
   display: inline-block;
   color: gray;
   margin: 0.5rem 0.5rem 0;
 }
-/* line 85, ../../../src/scss/partials/_main.scss */
+/* line 86, ../../../src/scss/partials/_main.scss */
 .views-sidebar-retract:hover {
   color: #089bd2;
 }
-/* line 89, ../../../src/scss/partials/_main.scss */
+/* line 90, ../../../src/scss/partials/_main.scss */
 .views-sidebar-retract .icon {
   -moz-transition: -moz-transform 3s;
   -o-transition: -o-transform 3s;
@@ -1227,14 +1281,14 @@ div.mejs-speed-button {
   transition: transform 3s;
   font-size: 220%;
 }
-/* line 93, ../../../src/scss/partials/_main.scss */
+/* line 94, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-sidebar-retract .icon {
   -moz-transform: rotateY(180deg);
   -ms-transform: rotateY(180deg);
   -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
 }
-/* line 98, ../../../src/scss/partials/_main.scss */
+/* line 99, ../../../src/scss/partials/_main.scss */
 .views-sidebar-retract .label {
   text-transform: uppercase;
   -moz-transition: opacity 0.5s;
@@ -1242,12 +1296,12 @@ div.mejs-speed-button {
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
 }
-/* line 102, ../../../src/scss/partials/_main.scss */
+/* line 103, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-sidebar-retract .label {
   opacity: 0;
 }
 
-/* line 108, ../../../src/scss/partials/_main.scss */
+/* line 109, ../../../src/scss/partials/_main.scss */
 .views-sidebar-content {
   opacity: 1;
   -moz-transition: opacity 0.5s;
@@ -1255,19 +1309,19 @@ div.mejs-speed-button {
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
 }
-/* line 112, ../../../src/scss/partials/_main.scss */
+/* line 113, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-sidebar-content {
   opacity: 0.2;
 }
 
-/* line 117, ../../../src/scss/partials/_main.scss */
+/* line 118, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip {
   height: 2rem;
   overflow-y: hidden;
   overflow-x: auto;
   white-space: nowrap;
 }
-/* line 123, ../../../src/scss/partials/_main.scss */
+/* line 124, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-strip-tab {
   display: inline-block;
   padding: 0 1rem;
@@ -1286,30 +1340,30 @@ div.mejs-speed-button {
   -webkit-border-top-right-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
 }
-/* line 143, ../../../src/scss/partials/_main.scss */
+/* line 144, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-strip-tab .icon {
   font-size: 130%;
 }
 @media only screen and (max-width: 840px) {
-  /* line 148, ../../../src/scss/partials/_main.scss */
+  /* line 149, ../../../src/scss/partials/_main.scss */
   .views-tabs-strip .views-tabs-strip-tab .label {
     display: none;
   }
 }
-/* line 154, ../../../src/scss/partials/_main.scss */
+/* line 155, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-tab-current {
   background: rgba(255, 255, 255, 0.75);
 }
-/* line 158, ../../../src/scss/partials/_main.scss */
+/* line 159, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-special {
   background: #089bd2;
   color: #fff;
 }
-/* line 162, ../../../src/scss/partials/_main.scss */
+/* line 163, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-special .icon {
   font-size: 150%;
 }
-/* line 166, ../../../src/scss/partials/_main.scss */
+/* line 167, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-special .label {
   display: none;
 }
@@ -1650,7 +1704,7 @@ div.mejs-speed-button {
 .mejs-oskin .mejs-controls .mejs-prev button {
   width: 40px;
   height: 40px;
-  background: transparent url('../img/controls-wmp-playlist.png?1457108762') no-repeat 0 -40px;
+  background: transparent url('../img/controls-wmp-playlist.png?1457269223') no-repeat 0 -40px;
   margin: 0;
   padding: 0;
 }
@@ -1658,13 +1712,13 @@ div.mejs-speed-button {
 .mejs-oskin .mejs-controls .mejs-next button {
   width: 40px;
   height: 40px;
-  background: transparent url('../img/controls-wmp-playlist.png?1457108762') no-repeat;
+  background: transparent url('../img/controls-wmp-playlist.png?1457269223') no-repeat;
   margin: 0;
   padding: 0;
 }
 
-/* line 10, ../../../src/scss/partials/_music-player.scss */
-.playlist-controls {
+/* line 6, ../../../src/scss/partials/_music-player.scss */
+.audio-controls {
   padding: 1rem;
   background: rgba(255, 255, 255, 0.75);
   position: absolute;
@@ -1674,80 +1728,26 @@ div.mejs-speed-button {
   bottom: 0;
   overflow-x: hidden;
 }
-/* line 20, ../../../src/scss/partials/_music-player.scss */
-.playlist-controls .playlist-controls-albumart {
+/* line 16, ../../../src/scss/partials/_music-player.scss */
+.audio-controls .audio-controls-albumart {
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
-/* line 25, ../../../src/scss/partials/_music-player.scss */
-.playlist-controls .playlist-controls-albumart img {
+/* line 21, ../../../src/scss/partials/_music-player.scss */
+.audio-controls .audio-controls-albumart img {
   min-width: 100%;
 }
-/* line 30, ../../../src/scss/partials/_music-player.scss */
-.playlist-controls .audio-control-wrapper {
+/* line 26, ../../../src/scss/partials/_music-player.scss */
+.audio-controls .audio-controls-audio-wrapper {
   position: absolute;
   bottom: 1rem;
   left: 1rem;
   right: 1rem;
 }
 
-/* line 38, ../../../src/scss/partials/_music-player.scss */
-.playlist-list-container {
-  overflow-x: hidden;
-}
-/* line 41, ../../../src/scss/partials/_music-player.scss */
-.playlist-list-container .playlist-list {
-  margin: 2rem 0;
-}
-/* line 45, ../../../src/scss/partials/_music-player.scss */
-.playlist-list-container .playlist-list-item {
-  background: #c4c4c4;
-  overflow: hidden;
-  margin: 0 0 0.5rem;
-}
-/* line 50, ../../../src/scss/partials/_music-player.scss */
-.playlist-list-container .playlist-list-item a {
-  width: 100%;
-  display: inline-block;
-  color: #333;
-  padding: 0.3rem 0.5rem;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-/* line 58, ../../../src/scss/partials/_music-player.scss */
-.playlist-list-container .playlist-list-item.playlist-list-item-current {
-  background: rgba(255, 255, 255, 0.75);
-}
-/* line 63, ../../../src/scss/partials/_music-player.scss */
-.playlist-list-container .playlist-list-duration {
-  display: inline-block;
-  text-align: right;
-  width: 5rem;
-  margin-right: 0.5rem;
-}
-/* line 70, ../../../src/scss/partials/_music-player.scss */
-.playlist-list-container .playlist-list-container-meta {
-  opacity: 1;
-  -moz-transition: opacity 0.5s;
-  -o-transition: opacity 0.5s;
-  -webkit-transition: opacity 0.5s;
-  transition: opacity 0.5s;
-}
-/* line 75, ../../../src/scss/partials/_music-player.scss */
-.playlist-list-container h2 {
-  margin: 1rem;
-  font-size: 120%;
-  border-bottom-color: #aaaaaa;
-}
-/* line 81, ../../../src/scss/partials/_music-player.scss */
-.playlist-list-container p {
-  margin: 0 1rem 1rem;
-}
-
 /* line 7, ../../../src/scss/partials/_video-player.scss */
-.clips-controls {
+.video-controls {
   padding: 1rem;
   background: rgba(255, 255, 255, 0.75);
   position: absolute;
@@ -1759,84 +1759,30 @@ div.mejs-speed-button {
 }
 
 /* line 18, ../../../src/scss/partials/_video-player.scss */
-.clips-list-container {
-  overflow-x: hidden;
-}
-/* line 21, ../../../src/scss/partials/_video-player.scss */
-.clips-list-container .clips-list {
-  margin: 2rem 0;
-}
-/* line 25, ../../../src/scss/partials/_video-player.scss */
-.clips-list-container .clips-list-item {
-  background: #c4c4c4;
-  overflow: hidden;
-  margin: 0 0 0.5rem;
-}
-/* line 30, ../../../src/scss/partials/_video-player.scss */
-.clips-list-container .clips-list-item a {
-  width: 100%;
-  display: inline-block;
-  color: #333;
-  padding: 0.3rem 0.5rem;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-/* line 38, ../../../src/scss/partials/_video-player.scss */
-.clips-list-container .clips-list-item.clips-list-item-current {
-  background: rgba(255, 255, 255, 0.75);
-}
-/* line 43, ../../../src/scss/partials/_video-player.scss */
-.clips-list-container .clips-list-duration {
-  display: inline-block;
-  text-align: right;
-  width: 5rem;
-  margin-right: 0.5rem;
-}
-/* line 50, ../../../src/scss/partials/_video-player.scss */
-.clips-list-container .clip-list-container-meta {
-  opacity: 1;
-  -moz-transition: opacity 0.5s;
-  -o-transition: opacity 0.5s;
-  -webkit-transition: opacity 0.5s;
-  transition: opacity 0.5s;
-}
-/* line 55, ../../../src/scss/partials/_video-player.scss */
-.clips-list-container h2 {
-  margin: 1rem;
-  font-size: 120%;
-  border-bottom-color: #aaaaaa;
-}
-/* line 61, ../../../src/scss/partials/_video-player.scss */
-.clips-list-container p {
-  margin: 0 1rem 1rem;
-}
-
-/* line 66, ../../../src/scss/partials/_video-player.scss */
-#video-control-wrapper {
+#video-controls-video-wrapper {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
   background: black;
 }
-/* line 75, ../../../src/scss/partials/_video-player.scss */
-#video-control-wrapper .mejs-container {
+/* line 27, ../../../src/scss/partials/_video-player.scss */
+#video-controls-video-wrapper .mejs-container {
   width: 100% !important;
   height: 100% !important;
 }
-/* line 79, ../../../src/scss/partials/_video-player.scss */
-#video-control-wrapper .mejs-container .mejs-inner {
+/* line 31, ../../../src/scss/partials/_video-player.scss */
+#video-controls-video-wrapper .mejs-container .mejs-inner {
   width: 100%;
   height: 100%;
 }
-/* line 84, ../../../src/scss/partials/_video-player.scss */
-#video-control-wrapper .mejs-container .mejs-overlay {
+/* line 36, ../../../src/scss/partials/_video-player.scss */
+#video-controls-video-wrapper .mejs-container .mejs-overlay {
   width: 100% !important;
   height: 100% !important;
 }
-/* line 89, ../../../src/scss/partials/_video-player.scss */
-#video-control-wrapper .mejs-container video {
+/* line 41, ../../../src/scss/partials/_video-player.scss */
+#video-controls-video-wrapper .mejs-container video {
   width: 100%;
   height: 100%;
 }

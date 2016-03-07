@@ -68,8 +68,8 @@
       return
 
   prepareAudio = () ->
-    container = $ '#playlist-controls'
-    if not container.length
+    controls = $ '#audio-controls'
+    if not controls.length
       return
     player = new MusicPlayer $ "#views-container"
     return

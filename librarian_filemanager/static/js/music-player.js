@@ -5,9 +5,9 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
   'use strict';
   var MusicPlayer, prepareAudio;
   MusicPlayer = (function() {
-    function MusicPlayer(container1) {
+    function MusicPlayer(container) {
       var currentItemClass, options;
-      this.container = container1;
+      this.container = container;
       this.onPlayerReady = bind(this.onPlayerReady, this);
       this.onReady = bind(this.onReady, this);
       currentItemClass = 'playlist-list-item-current';
@@ -92,9 +92,9 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
 
   })();
   prepareAudio = function() {
-    var container, player;
-    container = $('#playlist-controls');
-    if (!container.length) {
+    var controls, player;
+    controls = $('#audio-controls');
+    if (!controls.length) {
       return;
     }
     player = new MusicPlayer($("#views-container"));

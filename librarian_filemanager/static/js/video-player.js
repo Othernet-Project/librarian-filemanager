@@ -6,9 +6,9 @@
     function VideoPlayer(container) {
       var currentItemClass, options;
       this.container = container;
-      currentItemClass = 'clips-list-item-current';
+      currentItemClass = 'playlist-list-item-current';
       options = {
-        itemSelector: '#clips-list .clips-list-item',
+        itemSelector: '#playlist-list .playlist-list-item',
         currentItemClass: currentItemClass,
         currentItemSelector: '.' + currentItemClass,
         ready: (function(_this) {
@@ -61,7 +61,6 @@
         this.player.pause();
       }
       this.player.setSrc(videoUrl);
-      this.player.setVideoSize(width, height);
       this.player.play();
     };
 
@@ -69,9 +68,9 @@
 
   })();
   prepareVideo = function() {
-    var clipsControls, player;
-    clipsControls = $('#clips-controls');
-    if (!clipsControls.length) {
+    var controls, player;
+    controls = $('#video-controls');
+    if (!controls.length) {
       return;
     }
     player = new VideoPlayer($('#views-container'));

@@ -4,7 +4,7 @@ $clip-sidebar-width: 300px;
 $clip-sidebar-closed-width: 48px;
 $clip-sidebar-animation-speed: 0.5s;
 
-.clips-controls {
+.video-controls {
   padding: 1rem;
   background: $o-thin-overlay-material;
   position: absolute;
@@ -15,55 +15,7 @@ $clip-sidebar-animation-speed: 0.5s;
   overflow-x: hidden;
 }
 
-.clips-list-container {
-  overflow-x: hidden;
-
-  .clips-list {
-    margin: 2rem 0;
-  }
-
-  .clips-list-item {
-    background: darken($o-dark-material, 10);
-    overflow: hidden;
-    margin: 0 0 0.5rem;
-
-    a {
-      width: 100%;
-      display: inline-block;
-      color: $o-base-text-color;
-      padding: 0.3rem 0.5rem;
-      @include ellipsis;
-    }
-
-    &.clips-list-item-current {
-      background: $o-thin-overlay-material;
-    }
-  }
-
-  .clips-list-duration {
-    display: inline-block;
-    text-align: right;
-    width: 5rem;
-    margin-right: 0.5rem;
-  }
-
-  .clip-list-container-meta {
-    opacity: 1;
-    @include transition(opacity $clip-sidebar-animation-speed);
-  }
-
-  h2 {
-    margin: 1rem;
-    font-size: 120%;
-    border-bottom-color: darken($o-dark-material, 20);
-  }
-
-  p {
-    margin: 0 1rem 1rem;
-  }
-}
-
-#video-control-wrapper {
+#video-controls-video-wrapper {
   // Basic geometry
   margin: 0;
   padding: 0;
