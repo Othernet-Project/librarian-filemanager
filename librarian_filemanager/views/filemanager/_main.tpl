@@ -11,17 +11,22 @@ FACET_VIEW_MAPPINGS = (
     ('html', 'read', _('Read'))
 )
 
+FACET_ICON_MAPPING = {
+    'files': 'list',
+    'gallery': 'gallery',
+    'playlist': 'listen',
+    'clips': 'watch',
+    'read': 'read',
+}
 
 def get_views(facets):
-    result = list()
     if not facets:
         default = FACET_VIEW_MAPPINGS[0]
-        result.append((default[1], default[2]))
-        return result
+        yield (default[1], default[2])
+        return
     for facet_type, name, label in FACET_VIEW_MAPPINGS:
         if facets.has_type(facet_type):
-            result.append((name, label))
-    return result
+            yield (name, label)
 %>
 
 <% 
@@ -56,10 +61,11 @@ def get_views(facets):
         <%
         view_url = i18n_url('files:path', path=path, view=name)
         current = name == view
+        icon = FACET_ICON_MAPPING[name]
         %>
         <a class="views-tabs-strip-tab ${'views-tabs-tab-current' if current else ''}" href="${view_url}" role="tab">
-            <span class="icon view-icon-${name}"></span>
-            <span class="views-tabs-tab-label">${_(label)}</span>
+            <span class="icon icon-${icon}"></span>
+            <span class="views-tabs-tab-label label">${_(label)}</span>
         </a>
     % endfor
     </nav>
