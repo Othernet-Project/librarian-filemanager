@@ -1,8 +1,4 @@
-<%
-DEFAULT_TITLE = _('Untitled')
-
-DEFAULT_ARTIST = _('Unknown')
-%>
+<%inherit file="_sidebar_playlist.tpl" />
 
 <%def name="video_control(url)">
     <div id="video-control-wrapper" class="video-control-wrapper">
@@ -30,51 +26,44 @@ DEFAULT_ARTIST = _('Unknown')
 % endif
 
 <%def name="sidebar()">
-    <div class="clips-list-container" id="clips-list-container">
-        <div class="clip-list-container-meta">
-            <ul class="clips-list" id="clips-list" role="grid">
-                <% selected_entry = get_selected(facets['video']['clips'], selected) %>
-                % for entry in facets['video']['clips']:
-                    <%
-                        file = entry['file']
-                        current = entry['file'] == selected_entry['file']
-                        file_path = entry['file_path']
-                        url = i18n_url('files:path', view=view, path=path, selected=file)
-                        direct_url = h.quoted_url('files:direct', path=file_path)
-                        title = entry['title'] or titlify(entry['file'])
-                        duration = entry['duration']
-                        hduration = durify(duration)
-                        width = entry['width']
-                        height = entry['height']
-                    %>
-                    <li
-                    class="clips-list-item ${'clips-list-item-current' if current else ''}"
-                    role="row"
-                    aria-selected="false"
-                    data-title="${title | h}"
-                    data-duration="${duration}"
-                    data-width="${width}"
-                    data-height="${height}"
-                    data-url="${url}"
-                    data-direct-url="${direct_url}">
-                    <a class="clips-list-item-link" href="${url}">
-                        <span class="clips-list-duration">
-                            ${hduration}
-                        </span>
-                        <span class="clips-list-title">
-                            ${title | h}
-                        </span>
-                    </a>
-                    </li>
-                % endfor
-            </ul>
-            <h2>${selected_entry.get('title') or titlify(selected_entry['file']) | h}</h2>
-            <p class="clip-author">
-                ${selected_entry.get('author') or _('Unkown author')}
-            </p>
-            <p class="clip-description">
-                ${selected_entry.get('description', _('No description'))}
-            </p>
-        </div>
-    </div>
+    %if facets and facets.has_type('video'):
+        <%
+        entries = facets['video']['clips']
+        selected_entry = get_selected(entries, selected)
+        %>
+        ${self.sidebar_playlist(entries, selected_entry)}
+    %endif
+</%def>
+<%def name="sidebar_playlist_item(entry, selected_entry)">
+    <%
+        file = entry['file']
+        current = entry['file'] == selected_entry['file']
+        file_path = entry['file_path']
+        url = i18n_url('files:path', view=view, path=path, selected=file)
+        direct_url = h.quoted_url('files:direct', path=file_path)
+        title = entry['title'] or titlify(entry['file'])
+        duration = entry['duration']
+        hduration = durify(duration)
+        width = entry['width']
+        height = entry['height']
+    %>
+    <li
+    class="playlist-list-item ${'playlist-list-item-current' if current else ''}"
+    role="row"
+    aria-selected="false"
+    data-title="${title | h}"
+    data-duration="${duration}"
+    data-width="${width}"
+    data-height="${height}"
+    data-url="${url}"
+    data-direct-url="${direct_url}">
+    <a class="playlist-list-item-link" href="${url}">
+        <span class="playlist-list-duration">
+            ${hduration}
+        </span>
+        <span class="playlist-list-title">
+            ${title | h}
+        </span>
+    </a>
+    </li>
 </%def>

@@ -1,3 +1,5 @@
+<%inherit file="_sidebar_playlist.tpl" />
+
 <%def name="audio_control(url)">
     <div id="audio-control-wrapper" class="audio-control-wrapper">
         <audio id="audio-controls-audio" controls="controls">
@@ -20,7 +22,7 @@
           cover_url = h.quoted_url('files:direct', path=cover_path)
       else:
           cover_url = assets.url + 'img/albumart-placeholder.png'
-      entries = facets['audio']['playlist']
+      entries = audio_facet['playlist']
       selected_entry = get_selected(entries, selected)
       audio_url = h.quoted_url('files:direct', path=selected_entry['file_path'])
     %>
@@ -33,42 +35,39 @@
 % endif
 
 <%def name="sidebar()">
-    <div class="playlist-list-container" id="playlist-list-container">
-        <div class="playlist-list-container-meta">
-            <ol class="playlist-list" id="playlist-list" role="grid">
-            <% selected_entry = get_selected(facets['audio']['playlist'], selected) %>
-            % for entry in facets['audio']['playlist']:
-                <%
-                file = entry['file']
-                current = entry['file'] == selected_entry['file']
-                file_path = entry['file_path']
-                url = i18n_url('files:path', view=view, path=path, selected=file)
-                direct_url = h.quoted_url('files:direct', path=file_path)
-                title = entry['title'] or titlify(file)
-                artist = entry['artist'] or _('Unknown')
-                duration = entry['duration']
-                hduration = durify(duration)
-                %>
-                <li
-                    class="playlist-list-item ${'playlist-list-item-current' if current else ''}"
-                    role="row"
-                    aria-selected="false"
-                    data-title="${title | h}"
-                    data-artist="${artist | h}"
-                    data-duration="${duration}"
-                    data-url="${url}"
-                    data-direct-url="${direct_url}">
-                    <a class="playlist-list-item-link" href="${url}">
-                        <span class="playlist-list-duration">${hduration}</span>
-                        <span class="playlist-list-title">${title | h} - ${artist | h}</span>
-                    </a>
-                </li>
-            % endfor
-            </ol>
-            <h2>${selected_entry.get('title') or titlify(selected_entry['file']) | h}</h2>
-            <p class="audio-artist">
-                ${selected_entry.get('artist') or _('Unknown')}
-            </p>
-        </div>
-    </div>
+    % if facets and facets.has_type('audio'):
+        <%
+        entries = facets['audio']['playlist']
+        selected_entry = get_selected(entries, selected)
+        %>
+        ${self.sidebar_playlist(entries, selected_entry)}
+    % endif
+</%def>
+
+<%def name="sidebar_playlist_item(entry, selected_entry)">
+    <%
+    file = entry['file']
+    current = entry['file'] == selected_entry['file']
+    file_path = entry['file_path']
+    url = i18n_url('files:path', view=view, path=path, selected=file)
+    direct_url = h.quoted_url('files:direct', path=file_path)
+    title = entry['title'] or titlify(file)
+    artist = entry['artist'] or _('Unknown')
+    duration = entry['duration']
+    hduration = durify(duration)
+    %>
+    <li
+        class="playlist-list-item ${'playlist-list-item-current' if current else ''}"
+        role="row"
+        aria-selected="false"
+        data-title="${title | h}"
+        data-artist="${artist | h}"
+        data-duration="${duration}"
+        data-url="${url}"
+        data-direct-url="${direct_url}">
+        <a class="playlist-list-item-link" href="${url}">
+            <span class="playlist-list-duration">${hduration}</span>
+            <span class="playlist-list-title">${title | h} - ${artist | h}</span>
+        </a>
+    </li>
 </%def>
