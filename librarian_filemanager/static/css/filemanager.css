@@ -127,12 +127,12 @@
   width: 100px;
   height: 100px;
   margin: -50px 0 0 -50px;
-  background: url('../img/bigplay.svg?1457022211') no-repeat;
+  background: url('../img/bigplay.svg?1457010210') no-repeat;
 }
 
 /* line 128, ../../../src/scss/partials/_mediaelement.scss */
 .no-svg .mejs-overlay-button {
-  background-image: url('../img/bigplay.png?1457022211');
+  background-image: url('../img/bigplay.png?1457010210');
 }
 
 /* line 132, ../../../src/scss/partials/_mediaelement.scss */
@@ -149,7 +149,7 @@
   height: 80px;
   margin: -40px 0 0 -40px;
   background: #333;
-  background: url('../img/background.png?1457022211');
+  background: url('../img/background.png?1457010210');
   background: rgba(0, 0, 0, 0.9);
   background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzg4ODg4OCIgc3RvcC1vcGFjaXR5PSIwLjkiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDAwMDAiIHN0b3Atb3BhY2l0eT0iMC45Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
   background-size: 100%;
@@ -164,7 +164,7 @@
   display: block;
   width: 80px;
   height: 80px;
-  background: transparent url('../img/loading.gif?1457022211') 50% 50% no-repeat;
+  background: transparent url('../img/loading.gif?1457010210') 50% 50% no-repeat;
 }
 
 /* End: LAYERS */
@@ -177,7 +177,7 @@
   padding: 0;
   bottom: 0;
   left: 0;
-  background: url('../img/background.png?1457022211');
+  background: url('../img/background.png?1457010210');
   background: rgba(0, 0, 0, 0.7);
   background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzg4ODg4OCIgc3RvcC1vcGFjaXR5PSIwLjciLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDAwMDAiIHN0b3Atb3BhY2l0eT0iMC43Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
   background-size: 100%;
@@ -218,12 +218,12 @@
   height: 16px;
   width: 16px;
   border: 0;
-  background: transparent url('../img/controls.svg?1457022211') no-repeat;
+  background: transparent url('../img/controls.svg?1457010210') no-repeat;
 }
 
 /* line 203, ../../../src/scss/partials/_mediaelement.scss */
 .no-svg .mejs-controls .mejs-button button {
-  background-image: url('../img/controls.png?1457022211');
+  background-image: url('../img/controls.png?1457010210');
 }
 
 /* :focus for accessibility */
@@ -1637,7 +1637,7 @@ div.mejs-speed-button {
 .mejs-oskin .mejs-controls .mejs-prev button {
   width: 40px;
   height: 40px;
-  background: transparent url('../img/controls-wmp-playlist.png?1457108762') no-repeat 0 -40px;
+  background: transparent url('../img/controls-wmp-playlist.png?1457269223') no-repeat 0 -40px;
   margin: 0;
   padding: 0;
 }
@@ -1645,214 +1645,75 @@ div.mejs-speed-button {
 .mejs-oskin .mejs-controls .mejs-next button {
   width: 40px;
   height: 40px;
-  background: transparent url('../img/controls-wmp-playlist.png?1457108762') no-repeat;
+  background: transparent url('../img/controls-wmp-playlist.png?1457269223') no-repeat;
   margin: 0;
   padding: 0;
 }
 
-/* line 3, ../../../src/scss/partials/_audio-skin.scss */
-.mejs-container {
-  background: unset;
-}
-
-/* line 7, ../../../src/scss/partials/_audio-skin.scss */
-.mejs-oskin .mejs-controls {
-  background: transparent url('../img/controls-wmp-bg.png?1457030534') center 16px no-repeat;
-  height: 65px;
-}
-/* line 11, ../../../src/scss/partials/_audio-skin.scss */
-.mejs-oskin .mejs-controls .mejs-time-rail .mejs-time-total {
-  background-color: transparent;
-  border: solid 1px #ccc;
-  height: 3px;
-}
-/* line 17, ../../../src/scss/partials/_audio-skin.scss */
-.mejs-oskin .mejs-controls .mejs-time-rail .mejs-time-buffering {
-  height: 3px;
-}
-/* line 21, ../../../src/scss/partials/_audio-skin.scss */
-.mejs-oskin .mejs-controls .mejs-time-rail .mejs-time-loaded {
-  background-color: rgba(255, 255, 255, 0.3);
-  width: 0;
-  height: 3px;
-}
-/* line 27, ../../../src/scss/partials/_audio-skin.scss */
-.mejs-oskin .mejs-controls .mejs-time-rail .mejs-time-current {
-  width: 0;
-  height: 1px;
-  background-color: #014CB6;
-  border: solid 1px #7FC9FA;
-  border-width: 1px 0;
-  border-color: #7FC9FA #fff #619FF2 #fff;
-}
-/* line 36, ../../../src/scss/partials/_audio-skin.scss */
-.mejs-oskin .mejs-controls .mejs-time-rail .mejs-time-handle {
-  display: block;
-  margin: 0;
-  width: 16px;
-  height: 9px;
-  top: -3px;
-  border: 0;
-  background: url('../img/controls-wmp.png?1457030534') no-repeat 0 -80px;
-}
-/* line 46, ../../../src/scss/partials/_audio-skin.scss */
-.mejs-oskin .mejs-controls .mejs-time-rail .mejs-time-float {
-  display: none;
-}
-/* line 50, ../../../src/scss/partials/_audio-skin.scss */
-.mejs-oskin .mejs-controls .mejs-playpause-button {
-  top: 10px;
-  left: 50%;
-  margin: 10px 0 0 -20px;
-  width: 40px;
-  height: 40px;
-}
-/* line 59, ../../../src/scss/partials/_audio-skin.scss */
-.mejs-oskin .mejs-controls .mejs-playpause-button button {
-  width: 40px;
-  height: 40px;
-  background: url('../img/controls-wmp.png?1457030534') no-repeat 0 0;
-  margin: 0;
-  padding: 0;
-}
-/* line 67, ../../../src/scss/partials/_audio-skin.scss */
-.mejs-oskin .mejs-controls .mejs-pause button {
-  background-position: 0 -40px;
-}
-/* line 71, ../../../src/scss/partials/_audio-skin.scss */
-.mejs-oskin .mejs-controls .mejs-currenttime-container {
-  position: absolute;
-  top: 25px;
-  left: 50%;
-  margin-left: -93px;
-}
-/* line 78, ../../../src/scss/partials/_audio-skin.scss */
-.mejs-oskin .mejs-controls .mejs-duration-container {
-  position: absolute;
-  top: 25px;
-  left: 50%;
-  margin-left: -58px;
-}
-/* line 85, ../../../src/scss/partials/_audio-skin.scss */
-.mejs-oskin .mejs-controls .mejs-volume-button {
-  top: 32px;
-  right: 50%;
-  margin-right: -55px;
-  width: 20px;
-  height: 15px;
-}
-/* line 93, ../../../src/scss/partials/_audio-skin.scss */
-.mejs-oskin .mejs-controls .mejs-volume-button button {
-  margin: 0;
-  padding: 0;
-  background: url('../img/controls-wmp.png?1457030534') no-repeat -42px -17px;
-  width: 20px;
-  height: 15px;
-}
-/* line 101, ../../../src/scss/partials/_audio-skin.scss */
-.mejs-oskin .mejs-controls .mejs-unmute button {
-  margin: 0;
-  padding: 0;
-  background: url('../img/controls-wmp.png?1457030534') no-repeat -42px 0;
-  width: 20px;
-  height: 15px;
-}
-/* line 109, ../../../src/scss/partials/_audio-skin.scss */
-.mejs-oskin .mejs-controls .mejs-volume-button .mejs-volume-slider {
-  background: rgba(102, 102, 102, 0.6);
-}
-/* line 113, ../../../src/scss/partials/_audio-skin.scss */
-.mejs-oskin .mejs-controls .mejs-fullscreen-button {
-  top: 32px;
-  right: 50%;
-  margin-right: -82px;
-  width: 15px;
-  height: 14px;
-}
-/* line 121, ../../../src/scss/partials/_audio-skin.scss */
-.mejs-oskin .mejs-controls .mejs-fullscreen-button button {
-  margin: 0;
-  padding: 0;
-  background: url('../img/controls-wmp.png?1457030534') no-repeat -63px 0;
-  width: 15px;
-  height: 14px;
-}
-/* line 129, ../../../src/scss/partials/_audio-skin.scss */
-.mejs-oskin .mejs-controls .mejs-captions-button {
-  display: none;
-}
-/* line 133, ../../../src/scss/partials/_audio-skin.scss */
-.mejs-oskin .mejs-controls .mejs-prevtrack button {
-  background: transparent url('../img/controls-wmp-playlist.png?1457108762') no-repeat;
-  background-position: 0 -16px;
-}
-/* line 138, ../../../src/scss/partials/_audio-skin.scss */
-.mejs-oskin .mejs-controls .mejs-nexttrack button {
-  background: transparent url('../img/controls-wmp-playlist.png?1457108762') no-repeat;
-}
-
-/* line 143, ../../../src/scss/partials/_audio-skin.scss */
-.mejs-oskin .mejs-button,
-.mejs-oskin .mejs-time {
-  position: absolute;
-  background: transparent;
-}
-
-/* line 4, ../../../src/scss/partials/_music-player.scss */
-.playlist-container {
-  -moz-border-radius: 0.3rem;
-  -webkit-border-radius: 0.3rem;
-  border-radius: 0.3rem;
+/* line 7, ../../../src/scss/partials/_music-player.scss */
+.playlist-controls {
+  padding: 1rem;
   background: rgba(255, 255, 255, 0.75);
-  width: 100%;
-  height: 32rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-x: hidden;
 }
-/* line 11, ../../../src/scss/partials/_music-player.scss */
-.playlist-container .playlist-controls {
-  float: left;
-  padding: 3rem;
-  width: 50%;
-  height: 100%;
-  border: 0.2rem solid;
-}
+
 /* line 18, ../../../src/scss/partials/_music-player.scss */
-.playlist-container .playlist-controls .playlist-controls-albumart {
-  width: 300px;
-  height: 300px;
-  margin: auto;
+.playlist-list-container {
+  overflow-x: hidden;
 }
-/* line 23, ../../../src/scss/partials/_music-player.scss */
-.playlist-container .playlist-controls .playlist-controls-albumart:after {
-  content: "";
-  display: block;
-  clear: both;
+/* line 21, ../../../src/scss/partials/_music-player.scss */
+.playlist-list-container .playlist-list {
+  margin: 2rem 0;
+}
+/* line 25, ../../../src/scss/partials/_music-player.scss */
+.playlist-list-container .playlist-list-item {
+  background: #c4c4c4;
+  overflow: hidden;
+  margin: 0 0 0.5rem;
 }
 /* line 30, ../../../src/scss/partials/_music-player.scss */
-.playlist-container .playlist-controls .audio-control-wrapper {
-  position: relative;
-  margin-top: 3rem;
-}
-/* line 36, ../../../src/scss/partials/_music-player.scss */
-.playlist-container .playlist-list-container {
-  float: left;
-  width: 50%;
-  height: 100%;
-  border: 0.2rem solid;
-  padding-left: 1rem;
-  overflow-y: auto;
-}
-/* line 44, ../../../src/scss/partials/_music-player.scss */
-.playlist-container .playlist-list-container .playlist-list {
-  list-style: decimal inside;
-}
-/* line 48, ../../../src/scss/partials/_music-player.scss */
-.playlist-container .playlist-list-container .playlist-list-item {
-  overflow: hidden;
-  width: 90%;
-  margin-top: 0.1rem;
+.playlist-list-container .playlist-list-item a {
+  width: 100%;
+  display: inline-block;
+  color: #333;
+  padding: 0.3rem 0.5rem;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+/* line 38, ../../../src/scss/partials/_music-player.scss */
+.playlist-list-container .playlist-list-item.playlist-list-item-current {
+  background: rgba(255, 255, 255, 0.75);
+}
+/* line 43, ../../../src/scss/partials/_music-player.scss */
+.playlist-list-container .playlist-list-duration {
+  display: inline-block;
+  text-align: right;
+  width: 5rem;
+  margin-right: 0.5rem;
+}
+/* line 50, ../../../src/scss/partials/_music-player.scss */
+.playlist-list-container .playlist-list-container-meta {
+  opacity: 1;
+  -moz-transition: opacity 0.5s;
+  -o-transition: opacity 0.5s;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+/* line 55, ../../../src/scss/partials/_music-player.scss */
+.playlist-list-container h2 {
+  margin: 1rem;
+  font-size: 120%;
+  border-bottom-color: #aaaaaa;
+}
+/* line 61, ../../../src/scss/partials/_music-player.scss */
+.playlist-list-container p {
+  margin: 0 1rem 1rem;
 }
 
 /* line 7, ../../../src/scss/partials/_video-player.scss */
