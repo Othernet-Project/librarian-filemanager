@@ -4,6 +4,7 @@ $views-sidebar-width: 300px;
 $views-sidebar-min: 48px;
 $views-sidebar-anim: 0.5s;
 $views-sidebar-cutoff: 740px;
+$views-tab-cutoff: 840px;
 
 @mixin views-at-cutoff {
   @include narrower-than($views-sidebar-cutoff) {
@@ -115,6 +116,9 @@ $views-sidebar-cutoff: 740px;
 
 .views-tabs-strip {
   height: 2rem;
+  overflow-y: hidden;
+  overflow-x: auto;
+  white-space: nowrap;
 
   .views-tabs-strip-tab {
     // Geometry
@@ -135,6 +139,16 @@ $views-sidebar-cutoff: 740px;
 
     @include border-top-left-radius($o-clickable-target-corner-radius);
     @include border-top-right-radius($o-clickable-target-corner-radius);
+
+    .icon {
+      font-size: 130%;
+    }
+
+    @include narrower-than($views-tab-cutoff) {
+      .label {
+        display: none;
+      }
+    }
   }
 
   .views-tabs-tab-current {
