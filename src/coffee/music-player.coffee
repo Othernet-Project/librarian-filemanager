@@ -23,7 +23,7 @@
     onReady: () =>
       @controls = @container.find('#audio-controls-audio').first()
       @controls.mediaelementplayer {
-        features: ['prev', 'playpause', 'next', 'progress', 'duration', 'volume'],
+        features: ['playpause', 'progress', 'duration', 'volume'],
         success: (mediaElement) =>
           @onPlayerReady(mediaElement)
           return
@@ -68,9 +68,10 @@
       return
 
   prepareAudio = () ->
-    container = $ '#playlist-container'
-    if container.length
-      player = new MusicPlayer container
+    container = $ '#playlist-controls'
+    if not container.length
+      return
+    player = new MusicPlayer $ "#views-container"
     return
 
   $ prepareAudio

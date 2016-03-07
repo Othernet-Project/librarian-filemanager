@@ -1,12 +1,6 @@
-<%
-DEFAULT_TITLE = _('Untitled')
-
-DEFAULT_ARTIST = _('Unknown')
-%>
-
 <%def name="audio_control(url)">
     <div id="audio-control-wrapper" class="audio-control-wrapper">
-        <audio id="audio-controls-audio" controls="controls" class="mejs-oskin">
+        <audio id="audio-controls-audio" controls="controls">
             <source src="${url | h}" />
             <object type="application/x-shockwave-flash" data="${assets.url}vendor/mediaelement/flashmediaelement.swf">
                 <param name="movie" value="${assets.url}vendor/mediaelement/flashmediaelement.swf" />
@@ -16,56 +10,65 @@ DEFAULT_ARTIST = _('Unknown')
     </div>
 </%def>
 
-<div class='playlist-container' id="playlist-container">
-    % if not facets or not facets.has_type('audio'):
+% if not facets or not facets.has_type('audio'):
     <span class="note">${_('No music files to be played.')}</span>
-    % else:
+% else:
     <%
-      albumart_path = th.join(facets['audio']['path'], facets['audio']['cover'] or '')
-      albumart_url = h.quoted_url('files:direct', path=albumart_path)
-      entries = facets['audio']['playlist']
-      if selected:
-          try:
-              selected_entry = filter(lambda e: e['file'] == selected, entries)[0]
-          except IndexError:
-              selected_entry = entries[0]
+      audio_facet = facets['audio']
+      if audio_facet['cover']:
+          cover_path = th.join(audio_facet['path'], audio_facet['cover'])
+          cover_url = h.quoted_url('files:direct', path=cover_path)
       else:
-          selected_entry = entries[0]
+          cover_url = assets.url + 'img/albumart-placeholder.png'
+      entries = facets['audio']['playlist']
+      selected_entry = get_selected(entries, selected)
       audio_url = h.quoted_url('files:direct', path=selected_entry['file_path'])
     %>
     <div class="playlist-controls" id="playlist-controls">
         <div class="playlist-controls-albumart" id="playlist-controls-albumart">
-            <img src="${assets.url}img/albumart-placeholder.png"/>
+            <img src="${cover_url}"/>
         </div>
         ${audio_control(audio_url)}
     </div>
+% endif
+
+<%def name="sidebar()">
     <div class="playlist-list-container" id="playlist-list-container">
-        <h2 style="border-bottom: none;">${_('Playlist')}</h2>
-        <ol class="playlist-list" id="playlist-list" role="grid">
-        % for entry in facets['audio']['playlist']:
-            <%
-            file = entry['file']
-            current = entry == selected_entry
-            file_path = entry['file_path']
-            url = i18n_url('files:path', view=view, path=path, selected=file)
-            direct_url = h.quoted_url('files:direct', path=file_path)
-            title = entry['title'] or DEFAULT_TITLE
-            artist = entry['artist'] or DEFAULT_ARTIST
-            duration = entry['duration']
-            %>
-            <li
-                class="playlist-list-item ${'playlist-list-item-current' if current else ''}"
-                role="row"
-                aria-selected="false"
-                data-title="${title | h}"
-                data-artist="${artist | h}"
-                data-duration="${duration}"
-                data-url="${url}"
-                data-direct-url="${direct_url}">
-                <a class="playlist-list-item-link" href="${url}">${title | h} - ${artist | h}</a>
-          </li>
-        % endfor
-        </ol>
+        <div class="playlist-list-container-meta">
+            <ol class="playlist-list" id="playlist-list" role="grid">
+            <% selected_entry = get_selected(facets['audio']['playlist'], selected) %>
+            % for entry in facets['audio']['playlist']:
+                <%
+                file = entry['file']
+                current = entry['file'] == selected_entry['file']
+                file_path = entry['file_path']
+                url = i18n_url('files:path', view=view, path=path, selected=file)
+                direct_url = h.quoted_url('files:direct', path=file_path)
+                title = entry['title'] or titlify(file)
+                artist = entry['artist'] or _('Unknown')
+                duration = entry['duration']
+                hduration = durify(duration)
+                %>
+                <li
+                    class="playlist-list-item ${'playlist-list-item-current' if current else ''}"
+                    role="row"
+                    aria-selected="false"
+                    data-title="${title | h}"
+                    data-artist="${artist | h}"
+                    data-duration="${duration}"
+                    data-url="${url}"
+                    data-direct-url="${direct_url}">
+                    <a class="playlist-list-item-link" href="${url}">
+                        <span class="playlist-list-duration">${hduration}</span>
+                        <span class="playlist-list-title">${title | h} - ${artist | h}</span>
+                    </a>
+                </li>
+            % endfor
+            </ol>
+            <h2>${selected_entry.get('title') or titlify(selected_entry['file']) | h}</h2>
+            <p class="audio-artist">
+                ${selected_entry.get('artist') or _('Unknown')}
+            </p>
+        </div>
     </div>
-    % endif
-</div>
+</%def>

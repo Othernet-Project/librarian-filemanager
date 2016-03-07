@@ -34,7 +34,7 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
     MusicPlayer.prototype.onReady = function() {
       this.controls = this.container.find('#audio-controls-audio').first();
       this.controls.mediaelementplayer({
-        features: ['prev', 'playpause', 'next', 'progress', 'duration', 'volume'],
+        features: ['playpause', 'progress', 'duration', 'volume'],
         success: (function(_this) {
           return function(mediaElement) {
             _this.onPlayerReady(mediaElement);
@@ -93,10 +93,11 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
   })();
   prepareAudio = function() {
     var container, player;
-    container = $('#playlist-container');
-    if (container.length) {
-      player = new MusicPlayer(container);
+    container = $('#playlist-controls');
+    if (!container.length) {
+      return;
     }
+    player = new MusicPlayer($("#views-container"));
   };
   $(prepareAudio);
   window.onTabChange(prepareAudio);
