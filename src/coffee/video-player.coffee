@@ -1,28 +1,12 @@
 ((window, $, templates) ->
   'use strict'
 
-  class VideoPlayer
-
-    constructor: (@container) ->
-      currentItemClass = 'playlist-list-item-current'
-      options = {
-        itemSelector: '#playlist-list .playlist-list-item',
-        currentItemClass: currentItemClass,
-        currentItemSelector: '.' + currentItemClass,
-        ready: () =>
-          @onReady()
-          return
-        setCurrent: (item) =>
-          @onSetCurrent(item)
-          return
-      }
-      @playlist = new Playlist @container, options
-      return
+  class VideoPlayer extends MediaPlayer
 
     onReady: () ->
       @controls = @container.find('#video-controls-video').first()
       @controls.mediaelementplayer {
-        features: ['prevtrack', 'playpause', 'nexttrack', 'progress', 'duration', 'volume', 'fullscreen'],
+        features: ['playpause', 'progress', 'duration', 'volume', 'fullscreen'],
         success: (mediaElement) =>
           @onPlayerReady(mediaElement)
           return
@@ -31,22 +15,8 @@
           return
       }
 
-    onPlayerReady: (mediaElement) ->
-      @player = mediaElement
-      return
-
-    onSetCurrent: (item) ->
-      @updatePlayer(item)
-      window.changeLocation item.data('url')
-      return
-
     updatePlayer: (item) ->
-      videoUrl = item.data('direct-url')
-      [width, height] = [item.data('width'), item.data('height')]
-      wasPlaying = not @player.paused
-      if wasPlaying
-        @player.pause()
-      @player.setSrc(videoUrl)
+      super item
       @player.play()
       return
 

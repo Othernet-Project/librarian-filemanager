@@ -1,24 +1,12 @@
 ((window, $, templates) ->
   'use strict'
 
-  class MusicPlayer
-
-    constructor: (@container) ->
-      currentItemClass = 'playlist-list-item-current'
-      options = {
-        itemSelector: '#playlist-list .playlist-list-item',
-        currentItemClass: currentItemClass,
-        currentItemSelector: '.' + currentItemClass,
-        toggleSidebarOnSelect: false,
-        ready: () =>
-          @onReady()
-          return
-        setCurrent: (item) =>
-          @onSetCurrent(item)
-          return
+  class MusicPlayer extends MediaPlayer
+    constructor: (container) ->
+      features = {
+        toggleSidebarOnSelect: false
       }
-      @playlist = new Playlist @container, options
-      return
+      super container, features
 
     onReady: () =>
       @controls = @container.find('#audio-controls-audio').first()
@@ -31,48 +19,6 @@
           @controls.prepend templates.audioLoadFailure
           return
       }
-      return
-
-    onPlayerReady: (mediaElement) =>
-      @player = mediaElement
-      $(@player).on 'mep-ext-playprev', () =>
-        @previous()
-        return
-
-      $(@player).on 'mep-ext-playnext', () =>
-        @next()
-        return
-      return
-
-    onSetCurrent: (item) ->
-      @updatePlayer(item)
-      @updateDetails(item)
-      window.changeLocation item.data('url')
-      return
-
-    updatePlayer: (item) ->
-      audio_url = item.data('direct-url')
-      wasPlaying = not @player.paused
-      if wasPlaying
-        @player.pause()
-      @player.setSrc(audio_url)
-      if wasPlaying
-        @player.play()
-      return
-
-    updateDetails: (item) ->
-      title = item.data('title')
-      artist = item.data('artist')
-      detailsContainer = @container.find('#playlist-item-details').first()
-      detailsContainer.find('.playlist-item-title').html(title)
-      detailsContainer.find('.playlist-item-artist').html(artist)
-
-    next: () ->
-      @playlist.next()
-      return
-
-    previous: () ->
-      @playlist.previous()
       return
 
   prepareAudio = () ->
