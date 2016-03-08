@@ -27,8 +27,8 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
           };
         })(this),
         setCurrent: (function(_this) {
-          return function(item) {
-            _this.onSetCurrent(item);
+          return function(current, previous) {
+            _this.onSetCurrent(current, previous);
           };
         })(this)
       };
@@ -48,10 +48,15 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
       })(this));
     };
 
-    MediaPlayer.prototype.onSetCurrent = function(item) {
-      this.updatePlayer(item);
-      this.updateDetails(item);
-      window.changeLocation(item.data('url'));
+    MediaPlayer.prototype.onSetCurrent = function(current, previous) {
+      var nextUrl, previousUrl;
+      this.updatePlayer(current);
+      this.updateDetails(current);
+      previousUrl = previous.data('url');
+      nextUrl = current.data('url');
+      if (previousUrl !== nextUrl) {
+        window.changeLocation(nextUrl);
+      }
     };
 
     MediaPlayer.prototype.updatePlayer = function(item) {

@@ -18,6 +18,8 @@
       mainContainer.html data
       (mainContainer.find 'a').first().focus()
       activateSidebar()
+      window.triggerTabChange()
+      return
     res.fail () ->
       # FIXME: Do not use alert, load a failure template into main view
       alert templates.alertLoadError
@@ -45,6 +47,10 @@
 
   window.changeLocation = (url) ->
     window.history.pushState null, null, url
+    return
+
+  $(window).on 'popstate', (e) ->
+    loadContent window.location
     return
 
   activateSidebar()

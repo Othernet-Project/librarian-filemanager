@@ -17,7 +17,8 @@
     res.done(function(data) {
       mainContainer.html(data);
       (mainContainer.find('a')).first().focus();
-      return activateSidebar();
+      activateSidebar();
+      window.triggerTabChange();
     });
     res.fail(function() {
       return alert(templates.alertLoadError);
@@ -45,6 +46,9 @@
   window.changeLocation = function(url) {
     window.history.pushState(null, null, url);
   };
+  $(window).on('popstate', function(e) {
+    loadContent(window.location);
+  });
   activateSidebar();
   mainContainer.on('click', '.views-sidebar-retract', toggleSidebar);
   ($(window)).on('views-sidebar-toggle', toggleSidebar);

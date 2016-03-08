@@ -23,11 +23,12 @@
       return
 
     _setCurrent: (index) ->
+      previous = @items.eq @currentIndex
       @currentIndex = index
       current = @items.eq index
       current.siblings().removeClass(@options['currentItemClass'])
       current.addClass(@options['currentItemClass'])
-      @options.setCurrent?(current)
+      @options.setCurrent?(current, previous)
       return
 
     length: () ->

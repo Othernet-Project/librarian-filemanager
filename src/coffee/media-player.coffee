@@ -15,8 +15,8 @@
         ready: () =>
           @onReady()
           return
-        setCurrent: (item) =>
-          @onSetCurrent(item)
+        setCurrent: (current, previous) =>
+          @onSetCurrent(current, previous)
           return
       }
       options = $.extend {}, optionSelectors, features, defaultCallbacks, callbacks
@@ -33,10 +33,13 @@
         return
       return
 
-    onSetCurrent: (item) ->
-      @updatePlayer(item)
-      @updateDetails(item)
-      window.changeLocation item.data('url')
+    onSetCurrent: (current, previous) ->
+      @updatePlayer(current)
+      @updateDetails(current)
+      previousUrl = previous.data('url')
+      nextUrl = current.data('url')
+      if previousUrl != nextUrl
+        window.changeLocation nextUrl
       return
 
     updatePlayer: (item) ->

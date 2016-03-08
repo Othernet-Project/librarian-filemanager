@@ -13,8 +13,8 @@
         ready: () =>
           @onReady()
           return
-        setCurrent: (item) =>
-          @onSetCurrent(item)
+        setCurrent: (current, previous) =>
+          @onSetCurrent(current, previous)
       }
       @playlist = new Playlist @listContainer, options
       return
@@ -34,7 +34,7 @@
         return
       return
 
-    onSetCurrent: (item) ->
+    onSetCurrent: (current, previous) ->
       title = item.data('title')
       image_url = item.data('direct-url')
       @currentImage.attr {
@@ -43,7 +43,10 @@
         'alt': title
       }
       @currentImageLabel.html(title)
-      window.changeLocation item.data('url')
+      previousUrl = previous.data('url')
+      nextUrl = current.data('url')
+      if previousUrl != nextUrl
+        window.changeLocation nextUrl
       return
 
     next: () ->

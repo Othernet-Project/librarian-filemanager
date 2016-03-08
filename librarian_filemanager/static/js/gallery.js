@@ -19,8 +19,8 @@
           };
         })(this),
         setCurrent: (function(_this) {
-          return function(item) {
-            return _this.onSetCurrent(item);
+          return function(current, previous) {
+            return _this.onSetCurrent(current, previous);
           };
         })(this)
       };
@@ -47,8 +47,8 @@
       })(this));
     };
 
-    Gallery.prototype.onSetCurrent = function(item) {
-      var image_url, title;
+    Gallery.prototype.onSetCurrent = function(current, previous) {
+      var image_url, nextUrl, previousUrl, title;
       title = item.data('title');
       image_url = item.data('direct-url');
       this.currentImage.attr({
@@ -57,7 +57,11 @@
         'alt': title
       });
       this.currentImageLabel.html(title);
-      window.changeLocation(item.data('url'));
+      previousUrl = previous.data('url');
+      nextUrl = current.data('url');
+      if (previousUrl !== nextUrl) {
+        window.changeLocation(nextUrl);
+      }
     };
 
     Gallery.prototype.next = function() {
