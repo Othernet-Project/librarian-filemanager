@@ -5,7 +5,10 @@
   mainContainer = $('#main-container');
   window.mainContainer = mainContainer;
   activateSidebar = function() {
-    return ($('#views-sidebar')).prepend(templates.sidebarRetract);
+    var sidebar;
+    sidebar = $('#views-sidebar');
+    sidebar.addClass('with-sidebar-handle');
+    return sidebar.prepend(templates.sidebarRetract);
   };
   toggleSidebar = function() {
     ($('#views-container')).toggleClass('sidebar-hidden');
