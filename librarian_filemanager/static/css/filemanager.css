@@ -1494,15 +1494,22 @@ div.mejs-speed-button {
   overflow: hidden;
 }
 /* line 31, ../../../src/scss/partials/_gallery.scss */
-.gallery-container .gallery-current-image .gallery-current-image-img {
+.gallery-container .gallery-current-image img {
   max-width: 100%;
-  height: auto;
   max-height: 100%;
-  display: block;
-  margin: 0 auto;
+  height: auto;
+  vertical-align: middle;
+}
+/* line 39, ../../../src/scss/partials/_gallery.scss */
+.gallery-container .gallery-current-image:after {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  width: 0;
+  vertical-align: middle;
 }
 
-/* line 42, ../../../src/scss/partials/_gallery.scss */
+/* line 50, ../../../src/scss/partials/_gallery.scss */
 .gallery-control {
   position: absolute;
   top: 0;
@@ -1524,7 +1531,7 @@ div.mejs-speed-button {
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
 }
-/* line 53, ../../../src/scss/partials/_gallery.scss */
+/* line 61, ../../../src/scss/partials/_gallery.scss */
 .gallery-control .icon {
   display: inline-block;
   position: absolute;
@@ -1536,11 +1543,11 @@ div.mejs-speed-button {
   text-align: center;
   text-shadow: 0px 1px black;
 }
-/* line 65, ../../../src/scss/partials/_gallery.scss */
+/* line 73, ../../../src/scss/partials/_gallery.scss */
 .gallery-control .label {
   display: none;
 }
-/* line 69, ../../../src/scss/partials/_gallery.scss */
+/* line 77, ../../../src/scss/partials/_gallery.scss */
 .gallery-control:hover {
   opacity: 1;
   color: white;
@@ -1549,17 +1556,17 @@ div.mejs-speed-button {
   animation-name: none;
 }
 
-/* line 82, ../../../src/scss/partials/_gallery.scss */
+/* line 90, ../../../src/scss/partials/_gallery.scss */
 .gallery-control-previous {
   left: 0;
 }
 
-/* line 86, ../../../src/scss/partials/_gallery.scss */
+/* line 94, ../../../src/scss/partials/_gallery.scss */
 .gallery-control-next {
   right: 0;
 }
 
-/* line 90, ../../../src/scss/partials/_gallery.scss */
+/* line 98, ../../../src/scss/partials/_gallery.scss */
 .gallery-image-title {
   margin-top: 1rem;
   max-width: 30%;
@@ -1571,11 +1578,11 @@ div.mejs-speed-button {
   background: rgba(0, 0, 0, 0.7);
 }
 
-/* line 103, ../../../src/scss/partials/_gallery.scss */
+/* line 111, ../../../src/scss/partials/_gallery.scss */
 .gallery-list-container {
   padding: 1rem;
 }
-/* line 106, ../../../src/scss/partials/_gallery.scss */
+/* line 114, ../../../src/scss/partials/_gallery.scss */
 .gallery-list-container .gallery-list {
   padding: 0;
   width: 100%;
@@ -1583,7 +1590,7 @@ div.mejs-speed-button {
   overflow: hidden;
   overflow-y: auto;
 }
-/* line 114, ../../../src/scss/partials/_gallery.scss */
+/* line 122, ../../../src/scss/partials/_gallery.scss */
 .gallery-list-container .gallery-list-item {
   display: inline-block;
   height: 100%;
@@ -1595,19 +1602,19 @@ div.mejs-speed-button {
   -webkit-transition: opacity 0.3s;
   transition: opacity 0.3s;
 }
-/* line 123, ../../../src/scss/partials/_gallery.scss */
+/* line 131, ../../../src/scss/partials/_gallery.scss */
 .gallery-list-container .gallery-list-item a {
   display: inline-block;
   width: 100%;
   height: 100%;
 }
-/* line 129, ../../../src/scss/partials/_gallery.scss */
+/* line 137, ../../../src/scss/partials/_gallery.scss */
 .gallery-list-container .gallery-list-item .img {
   max-width: 100%;
   max-height: 100%;
   vertical-align: middle;
 }
-/* line 136, ../../../src/scss/partials/_gallery.scss */
+/* line 144, ../../../src/scss/partials/_gallery.scss */
 .gallery-list-container .gallery-list-item-current {
   opacity: 0.5;
 }
