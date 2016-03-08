@@ -30,6 +30,7 @@
   .mejs-controls {
     background: transparentize($o-dp-background, 0.1);
     height: 3rem;
+    overflow: hidden;
 
     .mejs-button {
       height: 3rem;
