@@ -76,10 +76,6 @@
         icon.show();
         return spinner.remove();
       });
-      return;
     }
-  });
-  return $(window).on('popstate', function(e) {
-    return loadContent(window.location);
   });
 })(this, this.jQuery, this.templates);

@@ -75,12 +75,7 @@
         icon.show()
         spinner.remove()
 
-      return
-
     return
 
-  $(window).on 'popstate', (e) ->
-    loadContent window.location
-
-
+  return
 ) this, this.jQuery, this.templates
