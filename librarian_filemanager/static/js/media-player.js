@@ -33,7 +33,6 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
         })(this)
       };
       options = $.extend({}, optionSelectors, features, defaultCallbacks, callbacks);
-      console.log(options);
       this.playlist = new Playlist(this.container, options);
       return;
     }
@@ -76,19 +75,15 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
     };
 
     MediaPlayer.prototype.updateDetails = function(item) {
-      var detailsContainer, results, selector, unit, value;
+      var detailsContainer, selector, unit, value;
       detailsContainer = this.container.find('#playlist-item-details').first();
-      results = [];
       for (unit in detailUnits) {
         selector = detailUnits[unit];
         value = item.data(unit);
         if (value) {
-          results.push(detailsContainer.find(selector).html(value));
-        } else {
-          results.push(void 0);
+          detailsContainer.find(selector).html(value);
         }
       }
-      return results;
     };
 
     MediaPlayer.prototype.next = function() {

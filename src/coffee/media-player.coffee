@@ -20,7 +20,6 @@
           return
       }
       options = $.extend {}, optionSelectors, features, defaultCallbacks, callbacks
-      console.log options
       @playlist = new Playlist @container, options
       return
 
@@ -62,6 +61,7 @@
         value = item.data unit
         if value
           detailsContainer.find(selector).html(value)
+      return
 
     next: () ->
       @playlist.next()

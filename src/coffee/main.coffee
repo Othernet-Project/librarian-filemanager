@@ -44,8 +44,8 @@
     return
 
   window.changeLocation = (url) ->
-      window.history.pushState null, null, url
-      return
+    window.history.pushState null, null, url
+    return
 
   activateSidebar()
   mainContainer.on 'click', '.views-sidebar-retract', toggleSidebar
