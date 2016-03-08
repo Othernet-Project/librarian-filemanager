@@ -1,0 +1,213 @@
+@import "compass/css3";
+
+$oicons-prefix: '' !default;
+
+$glyphs: (
+  alert-key: '\f101',
+  alert-outline: '\f102',
+  alert-question: '\f103',
+  alert-stop: '\f104',
+  alert: '\f105',
+  app-files: '\f106',
+  app-library: '\f107',
+  app-twitter: '\f108',
+  arrow-down: '\f109',
+  arrow-left: '\f10a',
+  arrow-right: '\f10b',
+  arrow-up: '\f10c',
+  atmark: '\f10d',
+  audio: '\f10e',
+  box-minus: '\f10f',
+  box-plus: '\f110',
+  circle-arrow-down: '\f111',
+  circle-arrow-in-down: '\f112',
+  circle-arrow-in-left: '\f113',
+  circle-arrow-in-right: '\f114',
+  circle-arrow-in-up: '\f115',
+  circle-arrow-left: '\f116',
+  circle-arrow-right: '\f117',
+  circle-arrow-up: '\f118',
+  circle-dot: '\f119',
+  circle-ok: '\f11a',
+  circle-power: '\f11b',
+  circle: '\f11c',
+  clock: '\f11d',
+  close: '\f11e',
+  discard: '\f11f',
+  download: '\f120',
+  edit-outline: '\f121',
+  edit: '\f122',
+  enter: '\f123',
+  ethernet: '\f124',
+  exit: '\f125',
+  expand-down: '\f126',
+  expand-left: '\f127',
+  expand-right: '\f128',
+  expand-up: '\f129',
+  favorite: '\f12a',
+  file-audio: '\f12b',
+  file-binary: '\f12c',
+  file-globe: '\f12d',
+  file-image: '\f12e',
+  file-music: '\f12f',
+  file-text-image: '\f130',
+  file-text: '\f131',
+  file-vector: '\f132',
+  file-video: '\f133',
+  file: '\f134',
+  folder-audio: '\f135',
+  folder-circle: '\f136',
+  folder-down: '\f137',
+  folder-generic: '\f138',
+  folder-html: '\f139',
+  folder-image: '\f13a',
+  folder-left: '\f13b',
+  folder-locked: '\f13c',
+  folder-multi: '\f13d',
+  folder-no: '\f13e',
+  folder-ok: '\f13f',
+  folder-plus: '\f140',
+  folder-right: '\f141',
+  folder-up: '\f142',
+  folder-video: '\f143',
+  folder: '\f144',
+  fullscreen: '\f145',
+  gallery: '\f146',
+  generic: '\f147',
+  globe: '\f148',
+  help-outline: '\f149',
+  help: '\f14a',
+  html: '\f14b',
+  image: '\f14c',
+  import: '\f14d',
+  info-outline: '\f14e',
+  info: '\f14f',
+  key: '\f150',
+  list: '\f151',
+  listen: '\f152',
+  lock: '\f153',
+  menu: '\f154',
+  message-alert: '\f155',
+  message: '\f156',
+  minus-outline: '\f157',
+  minus: '\f158',
+  multi-type: '\f159',
+  muted: '\f15a',
+  network-bridge: '\f15b',
+  no-outline: '\f15c',
+  no: '\f15d',
+  ok-outline: '\f15e',
+  ok: '\f15f',
+  other-outline: '\f160',
+  other: '\f161',
+  outernet: '\f162',
+  pause: '\f163',
+  play: '\f164',
+  playlist-fast-forward: '\f165',
+  playlist-next: '\f166',
+  playlist-previous: '\f167',
+  playlist-rewind: '\f168',
+  plus-outline: '\f169',
+  plus: '\f16a',
+  read: '\f16b',
+  satellite: '\f16c',
+  search: '\f16d',
+  settings: '\f16e',
+  signal: '\f16f',
+  sound: '\f170',
+  spinner: '\f171',
+  stop: '\f172',
+  storage-internal: '\f173',
+  storage-usbdrive: '\f174',
+  storage-usbstick: '\f175',
+  tuner: '\f176',
+  tweet: '\f177',
+  unlock: '\f178',
+  user-exclamation: '\f179',
+  user-key: '\f17a',
+  user-minus: '\f17b',
+  user-multiple: '\f17c',
+  user-no: '\f17d',
+  user-ok: '\f17e',
+  user-plus: '\f17f',
+  user-shield: '\f180',
+  user-star: '\f181',
+  user-unknown: '\f182',
+  user-up: '\f183',
+  user: '\f184',
+  video: '\f185',
+  watch: '\f186',
+  wifi: '\f187',
+);
+
+@include keyframes('spin') {
+  from { @include rotate(0deg); }
+  to { @include rotate(360deg); }
+}
+
+// Shortcut to add font-face definition
+@mixin icon-font-face {
+  @include font-face(
+    'OIcons', font-files(
+      "#{$oicons-prefix}oicons-fab630d88709e4c38c4c654613091389.eot",
+      "#{$oicons-prefix}oicons-fab630d88709e4c38c4c654613091389.ttf",
+      "#{$oicons-prefix}oicons-fab630d88709e4c38c4c654613091389.woff"));
+}
+
+// Base styles for all icons
+@mixin icon-base {
+  // Typography
+  font-family: "OIcons";
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  text-transform: none;
+
+  // Basic geometry
+  display: inline-block;
+  speak: none;
+  vertical-align: middle;
+
+  // Text rendering settings
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  & ~ * {
+    vertical-align: middle;
+  }
+}
+
+// Mixin for a single icon
+@mixin icon($name) {
+  &:before {
+    content: map-get($glyphs, $name);
+  }
+}
+
+@mixin spinner($size: 100%) {
+  @include icon(spinner);
+  @include animation(spin 2s linear infinite);
+  font-size: $size;
+}
+
+// Shortcut to add all icon classes
+@mixin icon-classes {
+  .icon {
+    @include icon-base;
+  }
+
+  @each $name in map-keys($glyphs) {
+    .icon-#{$name} {
+      @include icon($name);
+    }
+  }
+
+  .icon-spinning-loader {
+    @include spinner;
+  }
+
+  .icon-spinning-loader-xxl {
+    @include spinner(300%);
+  }
+}
