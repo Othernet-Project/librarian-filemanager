@@ -33,13 +33,14 @@
     }
 
     Playlist.prototype._setCurrent = function(index) {
-      var base, current;
+      var base, current, previous;
+      previous = this.items.eq(this.currentIndex);
       this.currentIndex = index;
       current = this.items.eq(index);
       current.siblings().removeClass(this.options['currentItemClass']);
       current.addClass(this.options['currentItemClass']);
       if (typeof (base = this.options).setCurrent === "function") {
-        base.setCurrent(current);
+        base.setCurrent(current, previous);
       }
     };
 
