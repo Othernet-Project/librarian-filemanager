@@ -34,6 +34,7 @@
         ${self.sidebar_playlist(entries, selected_entry)}
     %endif
 </%def>
+
 <%def name="sidebar_playlist_item(entry, selected_entry)">
     <%
         file = entry['file']
