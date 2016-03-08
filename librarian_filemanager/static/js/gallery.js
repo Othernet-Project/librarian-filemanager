@@ -49,8 +49,8 @@
 
     Gallery.prototype.onSetCurrent = function(current, previous) {
       var image_url, nextUrl, previousUrl, title;
-      title = item.data('title');
-      image_url = item.data('direct-url');
+      title = current.data('title');
+      image_url = current.data('direct-url');
       this.currentImage.attr({
         'src': image_url,
         'title': title,

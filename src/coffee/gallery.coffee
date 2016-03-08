@@ -35,8 +35,8 @@
       return
 
     onSetCurrent: (current, previous) ->
-      title = item.data('title')
-      image_url = item.data('direct-url')
+      title = current.data('title')
+      image_url = current.data('direct-url')
       @currentImage.attr {
         'src': image_url
         'title': title
