@@ -5,7 +5,16 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
 
 (function(window, $, templates) {
   'use strict';
-  var MusicPlayer, prepareAudio;
+  var MusicPlayer, playNext, prepareAudio;
+  playNext = function(e) {
+    var next, player;
+    player = e.data;
+    next = ($('.playlist-list-item-current')).next('.playlist-list-item');
+    if (next.length) {
+      player.playlist.next();
+      player.player.play();
+    }
+  };
   MusicPlayer = (function(superClass) {
     extend(MusicPlayer, superClass);
 
@@ -45,6 +54,7 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
       return;
     }
     player = new MusicPlayer($("#views-container"));
+    ($(player.player)).on('ended', player, playNext);
   };
   $(prepareAudio);
   window.onTabChange(prepareAudio);

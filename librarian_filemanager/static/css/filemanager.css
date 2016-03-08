@@ -128,12 +128,12 @@
   width: 100px;
   height: 100px;
   margin: -50px 0 0 -50px;
-  background: url('../img/bigplay.svg?1457010210') no-repeat;
+  background: url('../img/bigplay.svg?1457022211') no-repeat;
 }
 
 /* line 128, ../../../src/scss/partials/_mediaelement.scss */
 .no-svg .mejs-overlay-button {
-  background-image: url('../img/bigplay.png?1457010210');
+  background-image: url('../img/bigplay.png?1457022211');
 }
 
 /* line 132, ../../../src/scss/partials/_mediaelement.scss */
@@ -150,7 +150,7 @@
   height: 80px;
   margin: -40px 0 0 -40px;
   background: #333;
-  background: url('../img/background.png?1457010210');
+  background: url('../img/background.png?1457022211');
   background: rgba(0, 0, 0, 0.9);
   background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzg4ODg4OCIgc3RvcC1vcGFjaXR5PSIwLjkiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDAwMDAiIHN0b3Atb3BhY2l0eT0iMC45Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
   background-size: 100%;
@@ -165,7 +165,7 @@
   display: block;
   width: 80px;
   height: 80px;
-  background: transparent url('../img/loading.gif?1457010210') 50% 50% no-repeat;
+  background: transparent url('../img/loading.gif?1457022211') 50% 50% no-repeat;
 }
 
 /* End: LAYERS */
@@ -178,7 +178,7 @@
   padding: 0;
   bottom: 0;
   left: 0;
-  background: url('../img/background.png?1457010210');
+  background: url('../img/background.png?1457022211');
   background: rgba(0, 0, 0, 0.7);
   background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzg4ODg4OCIgc3RvcC1vcGFjaXR5PSIwLjciLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDAwMDAiIHN0b3Atb3BhY2l0eT0iMC43Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
   background-size: 100%;
@@ -219,12 +219,12 @@
   height: 16px;
   width: 16px;
   border: 0;
-  background: transparent url('../img/controls.svg?1457010210') no-repeat;
+  background: transparent url('../img/controls.svg?1457022211') no-repeat;
 }
 
 /* line 203, ../../../src/scss/partials/_mediaelement.scss */
 .no-svg .mejs-controls .mejs-button button {
-  background-image: url('../img/controls.png?1457010210');
+  background-image: url('../img/controls.png?1457022211');
 }
 
 /* :focus for accessibility */
@@ -1197,9 +1197,10 @@ div.mejs-speed-button {
   right: 0;
   bottom: 0;
   clear: both;
+  overflow-x: hidden;
 }
 
-/* line 30, ../../../src/scss/partials/_main.scss */
+/* line 31, ../../../src/scss/partials/_main.scss */
 .views-main {
   position: absolute;
   top: 0;
@@ -1212,28 +1213,28 @@ div.mejs-speed-button {
   -webkit-transition: right 0.5s;
   transition: right 0.5s;
 }
-/* line 40, ../../../src/scss/partials/_main.scss */
+/* line 41, ../../../src/scss/partials/_main.scss */
 .with-sidebar .views-main {
   right: 300px;
 }
 @media only screen and (max-width: 740px) {
-  /* line 40, ../../../src/scss/partials/_main.scss */
+  /* line 41, ../../../src/scss/partials/_main.scss */
   .with-sidebar .views-main {
     right: 100%;
   }
 }
-/* line 48, ../../../src/scss/partials/_main.scss */
+/* line 49, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-main {
   right: 48px;
 }
 @media only screen and (max-width: 740px) {
-  /* line 48, ../../../src/scss/partials/_main.scss */
+  /* line 49, ../../../src/scss/partials/_main.scss */
   .sidebar-hidden .views-main {
     right: 10%;
   }
 }
 
-/* line 57, ../../../src/scss/partials/_main.scss */
+/* line 58, ../../../src/scss/partials/_main.scss */
 .views-sidebar {
   position: absolute;
   top: 0;
@@ -1248,33 +1249,33 @@ div.mejs-speed-button {
   transition: right 0.5s;
 }
 @media only screen and (max-width: 740px) {
-  /* line 57, ../../../src/scss/partials/_main.scss */
+  /* line 58, ../../../src/scss/partials/_main.scss */
   .views-sidebar {
     width: 100%;
   }
 }
-/* line 72, ../../../src/scss/partials/_main.scss */
+/* line 73, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-sidebar {
   right: -252px;
 }
 @media only screen and (max-width: 740px) {
-  /* line 72, ../../../src/scss/partials/_main.scss */
+  /* line 73, ../../../src/scss/partials/_main.scss */
   .sidebar-hidden .views-sidebar {
     right: -90%;
   }
 }
 
-/* line 81, ../../../src/scss/partials/_main.scss */
+/* line 82, ../../../src/scss/partials/_main.scss */
 .views-sidebar-retract {
   display: inline-block;
   color: gray;
   margin: 0.5rem 0.5rem 0;
 }
-/* line 86, ../../../src/scss/partials/_main.scss */
+/* line 87, ../../../src/scss/partials/_main.scss */
 .views-sidebar-retract:hover {
   color: #089bd2;
 }
-/* line 90, ../../../src/scss/partials/_main.scss */
+/* line 91, ../../../src/scss/partials/_main.scss */
 .views-sidebar-retract .icon {
   -moz-transition: -moz-transform 3s;
   -o-transition: -o-transform 3s;
@@ -1282,14 +1283,14 @@ div.mejs-speed-button {
   transition: transform 3s;
   font-size: 220%;
 }
-/* line 94, ../../../src/scss/partials/_main.scss */
+/* line 95, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-sidebar-retract .icon {
   -moz-transform: rotateY(180deg);
   -ms-transform: rotateY(180deg);
   -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
 }
-/* line 99, ../../../src/scss/partials/_main.scss */
+/* line 100, ../../../src/scss/partials/_main.scss */
 .views-sidebar-retract .label {
   text-transform: uppercase;
   -moz-transition: opacity 0.5s;
@@ -1297,12 +1298,12 @@ div.mejs-speed-button {
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
 }
-/* line 103, ../../../src/scss/partials/_main.scss */
+/* line 104, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-sidebar-retract .label {
   opacity: 0;
 }
 
-/* line 109, ../../../src/scss/partials/_main.scss */
+/* line 110, ../../../src/scss/partials/_main.scss */
 .views-sidebar-content {
   opacity: 1;
   -moz-transition: opacity 0.5s;
@@ -1310,19 +1311,19 @@ div.mejs-speed-button {
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
 }
-/* line 113, ../../../src/scss/partials/_main.scss */
+/* line 114, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-sidebar-content {
   opacity: 0.2;
 }
 
-/* line 118, ../../../src/scss/partials/_main.scss */
+/* line 119, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip {
   height: 2rem;
   overflow-y: hidden;
   overflow-x: auto;
   white-space: nowrap;
 }
-/* line 124, ../../../src/scss/partials/_main.scss */
+/* line 125, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-strip-tab {
   display: inline-block;
   padding: 0 1rem;
@@ -1341,30 +1342,30 @@ div.mejs-speed-button {
   -webkit-border-top-right-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
 }
-/* line 144, ../../../src/scss/partials/_main.scss */
+/* line 145, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-strip-tab .icon {
   font-size: 130%;
 }
 @media only screen and (max-width: 840px) {
-  /* line 149, ../../../src/scss/partials/_main.scss */
+  /* line 150, ../../../src/scss/partials/_main.scss */
   .views-tabs-strip .views-tabs-strip-tab .label {
     display: none;
   }
 }
-/* line 155, ../../../src/scss/partials/_main.scss */
+/* line 156, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-tab-current {
   background: rgba(255, 255, 255, 0.75);
 }
-/* line 159, ../../../src/scss/partials/_main.scss */
+/* line 160, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-special {
   background: #089bd2;
   color: #fff;
 }
-/* line 163, ../../../src/scss/partials/_main.scss */
+/* line 164, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-special .icon {
   font-size: 150%;
 }
-/* line 167, ../../../src/scss/partials/_main.scss */
+/* line 168, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-special .label {
   display: none;
 }
@@ -1546,15 +1547,16 @@ div.mejs-speed-button {
   right: 0;
   padding: 1rem;
   overflow: hidden;
+  text-align: center;
 }
-/* line 31, ../../../src/scss/partials/_gallery.scss */
+/* line 32, ../../../src/scss/partials/_gallery.scss */
 .gallery-container .gallery-current-image img {
   max-width: 100%;
   max-height: 100%;
   height: auto;
   vertical-align: middle;
 }
-/* line 39, ../../../src/scss/partials/_gallery.scss */
+/* line 40, ../../../src/scss/partials/_gallery.scss */
 .gallery-container .gallery-current-image:after {
   content: '';
   display: inline-block;
@@ -1563,7 +1565,7 @@ div.mejs-speed-button {
   vertical-align: middle;
 }
 
-/* line 50, ../../../src/scss/partials/_gallery.scss */
+/* line 51, ../../../src/scss/partials/_gallery.scss */
 .gallery-control {
   position: absolute;
   top: 0;
@@ -1585,7 +1587,7 @@ div.mejs-speed-button {
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
 }
-/* line 61, ../../../src/scss/partials/_gallery.scss */
+/* line 62, ../../../src/scss/partials/_gallery.scss */
 .gallery-control .icon {
   display: inline-block;
   position: absolute;
@@ -1597,11 +1599,11 @@ div.mejs-speed-button {
   text-align: center;
   text-shadow: 0px 1px black;
 }
-/* line 73, ../../../src/scss/partials/_gallery.scss */
+/* line 74, ../../../src/scss/partials/_gallery.scss */
 .gallery-control .label {
   display: none;
 }
-/* line 77, ../../../src/scss/partials/_gallery.scss */
+/* line 78, ../../../src/scss/partials/_gallery.scss */
 .gallery-control:hover {
   opacity: 1;
   color: white;
@@ -1610,17 +1612,17 @@ div.mejs-speed-button {
   animation-name: none;
 }
 
-/* line 90, ../../../src/scss/partials/_gallery.scss */
+/* line 91, ../../../src/scss/partials/_gallery.scss */
 .gallery-control-previous {
   left: 0;
 }
 
-/* line 94, ../../../src/scss/partials/_gallery.scss */
+/* line 95, ../../../src/scss/partials/_gallery.scss */
 .gallery-control-next {
   right: 0;
 }
 
-/* line 98, ../../../src/scss/partials/_gallery.scss */
+/* line 99, ../../../src/scss/partials/_gallery.scss */
 .gallery-image-title {
   margin-top: 1rem;
   max-width: 30%;
@@ -1632,11 +1634,11 @@ div.mejs-speed-button {
   background: rgba(0, 0, 0, 0.7);
 }
 
-/* line 111, ../../../src/scss/partials/_gallery.scss */
+/* line 112, ../../../src/scss/partials/_gallery.scss */
 .gallery-list-container {
   padding: 1rem;
 }
-/* line 114, ../../../src/scss/partials/_gallery.scss */
+/* line 115, ../../../src/scss/partials/_gallery.scss */
 .gallery-list-container .gallery-list {
   padding: 0;
   width: 100%;
@@ -1644,7 +1646,7 @@ div.mejs-speed-button {
   overflow: hidden;
   overflow-y: auto;
 }
-/* line 122, ../../../src/scss/partials/_gallery.scss */
+/* line 123, ../../../src/scss/partials/_gallery.scss */
 .gallery-list-container .gallery-list-item {
   display: inline-block;
   height: 100%;
@@ -1656,19 +1658,19 @@ div.mejs-speed-button {
   -webkit-transition: opacity 0.3s;
   transition: opacity 0.3s;
 }
-/* line 131, ../../../src/scss/partials/_gallery.scss */
+/* line 132, ../../../src/scss/partials/_gallery.scss */
 .gallery-list-container .gallery-list-item a {
   display: inline-block;
   width: 100%;
   height: 100%;
 }
-/* line 137, ../../../src/scss/partials/_gallery.scss */
+/* line 138, ../../../src/scss/partials/_gallery.scss */
 .gallery-list-container .gallery-list-item .img {
   max-width: 100%;
   max-height: 100%;
   vertical-align: middle;
 }
-/* line 144, ../../../src/scss/partials/_gallery.scss */
+/* line 145, ../../../src/scss/partials/_gallery.scss */
 .gallery-list-container .gallery-list-item-current {
   opacity: 0.5;
 }
@@ -1712,7 +1714,7 @@ div.mejs-speed-button {
 .mejs-oskin .mejs-controls .mejs-prev button {
   width: 40px;
   height: 40px;
-  background: transparent url('../img/controls-wmp-playlist.png?1457269223') no-repeat 0 -40px;
+  background: transparent url('../img/controls-wmp-playlist.png?1457108762') no-repeat 0 -40px;
   margin: 0;
   padding: 0;
 }
@@ -1720,7 +1722,7 @@ div.mejs-speed-button {
 .mejs-oskin .mejs-controls .mejs-next button {
   width: 40px;
   height: 40px;
-  background: transparent url('../img/controls-wmp-playlist.png?1457269223') no-repeat;
+  background: transparent url('../img/controls-wmp-playlist.png?1457108762') no-repeat;
   margin: 0;
   padding: 0;
 }
