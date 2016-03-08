@@ -63,7 +63,7 @@
 
     Playlist.prototype.previous = function() {
       var index;
-      index = (this.length + this.currentIndex - 1) % this.length();
+      index = (this.length() + this.currentIndex - 1) % this.length();
       return this.moveTo(index);
     };
 

@@ -45,7 +45,7 @@
       @moveTo(index)
 
     previous: () ->
-      index = (@length + @currentIndex - 1) % @length()
+      index = (@length() + @currentIndex - 1) % @length()
       @moveTo(index)
 
     _onClick: (e) ->
