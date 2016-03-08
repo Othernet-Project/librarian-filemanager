@@ -1241,8 +1241,6 @@ div.mejs-speed-button {
   right: 0;
   bottom: 0;
   width: 300px;
-  overflow-x: hidden;
-  overflow-y: auto;
   -moz-transition: right 0.5s;
   -o-transition: right 0.5s;
   -webkit-transition: right 0.5s;
@@ -1254,28 +1252,42 @@ div.mejs-speed-button {
     width: 100%;
   }
 }
-/* line 73, ../../../src/scss/partials/_main.scss */
+/* line 71, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-sidebar {
   right: -252px;
 }
 @media only screen and (max-width: 740px) {
-  /* line 73, ../../../src/scss/partials/_main.scss */
+  /* line 71, ../../../src/scss/partials/_main.scss */
   .sidebar-hidden .views-sidebar {
     right: -90%;
   }
 }
+/* line 79, ../../../src/scss/partials/_main.scss */
+.views-sidebar .views-sidebar-content {
+  position: absolute;
+  overflow-x: hidden;
+  overflow-y: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+/* line 89, ../../../src/scss/partials/_main.scss */
+.views-sidebar.with-sidebar-handle .views-sidebar-content {
+  top: 3rem;
+}
 
-/* line 82, ../../../src/scss/partials/_main.scss */
+/* line 94, ../../../src/scss/partials/_main.scss */
 .views-sidebar-retract {
   display: inline-block;
   color: gray;
   margin: 0.5rem 0.5rem 0;
 }
-/* line 87, ../../../src/scss/partials/_main.scss */
+/* line 99, ../../../src/scss/partials/_main.scss */
 .views-sidebar-retract:hover {
   color: #089bd2;
 }
-/* line 91, ../../../src/scss/partials/_main.scss */
+/* line 103, ../../../src/scss/partials/_main.scss */
 .views-sidebar-retract .icon {
   -moz-transition: -moz-transform 3s;
   -o-transition: -o-transform 3s;
@@ -1283,14 +1295,14 @@ div.mejs-speed-button {
   transition: transform 3s;
   font-size: 220%;
 }
-/* line 95, ../../../src/scss/partials/_main.scss */
+/* line 107, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-sidebar-retract .icon {
   -moz-transform: rotateY(180deg);
   -ms-transform: rotateY(180deg);
   -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
 }
-/* line 100, ../../../src/scss/partials/_main.scss */
+/* line 112, ../../../src/scss/partials/_main.scss */
 .views-sidebar-retract .label {
   text-transform: uppercase;
   -moz-transition: opacity 0.5s;
@@ -1298,12 +1310,12 @@ div.mejs-speed-button {
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
 }
-/* line 104, ../../../src/scss/partials/_main.scss */
+/* line 116, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-sidebar-retract .label {
   opacity: 0;
 }
 
-/* line 110, ../../../src/scss/partials/_main.scss */
+/* line 122, ../../../src/scss/partials/_main.scss */
 .views-sidebar-content {
   opacity: 1;
   -moz-transition: opacity 0.5s;
@@ -1311,19 +1323,19 @@ div.mejs-speed-button {
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
 }
-/* line 114, ../../../src/scss/partials/_main.scss */
+/* line 126, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-sidebar-content {
   opacity: 0.2;
 }
 
-/* line 119, ../../../src/scss/partials/_main.scss */
+/* line 131, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip {
   height: 2rem;
   overflow-y: hidden;
   overflow-x: auto;
   white-space: nowrap;
 }
-/* line 125, ../../../src/scss/partials/_main.scss */
+/* line 137, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-strip-tab {
   display: inline-block;
   padding: 0 1rem;
@@ -1342,30 +1354,30 @@ div.mejs-speed-button {
   -webkit-border-top-right-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
 }
-/* line 145, ../../../src/scss/partials/_main.scss */
+/* line 157, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-strip-tab .icon {
   font-size: 130%;
 }
 @media only screen and (max-width: 840px) {
-  /* line 150, ../../../src/scss/partials/_main.scss */
+  /* line 162, ../../../src/scss/partials/_main.scss */
   .views-tabs-strip .views-tabs-strip-tab .label {
     display: none;
   }
 }
-/* line 156, ../../../src/scss/partials/_main.scss */
+/* line 168, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-tab-current {
   background: rgba(255, 255, 255, 0.75);
 }
-/* line 160, ../../../src/scss/partials/_main.scss */
+/* line 172, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-special {
   background: #089bd2;
   color: #fff;
 }
-/* line 164, ../../../src/scss/partials/_main.scss */
+/* line 176, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-special .icon {
   font-size: 150%;
 }
-/* line 168, ../../../src/scss/partials/_main.scss */
+/* line 180, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-special .label {
   display: none;
 }
@@ -1649,7 +1661,7 @@ div.mejs-speed-button {
 /* line 123, ../../../src/scss/partials/_gallery.scss */
 .gallery-list-container .gallery-list-item {
   display: inline-block;
-  height: 100%;
+  height: 120px;
   width: 120px;
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;
@@ -1663,14 +1675,24 @@ div.mejs-speed-button {
   display: inline-block;
   width: 100%;
   height: 100%;
+  overflow: hidden;
+  background: white;
+  text-align: center;
 }
-/* line 138, ../../../src/scss/partials/_gallery.scss */
-.gallery-list-container .gallery-list-item .img {
+/* line 140, ../../../src/scss/partials/_gallery.scss */
+.gallery-list-container .gallery-list-item a:after {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+/* line 148, ../../../src/scss/partials/_gallery.scss */
+.gallery-list-container .gallery-list-item img {
   max-width: 100%;
   max-height: 100%;
   vertical-align: middle;
 }
-/* line 145, ../../../src/scss/partials/_gallery.scss */
+/* line 155, ../../../src/scss/partials/_gallery.scss */
 .gallery-list-container .gallery-list-item-current {
   opacity: 0.5;
 }
