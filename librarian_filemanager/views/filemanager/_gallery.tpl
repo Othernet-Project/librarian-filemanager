@@ -5,6 +5,9 @@
         <%
             entries = facets['image']['gallery']
             selected_entry = get_selected(entries, selected)
+            previous, next = get_adjacent(entries, selected_entry)
+            previous_url = i18n_url('files:path', view=view, path=path, selected=previous['file'])
+            next_url = i18n_url('files:path', view=view, path=path, selected=next['file'])
             direct_url = h.quoted_url('files:direct', path=selected_entry['file_path'])
             title = selected_entry['title']
         %>
@@ -14,13 +17,19 @@
         <div class="gallery-current-image" id="gallery-current-image">
             <img class="gallery-current-image-img" src='${direct_url}'/>
         </div>
-        <a class="gallery-control gallery-control-previous" id="gallery-control-previous">
+        <a
+            class="gallery-control gallery-control-previous"
+            id="gallery-control-previous"
+            href="${previous_url}">
             <span class="icon icon-expand-left"></span>
             <span class="label">
                 ${_('Previous')}
             </span>
         </a>
-        <a class="gallery-control gallery-control-next" id="gallery-control-next">
+        <a
+            class="gallery-control gallery-control-next"
+            id="gallery-control-next"
+            href="${next_url}">
             <span class="icon icon-expand-right"></span>
             <span class="label">
                 ${_('Next')}
@@ -42,7 +51,7 @@
                         file = entry['file']
                         current = entry == selected_entry
                         file_path = entry['file_path']
-                        url = h.quoted_url('files:path', view=view, path=path, selected=file)
+                        url = i18n_url('files:path', view=view, path=path, selected=file)
                         direct_url = h.quoted_url('files:direct', path=file_path)
                         title = entry['title']
                         img_width = entry['width']

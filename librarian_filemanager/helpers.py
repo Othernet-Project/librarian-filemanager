@@ -47,3 +47,15 @@ def get_selected(collection, selected=None):
     selected_entries = list(filter(lambda e: e['file'] == selected,
                                    collection))
     return selected_entries[0] if selected_entries else collection[0]
+
+
+def get_adjacent(collection, current, loop=True):
+    collection = list(collection)
+    current_idx = collection.index(current)
+    if loop:
+        previous_idx = current_idx - 1
+        next_idx = (current_idx + 1) % len(collection)
+    else:
+        previous_idx = max(current_idx - 1, 0)
+        next_idx = min(current_idx + 1, len(collection) - 1)
+    return collection[previous_idx], collection[next_idx]

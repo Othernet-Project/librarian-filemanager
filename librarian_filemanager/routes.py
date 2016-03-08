@@ -25,7 +25,7 @@ from librarian_core.contrib.templates.decorators import template_helper
 from librarian_core.contrib.templates.renderer import template, view
 
 from .manager import Manager
-from .helpers import get_facets, title_name, durify, get_selected
+from .helpers import get_facets, title_name, durify, get_selected, get_adjacent
 
 
 EXPORTS = {
@@ -87,7 +87,7 @@ def show_view(path, view, defaults=dict()):
         selected = urlunquote(selected)
     data = defaults.copy()
     data.update(dict(selected=selected, titlify=title_name, durify=durify,
-                     get_selected=get_selected))
+                     get_selected=get_selected, get_adjacent=get_adjacent))
     return data
 
 
