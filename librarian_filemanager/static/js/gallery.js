@@ -3,40 +3,52 @@
   'use strict';
   var Gallery, prepareGallery;
   Gallery = (function() {
-    var currentItemClass;
-
-    currentItemClass = 'gallery-list-item-current';
-
-    function Gallery(container) {
-      var i, image, index, len, ref;
+    function Gallery(container, listContainer) {
+      var currentItemClass, options;
       this.container = container;
-      this.currentImage = this.container.find('.gallery-current-image-img').first();
-      this.currentImageLabel = this.container.find('#gallery-controls-image-title').first();
-      this.imagesList = this.container.find('#gallery-list .gallery-list-item');
-      this.currentIndex = 0;
-      ref = this.imagesList;
-      for (index = i = 0, len = ref.length; i < len; index = ++i) {
-        image = ref[index];
-        if ($(image).hasClass(currentItemClass)) {
-          this.currentIndex = index;
-          break;
-        }
-      }
-      this.moveTo(this.currentIndex);
-      this.imagesList.on('click', 'a', (function(_this) {
-        return function(e) {
-          _this.onClick(e);
-        };
-      })(this));
+      this.listContainer = listContainer;
+      currentItemClass = 'gallery-list-item-current';
+      options = {
+        itemSelector: '#gallery-list .gallery-list-item',
+        currentItemClass: currentItemClass,
+        currentItemSelector: '.' + currentItemClass,
+        toggleSidebarOnSelect: false,
+        ready: (function(_this) {
+          return function() {
+            _this.onReady();
+          };
+        })(this),
+        setCurrent: (function(_this) {
+          return function(item) {
+            return _this.onSetCurrent(item);
+          };
+        })(this)
+      };
+      this.playlist = new Playlist(this.listContainer, options);
+      return;
     }
 
-    Gallery.prototype.updateImage = function(newIndex) {
-      var image_url, item, prevItem, title;
-      prevItem = $(this.imagesList.get(this.currentIndex));
-      prevItem.removeClass(currentItemClass);
-      this.currentIndex = newIndex;
-      item = $(this.imagesList.get(this.currentIndex));
-      item.addClass(currentItemClass);
+    Gallery.prototype.onReady = function() {
+      this.currentImage = this.container.find('.gallery-current-image img').first();
+      this.currentImageLabel = this.container.find('.gallery-image-title').first();
+      this.container.find('#gallery-control-previous').click((function(_this) {
+        return function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          _this.previous();
+        };
+      })(this));
+      this.container.find('#gallery-control-next').click((function(_this) {
+        return function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          _this.next();
+        };
+      })(this));
+    };
+
+    Gallery.prototype.onSetCurrent = function(item) {
+      var image_url, title;
       title = item.data('title');
       image_url = item.data('direct-url');
       this.currentImage.attr({
@@ -45,60 +57,28 @@
         'alt': title
       });
       this.currentImageLabel.html(title);
-    };
-
-    Gallery.prototype.updateLocation = function() {
-      var item, url;
-      item = $(this.imagesList.get(this.currentIndex));
-      url = item.data('url');
-      window.history.pushState(null, null, url);
-    };
-
-    Gallery.prototype.moveTo = function(index) {
-      if (index < 0 || index >= this.imagesList.length) {
-        return;
-      }
-      this.updateImage(index);
-      this.updateLocation();
+      window.changeLocation(item.data('url'));
     };
 
     Gallery.prototype.next = function() {
-      var index;
-      index = (this.currentIndex + 1) % this.imagesList.length;
-      return this.moveTo(index);
+      this.playlist.next();
     };
 
     Gallery.prototype.previous = function() {
-      var index;
-      index = (this.imagesList.length + this.currentIndex - 1) % this.imagesList.length;
-      return this.moveTo(index);
-    };
-
-    Gallery.prototype.onClick = function(e) {
-      var item;
-      e.preventDefault();
-      e.stopPropagation();
-      item = $(e.target).closest('li');
-      this.moveTo(this.imagesList.index(item));
-      return false;
+      this.playlist.previous();
     };
 
     return Gallery;
 
   })();
   prepareGallery = function() {
-    var gallery, galleryContainer;
-    galleryContainer = $('#gallery-container');
-    if (!!galleryContainer.length) {
+    var gallery, galleryContainer, galleryListContainer;
+    galleryListContainer = $('#gallery-list-container');
+    if (!galleryListContainer.length) {
       return;
     }
-    gallery = new Gallery(galleryContainer);
-    $('#gallery-controls-control-previous').click(function() {
-      gallery.previous();
-    });
-    $('#gallery-controls-control-next').click(function() {
-      gallery.next();
-    });
+    galleryContainer = $('#gallery-container');
+    gallery = new Gallery(galleryContainer, galleryListContainer);
   };
   $(prepareGallery);
   window.onTabChange(prepareGallery);
