@@ -61,8 +61,6 @@ $views-tab-cutoff: 840px;
   right: 0;
   bottom: 0;
   width: $views-sidebar-width;
-  overflow-x: hidden;
-  overflow-y: auto;
 
   @include transition(right $views-sidebar-anim);
 
@@ -76,6 +74,20 @@ $views-tab-cutoff: 840px;
     @include views-at-cutoff {
       right: -90%;
     }
+  }
+
+  .views-sidebar-content {
+    position: absolute;
+    overflow-x: hidden;
+    overflow-y: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  &.with-sidebar-handle .views-sidebar-content {
+    top: 3rem;
   }
 }
 
