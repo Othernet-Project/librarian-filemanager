@@ -67,7 +67,7 @@
                     data-img-width="${img_width}"
                     data-img-height="${img_height}">
                     <a class="gallery-list-item-link" href="${url}">
-                        <img class="gallery-list-item-thumbnail" src="${direct_url}"/>
+                        <img class="gallery-list-item-thumbnail" src="${direct_url}" alt="${title}" title="${title}"/>
                     </a>
                     </li>
                 % endfor
