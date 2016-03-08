@@ -2,7 +2,7 @@
 
 <%def name="sidebar_playlist_item_details(entry)">
     %if 'title' in entry:
-        <h2>${entry.get('title') or titlify(entry['file']) | h}</h2>
+        <h2 class="playlist-item-title">${entry.get('title') or titlify(entry['file']) | h}</h2>
     %endif
     %for key in ('artist', 'author'):
         %if key in entry:
@@ -26,7 +26,7 @@
                 ${self.sidebar_playlist_item(entry, selected_entry)}
             % endfor
             </ul>
-            <div class="playlist-list-item-details">
+            <div class="playlist-item-details" id="playlist-item-details">
             ${self.sidebar_playlist_item_details(selected_entry)}
             </div>
         </div>

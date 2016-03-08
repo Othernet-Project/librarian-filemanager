@@ -46,6 +46,7 @@
 
     onSetCurrent: (item) ->
       @updatePlayer(item)
+      @updateDetails(item)
       window.changeLocation item.data('url')
       return
 
@@ -58,6 +59,13 @@
       if wasPlaying
         @player.play()
       return
+
+    updateDetails: (item) ->
+      title = item.data('title')
+      artist = item.data('artist')
+      detailsContainer = @container.find('#playlist-item-details').first()
+      detailsContainer.find('.playlist-item-title').html(title)
+      detailsContainer.find('.playlist-item-artist').html(artist)
 
     next: () ->
       @playlist.next()

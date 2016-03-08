@@ -64,6 +64,7 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
 
     MusicPlayer.prototype.onSetCurrent = function(item) {
       this.updatePlayer(item);
+      this.updateDetails(item);
       window.changeLocation(item.data('url'));
     };
 
@@ -78,6 +79,15 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
       if (wasPlaying) {
         this.player.play();
       }
+    };
+
+    MusicPlayer.prototype.updateDetails = function(item) {
+      var artist, detailsContainer, title;
+      title = item.data('title');
+      artist = item.data('artist');
+      detailsContainer = this.container.find('#playlist-item-details').first();
+      detailsContainer.find('.playlist-item-title').html(title);
+      return detailsContainer.find('.playlist-item-artist').html(artist);
     };
 
     MusicPlayer.prototype.next = function() {
