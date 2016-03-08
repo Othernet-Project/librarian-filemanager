@@ -29,6 +29,9 @@
 
     onPlayerReady: (mediaElement) =>
       @player = mediaElement
+      ($ window).on 'views-sidebar-toggled', () =>
+        @_sidebarToggled()
+        return
       return
 
     onSetCurrent: (item) ->
@@ -66,6 +69,29 @@
 
     previous: () ->
       @playlist.previous()
+      return
+
+    _sidebarToggled: () ->
+      # Hack to get mediaelementjs to resize its controls
+      @_triggerResizeEvents 100, 1000
+      return
+
+    _triggerResizeEvents: (interval, duration) ->
+      ###
+      Trigger window resize event every `interval` milliseconds for
+      `duration` milliseconds
+      ###
+      if @_resizeTimerId
+        window.clearInterval(@_resizeTimerId)
+      start = Date.now()
+      end = start + duration
+      resizeFunc = () ->
+        $(window).trigger 'resize'
+        if Date.now() >= end
+          window.clearInterval(@_resizeTimerId)
+        return
+      resizeFunc = resizeFunc.bind(@)
+      @_resizeTimerId = window.setInterval resizeFunc, 100
       return
 
   window.MediaPlayer = MediaPlayer

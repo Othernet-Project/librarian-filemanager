@@ -8,7 +8,8 @@
     return ($('#views-sidebar')).prepend(templates.sidebarRetract);
   };
   toggleSidebar = function() {
-    return ($('#views-container')).toggleClass('sidebar-hidden');
+    ($('#views-container')).toggleClass('sidebar-hidden');
+    ($(window)).trigger('views-sidebar-toggled');
   };
   window.loadContent = function(url) {
     var res;

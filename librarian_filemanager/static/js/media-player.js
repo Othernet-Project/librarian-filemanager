@@ -42,6 +42,11 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
 
     MediaPlayer.prototype.onPlayerReady = function(mediaElement) {
       this.player = mediaElement;
+      ($(window)).on('views-sidebar-toggled', (function(_this) {
+        return function() {
+          _this._sidebarToggled();
+        };
+      })(this));
     };
 
     MediaPlayer.prototype.onSetCurrent = function(item) {
@@ -92,6 +97,32 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
 
     MediaPlayer.prototype.previous = function() {
       this.playlist.previous();
+    };
+
+    MediaPlayer.prototype._sidebarToggled = function() {
+      this._triggerResizeEvents(100, 1000);
+    };
+
+    MediaPlayer.prototype._triggerResizeEvents = function(interval, duration) {
+
+      /*
+      Trigger window resize event every `interval` milliseconds for
+      `duration` milliseconds
+       */
+      var end, resizeFunc, start;
+      if (this._resizeTimerId) {
+        window.clearInterval(this._resizeTimerId);
+      }
+      start = Date.now();
+      end = start + duration;
+      resizeFunc = function() {
+        $(window).trigger('resize');
+        if (Date.now() >= end) {
+          window.clearInterval(this._resizeTimerId);
+        }
+      };
+      resizeFunc = resizeFunc.bind(this);
+      this._resizeTimerId = window.setInterval(resizeFunc, 100);
     };
 
     return MediaPlayer;

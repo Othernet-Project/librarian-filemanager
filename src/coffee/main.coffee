@@ -9,6 +9,8 @@
 
   toggleSidebar = () ->
     ($ '#views-container').toggleClass 'sidebar-hidden'
+    ($ window).trigger 'views-sidebar-toggled'
+    return
 
   window.loadContent = (url) ->
     res = $.get url
