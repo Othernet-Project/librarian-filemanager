@@ -1140,8 +1140,20 @@ div.mejs-speed-button {
   background: #c4c4c4;
   overflow: hidden;
   margin: 0 0 0.5rem;
+  -moz-transition: background 0.5s;
+  -o-transition: background 0.5s;
+  -webkit-transition: background 0.5s;
+  transition: background 0.5s;
 }
-/* line 14, ../../../src/scss/partials/_playlist.scss */
+/* line 16, ../../../src/scss/partials/_playlist.scss */
+.playlist-list .playlist-list-item:hover, .playlist-list .playlist-list-item:focus {
+  background: #089bd2;
+}
+/* line 20, ../../../src/scss/partials/_playlist.scss */
+.playlist-list .playlist-list-item:hover a, .playlist-list .playlist-list-item:focus a {
+  color: white;
+}
+/* line 25, ../../../src/scss/partials/_playlist.scss */
 .playlist-list .playlist-list-item a {
   width: 100%;
   display: inline-block;
@@ -1150,12 +1162,28 @@ div.mejs-speed-button {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  -moz-transition: color 0.5s;
+  -o-transition: color 0.5s;
+  -webkit-transition: color 0.5s;
+  transition: color 0.5s;
 }
-/* line 22, ../../../src/scss/partials/_playlist.scss */
+/* line 34, ../../../src/scss/partials/_playlist.scss */
 .playlist-list .playlist-list-item.playlist-list-item-current {
   background: rgba(255, 255, 255, 0.75);
 }
-/* line 27, ../../../src/scss/partials/_playlist.scss */
+/* line 37, ../../../src/scss/partials/_playlist.scss */
+.playlist-list .playlist-list-item.playlist-list-item-current a {
+  cursor: default;
+}
+/* line 41, ../../../src/scss/partials/_playlist.scss */
+.playlist-list .playlist-list-item.playlist-list-item-current:hover, .playlist-list .playlist-list-item.playlist-list-item-current:focus {
+  background: rgba(255, 255, 255, 0.75);
+}
+/* line 45, ../../../src/scss/partials/_playlist.scss */
+.playlist-list .playlist-list-item.playlist-list-item-current:hover a, .playlist-list .playlist-list-item.playlist-list-item-current:focus a {
+  color: #333;
+}
+/* line 52, ../../../src/scss/partials/_playlist.scss */
 .playlist-list .playlist-list-duration {
   display: inline-block;
   text-align: right;
@@ -1163,42 +1191,42 @@ div.mejs-speed-button {
   margin-right: 0.5rem;
 }
 
-/* line 35, ../../../src/scss/partials/_playlist.scss */
+/* line 60, ../../../src/scss/partials/_playlist.scss */
 .playlist-metadata {
   margin-bottom: 2rem;
 }
-/* line 38, ../../../src/scss/partials/_playlist.scss */
+/* line 63, ../../../src/scss/partials/_playlist.scss */
 .playlist-metadata h2 {
   margin: 1rem;
   font-size: 120%;
   border-bottom-color: #aaaaaa;
 }
-/* line 44, ../../../src/scss/partials/_playlist.scss */
+/* line 69, ../../../src/scss/partials/_playlist.scss */
 .playlist-metadata p {
   margin: 0 1rem 1rem;
 }
-/* line 48, ../../../src/scss/partials/_playlist.scss */
+/* line 73, ../../../src/scss/partials/_playlist.scss */
 .playlist-metadata .playlist-metadata-buttons {
   border-top: 1px solid #aaa;
   padding-top: 1rem;
   margin-top: 1rem;
 }
 
-/* line 55, ../../../src/scss/partials/_playlist.scss */
+/* line 80, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs {
   position: absolute;
   top: 0.5rem;
   right: 1rem;
 }
-/* line 60, ../../../src/scss/partials/_playlist.scss */
+/* line 85, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs .label {
   display: none;
 }
-/* line 64, ../../../src/scss/partials/_playlist.scss */
+/* line 89, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs .icon {
   font-size: 150%;
 }
-/* line 68, ../../../src/scss/partials/_playlist.scss */
+/* line 93, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs a {
   display: inline-block;
   color: gray;
@@ -1208,20 +1236,20 @@ div.mejs-speed-button {
   -webkit-transition: color 0.3s;
   transition: color 0.3s;
 }
-/* line 75, ../../../src/scss/partials/_playlist.scss */
+/* line 100, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs a.active {
   color: #333;
 }
-/* line 79, ../../../src/scss/partials/_playlist.scss */
+/* line 104, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs a:hover, .playlist-tabs a:focus {
   color: #089bd2;
 }
 
-/* line 87, ../../../src/scss/partials/_playlist.scss */
+/* line 112, ../../../src/scss/partials/_playlist.scss */
 .with-tabs .playlist-section {
   display: none;
 }
-/* line 91, ../../../src/scss/partials/_playlist.scss */
+/* line 116, ../../../src/scss/partials/_playlist.scss */
 .with-tabs .playlist-section-open {
   display: block;
 }

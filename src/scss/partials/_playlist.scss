@@ -11,16 +11,41 @@ $playlist-sidebar-animation-speed: 0.5s;
     overflow: hidden;
     margin: 0 0 0.5rem;
 
+    @include transition(background 0.5s);
+
+    &:hover,
+    &:focus {
+      background: $o-accent;
+
+      a {
+        color: white;
+      }
+    }
+
     a {
       width: 100%;
       display: inline-block;
       color: $o-base-text-color;
       padding: 0.3rem 0.5rem;
       @include ellipsis;
+      @include transition(color 0.5s);
     }
 
     &.playlist-list-item-current {
       background: $o-thin-overlay-material;
+
+      a {
+        cursor: default;
+      }
+
+      &:hover,
+      &:focus {
+        background: $o-thin-overlay-material;
+
+        a {
+          color: $o-base-text-color;
+        }
+      }
     }
   }
 
