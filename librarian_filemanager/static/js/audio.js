@@ -55,6 +55,22 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
     }
     player = new MusicPlayer($("#views-container"));
     ($(player.player)).on('ended', player, playNext);
+    ($('#audio-controls-albumart')).on('click', function(e) {
+      e.preventDefault();
+      if (player.player.paused) {
+        player.player.play();
+      } else {
+        player.player.pause();
+      }
+    });
+    ($(window)).on('playlist-updated', function() {
+      var artist, title, trackInfo;
+      trackInfo = ($('.playlist-list-item-current')).data();
+      title = trackInfo.title;
+      artist = trackInfo.author || trackInfo.artist || template.unknownAuthor;
+      ($('#audio-controls-title h2')).text(title);
+      return ($('#audio-controls-title p')).text(artist);
+    });
   };
   $(prepareAudio);
   window.onTabChange(prepareAudio);

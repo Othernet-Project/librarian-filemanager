@@ -89,3 +89,7 @@ def get_views(facets):
         <span class="label">${_('Hide')}</span>
     </a>
 </script>
+
+<script type="text/template" id="unknownAuthor">
+    ${_('Unknown author')}
+</script>

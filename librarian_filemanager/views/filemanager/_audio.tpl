@@ -28,7 +28,11 @@
     %>
     <div class="audio-controls" id="audio-controls">
         <div class="audio-controls-albumart" id="audio-controls-albumart">
-            <img src="${cover_url}"/>
+            <img src="${cover_url}" class="audio-controls-cover">
+            <div class="audio-controls-title" id="audio-controls-title">
+                <h2>${selected_entry['title']}</h2>
+                <p>${selected_entry.get('author', selected_entry.get('artist')) or _('Unknown author')}</p>
+            </div>
         </div>
         ${audio_control(audio_url)}
     </div>

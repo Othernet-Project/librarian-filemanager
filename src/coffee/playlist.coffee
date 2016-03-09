@@ -38,6 +38,7 @@
       if index < 0 or index >= @length()
         return
       @_setCurrent(index)
+      ($ window).trigger 'playlist-updated'
       return
 
     next: () ->

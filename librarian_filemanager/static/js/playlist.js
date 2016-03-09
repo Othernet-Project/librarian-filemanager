@@ -53,6 +53,7 @@
         return;
       }
       this._setCurrent(index);
+      ($(window)).trigger('playlist-updated');
     };
 
     Playlist.prototype.next = function() {
