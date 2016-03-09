@@ -59,7 +59,7 @@
       'description': '.playlist-item-description'
     }
     updateDetails: (item) ->
-      detailsContainer = @container.find('#playlist-item-details').first()
+      detailsContainer = (@container.find '#playlist-metadata').first()
       for unit, selector of detailUnits
         value = item.data unit
         if value

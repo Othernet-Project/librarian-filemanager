@@ -81,7 +81,7 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
 
     MediaPlayer.prototype.updateDetails = function(item) {
       var detailsContainer, selector, unit, value;
-      detailsContainer = this.container.find('#playlist-item-details').first();
+      detailsContainer = (this.container.find('#playlist-metadata')).first();
       for (unit in detailUnits) {
         selector = detailUnits[unit];
         value = item.data(unit);

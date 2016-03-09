@@ -1135,22 +1135,18 @@ div.mejs-speed-button {
  * COPYING file that comes with the source code, or
  * http://www.gnu.org/licenses/gpl.txt.
  */
-/* line 7, ../../../src/scss/partials/_playlist.scss */
-.playlist-list-container {
-  overflow-x: hidden;
-}
-/* line 10, ../../../src/scss/partials/_playlist.scss */
-.playlist-list-container .playlist-list {
+/* line 8, ../../../src/scss/partials/_playlist.scss */
+.playlist-list {
   margin: 2rem 0;
 }
-/* line 14, ../../../src/scss/partials/_playlist.scss */
-.playlist-list-container .playlist-list-item {
+/* line 11, ../../../src/scss/partials/_playlist.scss */
+.playlist-list .playlist-list-item {
   background: #c4c4c4;
   overflow: hidden;
   margin: 0 0 0.5rem;
 }
-/* line 19, ../../../src/scss/partials/_playlist.scss */
-.playlist-list-container .playlist-list-item a {
+/* line 16, ../../../src/scss/partials/_playlist.scss */
+.playlist-list .playlist-list-item a {
   width: 100%;
   display: inline-block;
   color: #333;
@@ -1159,33 +1155,26 @@ div.mejs-speed-button {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-/* line 27, ../../../src/scss/partials/_playlist.scss */
-.playlist-list-container .playlist-list-item.playlist-list-item-current {
+/* line 24, ../../../src/scss/partials/_playlist.scss */
+.playlist-list .playlist-list-item.playlist-list-item-current {
   background: rgba(255, 255, 255, 0.75);
 }
-/* line 32, ../../../src/scss/partials/_playlist.scss */
-.playlist-list-container .playlist-list-duration {
+/* line 29, ../../../src/scss/partials/_playlist.scss */
+.playlist-list .playlist-list-duration {
   display: inline-block;
   text-align: right;
   width: 5rem;
   margin-right: 0.5rem;
 }
-/* line 39, ../../../src/scss/partials/_playlist.scss */
-.playlist-list-container .playlist-list-container-meta {
-  opacity: 1;
-  -moz-transition: opacity 0.5s;
-  -o-transition: opacity 0.5s;
-  -webkit-transition: opacity 0.5s;
-  transition: opacity 0.5s;
-}
-/* line 44, ../../../src/scss/partials/_playlist.scss */
-.playlist-list-container h2 {
+
+/* line 38, ../../../src/scss/partials/_playlist.scss */
+.playlist-metadata h2 {
   margin: 1rem;
   font-size: 120%;
   border-bottom-color: #aaaaaa;
 }
-/* line 50, ../../../src/scss/partials/_playlist.scss */
-.playlist-list-container p {
+/* line 44, ../../../src/scss/partials/_playlist.scss */
+.playlist-metadata p {
   margin: 0 1rem 1rem;
 }
 

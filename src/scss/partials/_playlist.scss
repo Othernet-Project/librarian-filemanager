@@ -4,12 +4,9 @@ $playlist-sidebar-width: 300px;
 $playlist-sidebar-closed-width: 48px;
 $playlist-sidebar-animation-speed: 0.5s;
 
-.playlist-list-container {
-  overflow-x: hidden;
 
-  .playlist-list {
-    margin: 2rem 0;
-  }
+.playlist-list {
+  margin: 2rem 0;
 
   .playlist-list-item {
     background: darken($o-dark-material, 10);
@@ -35,12 +32,9 @@ $playlist-sidebar-animation-speed: 0.5s;
     width: 5rem;
     margin-right: 0.5rem;
   }
+}
 
-  .playlist-list-container-meta {
-    opacity: 1;
-    @include transition(opacity $playlist-sidebar-animation-speed);
-  }
-
+.playlist-metadata {
   h2 {
     margin: 1rem;
     font-size: 120%;

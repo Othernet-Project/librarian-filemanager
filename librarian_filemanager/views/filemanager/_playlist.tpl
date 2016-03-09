@@ -19,16 +19,12 @@
 </%def>
 
 <%def name="sidebar_playlist(entries, selected_entry)">
-    <div class="playlist-list-container" id="playlist-list-container">
-        <div class="playlist-list-container-meta">
-            <ul class="playlist-list" id="playlist-list" role="grid">
-            % for entry in entries:
-                ${self.sidebar_playlist_item(entry, selected_entry)}
-            % endfor
-            </ul>
-            <div class="playlist-item-details" id="playlist-item-details">
-            ${self.sidebar_playlist_item_details(selected_entry)}
-            </div>
-        </div>
+    <div class="playlist-metadata" id="playlist-metadata">
+        ${self.sidebar_playlist_item_details(selected_entry)}
     </div>
+    <ul class="playlist-list" id="playlist-list" role="grid">
+        % for entry in entries:
+            ${self.sidebar_playlist_item(entry, selected_entry)}
+        % endfor
+    </ul>
 </%def>
