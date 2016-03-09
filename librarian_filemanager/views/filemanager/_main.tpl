@@ -75,7 +75,7 @@ def get_views(facets):
         ${current_view.body()}
     </div>
     % if view_has_sidebar:
-        <div class="views-sidebar" id="views-sidebar">
+        <div class="views-sidebar views-sidebar-${view}" id="views-sidebar">
             <div class="views-sidebar-content" id="views-sidebar-content">
                 ${current_view.sidebar()}
             </div>
