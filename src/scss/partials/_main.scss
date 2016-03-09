@@ -101,7 +101,7 @@ $views-tab-cutoff: 840px;
   }
 
   .icon {
-    @include transition(transform 3s);
+    @include transition(transform $views-sidebar-anim);
     font-size: 220%;
 
     .sidebar-hidden & {
