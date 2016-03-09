@@ -52,7 +52,7 @@
                         current = entry == selected_entry
                         file_path = entry['file_path']
                         url = i18n_url('files:path', view=view, path=path, selected=file)
-                        direct_url = h.quoted_url('files:direct', path=file_path)
+                        direct_url = h.quoted_url('files:direct', path=th.get_thumb_path(file_path))
                         title = entry['title']
                         img_width = entry['width']
                         img_height = entry['height']

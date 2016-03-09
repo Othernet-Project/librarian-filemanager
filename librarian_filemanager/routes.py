@@ -25,7 +25,12 @@ from librarian_core.contrib.templates.decorators import template_helper
 from librarian_core.contrib.templates.renderer import template, view
 
 from .manager import Manager
-from .helpers import get_facets, title_name, durify, get_selected, get_adjacent
+from .helpers import (get_facets,
+                      title_name,
+                      durify,
+                      get_selected,
+                      get_adjacent,
+                      find_root)
 
 
 EXPORTS = {
@@ -93,13 +98,12 @@ def show_view(path, view, defaults=dict()):
 
 def direct_file(path):
     path = urlunquote(path)
-    (_, base_paths) = request.app.supervisor.exts.fsal.list_base_paths()
-    for root in base_paths:
-        if os.path.exists(os.path.join(root, path)):
-            download = request.params.get('filename', False)
-            return static_file(path, root=root, download=download)
+    root = find_root(path)
+    if not root:
+        abort(404, _("File not found."))
 
-    abort(404, _("File not found."))
+    download = request.params.get('filename', False)
+    return static_file(path, root=root, download=download)
 
 
 def guard_already_removed(func):
