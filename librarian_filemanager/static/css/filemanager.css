@@ -1707,6 +1707,8 @@ div.mejs-speed-button {
 }
 /* line 125, ../../../src/scss/partials/_image.scss */
 .views-sidebar-image .playlist-list .gallery-list-item {
+  position: relative;
+  top: 0;
   display: inline-block;
   height: 120px;
   width: 120px;
@@ -1716,12 +1718,19 @@ div.mejs-speed-button {
   -moz-border-radius: 0.3rem;
   -webkit-border-radius: 0.3rem;
   border-radius: 0.3rem;
-  -moz-transition: opacity 0.3s;
-  -o-transition: opacity 0.3s;
-  -webkit-transition: opacity 0.3s;
-  transition: opacity 0.3s;
+  -moz-transition: opacity 0.3s, box-shadow 0.5s, top 0.5s;
+  -o-transition: opacity 0.3s, box-shadow 0.5s, top 0.5s;
+  -webkit-transition: opacity 0.3s, box-shadow 0.5s, top 0.5s;
+  transition: opacity 0.3s, box-shadow 0.5s, top 0.5s;
 }
-/* line 136, ../../../src/scss/partials/_image.scss */
+/* line 138, ../../../src/scss/partials/_image.scss */
+.views-sidebar-image .playlist-list .gallery-list-item:hover, .views-sidebar-image .playlist-list .gallery-list-item:focus {
+  top: -3px;
+  -moz-box-shadow: 0 3px 20px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0 3px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 3px 20px rgba(0, 0, 0, 0.4);
+}
+/* line 144, ../../../src/scss/partials/_image.scss */
 .views-sidebar-image .playlist-list .gallery-list-item a {
   display: inline-block;
   width: 100%;
@@ -1730,22 +1739,33 @@ div.mejs-speed-button {
   background: white;
   text-align: center;
 }
-/* line 144, ../../../src/scss/partials/_image.scss */
+/* line 152, ../../../src/scss/partials/_image.scss */
 .views-sidebar-image .playlist-list .gallery-list-item a:after {
   content: '';
   display: inline-block;
   height: 100%;
   vertical-align: middle;
 }
-/* line 152, ../../../src/scss/partials/_image.scss */
+/* line 160, ../../../src/scss/partials/_image.scss */
 .views-sidebar-image .playlist-list .gallery-list-item img {
   max-width: 100%;
   max-height: 100%;
   vertical-align: middle;
 }
-/* line 159, ../../../src/scss/partials/_image.scss */
+/* line 167, ../../../src/scss/partials/_image.scss */
 .views-sidebar-image .playlist-list .gallery-list-item-current {
   opacity: 0.5;
+}
+/* line 170, ../../../src/scss/partials/_image.scss */
+.views-sidebar-image .playlist-list .gallery-list-item-current a {
+  cursor: default;
+}
+/* line 174, ../../../src/scss/partials/_image.scss */
+.views-sidebar-image .playlist-list .gallery-list-item-current:hover, .views-sidebar-image .playlist-list .gallery-list-item-current:focus {
+  top: 0;
+  -moz-box-shadow: 0 0 0 transparent;
+  -webkit-box-shadow: 0 0 0 transparent;
+  box-shadow: 0 0 0 transparent;
 }
 
 /* line 1, ../../../src/scss/partials/_html.scss */
