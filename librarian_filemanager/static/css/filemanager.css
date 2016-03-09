@@ -1135,17 +1135,13 @@ div.mejs-speed-button {
  * COPYING file that comes with the source code, or
  * http://www.gnu.org/licenses/gpl.txt.
  */
-/* line 8, ../../../src/scss/partials/_playlist.scss */
-.playlist-list {
-  margin: 2rem 0;
-}
-/* line 11, ../../../src/scss/partials/_playlist.scss */
+/* line 9, ../../../src/scss/partials/_playlist.scss */
 .playlist-list .playlist-list-item {
   background: #c4c4c4;
   overflow: hidden;
   margin: 0 0 0.5rem;
 }
-/* line 16, ../../../src/scss/partials/_playlist.scss */
+/* line 14, ../../../src/scss/partials/_playlist.scss */
 .playlist-list .playlist-list-item a {
   width: 100%;
   display: inline-block;
@@ -1155,11 +1151,11 @@ div.mejs-speed-button {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-/* line 24, ../../../src/scss/partials/_playlist.scss */
+/* line 22, ../../../src/scss/partials/_playlist.scss */
 .playlist-list .playlist-list-item.playlist-list-item-current {
   background: rgba(255, 255, 255, 0.75);
 }
-/* line 29, ../../../src/scss/partials/_playlist.scss */
+/* line 27, ../../../src/scss/partials/_playlist.scss */
 .playlist-list .playlist-list-duration {
   display: inline-block;
   text-align: right;
@@ -1167,6 +1163,10 @@ div.mejs-speed-button {
   margin-right: 0.5rem;
 }
 
+/* line 35, ../../../src/scss/partials/_playlist.scss */
+.playlist-metadata {
+  margin-bottom: 2rem;
+}
 /* line 38, ../../../src/scss/partials/_playlist.scss */
 .playlist-metadata h2 {
   margin: 1rem;
@@ -1617,9 +1617,9 @@ div.mejs-speed-button {
 /* line 51, ../../../src/scss/partials/_image.scss */
 .gallery-control {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 20%;
+  top: 3rem;
+  bottom: 3rem;
+  width: 4rem;
   background: rgba(0, 0, 0, 0.5);
   color: white;
   -moz-transition: opacity 0.3s;
@@ -1653,6 +1653,24 @@ div.mejs-speed-button {
   display: none;
 }
 /* line 78, ../../../src/scss/partials/_image.scss */
+.gallery-control.gallery-control-previous {
+  -moz-border-radius-topright: 2rem;
+  -webkit-border-top-right-radius: 2rem;
+  border-top-right-radius: 2rem;
+  -moz-border-radius-bottomright: 2rem;
+  -webkit-border-bottom-right-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+}
+/* line 83, ../../../src/scss/partials/_image.scss */
+.gallery-control.gallery-control-next {
+  -moz-border-radius-topleft: 2rem;
+  -webkit-border-top-left-radius: 2rem;
+  border-top-left-radius: 2rem;
+  -moz-border-radius-bottomleft: 2rem;
+  -webkit-border-bottom-left-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+}
+/* line 88, ../../../src/scss/partials/_image.scss */
 .gallery-control:hover {
   opacity: 1;
   color: white;
@@ -1661,17 +1679,17 @@ div.mejs-speed-button {
   animation-name: none;
 }
 
-/* line 91, ../../../src/scss/partials/_image.scss */
+/* line 101, ../../../src/scss/partials/_image.scss */
 .gallery-control-previous {
   left: 0;
 }
 
-/* line 95, ../../../src/scss/partials/_image.scss */
+/* line 105, ../../../src/scss/partials/_image.scss */
 .gallery-control-next {
   right: 0;
 }
 
-/* line 99, ../../../src/scss/partials/_image.scss */
+/* line 109, ../../../src/scss/partials/_image.scss */
 .gallery-image-title {
   margin-top: 1rem;
   max-width: 30%;
@@ -1683,32 +1701,28 @@ div.mejs-speed-button {
   background: rgba(0, 0, 0, 0.7);
 }
 
-/* line 112, ../../../src/scss/partials/_image.scss */
-.gallery-list-container {
+/* line 122, ../../../src/scss/partials/_image.scss */
+.views-sidebar-image .playlist-list {
   padding: 1rem;
 }
-/* line 115, ../../../src/scss/partials/_image.scss */
-.gallery-list-container .gallery-list {
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  overflow-y: auto;
-}
-/* line 123, ../../../src/scss/partials/_image.scss */
-.gallery-list-container .gallery-list-item {
+/* line 125, ../../../src/scss/partials/_image.scss */
+.views-sidebar-image .playlist-list .gallery-list-item {
   display: inline-block;
   height: 120px;
   width: 120px;
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;
+  overflow: hidden;
+  -moz-border-radius: 0.3rem;
+  -webkit-border-radius: 0.3rem;
+  border-radius: 0.3rem;
   -moz-transition: opacity 0.3s;
   -o-transition: opacity 0.3s;
   -webkit-transition: opacity 0.3s;
   transition: opacity 0.3s;
 }
-/* line 132, ../../../src/scss/partials/_image.scss */
-.gallery-list-container .gallery-list-item a {
+/* line 136, ../../../src/scss/partials/_image.scss */
+.views-sidebar-image .playlist-list .gallery-list-item a {
   display: inline-block;
   width: 100%;
   height: 100%;
@@ -1716,21 +1730,21 @@ div.mejs-speed-button {
   background: white;
   text-align: center;
 }
-/* line 140, ../../../src/scss/partials/_image.scss */
-.gallery-list-container .gallery-list-item a:after {
+/* line 144, ../../../src/scss/partials/_image.scss */
+.views-sidebar-image .playlist-list .gallery-list-item a:after {
   content: '';
   display: inline-block;
   height: 100%;
   vertical-align: middle;
 }
-/* line 148, ../../../src/scss/partials/_image.scss */
-.gallery-list-container .gallery-list-item img {
+/* line 152, ../../../src/scss/partials/_image.scss */
+.views-sidebar-image .playlist-list .gallery-list-item img {
   max-width: 100%;
   max-height: 100%;
   vertical-align: middle;
 }
-/* line 155, ../../../src/scss/partials/_image.scss */
-.gallery-list-container .gallery-list-item-current {
+/* line 159, ../../../src/scss/partials/_image.scss */
+.views-sidebar-image .playlist-list .gallery-list-item-current {
   opacity: 0.5;
 }
 
