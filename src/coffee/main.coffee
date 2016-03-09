@@ -5,7 +5,9 @@
   window.mainContainer = mainContainer
 
   activateSidebar = () ->
-    ($ '#views-sidebar').prepend templates.sidebarRetract
+    sidebar = $ '#views-sidebar'
+    sidebar.addClass 'with-sidebar-handle'
+    sidebar.prepend templates.sidebarRetract
 
   toggleSidebar = () ->
     ($ '#views-container').toggleClass 'sidebar-hidden'

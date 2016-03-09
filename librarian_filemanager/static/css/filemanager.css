@@ -1241,8 +1241,6 @@ div.mejs-speed-button {
   right: 0;
   bottom: 0;
   width: 300px;
-  overflow-x: hidden;
-  overflow-y: auto;
   -moz-transition: right 0.5s;
   -o-transition: right 0.5s;
   -webkit-transition: right 0.5s;
@@ -1254,28 +1252,42 @@ div.mejs-speed-button {
     width: 100%;
   }
 }
-/* line 73, ../../../src/scss/partials/_main.scss */
+/* line 71, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-sidebar {
   right: -252px;
 }
 @media only screen and (max-width: 740px) {
-  /* line 73, ../../../src/scss/partials/_main.scss */
+  /* line 71, ../../../src/scss/partials/_main.scss */
   .sidebar-hidden .views-sidebar {
     right: -90%;
   }
 }
+/* line 79, ../../../src/scss/partials/_main.scss */
+.views-sidebar .views-sidebar-content {
+  position: absolute;
+  overflow-x: hidden;
+  overflow-y: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+/* line 89, ../../../src/scss/partials/_main.scss */
+.views-sidebar.with-sidebar-handle .views-sidebar-content {
+  top: 3rem;
+}
 
-/* line 82, ../../../src/scss/partials/_main.scss */
+/* line 94, ../../../src/scss/partials/_main.scss */
 .views-sidebar-retract {
   display: inline-block;
   color: gray;
   margin: 0.5rem 0.5rem 0;
 }
-/* line 87, ../../../src/scss/partials/_main.scss */
+/* line 99, ../../../src/scss/partials/_main.scss */
 .views-sidebar-retract:hover {
   color: #089bd2;
 }
-/* line 91, ../../../src/scss/partials/_main.scss */
+/* line 103, ../../../src/scss/partials/_main.scss */
 .views-sidebar-retract .icon {
   -moz-transition: -moz-transform 3s;
   -o-transition: -o-transform 3s;
@@ -1283,14 +1295,14 @@ div.mejs-speed-button {
   transition: transform 3s;
   font-size: 220%;
 }
-/* line 95, ../../../src/scss/partials/_main.scss */
+/* line 107, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-sidebar-retract .icon {
   -moz-transform: rotateY(180deg);
   -ms-transform: rotateY(180deg);
   -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
 }
-/* line 100, ../../../src/scss/partials/_main.scss */
+/* line 112, ../../../src/scss/partials/_main.scss */
 .views-sidebar-retract .label {
   text-transform: uppercase;
   -moz-transition: opacity 0.5s;
@@ -1298,12 +1310,12 @@ div.mejs-speed-button {
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
 }
-/* line 104, ../../../src/scss/partials/_main.scss */
+/* line 116, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-sidebar-retract .label {
   opacity: 0;
 }
 
-/* line 110, ../../../src/scss/partials/_main.scss */
+/* line 122, ../../../src/scss/partials/_main.scss */
 .views-sidebar-content {
   opacity: 1;
   -moz-transition: opacity 0.5s;
@@ -1311,19 +1323,19 @@ div.mejs-speed-button {
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
 }
-/* line 114, ../../../src/scss/partials/_main.scss */
+/* line 126, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-sidebar-content {
   opacity: 0.2;
 }
 
-/* line 119, ../../../src/scss/partials/_main.scss */
+/* line 131, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip {
   height: 2rem;
   overflow-y: hidden;
   overflow-x: auto;
   white-space: nowrap;
 }
-/* line 125, ../../../src/scss/partials/_main.scss */
+/* line 137, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-strip-tab {
   display: inline-block;
   padding: 0 1rem;
@@ -1342,30 +1354,30 @@ div.mejs-speed-button {
   -webkit-border-top-right-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
 }
-/* line 145, ../../../src/scss/partials/_main.scss */
+/* line 157, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-strip-tab .icon {
   font-size: 130%;
 }
 @media only screen and (max-width: 840px) {
-  /* line 150, ../../../src/scss/partials/_main.scss */
+  /* line 162, ../../../src/scss/partials/_main.scss */
   .views-tabs-strip .views-tabs-strip-tab .label {
     display: none;
   }
 }
-/* line 156, ../../../src/scss/partials/_main.scss */
+/* line 168, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-tab-current {
   background: rgba(255, 255, 255, 0.75);
 }
-/* line 160, ../../../src/scss/partials/_main.scss */
+/* line 172, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-special {
   background: #089bd2;
   color: #fff;
 }
-/* line 164, ../../../src/scss/partials/_main.scss */
+/* line 176, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-special .icon {
   font-size: 150%;
 }
-/* line 168, ../../../src/scss/partials/_main.scss */
+/* line 180, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-special .label {
   display: none;
 }
@@ -1649,7 +1661,7 @@ div.mejs-speed-button {
 /* line 123, ../../../src/scss/partials/_gallery.scss */
 .gallery-list-container .gallery-list-item {
   display: inline-block;
-  height: 100%;
+  height: 120px;
   width: 120px;
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;
@@ -1663,14 +1675,24 @@ div.mejs-speed-button {
   display: inline-block;
   width: 100%;
   height: 100%;
+  overflow: hidden;
+  background: white;
+  text-align: center;
 }
-/* line 138, ../../../src/scss/partials/_gallery.scss */
-.gallery-list-container .gallery-list-item .img {
+/* line 140, ../../../src/scss/partials/_gallery.scss */
+.gallery-list-container .gallery-list-item a:after {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+/* line 148, ../../../src/scss/partials/_gallery.scss */
+.gallery-list-container .gallery-list-item img {
   max-width: 100%;
   max-height: 100%;
   vertical-align: middle;
 }
-/* line 145, ../../../src/scss/partials/_gallery.scss */
+/* line 155, ../../../src/scss/partials/_gallery.scss */
 .gallery-list-container .gallery-list-item-current {
   opacity: 0.5;
 }
@@ -1839,15 +1861,16 @@ div.mejs-speed-button {
 .mejs-container .mejs-controls {
   background: rgba(68, 68, 68, 0.9);
   height: 3rem;
+  overflow: hidden;
 }
-/* line 34, ../../../src/scss/partials/_player_skin.scss */
+/* line 35, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-button {
   height: 3rem;
   width: 3rem;
   padding: 0;
   margin: 0;
 }
-/* line 40, ../../../src/scss/partials/_player_skin.scss */
+/* line 41, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-button button {
   font-size: 250%;
   color: #aaa;
@@ -1858,18 +1881,18 @@ div.mejs-speed-button {
   background: transparent;
   line-height: 100%;
 }
-/* line 50, ../../../src/scss/partials/_player_skin.scss */
+/* line 51, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-button button:hover, .mejs-container .mejs-controls .mejs-button button:focus {
   color: #089bd2;
 }
-/* line 57, ../../../src/scss/partials/_player_skin.scss */
+/* line 58, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-horizontal-volume-slider,
 .mejs-container .mejs-controls .mejs-time-rail {
   height: 100%;
   margin: 0;
   padding: 0;
 }
-/* line 64, ../../../src/scss/partials/_player_skin.scss */
+/* line 65, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-duration-container {
   margin: 0;
   padding: 0 0.5rem 0 1rem;
@@ -1878,7 +1901,7 @@ div.mejs-speed-button {
   font-size: 120%;
   color: #aaa;
 }
-/* line 73, ../../../src/scss/partials/_player_skin.scss */
+/* line 74, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-play button {
   font-family: "OIcons";
   font-weight: normal;
@@ -1900,7 +1923,7 @@ div.mejs-speed-button {
 .mejs-container .mejs-controls .mejs-play button:before {
   content: "";
 }
-/* line 77, ../../../src/scss/partials/_player_skin.scss */
+/* line 78, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-pause button {
   font-family: "OIcons";
   font-weight: normal;
@@ -1922,7 +1945,7 @@ div.mejs-speed-button {
 .mejs-container .mejs-controls .mejs-pause button:before {
   content: "";
 }
-/* line 81, ../../../src/scss/partials/_player_skin.scss */
+/* line 82, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-fullscreen-button button {
   font-family: "OIcons";
   font-weight: normal;
@@ -1944,7 +1967,7 @@ div.mejs-speed-button {
 .mejs-container .mejs-controls .mejs-fullscreen-button button:before {
   content: "";
 }
-/* line 86, ../../../src/scss/partials/_player_skin.scss */
+/* line 87, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-volume-button button {
   font-family: "OIcons";
   font-weight: normal;
@@ -1966,28 +1989,28 @@ div.mejs-speed-button {
 .mejs-container .mejs-controls .mejs-volume-button button:before {
   content: "";
 }
-/* line 90, ../../../src/scss/partials/_player_skin.scss */
+/* line 91, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-volume-button .mejs-volume-slider {
   width: 100%;
 }
-/* line 93, ../../../src/scss/partials/_player_skin.scss */
+/* line 94, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-volume-button .mejs-volume-slider .mejs-volume-total {
   width: 100%;
   left: 0;
   top: 0.4rem;
 }
-/* line 99, ../../../src/scss/partials/_player_skin.scss */
+/* line 100, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-volume-button .mejs-volume-slider .mejs-volume-handle {
   left: 0;
   width: 100%;
 }
-/* line 104, ../../../src/scss/partials/_player_skin.scss */
+/* line 105, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-volume-button .mejs-volume-slider .mejs-volume-current {
   left: 0;
   width: 100%;
   background: #089bd2;
 }
-/* line 112, ../../../src/scss/partials/_player_skin.scss */
+/* line 113, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-unmute button {
   font-family: "OIcons";
   font-weight: normal;
@@ -2009,7 +2032,7 @@ div.mejs-speed-button {
 .mejs-container .mejs-controls .mejs-unmute button:before {
   content: "";
 }
-/* line 116, ../../../src/scss/partials/_player_skin.scss */
+/* line 117, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-horizontal-volume-total {
   background: #5e5e5e;
   -moz-border-radius: 0;
@@ -2018,7 +2041,7 @@ div.mejs-speed-button {
   height: 2rem;
   top: 0.5rem;
 }
-/* line 123, ../../../src/scss/partials/_player_skin.scss */
+/* line 124, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-horizontal-volume-current {
   background: #089bd2;
   -moz-border-radius: 0;
@@ -2027,7 +2050,7 @@ div.mejs-speed-button {
   top: 0.5rem;
   height: 2rem;
 }
-/* line 130, ../../../src/scss/partials/_player_skin.scss */
+/* line 131, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-time-total {
   padding: 0;
   margin: 0.5rem 0;
@@ -2038,7 +2061,7 @@ div.mejs-speed-button {
   -webkit-border-radius: 0;
   border-radius: 0;
 }
-/* line 139, ../../../src/scss/partials/_player_skin.scss */
+/* line 140, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-time-float {
   position: absolute;
   top: 0;
@@ -2048,7 +2071,7 @@ div.mejs-speed-button {
   border-radius: 0;
   border: none;
 }
-/* line 147, ../../../src/scss/partials/_player_skin.scss */
+/* line 148, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-time-loaded,
 .mejs-container .mejs-controls .mejs-time-current {
   padding: 0;
@@ -2056,11 +2079,11 @@ div.mejs-speed-button {
   height: 2rem;
   background-image: none;
 }
-/* line 155, ../../../src/scss/partials/_player_skin.scss */
+/* line 156, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-time-loaded {
   background: #777777;
 }
-/* line 159, ../../../src/scss/partials/_player_skin.scss */
+/* line 160, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-time-current {
   background: #089bd2;
 }
