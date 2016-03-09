@@ -93,9 +93,13 @@ def show_view(path, view, defaults=dict()):
 
 def direct_file(path):
     path = urlunquote(path)
-    return static_file(path,
-                       root=request.app.config['library.contentdir'],
-                       download=request.params.get('filename', False))
+    (_, base_paths) = request.app.supervisor.exts.fsal.list_base_paths()
+    for root in base_paths:
+        if os.path.exists(os.path.join(root, path)):
+            download = request.params.get('filename', False)
+            return static_file(path, root=root, download=download)
+
+    abort(404, _("File not found."))
 
 
 def guard_already_removed(func):
