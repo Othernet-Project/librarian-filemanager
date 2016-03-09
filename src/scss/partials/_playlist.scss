@@ -44,6 +44,12 @@ $playlist-sidebar-animation-speed: 0.5s;
   p {
     margin: 0 1rem 1rem;
   }
+
+  .playlist-metadata-buttons {
+    border-top: 1px solid $o-outline;
+    padding-top: 1rem;
+    margin-top: 1rem;
+  }
 }
 
 .playlist-tabs {

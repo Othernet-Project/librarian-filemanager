@@ -4,18 +4,28 @@
     %if 'title' in entry:
         <h2 class="playlist-item-title">${entry.get('title') or titlify(entry['file']) | h}</h2>
     %endif
-    %for key in ('artist', 'author'):
-        %if key in entry:
-            <p class="playlist-item-artist">
-                ${entry.get(key) or _('Unknown') | h}
-            </p>
-        %endif
-    %endfor
     %if 'description' in entry:
         <p class="playlist-item-description">
             ${entry.get('description') or _('No description')}
         </p>
     %endif
+    %if 'author' in entry or 'artist' in entry:
+        <p class="playlist-item-author">
+            ${entry.get('author', entry.get('artist')) or _('Unknown author') | h}
+        </p>
+    % else:
+        <p class="playist-item-author">
+            ${_('Unknown author')}
+        </p>
+    %endif
+    <p class="playlist-metadata-buttons">
+        <a href="${url('files:direct', path=entry['file_path'])}" class="button" target="_blank">
+            <span class="icon icon-download"></span>
+            <span class="label">
+                ${_('Download')}
+            </span>
+        </a>
+    </p>
 </%def>
 
 <%def name="sidebar_playlist(entries, selected_entry)">

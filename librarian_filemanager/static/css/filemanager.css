@@ -1177,22 +1177,28 @@ div.mejs-speed-button {
 .playlist-metadata p {
   margin: 0 1rem 1rem;
 }
+/* line 48, ../../../src/scss/partials/_playlist.scss */
+.playlist-metadata .playlist-metadata-buttons {
+  border-top: 1px solid #aaa;
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
 
-/* line 49, ../../../src/scss/partials/_playlist.scss */
+/* line 55, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs {
   position: absolute;
   top: 0.5rem;
   right: 1rem;
 }
-/* line 54, ../../../src/scss/partials/_playlist.scss */
+/* line 60, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs .label {
   display: none;
 }
-/* line 58, ../../../src/scss/partials/_playlist.scss */
+/* line 64, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs .icon {
   font-size: 150%;
 }
-/* line 62, ../../../src/scss/partials/_playlist.scss */
+/* line 68, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs a {
   display: inline-block;
   color: gray;
@@ -1202,20 +1208,20 @@ div.mejs-speed-button {
   -webkit-transition: color 0.3s;
   transition: color 0.3s;
 }
-/* line 69, ../../../src/scss/partials/_playlist.scss */
+/* line 75, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs a.active {
   color: #333;
 }
-/* line 73, ../../../src/scss/partials/_playlist.scss */
+/* line 79, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs a:hover, .playlist-tabs a:focus {
   color: #089bd2;
 }
 
-/* line 81, ../../../src/scss/partials/_playlist.scss */
+/* line 87, ../../../src/scss/partials/_playlist.scss */
 .with-tabs .playlist-section {
   display: none;
 }
-/* line 85, ../../../src/scss/partials/_playlist.scss */
+/* line 91, ../../../src/scss/partials/_playlist.scss */
 .with-tabs .playlist-section-open {
   display: block;
 }
