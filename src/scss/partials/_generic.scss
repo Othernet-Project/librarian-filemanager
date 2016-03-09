@@ -45,7 +45,7 @@
       }
     }
 
-    a {
+    a.file-list-link {
       // Typography
       font-size: 120%;
       text-decoration: none;
@@ -125,23 +125,39 @@
   top: 0;
   bottom: 0;
   padding: 0.7rem 0.4rem;
+  white-space: nowrap;
+
+  .file-list-control {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .label {
+    display: none;
+  }
+
+  .icon {
+    font-size: 200%;
+  }
+
+  a {
+    color: lighten($o-base-text-color, 40);
+    @include transition(color 0.5s);
+
+    &:hover,
+    &:focus {
+      color: $o-accent;
+    }
+  }
 
   .file-list-delete {
     button {
-      color: $o-base-text-color;
+      color: lighten($o-base-text-color, 40);
 
       &:hover,
       &:focus {
         color: $o-critical;
       }
-    }
-
-    .icon {
-      font-size: 200%;
-    }
-
-    .label {
-      display: none;
     }
   }
 }

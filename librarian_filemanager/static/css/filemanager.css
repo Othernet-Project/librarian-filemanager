@@ -1492,7 +1492,7 @@ div.mejs-speed-button {
   vertical-align: middle;
 }
 /* line 48, ../../../src/scss/partials/_generic.scss */
-.file-list .file-list-item a {
+.file-list .file-list-item a.file-list-link {
   font-size: 120%;
   text-decoration: none;
   display: inline-block;
@@ -1501,7 +1501,7 @@ div.mejs-speed-button {
   color: #333;
 }
 /* line 61, ../../../src/scss/partials/_generic.scss */
-.file-list .file-list-item a:hover, .file-list .file-list-item a:focus {
+.file-list .file-list-item a.file-list-link:hover, .file-list .file-list-item a.file-list-link:focus {
   color: #089bd2;
 }
 /* line 68, ../../../src/scss/partials/_generic.scss */
@@ -1566,22 +1566,40 @@ div.mejs-speed-button {
   top: 0;
   bottom: 0;
   padding: 0.7rem 0.4rem;
+  white-space: nowrap;
 }
 /* line 130, ../../../src/scss/partials/_generic.scss */
-.file-list-controls .file-list-delete button {
-  color: #333;
+.file-list-controls .file-list-control {
+  display: inline-block;
+  vertical-align: middle;
 }
-/* line 133, ../../../src/scss/partials/_generic.scss */
-.file-list-controls .file-list-delete button:hover, .file-list-controls .file-list-delete button:focus {
-  color: #cc3737;
+/* line 135, ../../../src/scss/partials/_generic.scss */
+.file-list-controls .label {
+  display: none;
 }
 /* line 139, ../../../src/scss/partials/_generic.scss */
-.file-list-controls .file-list-delete .icon {
+.file-list-controls .icon {
   font-size: 200%;
 }
 /* line 143, ../../../src/scss/partials/_generic.scss */
-.file-list-controls .file-list-delete .label {
-  display: none;
+.file-list-controls a {
+  color: #999999;
+  -moz-transition: color 0.5s;
+  -o-transition: color 0.5s;
+  -webkit-transition: color 0.5s;
+  transition: color 0.5s;
+}
+/* line 147, ../../../src/scss/partials/_generic.scss */
+.file-list-controls a:hover, .file-list-controls a:focus {
+  color: #089bd2;
+}
+/* line 154, ../../../src/scss/partials/_generic.scss */
+.file-list-controls .file-list-delete button {
+  color: #999999;
+}
+/* line 157, ../../../src/scss/partials/_generic.scss */
+.file-list-controls .file-list-delete button:hover, .file-list-controls .file-list-delete button:focus {
+  color: #cc3737;
 }
 
 @-moz-keyframes fade-out {
@@ -2014,13 +2032,13 @@ div.mejs-speed-button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* line 176, ../../../src/scss/partials/_icons.scss */
+/* line 177, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-play button ~ * {
   vertical-align: middle;
 }
-/* line 183, ../../../src/scss/partials/_icons.scss */
+/* line 184, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-play button:before {
-  content: "";
+  content: "";
 }
 /* line 78, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-pause button {
@@ -2036,13 +2054,13 @@ div.mejs-speed-button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* line 176, ../../../src/scss/partials/_icons.scss */
+/* line 177, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-pause button ~ * {
   vertical-align: middle;
 }
-/* line 183, ../../../src/scss/partials/_icons.scss */
+/* line 184, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-pause button:before {
-  content: "";
+  content: "";
 }
 /* line 82, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-fullscreen-button button {
@@ -2058,13 +2076,13 @@ div.mejs-speed-button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* line 176, ../../../src/scss/partials/_icons.scss */
+/* line 177, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-fullscreen-button button ~ * {
   vertical-align: middle;
 }
-/* line 183, ../../../src/scss/partials/_icons.scss */
+/* line 184, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-fullscreen-button button:before {
-  content: "";
+  content: "";
 }
 /* line 87, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-volume-button button {
@@ -2080,13 +2098,13 @@ div.mejs-speed-button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* line 176, ../../../src/scss/partials/_icons.scss */
+/* line 177, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-volume-button button ~ * {
   vertical-align: middle;
 }
-/* line 183, ../../../src/scss/partials/_icons.scss */
+/* line 184, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-volume-button button:before {
-  content: "";
+  content: "";
 }
 /* line 91, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-volume-button .mejs-volume-slider {
@@ -2123,13 +2141,13 @@ div.mejs-speed-button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* line 176, ../../../src/scss/partials/_icons.scss */
+/* line 177, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-unmute button ~ * {
   vertical-align: middle;
 }
-/* line 183, ../../../src/scss/partials/_icons.scss */
+/* line 184, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-unmute button:before {
-  content: "";
+  content: "";
 }
 /* line 117, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-horizontal-volume-total {

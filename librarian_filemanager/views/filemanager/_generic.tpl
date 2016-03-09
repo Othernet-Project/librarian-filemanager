@@ -23,14 +23,21 @@
 </%def>
 
 <%def name="file_delete(path)">
-    <form action="${i18n_url('files:path', path=path)}" class="file-list-delete">
+    <form action="${i18n_url('files:path', path=path)}" class="file-list-delete file-list-control">
         <input type="hidden" name="action" value="delete">
         <button class="nobutton" type="submit">
-            <span class="icon icon-no"></span>
+            <span class="icon icon-no-outline"></span>
             ## Translators, used as label for folder/file delete button
             <span class="label">${_('Delete')}</span>
         </button>
     </form>
+</%def>
+
+<%def name="file_download(path)">
+    <a href="${url('files:direct', path=path)}" class="file-list-control">
+        <span class="icon icon-download-outline"></span>
+        <span class="label">${_('Download')}</span>
+    </a>
 </%def>
 
 <% is_super = request.user.is_superuser %>
@@ -165,6 +172,7 @@
                 </a>
             % else:
                 <span class="file-list-controls">
+                    ${self.file_download(f.rel_path)}
                     % if is_super:
                         ${self.file_delete(f.rel_path)}
                     % endif
