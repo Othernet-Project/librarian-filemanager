@@ -1,8 +1,11 @@
+import functools
 import os
 
 from bottle import request
+from PIL import Image
 
 from librarian_content.library.facets.archive import FacetsArchive
+from librarian_core.contrib.templates.decorators import template_helper
 
 
 def get_facets(path):
@@ -59,3 +62,81 @@ def get_adjacent(collection, current, loop=True):
         previous_idx = max(current_idx - 1, 0)
         next_idx = min(current_idx + 1, len(collection) - 1)
     return collection[previous_idx], collection[next_idx]
+
+
+def find_root(path):
+    (_, base_paths) = request.app.supervisor.exts.fsal.list_base_paths()
+    for root in base_paths:
+        if os.path.exists(os.path.join(root, path)):
+            return root
+    raise RuntimeError("Root path cannot be determined")
+
+
+def determine_thumb_path(imgpath, thumbdir, extension):
+    imgdir = os.path.dirname(imgpath)
+    filename = os.path.basename(imgpath)
+    (name, _) = os.path.splitext(filename)
+    newname = '.'.join([name, extension])
+    return os.path.join(imgdir, thumbdir, newname)
+
+
+def create_thumb(imgpath, thumbpath, size, quality, callback=None):
+    if os.path.exists(thumbpath):
+        return
+
+    thumbdir = os.path.dirname(thumbpath)
+    if not os.path.exists(thumbdir):
+        os.makedirs(thumbdir)
+
+    img = Image.open(imgpath)
+    img.thumbnail(map(int, size.split('x')))
+    img.save(thumbpath, quality=quality)
+    if callback:
+        callback(imgpath, thumbpath, img)
+    return img
+
+
+def thumb_exists(root, thumbpath):
+    cache = request.app.supervisor.exts(onfail=None).cache
+    if cache.get(thumbpath):
+        return True
+
+    exists = os.path.exists(os.path.join(root, thumbpath))
+    if exists:  # just so we save cache storage
+        cache.set(thumbpath, True)
+    return exists
+
+
+def thumb_created(cache, imgpath, thumbpath, img):
+    cache.set(thumbpath, True)
+
+
+@template_helper
+def get_thumb_path(imgpath):
+    try:
+        root = find_root(imgpath)
+    except RuntimeError:
+        return imgpath
+    else:
+        config = request.app.config
+        thumbpath = determine_thumb_path(imgpath,
+                                         config['thumbs.dirname'],
+                                         config['thumbs.extension'])
+        if thumb_exists(root, thumbpath):
+            return thumbpath
+
+        cache = request.app.supervisor.exts(onfail=None).cache
+        callback = functools.partial(thumb_created, cache)
+        kwargs = dict(imgpath=os.path.join(root, imgpath),
+                      thumbpath=os.path.join(root, thumbpath),
+                      size=config['thumbs.size'],
+                      quality=config['thumbs.quality'],
+                      callback=callback)
+        if config['thumbs.async']:
+            tasks = request.app.supervisor.exts.tasks
+            tasks.schedule(create_thumb, kwargs=kwargs)
+            return imgpath
+
+        create_thumb(**kwargs)
+        return thumbpath
+
