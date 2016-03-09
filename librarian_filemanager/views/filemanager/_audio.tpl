@@ -16,15 +16,15 @@
     <span class="note">${_('No music files to be played.')}</span>
 % else:
     <%
-      audio_facet = facets['audio']
-      if audio_facet['cover']:
-          cover_path = th.join(audio_facet['path'], audio_facet['cover'])
-          cover_url = h.quoted_url('files:direct', path=cover_path)
-      else:
-          cover_url = assets.url + 'img/albumart-placeholder.png'
-      entries = audio_facet['playlist']
-      selected_entry = get_selected(entries, selected)
-      audio_url = h.quoted_url('files:direct', path=selected_entry['file_path'])
+    audio_facet = facets['audio']
+    if audio_facet['cover']:
+        cover_path = th.join(audio_facet['path'], audio_facet['cover'])
+        cover_url = h.quoted_url('files:direct', path=cover_path)
+    else:
+        cover_url = assets.url + 'img/albumart-placeholder.png'
+    entries = audio_facet['playlist']
+    selected_entry = get_selected(entries, selected)
+    audio_url = h.quoted_url('files:direct', path=selected_entry['file_path'])
     %>
     <div class="audio-controls" id="audio-controls">
         <div class="audio-controls-albumart" id="audio-controls-albumart">
