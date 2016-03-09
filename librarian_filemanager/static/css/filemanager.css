@@ -1178,6 +1178,48 @@ div.mejs-speed-button {
   margin: 0 1rem 1rem;
 }
 
+/* line 49, ../../../src/scss/partials/_playlist.scss */
+.playlist-tabs {
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+}
+/* line 54, ../../../src/scss/partials/_playlist.scss */
+.playlist-tabs .label {
+  display: none;
+}
+/* line 58, ../../../src/scss/partials/_playlist.scss */
+.playlist-tabs .icon {
+  font-size: 150%;
+}
+/* line 62, ../../../src/scss/partials/_playlist.scss */
+.playlist-tabs a {
+  display: inline-block;
+  color: gray;
+  margin-left: 1rem;
+  -moz-transition: color 0.3s;
+  -o-transition: color 0.3s;
+  -webkit-transition: color 0.3s;
+  transition: color 0.3s;
+}
+/* line 69, ../../../src/scss/partials/_playlist.scss */
+.playlist-tabs a.active {
+  color: #333;
+}
+/* line 73, ../../../src/scss/partials/_playlist.scss */
+.playlist-tabs a:hover, .playlist-tabs a:focus {
+  color: #089bd2;
+}
+
+/* line 81, ../../../src/scss/partials/_playlist.scss */
+.with-tabs .playlist-section {
+  display: none;
+}
+/* line 85, ../../../src/scss/partials/_playlist.scss */
+.with-tabs .playlist-section-open {
+  display: block;
+}
+
 /* line 16, ../../../src/scss/partials/_main.scss */
 .views-container {
   position: absolute;

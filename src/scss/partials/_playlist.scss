@@ -45,3 +45,44 @@ $playlist-sidebar-animation-speed: 0.5s;
     margin: 0 1rem 1rem;
   }
 }
+
+.playlist-tabs {
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+
+  .label {
+    display: none;
+  }
+
+  .icon {
+    font-size: 150%;
+  }
+
+  a {
+    display: inline-block;
+    color: lighten($o-base-text-color, 30);
+    margin-left: 1rem;
+
+    @include transition(color 0.3s);
+
+    &.active {
+      color: $o-base-text-color;
+    }
+
+    &:hover,
+    &:focus {
+      color: $o-accent;
+    }
+  }
+}
+
+.with-tabs {
+  .playlist-section {
+    display: none;
+  }
+
+  .playlist-section-open {
+    display: block;
+  }
+}
