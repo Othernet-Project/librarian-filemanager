@@ -1,4 +1,4 @@
-<%inherit file="_sidebar_playlist.tpl" />
+<%inherit file="_playlist.tpl" />
 
 <%def name="video_control(url)">
     <div id="video-controls-video-wrapper" class="video-controls-video-wrapper">

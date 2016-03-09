@@ -4,28 +4,28 @@
 # Mappings between facets and view urls
 _ = lambda x: x
 FACET_VIEW_MAPPINGS = (
-    ('generic', 'files', _('Browse')),
-    ('image', 'gallery', _('Gallery')),
-    ('audio', 'playlist', _('Listen')),
-    ('video', 'clips', _('Watch')),
-    ('html', 'read', _('Read'))
+    ('generic', _('Browse')),
+    ('image', _('Gallery')),
+    ('audio', _('Listen')),
+    ('video', _('Watch')),
+    ('html', _('Read'))
 )
 
 FACET_ICON_MAPPING = {
-    'files': 'list',
-    'gallery': 'gallery',
-    'playlist': 'listen',
-    'clips': 'watch',
-    'read': 'read',
+    'generic': 'list',
+    'image': 'gallery',
+    'audio': 'listen',
+    'video': 'watch',
+    'html': 'read',
 }
 
 def get_views(facets):
     if not facets:
         default = FACET_VIEW_MAPPINGS[0]
-        yield (default[1], default[2])
+        yield (default[0], default[1])
         return
-    for facet_type, name, label in FACET_VIEW_MAPPINGS:
-        if facets.has_type(facet_type):
+    for name, label in FACET_VIEW_MAPPINGS:
+        if facets.has_type(name):
             yield (name, label)
 %>
 
