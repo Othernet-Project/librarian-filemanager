@@ -34,7 +34,7 @@
 </%def>
 
 <%def name="file_download(path)">
-    <a href="${url('files:direct', path=path)}" class="file-list-control">
+    <a href="${url('files:direct', path=h.urlquote(path))}" class="file-list-control">
         <span class="icon icon-download-outline"></span>
         <span class="label">${_('Download')}</span>
     </a>

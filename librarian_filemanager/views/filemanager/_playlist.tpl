@@ -19,7 +19,7 @@
         </p>
     %endif
     <p class="playlist-metadata-buttons">
-        <a href="${url('files:direct', path=entry['file_path'])}" class="button" target="_blank">
+        <a href="${url('files:direct', path=h.urlquote(entry['file_path']))}" class="button" target="_blank">
             <span class="icon icon-download"></span>
             <span class="label">
                 ${_('Download')}
