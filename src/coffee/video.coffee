@@ -1,30 +1,31 @@
 ((window, $, templates) ->
   'use strict'
 
-  class VideoPlayer extends MediaPlayer
+  videoPlayer = Object.create mediaPlayer
+  videoPlayer.super = mediaPlayer
+  videoPlayer.initialize = (container) ->
+    @super.initialize.call(@, container)
 
-    onReady: () ->
-      @controls = @container.find('#video-controls-video').first()
-      @controls.mediaelementplayer {
-        features: ['playpause', 'progress', 'duration', 'volume', 'fullscreen'],
-        success: (mediaElement) =>
-          @onPlayerReady(mediaElement)
-          return
-        error: () =>
-          @controls.prepend templates.videoLoadFailure
-          return
-      }
+  videoPlayer.readyPlayer = ->
+    controls = @container.find('#video-controls-video').first()
+    controls.mediaelementplayer {
+      features: ['playpause', 'progress', 'duration', 'volume', 'fullscreen'],
+      success: (mediaElement) =>
+        @onPlayerReady(mediaElement)
+        return
+    }
+    return
 
-    updatePlayer: (item) ->
-      super item
-      @player.play()
-      return
+  videoPlayer.updatePlayer = (item) ->
+    @super.updatePlayer.call(@, item)
+    @player.play()
+    return
 
   prepareVideo = () ->
     controls = $ '#video-controls'
     if not controls.length
       return
-    player = new VideoPlayer $ '#views-container'
+    videoPlayer.initialize $('#views-container')
     return
 
   prepareVideo()

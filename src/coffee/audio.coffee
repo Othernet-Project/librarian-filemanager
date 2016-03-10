@@ -6,45 +6,41 @@
     player = e.data
     next = ($ '.playlist-list-item-current').next '.playlist-list-item'
     if next.length
-      player.playlist.next()
-      player.player.play()
+      musicPlayer.playlist.next()
+      musicPlayer.player.play()
     return
 
+  musicPlayer = Object.create mediaPlayer
+  musicPlayer.super = mediaPlayer
+  musicPlayer.initialize = (container) ->
+    features = {
+      toggleSidebarOnSelect: false
+    }
+    @super.initialize.call(@, container, features)
+    return
 
-  class MusicPlayer extends MediaPlayer
-    constructor: (container) ->
-      features = {
-        toggleSidebarOnSelect: false
-      }
-      super container, features
-
-    onReady: () =>
-      @controls = @container.find('#audio-controls-audio').first()
-      @controls.mediaelementplayer {
-        features: ['playpause', 'progress', 'duration', 'volume'],
-        success: (mediaElement) =>
-          @onPlayerReady mediaElement
-          return
-        error: () =>
-          @controls.prepend templates.audioLoadFailure
-          return
-
-      }
-      return
-
+  musicPlayer.readyPlayer = ->
+    controls = @container.find('#audio-controls-audio').first()
+    controls.mediaelementplayer {
+      features: ['playpause', 'progress', 'duration', 'volume'],
+      success: (mediaElement) =>
+        @onPlayerReady mediaElement
+        return
+    }
+    return
 
   prepareAudio = () ->
     controls = $ '#audio-controls'
     if not controls.length
       return
-    player = new MusicPlayer $ "#views-container"
-    ($ player.player).on 'ended', player, playNext
+    musicPlayer.initialize $("#views-container")
+    ($ musicPlayer.player).on 'ended', musicPlayer, playNext
     ($ '#audio-controls-albumart').on 'click', (e) ->
       e.preventDefault()
-      if player.player.paused
-        player.player.play()
+      if musicPlayer.player.paused
+        musicPlayer.player.play()
       else
-        player.player.pause()
+        musicPlayer.player.pause()
       return
     ($ window).on 'playlist-updated', () ->
       trackInfo = ($ '.playlist-list-item-current').data()
