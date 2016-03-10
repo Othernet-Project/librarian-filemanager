@@ -10,7 +10,6 @@
 
   detailUnits = {
     'title': '.playlist-item-title',
-    'artist': '.playlist-item-artist',
     'author': '.playlist-item-author',
     'description': '.playlist-item-description',
   }

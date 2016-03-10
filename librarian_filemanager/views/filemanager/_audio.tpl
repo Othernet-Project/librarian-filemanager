@@ -31,7 +31,7 @@
             <img src="${cover_url}" class="audio-controls-cover">
             <div class="audio-controls-title" id="audio-controls-title">
                 <h2>${selected_entry['title']}</h2>
-                <p>${selected_entry.get('author', selected_entry.get('artist')) or _('Unknown author')}</p>
+                <p>${selected_entry.get('author') or _('Unknown author')}</p>
             </div>
         </div>
         ${audio_control(audio_url)}
@@ -56,7 +56,7 @@
     url = i18n_url('files:path', view=view, path=path, selected=file)
     direct_url = h.quoted_url('files:direct', path=file_path)
     title = entry['title'] or titlify(file)
-    artist = entry['artist'] or _('Unknown')
+    author = entry['author'] or _('Unknown Artist')
     duration = entry['duration']
     hduration = durify(duration)
     %>
@@ -65,13 +65,13 @@
         role="row"
         aria-selected="false"
         data-title="${title | h}"
-        data-artist="${artist | h}"
+        data-author="${author | h}"
         data-duration="${duration}"
         data-url="${url}"
         data-direct-url="${direct_url}">
         <a class="playlist-list-item-link" href="${url}">
             <span class="playlist-list-duration">${hduration}</span>
-            <span class="playlist-list-title">${title | h} - ${artist | h}</span>
+            <span class="playlist-list-title">${title | h} - ${author | h}</span>
         </a>
     </li>
 </%def>

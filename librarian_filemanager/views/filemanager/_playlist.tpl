@@ -9,13 +9,9 @@
             ${entry.get('description') or _('No description')}
         </p>
     %endif
-    %if 'author' in entry or 'artist' in entry:
+    %if 'author' in entry:
         <p class="playlist-item-author">
-            ${entry.get('author', entry.get('artist')) or _('Unknown author') | h}
-        </p>
-    % else:
-        <p class="playist-item-author">
-            ${_('Unknown author')}
+            ${entry.get('author') or _('Unknown author') | h}
         </p>
     %endif
     <p class="playlist-metadata-buttons">
