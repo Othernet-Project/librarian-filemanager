@@ -1,19 +1,17 @@
 <%def name="sidebar_playlist_item(entry, selected_entry)" />
 
 <%def name="sidebar_playlist_item_details(entry)">
-    %if 'title' in entry:
-        <h2 class="playlist-item-title">${entry.get('title') or titlify(entry['file']) | h}</h2>
-    %endif
+    <h2 class="playlist-item-title">
+        ${entry.get('title') or titlify(entry['file']) | h}
+    </h2>
     %if 'description' in entry:
         <p class="playlist-item-description">
             ${entry.get('description') or _('No description')}
         </p>
     %endif
-    %if 'author' in entry:
-        <p class="playlist-item-author">
-            ${entry.get('author') or _('Unknown author') | h}
-        </p>
-    %endif
+    <p class="playlist-item-author">
+        ${entry.get('author') or _('Unknown author') | h}
+    </p>
     <p class="playlist-metadata-buttons">
         <a href="${url('files:direct', path=h.urlquote(entry['file_path']))}" class="button" target="_blank">
             <span class="icon icon-download"></span>
