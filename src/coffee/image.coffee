@@ -1,37 +1,30 @@
 ((window, $, templates) ->
   'use strict'
 
-  class Gallery
-
-    constructor: (@container, @listContainer) ->
-      currentItemClass = 'gallery-list-item-current'
-      options = {
-        itemSelector: '#gallery-list .gallery-list-item',
-        currentItemClass: currentItemClass,
-        currentItemSelector: '.' + currentItemClass,
-        toggleSidebarOnSelect: false,
-        ready: () =>
-          @onReady()
-          return
-        setCurrent: (current, previous) =>
-          @onSetCurrent(current, previous)
-      }
-      @playlist = new Playlist @listContainer, options
-      return
-
-    onReady: () ->
-      @currentImage = @container.find('.gallery-current-image img').first()
-      @currentImageLabel = @container.find('.gallery-image-title').first()
-      @container.find('#gallery-control-previous').click (e) =>
+  gallery =
+    initialize: (container) ->
+      @currentImage = container.find('.gallery-current-image img').first()
+      @currentImageLabel = container.find('.gallery-image-title').first()
+      container.find('#gallery-control-previous').click (e) =>
         e.preventDefault()
         e.stopPropagation()
         @previous()
         return
-      @container.find('#gallery-control-next').click (e) =>
+      container.find('#gallery-control-next').click (e) =>
         e.preventDefault()
         e.stopPropagation()
         @next()
         return
+      currentItemClass = 'gallery-list-item-current'
+      options = {
+        itemSelector: '#playlist-list .gallery-list-item',
+        currentItemClass: currentItemClass,
+        currentItemSelector: '.' + currentItemClass,
+        toggleSidebarOnSelect: false,
+        setCurrent: (current, previous) =>
+          @onSetCurrent(current, previous)
+      }
+      @playlist = new Playlist container, options
       return
 
     onSetCurrent: (current, previous) ->
@@ -58,11 +51,10 @@
       return
 
   prepareGallery = () ->
-    galleryListContainer = $ '#gallery-list-container'
-    if not galleryListContainer.length
+    galleryContainer = $ '#views-container'
+    if not galleryContainer.length
       return
-    galleryContainer = $ '#gallery-container'
-    gallery = new Gallery galleryContainer, galleryListContainer
+    gallery.initialize galleryContainer
     return
 
   $ prepareGallery

@@ -7,11 +7,10 @@
   };
   Playlist = function(container, options) {
     var current;
-    this.container = container;
     this.options = $.extend({}.defaults, options);
-    this.items = this.container.find(this.options.itemSelector);
+    this.items = container.find(this.options.itemSelector);
     this.items.on('click', 'a', this.onSelect.bind(this));
-    current = this.container.find(this.options.currentItemSelector).first();
+    current = container.find(this.options.currentItemSelector).first();
     if (current.length) {
       this.currentIndex = current.index();
     } else {

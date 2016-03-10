@@ -6,11 +6,10 @@
   }
 
   Playlist = (container, options) ->
-    @container = container
     @options = $.extend {}. defaults, options
-    @items = @container.find(@options.itemSelector)
+    @items = container.find(@options.itemSelector)
     @items.on 'click', 'a', @onSelect.bind(@)
-    current = @container.find(@options.currentItemSelector).first()
+    current = container.find(@options.currentItemSelector).first()
     if current.length
       @currentIndex = current.index()
     else
