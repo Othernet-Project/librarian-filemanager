@@ -81,13 +81,15 @@ def determine_thumb_path(imgpath, thumbdir, extension):
 
 
 def ffmpeg_cmd(src, dest, width, height, quality):
-    tmpl = "ffmpeg -i {src} -q:v {quality} -vf scale='if(gt(in_w,in_h),-1,{height})':'if(gt(in_w,in_h),{width},-1)',crop={width}:{height} {dest}"  # NOQA
-    cmd = tmpl.format(src=src,
-                      dest=dest,
-                      width=width,
-                      height=height,
-                      quality=quality)
-    return run_command(cmd.split(), timeout=5, debug=True)
+    cmd = ["ffmpeg",
+           "-i",
+           src,
+           "-q:v",
+           str(quality),
+           "-vf",
+           "scale='if(gt(in_w,in_h),-1,{height})':'if(gt(in_w,in_h),{width},-1)',crop={width}:{height}".format(width=width, height=height),  # NOQA
+           dest]
+    return run_command(cmd, timeout=5, debug=True)
 
 
 def create_thumb(imgpath, thumbpath, size, quality, callback=None):
