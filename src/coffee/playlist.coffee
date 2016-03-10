@@ -1,28 +1,24 @@
 ((window, $) ->
   'use strict'
 
-  class Playlist
-    defaults = {
-      toggleSidebarOnSelect: true
-    }
+  defaultOptions = {
+    toggleSidebarOnSelect: true
+  }
 
-    constructor: (@container, options) ->
-      @options = $.extend {}, defaults, options
-      @items = @container.find(@options['itemSelector'])
-      @items.on 'click', 'a', (e) =>
-        @_onClick(e)
+  Playlist = (container, options) ->
+    @options = $.extend {}. defaults, options
+    @items = container.find(@options.itemSelector)
+    @items.on 'click', 'a', @onSelect.bind(@)
+    current = container.find(@options.currentItemSelector).first()
+    if current.length
+      @currentIndex = current.index()
+    else
+      @currentIndex = 0
+    @setCurrent(@currentIndex)
+    return
 
-      @options.ready?()
-
-      current = @container.find(@options['currentItemSelector']).first()
-      if current.length
-        @currentIndex = current.index()
-      else
-        @currentIndex = 0
-      @_setCurrent(@currentIndex)
-      return
-
-    _setCurrent: (index) ->
+  Playlist:: = {
+    setCurrent: (index) ->
       previous = @items.eq @currentIndex
       @currentIndex = index
       current = @items.eq index
@@ -37,19 +33,21 @@
     moveTo: (index) ->
       if index < 0 or index >= @length()
         return
-      @_setCurrent(index)
+      @setCurrent(index)
       ($ window).trigger 'playlist-updated'
       return
 
     next: () ->
       index = (@currentIndex + 1) % @length()
       @moveTo(index)
+      return
 
     previous: () ->
       index = (@length() + @currentIndex - 1) % @length()
       @moveTo(index)
+      return
 
-    _onClick: (e) ->
+    onSelect: (e) ->
       e.preventDefault()
       e.stopPropagation()
       item = $(e.target).closest(@options['itemSelector'])
@@ -58,7 +56,9 @@
       if @options.toggleSidebarOnSelect
         ($ window).trigger 'views-sidebar-toggle'
       return
+  }
 
   window.Playlist = Playlist
+  return
 
 ) this, this.jQuery
