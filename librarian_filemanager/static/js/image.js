@@ -74,11 +74,13 @@
     var galleryContainer;
     galleryContainer = $('#views-container');
     if (!galleryContainer.length) {
-      ($(window)).off('keydown', handleKeyEvent);
+      galleryContainer.off('keydown', handleKeyEvent);
       return;
     }
     gallery.initialize(galleryContainer);
-    ($(window)).on('keydown', gallery, handleKeyEvent);
+    galleryContainer.on('keydown', gallery, handleKeyEvent);
+    galleryContainer.attr('tabindex', -1);
+    galleryContainer.focus();
   };
   $(prepareGallery);
   window.onTabChange(prepareGallery);

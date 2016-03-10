@@ -67,10 +67,12 @@
   prepareGallery = () ->
     galleryContainer = $ '#views-container'
     if not galleryContainer.length
-      ($ window).off 'keydown', handleKeyEvent
+      galleryContainer.off 'keydown', handleKeyEvent
       return
     gallery.initialize galleryContainer
-    ($ window).on 'keydown', gallery, handleKeyEvent
+    galleryContainer.on 'keydown', gallery, handleKeyEvent
+    galleryContainer.attr 'tabindex', -1
+    galleryContainer.focus()
     return
 
   $ prepareGallery
