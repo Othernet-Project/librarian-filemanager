@@ -43,6 +43,7 @@
         url = i18n_url('files:path', view=view, path=path, selected=file)
         direct_url = h.quoted_url('files:direct', path=file_path)
         title = entry['title'] or titlify(entry['file'])
+        description = entry['description'] or _('No description')
         duration = entry['duration']
         hduration = durify(duration)
         width = entry['width']
@@ -53,6 +54,7 @@
     role="row"
     aria-selected="false"
     data-title="${title | h}"
+    data-description="${description | h}"
     data-duration="${duration}"
     data-width="${width}"
     data-height="${height}"
