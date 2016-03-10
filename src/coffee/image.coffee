@@ -1,6 +1,10 @@
 ((window, $, templates) ->
   'use strict'
 
+  LEFT_ARROW = 37
+  RIGHT_ARROW = 39
+  SPACE = 32
+
   gallery =
     initialize: (container) ->
       @currentImage = container.find('.gallery-current-image img').first()
@@ -50,11 +54,23 @@
       @playlist.previous()
       return
 
+
+  handleKeyEvent = (e) ->
+    gallery = e.data
+    if e.which in [RIGHT_ARROW, SPACE]
+      gallery.next()
+    else if e.which is LEFT_ARROW
+      gallery.previous()
+    return
+
+
   prepareGallery = () ->
     galleryContainer = $ '#views-container'
     if not galleryContainer.length
+      ($ window).off 'keydown', handleKeyEvent
       return
     gallery.initialize galleryContainer
+    ($ window).on 'keydown', gallery, handleKeyEvent
     return
 
   $ prepareGallery
