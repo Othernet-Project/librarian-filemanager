@@ -53,10 +53,9 @@
         '#playlist-metadata .playlist-item-title').first()
       @prevHandle = $ '#gallery-control-previous'
       @nextHandle = $ '#gallery-control-next'
+      @imageFrame = @currentImage.parent()
 
-      # Make the image zoomable
-      @currentImage.addClass 'zoomable'
-      @currentImage.on 'click', (e) =>
+      @imageFrame.on 'click', '.zoomable', (e) =>
         if @currentImage.hasClass 'zoomed'
           @currentImage.removeClass 'zoomed'
           @prevHandle.show()
@@ -80,7 +79,6 @@
         return
 
       # Move the zoomed image around while moving the mouse
-      @imageFrame = @currentImage.parent()
       @currentImage.parent().on 'mousemove', $.throttled (e) =>
         if not @currentImage.hasClass 'zoomed'
           return
@@ -130,6 +128,15 @@
       @playlist = new Playlist @container, options
       return
 
+    makeZoomable: () ->
+      frameW = @imageFrame.outerWidth()
+      frameH = @imageFrame.outerHeight()
+      imageW = @currentImage[0].naturalWidth
+      imageH = @currentImage[0].naturalHeight
+      isBig = imageW > frameW or imageH > frameH
+      @currentImage.toggleClass 'zoomable', isBig
+      return
+
     onSetCurrent: (current, previous) ->
       title = current.data('title')
       imageUrl = current.data('direct-url')
@@ -139,6 +146,8 @@
         'title': title
         'alt': title
       }
+      @currentImage.on 'load', () =>
+        @makeZoomable()
       @currentImageLabel.html(title)
       previousUrl = previous.data('url')
       nextUrl = current.data('url')

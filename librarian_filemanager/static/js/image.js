@@ -50,8 +50,8 @@
       this.currentImageLabel = this.container.find('#playlist-metadata .playlist-item-title').first();
       this.prevHandle = $('#gallery-control-previous');
       this.nextHandle = $('#gallery-control-next');
-      this.currentImage.addClass('zoomable');
-      this.currentImage.on('click', (function(_this) {
+      this.imageFrame = this.currentImage.parent();
+      this.imageFrame.on('click', '.zoomable', (function(_this) {
         return function(e) {
           var height, left, pageX, pageY, ref, top, width, xperc, yperc;
           if (_this.currentImage.hasClass('zoomed')) {
@@ -72,7 +72,6 @@
           _this.currentImage.addClass('zoomed');
         };
       })(this));
-      this.imageFrame = this.currentImage.parent();
       this.currentImage.parent().on('mousemove', $.throttled((function(_this) {
         return function(e) {
           var containerH, containerW, containerX, containerY, left, pageX, pageY, ref, top, xperc, yperc;
@@ -130,6 +129,15 @@
       };
       this.playlist = new Playlist(this.container, options);
     },
+    makeZoomable: function() {
+      var frameH, frameW, imageH, imageW, isBig;
+      frameW = this.imageFrame.outerWidth();
+      frameH = this.imageFrame.outerHeight();
+      imageW = this.currentImage[0].naturalWidth;
+      imageH = this.currentImage[0].naturalHeight;
+      isBig = imageW > frameW || imageH > frameH;
+      this.currentImage.toggleClass('zoomable', isBig);
+    },
     onSetCurrent: function(current, previous) {
       var imageUrl, nextUrl, previousUrl, title;
       title = current.data('title');
@@ -140,6 +148,11 @@
         'title': title,
         'alt': title
       });
+      this.currentImage.on('load', (function(_this) {
+        return function() {
+          return _this.makeZoomable();
+        };
+      })(this));
       this.currentImageLabel.html(title);
       previousUrl = previous.data('url');
       nextUrl = current.data('url');
