@@ -98,8 +98,9 @@ def show_view(path, view, defaults=dict()):
 
 def direct_file(path):
     path = urlunquote(path)
-    root = find_root(path)
-    if not root:
+    try:
+        root = find_root(path)
+    except RuntimeError:
         abort(404, _("File not found."))
 
     download = request.params.get('filename', False)
