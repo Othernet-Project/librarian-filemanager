@@ -11,11 +11,7 @@
             previous_url = i18n_url('files:path', view=view, path=path, selected=previous['file'])
             next_url = i18n_url('files:path', view=view, path=path, selected=next['file'])
             direct_url = h.quoted_url('files:direct', path=selected_entry['file_path'])
-            title = selected_entry['title']
         %>
-        <h3 class="gallery-image-title" id="gallery-controls-image-title">
-            ${title}
-        </h3>
         <div class="gallery-current-image" id="gallery-current-image">
             <img class="gallery-current-image-img" src='${direct_url}'/>
         </div>

@@ -4,7 +4,7 @@
   gallery =
     initialize: (container) ->
       @currentImage = container.find('.gallery-current-image img').first()
-      @currentImageLabel = container.find('.gallery-image-title').first()
+      @currentImageLabel = container.find('#playlist-metadata .playlist-item-title').first()
       container.find('#gallery-control-previous').click (e) =>
         e.preventDefault()
         e.stopPropagation()

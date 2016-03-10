@@ -6,7 +6,7 @@
     initialize: function(container) {
       var currentItemClass, options;
       this.currentImage = container.find('.gallery-current-image img').first();
-      this.currentImageLabel = container.find('.gallery-image-title').first();
+      this.currentImageLabel = container.find('#playlist-metadata .playlist-item-title').first();
       container.find('#gallery-control-previous').click((function(_this) {
         return function(e) {
           e.preventDefault();
