@@ -6,19 +6,23 @@
   SPACE = 32
 
   gallery =
-    initialize: (container) ->
-      @currentImage = container.find('.gallery-current-image img').first()
-      @currentImageLabel = container.find('#playlist-metadata .playlist-item-title').first()
-      container.find('#gallery-control-previous').click (e) =>
+    initialize: (@container) ->
+      @currentImage = @container.find(
+        '.gallery-current-image img').first()
+      @currentImageLabel = @container.find(
+        '#playlist-metadata .playlist-item-title').first()
+      @container.find('#gallery-control-previous').click (e) =>
         e.preventDefault()
         e.stopPropagation()
         @previous()
         return
-      container.find('#gallery-control-next').click (e) =>
+      @container.find('#gallery-control-next').click (e) =>
         e.preventDefault()
         e.stopPropagation()
         @next()
         return
+      @container.attr 'tabindex', -1
+      @container.focus()
       currentItemClass = 'gallery-list-item-current'
       options = {
         itemSelector: '#playlist-list .gallery-list-item',
@@ -28,7 +32,7 @@
         setCurrent: (current, previous) =>
           @onSetCurrent(current, previous)
       }
-      @playlist = new Playlist container, options
+      @playlist = new Playlist @container, options
       return
 
     onSetCurrent: (current, previous) ->
@@ -48,10 +52,12 @@
 
     next: () ->
       @playlist.next()
+      @container.focus()
       return
 
     previous: () ->
       @playlist.previous()
+      @container.focus()
       return
 
 
@@ -70,8 +76,6 @@
       return
     gallery.initialize galleryContainer
     galleryContainer.on 'keydown', gallery, handleKeyEvent
-    galleryContainer.attr 'tabindex', -1
-    galleryContainer.focus()
     return
 
   $ prepareGallery

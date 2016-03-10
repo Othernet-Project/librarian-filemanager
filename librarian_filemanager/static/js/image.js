@@ -8,22 +8,25 @@
   gallery = {
     initialize: function(container) {
       var currentItemClass, options;
-      this.currentImage = container.find('.gallery-current-image img').first();
-      this.currentImageLabel = container.find('#playlist-metadata .playlist-item-title').first();
-      container.find('#gallery-control-previous').click((function(_this) {
+      this.container = container;
+      this.currentImage = this.container.find('.gallery-current-image img').first();
+      this.currentImageLabel = this.container.find('#playlist-metadata .playlist-item-title').first();
+      this.container.find('#gallery-control-previous').click((function(_this) {
         return function(e) {
           e.preventDefault();
           e.stopPropagation();
           _this.previous();
         };
       })(this));
-      container.find('#gallery-control-next').click((function(_this) {
+      this.container.find('#gallery-control-next').click((function(_this) {
         return function(e) {
           e.preventDefault();
           e.stopPropagation();
           _this.next();
         };
       })(this));
+      this.container.attr('tabindex', -1);
+      this.container.focus();
       currentItemClass = 'gallery-list-item-current';
       options = {
         itemSelector: '#playlist-list .gallery-list-item',
@@ -36,7 +39,7 @@
           };
         })(this)
       };
-      this.playlist = new Playlist(container, options);
+      this.playlist = new Playlist(this.container, options);
     },
     onSetCurrent: function(current, previous) {
       var image_url, nextUrl, previousUrl, title;
@@ -56,9 +59,11 @@
     },
     next: function() {
       this.playlist.next();
+      this.container.focus();
     },
     previous: function() {
       this.playlist.previous();
+      this.container.focus();
     }
   };
   handleKeyEvent = function(e) {
@@ -78,8 +83,6 @@
     }
     gallery.initialize(galleryContainer);
     galleryContainer.on('keydown', gallery, handleKeyEvent);
-    galleryContainer.attr('tabindex', -1);
-    galleryContainer.focus();
   };
   $(prepareGallery);
   window.onTabChange(prepareGallery);
