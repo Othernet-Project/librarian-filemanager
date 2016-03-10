@@ -34,6 +34,21 @@ $current-image-size: 300px;
       max-height: 100%;
       height: auto;
       vertical-align: middle;
+
+      @include transition(top 0.3s, left 0.3s);
+
+      &.zoomable {
+        cursor: zoom-in;
+      }
+
+      &.zoomed {
+        position: absolute;
+        top: 0;
+        left: 0;
+        max-width: none;
+        max-height: none;
+        cursor: zoom-out;
+      }
     }
 
     // Give the image something to vertically-align against
