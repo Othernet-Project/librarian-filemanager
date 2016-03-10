@@ -74,7 +74,6 @@
     var galleryContainer;
     galleryContainer = $('#views-container');
     if (!galleryContainer.length) {
-      galleryContainer.off('keydown', handleKeyEvent);
       return;
     }
     gallery.initialize(galleryContainer);

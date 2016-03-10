@@ -67,7 +67,6 @@
   prepareGallery = () ->
     galleryContainer = $ '#views-container'
     if not galleryContainer.length
-      galleryContainer.off 'keydown', handleKeyEvent
       return
     gallery.initialize galleryContainer
     galleryContainer.on 'keydown', gallery, handleKeyEvent
