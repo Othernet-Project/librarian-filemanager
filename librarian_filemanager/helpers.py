@@ -2,9 +2,9 @@ import functools
 import os
 
 from bottle import request
-from PIL import Image
 
 from librarian_content.library.facets.archive import FacetsArchive
+from librarian_content.library.facets.metadata import run_command
 from librarian_core.contrib.templates.decorators import template_helper
 
 
@@ -80,6 +80,16 @@ def determine_thumb_path(imgpath, thumbdir, extension):
     return os.path.join(imgdir, thumbdir, newname)
 
 
+def ffmpeg_cmd(src, dest, width, height, quality):
+    tmpl = "ffmpeg -i {src} -q:v {quality} -vf scale='if(gt(in_w,in_h),-1,{height})':'if(gt(in_w,in_h),{width},-1)',crop={width}:{height} {dest}"  # NOQA
+    cmd = tmpl.format(src=src,
+                      dest=dest,
+                      width=width,
+                      height=height,
+                      quality=quality)
+    return run_command(cmd.split(), timeout=5, debug=True)
+
+
 def create_thumb(imgpath, thumbpath, size, quality, callback=None):
     if os.path.exists(thumbpath):
         return
@@ -88,12 +98,10 @@ def create_thumb(imgpath, thumbpath, size, quality, callback=None):
     if not os.path.exists(thumbdir):
         os.makedirs(thumbdir)
 
-    img = Image.open(imgpath)
-    img.thumbnail(map(int, size.split('x')))
-    img.save(thumbpath, quality=quality)
+    (width, height) = map(int, size.split('x'))
+    ffmpeg_cmd(imgpath, thumbpath, width, height, quality)
     if callback:
-        callback(imgpath, thumbpath, img)
-    return img
+        callback(imgpath, thumbpath)
 
 
 def thumb_exists(root, thumbpath):
@@ -107,7 +115,7 @@ def thumb_exists(root, thumbpath):
     return exists
 
 
-def thumb_created(cache, imgpath, thumbpath, img):
+def thumb_created(cache, imgpath, thumbpath):
     cache.set(thumbpath, True)
 
 
