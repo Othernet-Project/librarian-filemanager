@@ -46,7 +46,7 @@
     <%
         width = entry.get('width', 0)
         height = entry.get('height', 0)
-        mpx = round(width * height / 1000000, 1)
+        mpx = round(width * height / 1000000.0, 1)
     %>
     <p class="playlist-item-dimensions">
         ## Translators, used as label for image dimensions in playlist's info 
