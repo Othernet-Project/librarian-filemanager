@@ -38,7 +38,7 @@
     options = @options
     res = $.get url
     res.done (data) ->
-      cover = $ options.overSelector
+      cover = $ options.coverSelector
       if data.url
         cover.attr 'src', data.url
         cover.addClass options.customCoverClass
