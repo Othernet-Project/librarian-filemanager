@@ -17,8 +17,9 @@
 % else:
     <%
     audio_facet = facets['audio']
-    if audio_facet['cover']:
-        cover_path = th.join(audio_facet['path'], audio_facet['cover'])
+    cover = audio_facet.get('cover')
+    if cover:
+        cover_path = th.join(audio_facet['path'], cover)
         cover_url = h.quoted_url('files:direct', path=cover_path)
         custom_cover = True
     else:
@@ -32,7 +33,7 @@
         <div class="audio-controls-albumart" id="audio-controls-albumart">
             <img src="${cover_url}" class="audio-controls-cover${' audio-controls-custom-cover' if custom_cover else ''}">
             <div class="audio-controls-title" id="audio-controls-title">
-                <h2>${selected_entry['title']}</h2>
+                <h2>${selected_entry.get('title', _('Unknown title'))}</h2>
                 <p>${selected_entry.get('author') or _('Unknown author')}</p>
             </div>
         </div>
@@ -63,9 +64,9 @@
     file_path = entry['file_path']
     url = i18n_url('files:path', view=view, path=path, selected=file)
     direct_url = h.quoted_url('files:direct', path=file_path)
-    title = entry['title'] or titlify(file)
-    author = entry['author'] or _('Unknown Artist')
-    duration = entry['duration']
+    title = entry.get('title') or titlify(file)
+    author = entry.get('author') or _('Unknown Artist')
+    duration = entry.get('duration', 0)
     hduration = durify(duration)
     %>
     <li

@@ -4,22 +4,11 @@ import fractions
 
 from bottle import request
 
-from librarian_content.library.facets.archive import FacetsArchive
 from librarian_content.library.facets.metadata import run_command
 from librarian_core.contrib.templates.decorators import template_helper
 
 
-def get_facets(path):
-    supervisor = request.app.supervisor
-    archive = FacetsArchive(supervisor.exts.fsal,
-                            supervisor.exts.databases.facets,
-                            config=supervisor.config)
-    facets = archive.get_facets(path)
-    process_facets(facets)
-    return facets
-
-
-def process_facets(facets):
+def enrich_facets(facets):
     pathify(facets)
 
 

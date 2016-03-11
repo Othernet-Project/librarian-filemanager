@@ -19,7 +19,7 @@
         ## Translators, used as label for audio/video duration in playlist's
         ## info panel.
         <span class="label">${_('Duration:')}</span>
-        <span class="value">${durify(entry['duration'])}</span>
+        <span class="value">${durify(entry.get('duration', 0))}</span>
     </p>
 </%def>
 
@@ -27,14 +27,16 @@
     <% 
         # We use min(width, height) here to account for veritcally oriented 
         # videos where width and height is flipped.
-        is_hd = min(entry['width'], entry['height']) >= 720 
+        width = entry.get('width', 0)
+        height = entry.get('height', 0)
+        is_hd = min(width, height) >= 720
     %>
     <p class="playlist-item-dimensions">
         ## Translators, used as label for video dimensions in playlist's info 
         ## panel.
         <span class="label">${_('Dimensions:')}</span>
         <span class="value">
-            <span>${entry['width']} &times; ${entry['height']}</span>
+            <span>${width} &times; ${height}</span>
             <span class="icon icon-video-${'hd' if is_hd else 'sd'}"></span>
         </span>
     </p>
@@ -42,14 +44,16 @@
 
 <%def name="sidebar_playlist_image_dimensions(entry)">
     <%
-        mpx = round(entry['width'] * entry['height'] / 1000000, 1)
+        width = entry.get('width', 0)
+        height = entry.get('height', 0)
+        mpx = round(width * height / 1000000, 1)
     %>
     <p class="playlist-item-dimensions">
         ## Translators, used as label for image dimensions in playlist's info 
         ## panel.
         <span class="label">${_('Dimensions:')}</span>
         <span class="value">
-            ${entry['width']} &times; ${entry['height']} (${mpx} Mpx)
+            ${width} &times; ${height} (${mpx} Mpx)
         </span>
     </p>
 </%def>
@@ -60,7 +64,7 @@
         ## 16:9) in playlist's info panel.
         <span class="label">${_('Aspect ratio:')}</span>
         <span class="value">
-            ${aspectify(entry['width'], entry['height'])}
+            ${aspectify(entry.get('width', 0), entry.get('height', 0))}
         </span>
     </p>
 </%def>
@@ -111,4 +115,3 @@
         </div>
     </script>
 </%def>
-

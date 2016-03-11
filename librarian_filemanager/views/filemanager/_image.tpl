@@ -62,9 +62,9 @@
         url = i18n_url('files:path', view=view, path=path, selected=file)
         direct_url = h.quoted_url('files:direct', path=file_path)
         thumb_url = h.quoted_url('files:direct', path=th.get_thumb_path(file_path))
-        title = entry['title'] or titlify(entry['file'])
-        img_width = entry['width']
-        img_height = entry['height']
+        title = entry.get('title') or titlify(file)
+        img_width = entry.get('width', 0)
+        img_height = entry.get('height', 0)
     %>
     <li
     class="gallery-list-item ${'gallery-list-item-current' if current else ''}"
