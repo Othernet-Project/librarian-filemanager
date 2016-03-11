@@ -4,7 +4,7 @@ import fractions
 
 from bottle import request
 
-from librarian_content.library.facets.metadata import run_command
+from librarian_content.library.facets.processors import FacetProcessorBase
 from librarian_core.contrib.templates.decorators import template_helper
 
 
@@ -72,40 +72,6 @@ def find_root(path):
     raise RuntimeError("Root path cannot be determined")
 
 
-def determine_thumb_path(imgpath, thumbdir, extension):
-    imgdir = os.path.dirname(imgpath)
-    filename = os.path.basename(imgpath)
-    (name, _) = os.path.splitext(filename)
-    newname = '.'.join([name, extension])
-    return os.path.join(imgdir, thumbdir, newname)
-
-
-def ffmpeg_cmd(src, dest, width, height, quality):
-    cmd = ["ffmpeg",
-           "-i",
-           src,
-           "-q:v",
-           str(quality),
-           "-vf",
-           "scale='if(gt(in_w,in_h),-1,{height})':'if(gt(in_w,in_h),{width},-1)',crop={width}:{height}".format(width=width, height=height),  # NOQA
-           dest]
-    return run_command(cmd, timeout=5, debug=True)
-
-
-def create_thumb(imgpath, thumbpath, size, quality, callback=None):
-    if os.path.exists(thumbpath):
-        return
-
-    thumbdir = os.path.dirname(thumbpath)
-    if not os.path.exists(thumbdir):
-        os.makedirs(thumbdir)
-
-    (width, height) = map(int, size.split('x'))
-    ffmpeg_cmd(imgpath, thumbpath, width, height, quality)
-    if callback:
-        callback(imgpath, thumbpath)
-
-
 def thumb_exists(root, thumbpath):
     cache = request.app.supervisor.exts(onfail=None).cache
     if cache.get(thumbpath):
@@ -117,36 +83,39 @@ def thumb_exists(root, thumbpath):
     return exists
 
 
-def thumb_created(cache, imgpath, thumbpath):
-    cache.set(thumbpath, True)
+def thumb_created(cache, srcpath, thumbpath):
+    if thumbpath:
+        cache.set(thumbpath, True)
 
 
 @template_helper
-def get_thumb_path(imgpath):
+def get_thumb_path(srcpath, default=None):
     try:
-        root = find_root(imgpath)
+        root = find_root(srcpath)
     except RuntimeError:
-        return imgpath
+        return srcpath
     else:
         config = request.app.config
-        thumbpath = determine_thumb_path(imgpath,
-                                         config['thumbs.dirname'],
-                                         config['thumbs.extension'])
+        proc_cls = FacetProcessorBase.get_processor(srcpath)
+        thumbpath = proc_cls.determine_thumb_path(srcpath,
+                                                  config['thumbs.dirname'],
+                                                  config['thumbs.extension'])
         if thumb_exists(root, thumbpath):
             return thumbpath
 
         cache = request.app.supervisor.exts(onfail=None).cache
         callback = functools.partial(thumb_created, cache)
-        kwargs = dict(imgpath=os.path.join(root, imgpath),
+        kwargs = dict(srcpath=os.path.join(root, srcpath),
                       thumbpath=os.path.join(root, thumbpath),
+                      root=root,
                       size=config['thumbs.size'],
                       quality=config['thumbs.quality'],
-                      callback=callback)
+                      callback=callback,
+                      default=default)
         if config['thumbs.async']:
             tasks = request.app.supervisor.exts.tasks
-            tasks.schedule(create_thumb, kwargs=kwargs)
-            return imgpath
+            tasks.schedule(proc_cls.create_thumb, kwargs=kwargs)
+            return srcpath
 
-        create_thumb(**kwargs)
-        return thumbpath
+        return proc_cls.create_thumb(**kwargs)
 
