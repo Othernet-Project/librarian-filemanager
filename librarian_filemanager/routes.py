@@ -31,6 +31,7 @@ from .helpers import (enrich_facets,
                       durify,
                       get_selected,
                       get_adjacent,
+                      get_thumb_path,
                       find_root,
                       aspectify)
 
@@ -249,6 +250,8 @@ def show_files_view(path, defaults):
         return delete_path_confirm(path)
     elif action == 'open':
         return opener_detail(request.query.get('opener_id'), path=path)
+    elif action == 'thumb':
+        return retrieve_thumb_url(path, defaults)
 
     return show_file_list(path, defaults=defaults)
 
@@ -332,6 +335,27 @@ def opener_detail(opener_id, path=None):
                     path=path,
                     filename=os.path.basename(path),
                     meta=meta)
+
+
+def retrieve_thumb_url(path, defaults):
+    thumb_url = None
+    thumb_path = get_thumb_path(urlunquote(request.query.get('target')))
+    if thumb_path:
+        thumb_url = request.app.get_url('files:direct', path=thumb_path)
+    else:
+        facet_type = request.query.get('facet', 'generic')
+        try:
+            facet = defaults['facets'][facet_type]
+        except KeyError:
+            pass
+        else:
+            cover = facet.get('cover')
+            if cover:
+                cover_path = os.path.join(facet['path'], cover)
+                thumb_url = request.app.get_url('files:direct',
+                                                path=cover_path)
+
+    return dict(url=thumb_url)
 
 
 def routes(config):

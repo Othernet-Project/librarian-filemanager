@@ -1,6 +1,5 @@
-((window, $, templates) ->
+((window, $, templates, jsonData) ->
   'use strict'
-
 
   playNext = (e) ->
     player = e.data

@@ -41,6 +41,11 @@
         </div>
         ${audio_control(audio_url)}
     </div>
+    <script type="application/json" id="audioData">
+      {
+        "defaultThumbUrl": "${assets.url + 'img/albumart-placeholder.png'}"
+      }
+    </script>
 % endif
 
 <%def name="sidebar()">
@@ -67,6 +72,7 @@
     url = i18n_url('files:path', view=view, path=path, selected=file)
     meta_url = i18n_url('files:path', view=view, path=path, info=file)
     direct_url = h.quoted_url('files:direct', path=file_path)
+    get_thumb_url = i18n_url('files:path', path=path, target=file_path, action='thumb', facet='audio') 
     title = entry.get('title') or titlify(file)
     author = entry.get('author') or _('Unknown Artist')
     duration = entry.get('duration', 0)
@@ -81,7 +87,8 @@
         data-duration="${duration}"
         data-url="${url}"
         data-meta-url="${meta_url}"
-        data-direct-url="${direct_url}">
+        data-direct-url="${direct_url}"
+        data-get-thumb-url="${get_thumb_url}">
         <a class="playlist-list-item-link" href="${url}">
             <span class="playlist-list-duration">${hduration}</span>
             <span class="playlist-list-title">${title | h} - ${author | h}</span>
