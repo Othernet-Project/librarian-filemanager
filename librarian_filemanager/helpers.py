@@ -53,7 +53,7 @@ def durify(seconds):
 def aspectify(w, h):
     if min(w, h) == 0:
         return '0'
-    aspect = fractions.Fraction(w, h)
+    aspect = fractions.Fraction(w, h).limit_denominator(10)
     return '{}:{}'.format(aspect.numerator, aspect.denominator)
 
 
