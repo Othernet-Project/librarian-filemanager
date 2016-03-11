@@ -71,6 +71,7 @@
     author = entry.get('author') or _('Unknown Artist')
     duration = entry.get('duration', 0)
     hduration = durify(duration)
+    size = entry.get('size', 0)
     %>
     <li
         class="playlist-list-item ${'playlist-list-item-current' if current else ''}"
@@ -81,7 +82,8 @@
         data-duration="${duration}"
         data-url="${url}"
         data-meta-url="${meta_url}"
-        data-direct-url="${direct_url}">
+        data-direct-url="${direct_url}"
+        data-file-size="${size}">
         <a class="playlist-list-item-link" href="${url}">
             <span class="playlist-list-duration">${hduration}</span>
             <span class="playlist-list-title">${title | h} - ${author | h}</span>

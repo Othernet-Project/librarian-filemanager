@@ -57,6 +57,7 @@
         hduration = durify(duration)
         width = entry.get('width', 0)
         height = entry.get('height', 0)
+        size = entry.get('size', 0)
     %>
     <li
     class="playlist-list-item ${'playlist-list-item-current' if current else ''}"
@@ -67,6 +68,7 @@
     data-duration="${duration}"
     data-width="${width}"
     data-height="${height}"
+    data-file-size="${size}"
     data-url="${url}"
     data-meta-url="${meta_url}"
     data-direct-url="${direct_url}">
