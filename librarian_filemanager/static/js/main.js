@@ -5,10 +5,16 @@
   mainContainer = $('#main-container');
   window.mainContainer = mainContainer;
   activateSidebar = function() {
-    var sidebar;
+    var sidebar, winWidth;
     sidebar = $('#views-sidebar');
     sidebar.addClass('with-sidebar-handle');
-    return sidebar.prepend(templates.sidebarRetract);
+    sidebar.prepend(templates.sidebarRetract);
+    winWidth = ($(window)).outerWidth();
+    if (winWidth < 740) {
+      return setTimeout(function() {
+        return ($('#views-container')).addClass('sidebar-hidden');
+      }, 2000);
+    }
   };
   toggleSidebar = function() {
     ($('#views-container')).toggleClass('sidebar-hidden');
