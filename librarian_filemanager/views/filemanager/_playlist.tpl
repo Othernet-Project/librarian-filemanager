@@ -40,6 +40,40 @@
     </p>
 </%def>
 
+<%def name="sidebar_playlist_image_dimensions(entry)">
+    <%
+        mpx = round(entry['width'] * entry['height'] / 1000000, 1)
+    %>
+    <p class="playlist-item-dimensions">
+        ## Translators, used as label for image dimensions in playlist's info 
+        ## panel.
+        <span class="label">${_('Dimensions:')}</span>
+        <span class="value">
+            ${entry['width']} &times; ${entry['height']} (${mpx} Mpx)
+        </span>
+    </p>
+</%def>
+
+<%def name="sidebar_playlist_aspect_ratio(entry)">
+    <%
+        import fractions
+        if min(entry['width'], entry['height']) == 0:
+            # Nothing to do
+            aspect = '0'
+        else:
+            aspect = fractions.Fraction(entry['width'], entry['height'])
+            aspect = '{}:{}'.format(aspect.numerator, aspect.denominator)
+    %>
+    <p class="playlist-item-aspect">
+        ## Translators, used as label for image/video aspect ratio (e.g., 4:3, 
+        ## 16:9) in playlist's info panel.
+        <span class="label">${_('Aspect ratio:')}</span>
+        <span class="value">
+            ${aspect}
+        </span>
+    </p>
+</%def>
+
 <%def name="sidebar_playlist_item_metadata(entry)">
     ${self.sidebar_playlist_item_metadata_desc(entry)}
     ${self.sidebar_playlist_item_metadata_author(entry)}
