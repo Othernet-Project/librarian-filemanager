@@ -52,7 +52,7 @@ $playlist-sidebar-animation-speed: 0.5s;
   .playlist-list-duration {
     display: inline-block;
     text-align: right;
-    width: 5rem;
+    width: 3rem;
     margin-right: 0.5rem;
   }
 }
@@ -61,19 +61,31 @@ $playlist-sidebar-animation-speed: 0.5s;
   margin-bottom: 2rem;
 
   h2 {
-    margin: 1rem;
+    margin: 1rem 0 0.5rem;
+    padding: 0 1rem 0.5rem;
     font-size: 120%;
     border-bottom-color: darken($o-dark-material, 20);
   }
 
   p {
-    margin: 0 1rem 1rem;
+    margin: 0 0 1rem;
+    padding: 0 1rem;
   }
 
   .playlist-metadata-buttons {
     border-top: 1px solid $o-outline;
     padding-top: 1rem;
     margin-top: 1rem;
+  }
+
+  .playlist-item-author {
+    font-style: italic;
+  }
+
+  .label {
+    display: inline-block;
+    font-size: 90%;
+    text-transform: uppercase;
   }
 }
 

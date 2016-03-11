@@ -50,6 +50,12 @@
     % endif
 </%def>
 
+<%def name="sidebar_playlist_item_metadata(entry)">
+    ${self.sidebar_playlist_item_metadata_desc(entry)}
+    ${self.sidebar_playlist_item_metadata_author(entry)}
+    ${self.sidebar_playlist_item_metadata_duration(entry)}
+</%def>
+
 <%def name="sidebar_playlist_item(entry, selected_entry)">
     <%
     file = entry['file']

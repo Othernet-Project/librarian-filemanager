@@ -1187,7 +1187,7 @@ div.mejs-speed-button {
 .playlist-list .playlist-list-duration {
   display: inline-block;
   text-align: right;
-  width: 5rem;
+  width: 3rem;
   margin-right: 0.5rem;
 }
 
@@ -1197,36 +1197,48 @@ div.mejs-speed-button {
 }
 /* line 63, ../../../src/scss/partials/_playlist.scss */
 .playlist-metadata h2 {
-  margin: 1rem;
+  margin: 1rem 0 0.5rem;
+  padding: 0 1rem 0.5rem;
   font-size: 120%;
   border-bottom-color: #aaaaaa;
 }
-/* line 69, ../../../src/scss/partials/_playlist.scss */
+/* line 70, ../../../src/scss/partials/_playlist.scss */
 .playlist-metadata p {
-  margin: 0 1rem 1rem;
+  margin: 0 0 1rem;
+  padding: 0 1rem;
 }
-/* line 73, ../../../src/scss/partials/_playlist.scss */
+/* line 75, ../../../src/scss/partials/_playlist.scss */
 .playlist-metadata .playlist-metadata-buttons {
   border-top: 1px solid #aaa;
   padding-top: 1rem;
   margin-top: 1rem;
 }
+/* line 81, ../../../src/scss/partials/_playlist.scss */
+.playlist-metadata .playlist-item-author {
+  font-style: italic;
+}
+/* line 85, ../../../src/scss/partials/_playlist.scss */
+.playlist-metadata .label {
+  display: inline-block;
+  font-size: 90%;
+  text-transform: uppercase;
+}
 
-/* line 80, ../../../src/scss/partials/_playlist.scss */
+/* line 92, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs {
   position: absolute;
   top: 0.5rem;
   right: 1rem;
 }
-/* line 85, ../../../src/scss/partials/_playlist.scss */
+/* line 97, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs .label {
   display: none;
 }
-/* line 89, ../../../src/scss/partials/_playlist.scss */
+/* line 101, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs .icon {
   font-size: 150%;
 }
-/* line 93, ../../../src/scss/partials/_playlist.scss */
+/* line 105, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs a {
   display: inline-block;
   color: gray;
@@ -1236,20 +1248,20 @@ div.mejs-speed-button {
   -webkit-transition: color 0.3s;
   transition: color 0.3s;
 }
-/* line 100, ../../../src/scss/partials/_playlist.scss */
+/* line 112, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs a.active {
   color: #333;
 }
-/* line 104, ../../../src/scss/partials/_playlist.scss */
+/* line 116, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs a:hover, .playlist-tabs a:focus {
   color: #089bd2;
 }
 
-/* line 112, ../../../src/scss/partials/_playlist.scss */
+/* line 124, ../../../src/scss/partials/_playlist.scss */
 .with-tabs .playlist-section {
   display: none;
 }
-/* line 116, ../../../src/scss/partials/_playlist.scss */
+/* line 128, ../../../src/scss/partials/_playlist.scss */
 .with-tabs .playlist-section-open {
   display: block;
 }
