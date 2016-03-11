@@ -65,6 +65,7 @@
     current = entry['file'] == selected_entry['file']
     file_path = entry['file_path']
     url = i18n_url('files:path', view=view, path=path, selected=file)
+    meta_url = i18n_url('files:path', view=view, path=path, info=file)
     direct_url = h.quoted_url('files:direct', path=file_path)
     title = entry['title'] or titlify(file)
     author = entry['author'] or _('Unknown Artist')
@@ -79,6 +80,7 @@
         data-author="${author | h}"
         data-duration="${duration}"
         data-url="${url}"
+        data-meta-url="${meta_url}"
         data-direct-url="${direct_url}">
         <a class="playlist-list-item-link" href="${url}">
             <span class="playlist-list-duration">${hduration}</span>

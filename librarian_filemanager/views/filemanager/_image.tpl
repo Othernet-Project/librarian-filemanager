@@ -46,12 +46,21 @@
     % endif
 </%def>
 
+<%def name="sidebar_playlist_item_metadata(entry)">
+    ${self.sidebar_playlist_item_metadata_desc(entry)}
+    ${self.sidebar_playlist_item_metadata_author(entry)}
+    ${self.sidebar_playlist_image_dimensions(entry)}
+    ${self.sidebar_playlist_aspect_ratio(entry)}
+</%def>
+
+
 <%def name="sidebar_playlist_item(entry, selected_entry)">
     <%
         file = entry['file']
         current = entry == selected_entry
         file_path = entry['file_path']
         url = i18n_url('files:path', view=view, path=path, selected=file)
+        meta_url = i18n_url('files:path', view=view, path=path, info=file)
         direct_url = h.quoted_url('files:direct', path=file_path)
         thumb_url = h.quoted_url('files:direct', path=th.get_thumb_path(file_path))
         title = entry['title'] or titlify(entry['file'])
@@ -66,6 +75,7 @@
     data-direct-url="${direct_url}"
     data-url="${url}"
     data-img-width="${img_width}"
+    data-meta-url="${meta_url}"
     data-img-height="${img_height}">
     <a class="gallery-list-item-link" href="${url}">
         <img class="gallery-list-item-thumbnail" src="${thumb_url}" alt="${title}" title="${title}"/>

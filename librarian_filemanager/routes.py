@@ -30,9 +30,15 @@ from .helpers import (get_facets,
                       durify,
                       get_selected,
                       get_adjacent,
-                      find_root)
+                      find_root,
+                      aspectify)
 
 
+FACET_MAPPING = {
+    'video': 'clips',
+    'image': 'gallery',
+    'audio': 'playlist',
+}
 EXPORTS = {
     'routes': {'required_by': ['librarian_core.contrib.system.routes.routes']}
 }
@@ -86,14 +92,41 @@ def show_file_list(path=None, defaults=dict()):
 
 
 @roca_view('filemanager/main', 'filemanager/_main', template_func=template)
-def show_view(path, view, defaults=dict()):
+def show_list_view(path, view, defaults):
     selected = request.query.get('selected', None)
     if selected:
         selected = urlunquote(selected)
     data = defaults.copy()
-    data.update(dict(selected=selected, titlify=title_name, durify=durify,
-                     get_selected=get_selected, get_adjacent=get_adjacent))
+    data.update(dict(selected=selected))
     return data
+
+
+@roca_view('filemanager/info', 'filemanager/_info', template_func=template)
+def show_info_view(path, view, defaults):
+    return defaults
+
+
+def filter_facet_item(facets, view, item_path):
+    facet = facets[view][FACET_MAPPING[view]]
+    return filter(lambda x: x['file'] == item_path, facet)[0]
+
+
+def show_view(path, view, defaults):
+    meta = request.query.get('info')
+    # Add all helpers
+    defaults.update(dict(titlify=title_name, durify=durify,
+                         get_selected=get_selected, get_adjacent=get_adjacent,
+                         aspectify=aspectify))
+    if meta:
+        meta = urlunquote(meta)
+        try:
+            entry = filter_facet_item(defaults['facets'], view, meta)
+        except (KeyError, IndexError):
+            # There is no such facet or no such item in the facet
+            abort(404)
+        defaults.update(dict(entry=entry))
+        return show_info_view(path, view, defaults)
+    return show_list_view(path, view, defaults)
 
 
 def direct_file(path):
@@ -193,7 +226,7 @@ def init_file_action(path=None):
         path = urlunquote(path)
     else:
         path = '.'
-    # Use 'files' as default view
+    # Use 'generic' as default view
     view = request.query.get('view', 'generic')
     facets = get_facets(path)
     defaults = dict(path=path,

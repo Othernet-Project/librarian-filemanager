@@ -8,12 +8,6 @@
     currentItemSelector: '.' + currentItemClass,
   }
 
-  detailUnits = {
-    'title': '.playlist-item-title',
-    'author': '.playlist-item-author',
-    'description': '.playlist-item-description',
-  }
-
   mediaPlayer =
     initialize: (container, features, callbacks) ->
       @container = container
@@ -58,11 +52,8 @@
       return
 
     updateDetails: (item) ->
-      for unit, selector of detailUnits
-        value = item.data unit
-        if value
-          @details.find(selector).html(value)
-      return
+      metaUrl = item.data 'meta-url'
+      @details.load metaUrl
 
     next: () ->
       @playlist.next()

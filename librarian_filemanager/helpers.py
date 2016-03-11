@@ -1,5 +1,6 @@
-import functools
 import os
+import functools
+import fractions
 
 from bottle import request
 
@@ -48,6 +49,13 @@ def durify(seconds):
         return '{}h{:02d}'.format(int(hours), int(whole_mins))
     minutes, seconds = divmod(seconds, 60.0)
     return '{}:{:02d}'.format(int(minutes), int(seconds))
+
+
+def aspectify(w, h):
+    if min(w, h) == 0:
+        return '0'
+    aspect = fractions.Fraction(w, h).limit_denominator(10)
+    return '{}:{}'.format(aspect.numerator, aspect.denominator)
 
 
 def get_selected(collection, selected=None):

@@ -87,6 +87,14 @@ $playlist-sidebar-animation-speed: 0.5s;
     font-size: 90%;
     text-transform: uppercase;
   }
+
+  .value span {
+    vertical-align: middle;
+  }
+
+  .icon {
+    font-size: 150%;
+  }
 }
 
 .playlist-tabs {

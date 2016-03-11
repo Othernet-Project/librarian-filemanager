@@ -35,12 +35,21 @@
     %endif
 </%def>
 
+<%def name="sidebar_playlist_item_metadata(entry)">
+    ${self.sidebar_playlist_item_metadata_desc(entry)}
+    ${self.sidebar_playlist_item_metadata_author(entry)}
+    ${self.sidebar_playlist_item_metadata_duration(entry)}
+    ${self.sidebar_playlist_video_dimensions(entry)}
+    ${self.sidebar_playlist_aspect_ratio(entry)}
+</%def>
+
 <%def name="sidebar_playlist_item(entry, selected_entry)">
     <%
         file = entry['file']
         current = entry['file'] == selected_entry['file']
         file_path = entry['file_path']
         url = i18n_url('files:path', view=view, path=path, selected=file)
+        meta_url = i18n_url('files:path', view=view, path=path, info=file)
         direct_url = h.quoted_url('files:direct', path=file_path)
         title = entry['title'] or titlify(entry['file'])
         description = entry['description'] or _('No description')
@@ -59,6 +68,7 @@
     data-width="${width}"
     data-height="${height}"
     data-url="${url}"
+    data-meta-url="${meta_url}"
     data-direct-url="${direct_url}">
     <a class="playlist-list-item-link" href="${url}">
         <span class="playlist-list-duration">

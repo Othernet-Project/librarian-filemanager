@@ -1223,22 +1223,30 @@ div.mejs-speed-button {
   font-size: 90%;
   text-transform: uppercase;
 }
+/* line 91, ../../../src/scss/partials/_playlist.scss */
+.playlist-metadata .value span {
+  vertical-align: middle;
+}
+/* line 95, ../../../src/scss/partials/_playlist.scss */
+.playlist-metadata .icon {
+  font-size: 150%;
+}
 
-/* line 92, ../../../src/scss/partials/_playlist.scss */
+/* line 100, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs {
   position: absolute;
   top: 0.5rem;
   right: 1rem;
 }
-/* line 97, ../../../src/scss/partials/_playlist.scss */
+/* line 105, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs .label {
   display: none;
 }
-/* line 101, ../../../src/scss/partials/_playlist.scss */
+/* line 109, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs .icon {
   font-size: 150%;
 }
-/* line 105, ../../../src/scss/partials/_playlist.scss */
+/* line 113, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs a {
   display: inline-block;
   color: gray;
@@ -1248,20 +1256,20 @@ div.mejs-speed-button {
   -webkit-transition: color 0.3s;
   transition: color 0.3s;
 }
-/* line 112, ../../../src/scss/partials/_playlist.scss */
+/* line 120, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs a.active {
   color: #333;
 }
-/* line 116, ../../../src/scss/partials/_playlist.scss */
+/* line 124, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs a:hover, .playlist-tabs a:focus {
   color: #089bd2;
 }
 
-/* line 124, ../../../src/scss/partials/_playlist.scss */
+/* line 132, ../../../src/scss/partials/_playlist.scss */
 .with-tabs .playlist-section {
   display: none;
 }
-/* line 128, ../../../src/scss/partials/_playlist.scss */
+/* line 136, ../../../src/scss/partials/_playlist.scss */
 .with-tabs .playlist-section-open {
   display: block;
 }
@@ -1310,8 +1318,18 @@ div.mejs-speed-button {
     right: 10%;
   }
 }
+/* line 57, ../../../src/scss/partials/_main.scss */
+.views-main .note {
+  display: block;
+  background: rgba(255, 255, 255, 0.75);
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  font-size: 200%;
+  text-align: center;
+}
 
-/* line 58, ../../../src/scss/partials/_main.scss */
+/* line 68, ../../../src/scss/partials/_main.scss */
 .views-sidebar {
   position: absolute;
   top: 0;
@@ -1324,22 +1342,22 @@ div.mejs-speed-button {
   transition: right 0.5s;
 }
 @media only screen and (max-width: 740px) {
-  /* line 58, ../../../src/scss/partials/_main.scss */
+  /* line 68, ../../../src/scss/partials/_main.scss */
   .views-sidebar {
     width: 100%;
   }
 }
-/* line 71, ../../../src/scss/partials/_main.scss */
+/* line 81, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-sidebar {
   right: -252px;
 }
 @media only screen and (max-width: 740px) {
-  /* line 71, ../../../src/scss/partials/_main.scss */
+  /* line 81, ../../../src/scss/partials/_main.scss */
   .sidebar-hidden .views-sidebar {
     right: -90%;
   }
 }
-/* line 79, ../../../src/scss/partials/_main.scss */
+/* line 89, ../../../src/scss/partials/_main.scss */
 .views-sidebar .views-sidebar-content {
   position: absolute;
   overflow-x: hidden;
@@ -1349,22 +1367,22 @@ div.mejs-speed-button {
   right: 0;
   bottom: 0;
 }
-/* line 89, ../../../src/scss/partials/_main.scss */
+/* line 99, ../../../src/scss/partials/_main.scss */
 .views-sidebar.with-sidebar-handle .views-sidebar-content {
   top: 3rem;
 }
 
-/* line 94, ../../../src/scss/partials/_main.scss */
+/* line 104, ../../../src/scss/partials/_main.scss */
 .views-sidebar-retract {
   display: inline-block;
   color: gray;
   margin: 0.5rem 0.5rem 0;
 }
-/* line 99, ../../../src/scss/partials/_main.scss */
+/* line 109, ../../../src/scss/partials/_main.scss */
 .views-sidebar-retract:hover {
   color: #089bd2;
 }
-/* line 103, ../../../src/scss/partials/_main.scss */
+/* line 113, ../../../src/scss/partials/_main.scss */
 .views-sidebar-retract .icon {
   -moz-transition: -moz-transform 0.5s;
   -o-transition: -o-transform 0.5s;
@@ -1372,14 +1390,14 @@ div.mejs-speed-button {
   transition: transform 0.5s;
   font-size: 220%;
 }
-/* line 107, ../../../src/scss/partials/_main.scss */
+/* line 117, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-sidebar-retract .icon {
   -moz-transform: rotateY(180deg);
   -ms-transform: rotateY(180deg);
   -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
 }
-/* line 112, ../../../src/scss/partials/_main.scss */
+/* line 122, ../../../src/scss/partials/_main.scss */
 .views-sidebar-retract .label {
   text-transform: uppercase;
   -moz-transition: opacity 0.5s;
@@ -1387,12 +1405,12 @@ div.mejs-speed-button {
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
 }
-/* line 116, ../../../src/scss/partials/_main.scss */
+/* line 126, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-sidebar-retract .label {
   opacity: 0;
 }
 
-/* line 122, ../../../src/scss/partials/_main.scss */
+/* line 132, ../../../src/scss/partials/_main.scss */
 .views-sidebar-content {
   opacity: 1;
   -moz-transition: opacity 0.5s;
@@ -1400,19 +1418,19 @@ div.mejs-speed-button {
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
 }
-/* line 126, ../../../src/scss/partials/_main.scss */
+/* line 136, ../../../src/scss/partials/_main.scss */
 .sidebar-hidden .views-sidebar-content {
   opacity: 0.2;
 }
 
-/* line 131, ../../../src/scss/partials/_main.scss */
+/* line 141, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip {
   height: 2rem;
   overflow-y: hidden;
   overflow-x: auto;
   white-space: nowrap;
 }
-/* line 137, ../../../src/scss/partials/_main.scss */
+/* line 147, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-strip-tab {
   display: inline-block;
   padding: 0 1rem;
@@ -1431,30 +1449,30 @@ div.mejs-speed-button {
   -webkit-border-top-right-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
 }
-/* line 157, ../../../src/scss/partials/_main.scss */
+/* line 167, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-strip-tab .icon {
   font-size: 130%;
 }
 @media only screen and (max-width: 840px) {
-  /* line 162, ../../../src/scss/partials/_main.scss */
+  /* line 172, ../../../src/scss/partials/_main.scss */
   .views-tabs-strip .views-tabs-strip-tab .label {
     display: none;
   }
 }
-/* line 168, ../../../src/scss/partials/_main.scss */
+/* line 178, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-tab-current {
   background: rgba(255, 255, 255, 0.75);
 }
-/* line 172, ../../../src/scss/partials/_main.scss */
+/* line 182, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-special {
   background: #089bd2;
   color: #fff;
 }
-/* line 176, ../../../src/scss/partials/_main.scss */
+/* line 186, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-special .icon {
   font-size: 150%;
 }
-/* line 180, ../../../src/scss/partials/_main.scss */
+/* line 190, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-special .label {
   display: none;
 }
@@ -2221,11 +2239,11 @@ div.mejs-speed-button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* line 177, ../../../src/scss/partials/_icons.scss */
+/* line 179, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-play button ~ * {
   vertical-align: middle;
 }
-/* line 184, ../../../src/scss/partials/_icons.scss */
+/* line 186, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-play button:before {
   content: "";
 }
@@ -2243,11 +2261,11 @@ div.mejs-speed-button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* line 177, ../../../src/scss/partials/_icons.scss */
+/* line 179, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-pause button ~ * {
   vertical-align: middle;
 }
-/* line 184, ../../../src/scss/partials/_icons.scss */
+/* line 186, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-pause button:before {
   content: "";
 }
@@ -2265,11 +2283,11 @@ div.mejs-speed-button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* line 177, ../../../src/scss/partials/_icons.scss */
+/* line 179, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-fullscreen-button button ~ * {
   vertical-align: middle;
 }
-/* line 184, ../../../src/scss/partials/_icons.scss */
+/* line 186, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-fullscreen-button button:before {
   content: "";
 }
@@ -2287,11 +2305,11 @@ div.mejs-speed-button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* line 177, ../../../src/scss/partials/_icons.scss */
+/* line 179, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-volume-button button ~ * {
   vertical-align: middle;
 }
-/* line 184, ../../../src/scss/partials/_icons.scss */
+/* line 186, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-volume-button button:before {
   content: "";
 }
@@ -2330,11 +2348,11 @@ div.mejs-speed-button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* line 177, ../../../src/scss/partials/_icons.scss */
+/* line 179, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-unmute button ~ * {
   vertical-align: middle;
 }
-/* line 184, ../../../src/scss/partials/_icons.scss */
+/* line 186, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-unmute button:before {
   content: "";
 }
