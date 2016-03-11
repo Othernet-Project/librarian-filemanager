@@ -42,8 +42,11 @@ def title_name(path):
 
 def durify(seconds):
     hours, seconds = divmod(seconds, 3600.0)
+    if hours:
+        whole_mins = round(seconds / 60.0)
+        return '{}h{:02d}'.format(int(hours), int(whole_mins))
     minutes, seconds = divmod(seconds, 60.0)
-    return '{}:{:02d}:{:02d}'.format(int(hours), int(minutes), int(seconds))
+    return '{}:{:02d}'.format(int(minutes), int(seconds))
 
 
 def get_selected(collection, selected=None):
