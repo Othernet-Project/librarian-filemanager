@@ -1,0 +1,10 @@
+@import "compass/css3";
+@import "base/params";
+@import "base/media_query";
+@import "compass/typography/text/replacement";
+
+@mixin ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

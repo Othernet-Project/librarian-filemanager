@@ -1,7 +1,7 @@
 <%inherit file="/base.tpl"/>
 <%namespace name="ui" file="/ui/widgets.tpl"/>
 <%namespace name="forms" file="/ui/forms.tpl"/>
-<%namespace name="list" file="_list.tpl"/>
+<%namespace name="main_view" file="_main.tpl"/>
 
 <%block name="title">
 ## Translators, used as page title
@@ -35,8 +35,8 @@ ${_('Files')}
 </%block>
 
 <%block name="main">
-    <div class="o-main-inner" id="file-list-container">
-        ${list.body()}
+    <div class="o-main-inner" id="main-container">
+        ${main_view.body()}
     </div>
 </%block>
 

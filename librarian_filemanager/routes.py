@@ -25,6 +25,12 @@ from librarian_core.contrib.templates.decorators import template_helper
 from librarian_core.contrib.templates.renderer import template, view
 
 from .manager import Manager
+from .helpers import (get_facets,
+                      title_name,
+                      durify,
+                      get_selected,
+                      get_adjacent,
+                      find_root)
 
 
 EXPORTS = {
@@ -47,8 +53,8 @@ def go_to_parent(path):
     redirect(get_parent_url(path))
 
 
-@roca_view('filemanager/list', 'filemanager/_list', template_func=template)
-def show_file_list(path=None):
+@roca_view('filemanager/main', 'filemanager/_main', template_func=template)
+def show_file_list(path=None, defaults=dict()):
     try:
         query = urlunquote(request.params['p'])
     except KeyError:
@@ -61,26 +67,44 @@ def show_file_list(path=None):
     if is_search:
         (dirs, files, meta, is_match) = manager.search(query)
         relpath = '.' if not is_match else query
+        is_search = not is_match
         is_successful = True  # search is always successful
     else:
         (is_successful, dirs, files, meta) = manager.list(query)
         relpath = '.' if not is_successful else query
 
     up = get_parent_path(query)
-    return dict(path=relpath,
-                dirs=dirs,
-                files=files,
-                up=up,
-                is_search=is_search,
-                is_successful=is_successful,
-                openers=request.app.supervisor.exts.openers)
+    data = defaults.copy()
+    data.update(dict(path=relpath,
+                     dirs=dirs,
+                     files=files,
+                     up=up,
+                     is_search=is_search,
+                     is_successful=is_successful,
+                     openers=request.app.supervisor.exts.openers))
+    return data
+
+
+@roca_view('filemanager/main', 'filemanager/_main', template_func=template)
+def show_view(path, view, defaults=dict()):
+    selected = request.query.get('selected', None)
+    if selected:
+        selected = urlunquote(selected)
+    data = defaults.copy()
+    data.update(dict(selected=selected, titlify=title_name, durify=durify,
+                     get_selected=get_selected, get_adjacent=get_adjacent))
+    return data
 
 
 def direct_file(path):
     path = urlunquote(path)
-    return static_file(path,
-                       root=request.app.config['library.contentdir'],
-                       download=request.params.get('filename', False))
+    try:
+        root = find_root(path)
+    except RuntimeError:
+        abort(404, _("File not found."))
+
+    download = request.params.get('filename', False)
+    return static_file(path, root=root, download=download)
 
 
 def guard_already_removed(func):
@@ -164,15 +188,34 @@ def run_path(path):
     return ret, out, err
 
 
-def init_file_action(path):
-    path = urlunquote(path)
+def init_file_action(path=None):
+    if path:
+        path = urlunquote(path)
+    else:
+        path = '.'
+    # Use 'files' as default view
+    view = request.query.get('view', 'generic')
+    facets = get_facets(path)
+    defaults = dict(path=path,
+                    view=view,
+                    facets=facets)
+    if view == 'generic':
+        return show_files_view(path, defaults)
+    else:
+        is_successful = facets is not None
+        up = get_parent_path(path)
+        defaults.update(up=up, is_successful=is_successful)
+        return show_view(path, view, defaults)
+
+
+def show_files_view(path, defaults):
     action = request.query.get('action')
     if action == 'delete':
         return delete_path_confirm(path)
     elif action == 'open':
         return opener_detail(request.query.get('opener_id'), path=path)
 
-    return show_file_list(path)
+    return show_file_list(path, defaults=defaults)
 
 
 def handle_file_action(path):
@@ -258,7 +301,7 @@ def opener_detail(opener_id, path=None):
 
 def routes(config):
     return (
-        ('files:list', show_file_list,
+        ('files:list', init_file_action,
          'GET', '/files/', dict(unlocked=True)),
         ('files:path', init_file_action,
          'GET', '/files/<path:path>', dict(unlocked=True)),

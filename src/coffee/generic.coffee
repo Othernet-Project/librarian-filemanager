@@ -5,21 +5,10 @@
   DOWN = 40
   openerLinkSelector = '.opener-link'
   searchInput = $ '#files-multisearch #p'
-  fileList = $ '#file-list'
-  container = $ '#file-list-container'
   body = $ document.body
   mainPanel = $ "##{window.o.pageVars.mainPanelId}"
   modalDialogTemplate = window.templates.modalDialogCancelOnly
   spinnerIcon = window.templates.spinnerIcon
-
-  loadContent = (url) ->
-    res = $.get url
-    res.done (data) ->
-      container.html(data)
-      container.find('a').first().focus()
-    res.fail () ->
-      alert templates.alertLoadError
-    return res
 
   setPath = (path) ->
     if path is '.'
@@ -86,12 +75,7 @@
         icon.show()
         spinner.remove()
 
-      return
-
     return
 
-  $(window).on 'popstate', (e) ->
-    loadContent window.location
-
-
+  return
 ) this, this.jQuery, this.templates

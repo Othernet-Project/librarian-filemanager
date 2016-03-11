@@ -23,50 +23,26 @@
 </%def>
 
 <%def name="file_delete(path)">
-    <form action="${i18n_url('files:path', path=path)}" class="file-list-delete">
+    <form action="${i18n_url('files:path', path=path)}" class="file-list-delete file-list-control">
         <input type="hidden" name="action" value="delete">
         <button class="nobutton" type="submit">
-            <span class="icon icon-no"></span>
+            <span class="icon icon-no-outline"></span>
             ## Translators, used as label for folder/file delete button
             <span class="label">${_('Delete')}</span>
         </button>
     </form>
 </%def>
 
+<%def name="file_download(path)">
+    <a href="${url('files:direct', path=h.urlquote(path))}" class="file-list-control">
+        <span class="icon icon-download-outline"></span>
+        <span class="label">${_('Download')}</span>
+    </a>
+</%def>
+
 <% is_super = request.user.is_superuser %>
 
 <ul class="file-list" id="file-list" role="grid" aria-multiselectable="true">
-    ## The first item is:
-    ##
-    ## - Blank if current path is top-level and there is no search query
-    ## - Link to complete file list if there is search query
-    ## - Link to complete file list if invalid path is requested
-    ## - Link to parent directory if no search query and not at top-level
-
-    % if is_search or not is_successful:
-        <li class="file-list-top file-list-item file-list-special">
-        <a href="${i18n_url('files:path', path='')}" class="file-list-link" data-type="directory" data-relpath="">
-            ${self.file_list_icon('folder-left')}
-            <%self:file_list_name>
-                ## Translators, label for a link that takes the user to
-                ## main file/folder list from search results.
-                ${_('Go to complete file list')}
-            </%self:file_list_name>
-        </a>
-        </li>
-    % elif path != '.':
-        <li class="file-list-top file-list-item file-list-special">
-        <% uppath = '' if up == '.' else up + '/'%>
-        <a href="${i18n_url('files:path', path=up)}" class="file-list-link" data-type="directory" data-relpath="${up}">
-            ${self.file_list_icon('folder-up')}
-            <%self:file_list_name>
-                ## Translators, label for a link that takes the user up
-                ## one level in folder hierarchy.
-                ${_('Go up one level')}
-            </%self:file_list_name>
-        </a>
-        </li>
-    % endif
 
     ## *** FOLDER LISTING ***
 
@@ -196,6 +172,7 @@
                 </a>
             % else:
                 <span class="file-list-controls">
+                    ${self.file_download(f.rel_path)}
                     % if is_super:
                         ${self.file_delete(f.rel_path)}
                     % endif

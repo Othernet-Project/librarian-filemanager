@@ -1,23 +1,6 @@
-@import "compass/css3";
-@import "base/params";
-@import "base/media_query";
-@import "compass/typography/text/replacement";
-
-@mixin ellipsis {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-#file-list-container {
-  @include narrower-than(520px) {
-    padding: 0;
-  }
-}
+@import "base";
 
 .file-list {
-  @include box-shadow($o-thin-overlay-shadow);
-
   .file-list-item {
     // Styling
     background: $o-thin-overlay-material;
@@ -34,7 +17,6 @@
     }
 
     &:first-child {
-      @include border-top-left-radius($o-clickable-target-corner-radius);
       @include border-top-right-radius($o-clickable-target-corner-radius);
     }
 
@@ -63,7 +45,7 @@
       }
     }
 
-    a {
+    a.file-list-link {
       // Typography
       font-size: 120%;
       text-decoration: none;
@@ -143,23 +125,48 @@
   top: 0;
   bottom: 0;
   padding: 0.7rem 0.4rem;
+  white-space: nowrap;
+  display: inline-block;
+
+  &:after {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 100%;
+    vertical-align: middle;
+  }
+
+  .file-list-control {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .label {
+    display: none;
+  }
+
+  .icon {
+    font-size: 200%;
+  }
+
+  a {
+    color: lighten($o-base-text-color, 40);
+    @include transition(color 0.5s);
+
+    &:hover,
+    &:focus {
+      color: $o-accent;
+    }
+  }
 
   .file-list-delete {
     button {
-      color: $o-base-text-color;
+      color: lighten($o-base-text-color, 40);
 
       &:hover,
       &:focus {
         color: $o-critical;
       }
-    }
-
-    .icon {
-      font-size: 200%;
-    }
-
-    .label {
-      display: none;
     }
   }
 }
