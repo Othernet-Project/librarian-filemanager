@@ -16,7 +16,7 @@ import subprocess
 from bottle import request, abort, static_file, redirect
 from bottle_utils.ajax import roca_view
 from bottle_utils.csrf import csrf_protect, csrf_token
-from bottle_utils.html import urlunquote
+from bottle_utils.html import urlunquote, quoted_url
 from bottle_utils.i18n import lazy_gettext as _, i18n_url
 
 from librarian_content.library import metadata
@@ -344,7 +344,7 @@ def retrieve_thumb_url(path, defaults):
     thumb_url = None
     thumb_path = get_thumb_path(urlunquote(request.query.get('target')))
     if thumb_path:
-        thumb_url = request.app.get_url('files:direct', path=thumb_path)
+        thumb_url = quoted_url('files:direct', path=thumb_path)
     else:
         facet_type = request.query.get('facet', 'generic')
         try:
@@ -355,8 +355,8 @@ def retrieve_thumb_url(path, defaults):
             cover = facet.get('cover')
             if cover:
                 cover_path = os.path.join(facet['path'], cover)
-                thumb_url = request.app.get_url('files:direct',
-                                                path=cover_path)
+                thumb_url = quoted_url('files:direct',
+                                       path=cover_path)
 
     return dict(url=thumb_url)
 
