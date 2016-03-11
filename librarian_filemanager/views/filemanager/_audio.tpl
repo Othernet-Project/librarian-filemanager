@@ -95,11 +95,8 @@
         data-url="${url}"
         data-meta-url="${meta_url}"
         data-direct-url="${direct_url}"
-<<<<<<< HEAD
-        data-get-thumb-url="${get_thumb_url}">
-=======
+        data-get-thumb-url="${get_thumb_url}"
         data-file-size="${size}">
->>>>>>> feature/folder-facets
         <a class="playlist-list-item-link" href="${url}">
             <span class="playlist-list-duration">${hduration}</span>
             <span class="playlist-list-title">${title | h} - ${author | h}</span>
