@@ -1,7 +1,6 @@
 ((window, $, templates) ->
   'use strict'
 
-
   playNext = (e) ->
     player = e.data
     next = ($ '.playlist-list-item-current').next '.playlist-list-item'
