@@ -25,7 +25,7 @@
     controls = $ '#video-controls'
     if not controls.length
       return
-    videoPlayer.initialize $('#views-container')
+    videoPlayer.initialize $('#main-container')
     return
 
   prepareVideo()

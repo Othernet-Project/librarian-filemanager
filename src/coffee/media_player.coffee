@@ -1,7 +1,6 @@
 ((window, $, templates) ->
   'use strict'
 
-  audioData = JSON.parse($("#audioData").html())
   currentItemClass = 'playlist-list-item-current'
   coverClass = 'audio-controls-cover'
   customCoverClass = 'audio-controls-custom-cover'
@@ -48,20 +47,8 @@
         window.changeLocation nextUrl
       return
 
-    updateCover: (url, defaultUrl) ->
-      res = $.get url
-      res.done (data) ->
-        cover = $ selectors.coverSelector
-        if data.url
-          cover.attr 'src', data.url
-          cover.addClass selectors.customCoverClass
-        else
-          cover.attr 'src', defaultUrl
-          cover.removeClass selectors.customCoverClass
-
     updatePlayer: (item, autoPlay) ->
       mediaUrl = item.data('direct-url')
-      @updateCover item.data('get-thumb-url'), audioData.defaultThumbUrl
       wasPlaying = not @player.paused
       if wasPlaying
         @player.pause()

@@ -7,7 +7,7 @@
   };
   Playlist = function(container, options) {
     var current;
-    this.options = $.extend({}.defaults, options);
+    this.options = $.extend({}, defaultOptions, options);
     this.items = container.find(this.options.itemSelector);
     this.items.on('click', 'a', this.onSelect.bind(this));
     current = container.find(this.options.currentItemSelector).first();

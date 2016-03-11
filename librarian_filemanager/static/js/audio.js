@@ -18,6 +18,7 @@
     features = {
       toggleSidebarOnSelect: false
     };
+    this.audioData = JSON.parse($("#audioData").html());
     this["super"].initialize.call(this, container, features);
   };
   musicPlayer.readyPlayer = function() {
@@ -32,13 +33,33 @@
       })(this)
     });
   };
+  musicPlayer.updatePlayer = function(item, autoPlay) {
+    this["super"].updatePlayer.call(this, item, autoPlay);
+    this.updateCover(item.data('get-thumb-url'), this.audioData.defaultThumbUrl);
+  };
+  musicPlayer.updateCover = function(url, defaultUrl) {
+    var options, res;
+    options = this.options;
+    res = $.get(url);
+    res.done(function(data) {
+      var cover;
+      cover = $(options.overSelector);
+      if (data.url) {
+        cover.attr('src', data.url);
+        cover.addClass(options.customCoverClass);
+      } else {
+        cover.attr('src', defaultUrl);
+        cover.removeClass(options.customCoverClass);
+      }
+    });
+  };
   prepareAudio = function() {
     var controls;
     controls = $('#audio-controls');
     if (!controls.length) {
       return;
     }
-    musicPlayer.initialize($("#views-container"));
+    musicPlayer.initialize($("#main-container"));
     ($(musicPlayer.player)).on('ended', musicPlayer, playNext);
     ($('#audio-controls-albumart')).on('click', function(e) {
       e.preventDefault();

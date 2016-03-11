@@ -42,13 +42,11 @@
             </div>
             ${audio_control(audio_url)}
         </div>
-        ${audio_control(audio_url)}
-    </div>
-    <script type="application/json" id="audioData">
-      {
-        "defaultThumbUrl": "${assets.url + 'img/albumart-placeholder.png'}"
-      }
-    </script>
+        <script type="application/json" id="audioData">
+          {
+            "defaultThumbUrl": "${assets.url + 'img/albumart-placeholder.png'}"
+          }
+        </script>
     % endif
 </%def>
 
