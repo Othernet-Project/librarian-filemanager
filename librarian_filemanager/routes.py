@@ -230,13 +230,16 @@ def init_file_action(path=None):
     # Use 'generic' as default view
     view = request.query.get('view', 'generic')
     facets = get_facets(path)
-    enrich_facets(facets)
     defaults = dict(path=path,
                     view=view,
                     facets=facets)
     if view == 'generic':
         return show_files_view(path, defaults)
     else:
+        fsal = request.app.supervisor.exts.fsal
+        success, ignored, files = fsal.list_dir(path)
+        files = files if success else []
+        enrich_facets(facets, files=files)
         is_successful = facets is not None
         up = get_parent_path(path)
         defaults.update(up=up, is_successful=is_successful)
