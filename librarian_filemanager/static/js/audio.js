@@ -43,7 +43,7 @@
     res = $.get(url);
     res.done(function(data) {
       var cover;
-      cover = $(options.overSelector);
+      cover = $(options.coverSelector);
       if (data.url) {
         cover.attr('src', data.url);
         cover.addClass(options.customCoverClass);
