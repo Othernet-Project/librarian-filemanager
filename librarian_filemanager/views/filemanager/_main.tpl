@@ -2,7 +2,9 @@
 
 <%!
 # Mappings between facets and view urls
+
 _ = lambda x: x
+
 FACET_VIEW_MAPPINGS = (
     ('generic', _('Browse')),
     ('image', _('Gallery')),
@@ -19,10 +21,15 @@ FACET_ICON_MAPPING = {
     'html': 'read',
 }
 
+
+def get_default_views():
+    yield FACET_VIEW_MAPPINGS[0]
+
+
 def get_views(facets):
     if not facets:
-        default = FACET_VIEW_MAPPINGS[0]
-        yield (default[0], default[1])
+        for view in get_default_views():
+            yield view
         return
     for name, label in FACET_VIEW_MAPPINGS:
         if facets.has_type(name):
@@ -57,17 +64,18 @@ def get_views(facets):
                 <span class="label">${_('Go up one level')}</span>
             </a>
         % endif
-    % for name, label in get_views(facets):
-        <%
-        view_url = i18n_url('files:path', path=path, view=name)
-        current = name == view
-        icon = FACET_ICON_MAPPING[name]
-        %>
-        <a class="views-tabs-strip-tab ${'views-tabs-tab-current' if current else ''}" href="${view_url}" role="tab">
-            <span class="icon icon-${icon}"></span>
-            <span class="views-tabs-tab-label label">${_(label)}</span>
-        </a>
-    % endfor
+        <% views = get_default_views() if is_search else get_views(facets) %>
+        % for name, label in views:
+            <%
+            view_url = i18n_url('files:path', path=path, view=name)
+            current = name == view
+            icon = FACET_ICON_MAPPING[name]
+            %>
+            <a class="views-tabs-strip-tab ${'views-tabs-tab-current' if current else ''}" href="${view_url}" role="tab">
+                <span class="icon icon-${icon}"></span>
+                <span class="views-tabs-tab-label label">${_(label)}</span>
+            </a>
+        % endfor
     </nav>
 </div>
 <div class="views-container${' with-sidebar' if view_has_sidebar else ''}" id="views-container">
