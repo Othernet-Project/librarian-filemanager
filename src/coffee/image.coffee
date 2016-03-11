@@ -49,8 +49,7 @@
     initialize: (@container) ->
       @currentImage = @container.find(
         '.gallery-current-image img').first()
-      @currentImageLabel = @container.find(
-        '#playlist-metadata .playlist-item-title').first()
+      @imageMetadata = $ '#playlist-metadata'
       @prevHandle = $ '#gallery-control-previous'
       @nextHandle = $ '#gallery-control-next'
       @imageFrame = @currentImage.parent()
@@ -138,8 +137,9 @@
       return
 
     onSetCurrent: (current, previous) ->
-      title = current.data('title')
-      imageUrl = current.data('direct-url')
+      title = current.data 'title'
+      imageUrl = current.data 'direct-url'
+      metaUrl = current.data 'meta-url'
       @currentImage.removeClass 'zoomed'
       @currentImage.attr {
         'src': imageUrl
@@ -148,7 +148,7 @@
       }
       @currentImage.on 'load', () =>
         @makeZoomable()
-      @currentImageLabel.html(title)
+      @imageMetadata.load metaUrl
       previousUrl = previous.data('url')
       nextUrl = current.data('url')
       if previousUrl != nextUrl

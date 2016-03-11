@@ -47,7 +47,7 @@
       var currentItemClass, options;
       this.container = container;
       this.currentImage = this.container.find('.gallery-current-image img').first();
-      this.currentImageLabel = this.container.find('#playlist-metadata .playlist-item-title').first();
+      this.imageMetadata = $('#playlist-metadata');
       this.prevHandle = $('#gallery-control-previous');
       this.nextHandle = $('#gallery-control-next');
       this.imageFrame = this.currentImage.parent();
@@ -139,9 +139,10 @@
       this.currentImage.toggleClass('zoomable', isBig);
     },
     onSetCurrent: function(current, previous) {
-      var imageUrl, nextUrl, previousUrl, title;
+      var imageUrl, metaUrl, nextUrl, previousUrl, title;
       title = current.data('title');
       imageUrl = current.data('direct-url');
+      metaUrl = current.data('meta-url');
       this.currentImage.removeClass('zoomed');
       this.currentImage.attr({
         'src': imageUrl,
@@ -153,7 +154,7 @@
           return _this.makeZoomable();
         };
       })(this));
-      this.currentImageLabel.html(title);
+      this.imageMetadata.load(metaUrl);
       previousUrl = previous.data('url');
       nextUrl = current.data('url');
       if (previousUrl !== nextUrl) {
