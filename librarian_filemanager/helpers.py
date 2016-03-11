@@ -1,6 +1,7 @@
 import os
 import functools
 import fractions
+from itertools import ifilter
 
 from bottle import request
 
@@ -8,20 +9,26 @@ from librarian_content.library.facets.processors import FacetProcessorBase
 from librarian_core.contrib.templates.decorators import template_helper
 
 
-def enrich_facets(facets):
-    pathify(facets)
+def enrich_facets(facets, files):
+    add_info(facets, files)
 
 
-def pathify(data):
+def get_file(files, path):
+    return next(ifilter(lambda f: f.rel_path == path, files), None)
+
+
+def add_info(data, files):
     if hasattr(data, 'items'):
         if 'path' in data and 'file' in data:
             data['file_path'] = os.path.join(data['path'], data['file'])
+            f = get_file(files, data['file_path'])
+            data['size'] = f.size if f else 0
         else:
             for _, value in data.items():
-                pathify(value)
+                add_info(value, files)
     elif isinstance(data, list):
         for item in data:
-            pathify(item)
+            add_info(item, files)
 
 
 def title_name(path):
@@ -118,4 +125,3 @@ def get_thumb_path(srcpath, default=None):
             return srcpath
 
         return proc_cls.create_thumb(**kwargs)
-

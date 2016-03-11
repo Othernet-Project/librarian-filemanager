@@ -14,13 +14,27 @@
     </p>
 </%def>
 
-<%def name="sidebar_playlist_item_metadata_duration(entry)">
-    <p class="playlist-item-duration">
-        ## Translators, used as label for audio/video duration in playlist's
-        ## info panel.
-        <span class="label">${_('Duration:')}</span>
-        <span class="value">${durify(entry.get('duration', 0))}</span>
+<%def name="sidebar_playlist_meta_line(name, label, value)">
+    <p class="playlist-item-${name}">
+        <span class="label">${label}</span>
+        <span class="value">${value | h}</span>
     </p>
+</%def>
+
+<%def name="sidebar_playlist_item_metadata_genre(entry)">
+    ## Translators, shown for audio files
+    ${self.sidebar_playlist_meta_line('genre', _('Genre:'), entry.get('genre') or _('Unknown genre'))}
+</%def>
+
+<%def name="sidebar_playlist_item_metadata_album(entry)">
+    ## Translators, shown for audio files
+    ${self.sidebar_playlist_meta_line('album', _('Album:'), entry.get('album') or _('Unknown album'))}
+</%def>
+
+<%def name="sidebar_playlist_item_metadata_duration(entry)">
+    ## Translators, used as label for audio/video duration in playlist's info
+    ## panel.
+    ${self.sidebar_playlist_meta_line('duration', _('Duration:'), durify(entry.get('duration', 0)))}
 </%def>
 
 <%def name="sidebar_playlist_video_dimensions(entry)">
@@ -31,9 +45,10 @@
         height = entry.get('height', 0)
         is_hd = min(width, height) >= 720
     %>
+
+    ## Translators, used as label for video dimensions in playlist's info
+    ## panel.
     <p class="playlist-item-dimensions">
-        ## Translators, used as label for video dimensions in playlist's info 
-        ## panel.
         <span class="label">${_('Dimensions:')}</span>
         <span class="value">
             <span>${width} &times; ${height}</span>
@@ -46,7 +61,7 @@
     <%
         width = entry.get('width', 0)
         height = entry.get('height', 0)
-        mpx = round(width * height / 1000000, 1)
+        mpx = round(width * height / 1000000.0, 1)
     %>
     <p class="playlist-item-dimensions">
         ## Translators, used as label for image dimensions in playlist's info 
@@ -59,14 +74,9 @@
 </%def>
 
 <%def name="sidebar_playlist_aspect_ratio(entry)">
-    <p class="playlist-item-aspect">
-        ## Translators, used as label for image/video aspect ratio (e.g., 4:3, 
-        ## 16:9) in playlist's info panel.
-        <span class="label">${_('Aspect ratio:')}</span>
-        <span class="value">
-            ${aspectify(entry.get('width', 0), entry.get('height', 0))}
-        </span>
-    </p>
+    ## Translators, used as label for image/video aspect ratio (e.g., 4:3,
+    ## 16:9) in playlist's info panel.
+    ${self.sidebar_playlist_meta_line('aspect', _('Aspect ratio:'), aspectify(entry.get('width', 0), entry.get('height', 0)))}
 </%def>
 
 <%def name="sidebar_playlist_item_metadata(entry)">

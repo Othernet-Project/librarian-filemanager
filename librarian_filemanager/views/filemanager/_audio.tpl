@@ -12,32 +12,35 @@
     </div>
 </%def>
 
-% if not facets or not facets.has_type('audio'):
-    <span class="note">${_('No music files to be played.')}</span>
-% else:
-    <%
-    audio_facet = facets['audio']
-    entries = audio_facet['playlist']
-    selected_entry = get_selected(entries, selected)
-    cover = audio_facet.get('cover')
-    cover_path = th.join(audio_facet['path'], cover) if cover else None
-    thumb_path = th.get_thumb_path(selected_entry['file_path'], default=cover_path)
-    if thumb_path:
-        cover_url = h.quoted_url('files:direct', path=thumb_path)
-        custom_cover = True
-    else:
-        cover_url = assets.url + 'img/albumart-placeholder.png'
-        custom_cover = False
+<%def name="view_main()">
+    % if not facets or not facets.has_type('audio'):
+        <span class="note">${_('No music files to be played.')}</span>
+    % else:
+        <%
+        audio_facet = facets['audio']
+        entries = audio_facet['playlist']
+        selected_entry = get_selected(entries, selected)
+        cover = audio_facet.get('cover')
+        cover_path = th.join(audio_facet['path'], cover) if cover else None
+        thumb_path = th.get_thumb_path(selected_entry['file_path'], default=cover_path)
+        if thumb_path:
+            cover_url = h.quoted_url('files:direct', path=thumb_path)
+            custom_cover = True
+        else:
+            cover_url = assets.url + 'img/albumart-placeholder.png'
+            custom_cover = False
 
-    audio_url = h.quoted_url('files:direct', path=selected_entry['file_path'])
-    %>
-    <div class="audio-controls" id="audio-controls">
-        <div class="audio-controls-albumart" id="audio-controls-albumart">
-            <img src="${cover_url}" class="audio-controls-cover${' audio-controls-custom-cover' if custom_cover else ''}">
-            <div class="audio-controls-title" id="audio-controls-title">
-                <h2>${selected_entry.get('title', _('Unknown title'))}</h2>
-                <p>${selected_entry.get('author') or _('Unknown author')}</p>
+        audio_url = h.quoted_url('files:direct', path=selected_entry['file_path'])
+        %>
+        <div class="audio-controls" id="audio-controls">
+            <div class="audio-controls-albumart" id="audio-controls-albumart">
+                <img src="${cover_url}" class="audio-controls-cover${' audio-controls-custom-cover' if custom_cover else ''}">
+                <div class="audio-controls-title" id="audio-controls-title">
+                    <h2>${selected_entry.get('title', _('Unknown title'))}</h2>
+                    <p>${selected_entry.get('author') or _('Unknown author')}</p>
+                </div>
             </div>
+            ${audio_control(audio_url)}
         </div>
         ${audio_control(audio_url)}
     </div>
@@ -46,7 +49,8 @@
         "defaultThumbUrl": "${assets.url + 'img/albumart-placeholder.png'}"
       }
     </script>
-% endif
+    % endif
+</%def>
 
 <%def name="sidebar()">
     % if facets and facets.has_type('audio'):
@@ -61,6 +65,8 @@
 <%def name="sidebar_playlist_item_metadata(entry)">
     ${self.sidebar_playlist_item_metadata_desc(entry)}
     ${self.sidebar_playlist_item_metadata_author(entry)}
+    ${self.sidebar_playlist_item_metadata_album(entry)}
+    ${self.sidebar_playlist_item_metadata_genre(entry)}
     ${self.sidebar_playlist_item_metadata_duration(entry)}
 </%def>
 
@@ -77,6 +83,7 @@
     author = entry.get('author') or _('Unknown Artist')
     duration = entry.get('duration', 0)
     hduration = durify(duration)
+    size = entry.get('size', 0)
     %>
     <li
         class="playlist-list-item ${'playlist-list-item-current' if current else ''}"
@@ -88,10 +95,16 @@
         data-url="${url}"
         data-meta-url="${meta_url}"
         data-direct-url="${direct_url}"
+<<<<<<< HEAD
         data-get-thumb-url="${get_thumb_url}">
+=======
+        data-file-size="${size}">
+>>>>>>> feature/folder-facets
         <a class="playlist-list-item-link" href="${url}">
             <span class="playlist-list-duration">${hduration}</span>
             <span class="playlist-list-title">${title | h} - ${author | h}</span>
         </a>
     </li>
 </%def>
+
+${self.view_main()}
