@@ -53,6 +53,16 @@ $views-tab-cutoff: 840px;
       right: 10%;
     }
   }
+
+  .note {
+    display: block;
+    background: $o-thin-overlay-material;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    font-size: 200%;
+    text-align: center;
+  }
 }
 
 .views-sidebar {
