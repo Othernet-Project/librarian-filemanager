@@ -58,12 +58,8 @@
 <%def name="sidebar_playlist_item_metadata(entry)">
     ${self.sidebar_playlist_item_metadata_desc(entry)}
     ${self.sidebar_playlist_item_metadata_author(entry)}
-    % if entry['album']:
-        ${self.sidebar_playlist_item_metadata_album(entry)}
-    % endif
-    % if entry['genre']:
-        ${self.sidebar_playlist_item_metadata_genre(entry)}
-    % endif
+    ${self.sidebar_playlist_item_metadata_album(entry)}
+    ${self.sidebar_playlist_item_metadata_genre(entry)}
     ${self.sidebar_playlist_item_metadata_duration(entry)}
 </%def>
 

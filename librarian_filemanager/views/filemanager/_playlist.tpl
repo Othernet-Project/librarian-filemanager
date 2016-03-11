@@ -23,12 +23,12 @@
 
 <%def name="sidebar_playlist_item_metadata_genre(entry)">
     ## Translators, shown for audio files
-    ${self.sidebar_playlist_meta_line('genre', _('Genre:'), entry['genre'])}
+    ${self.sidebar_playlist_meta_line('genre', _('Genre:'), entry.get('genre') or _('Unknown genre'))}
 </%def>
 
 <%def name="sidebar_playlist_item_metadata_album(entry)">
     ## Translators, shown for audio files
-    ${self.sidebar_playlist_meta_line('album', _('Album:'), entry['album'])}
+    ${self.sidebar_playlist_meta_line('album', _('Album:'), entry.get('album') or _('Unknown album'))}
 </%def>
 
 <%def name="sidebar_playlist_item_metadata_duration(entry)">
