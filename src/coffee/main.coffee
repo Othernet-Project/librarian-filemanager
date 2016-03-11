@@ -8,6 +8,11 @@
     sidebar = $ '#views-sidebar'
     sidebar.addClass 'with-sidebar-handle'
     sidebar.prepend templates.sidebarRetract
+    winWidth = ($ window).outerWidth()
+    if winWidth < 740
+      setTimeout () ->
+        ($ '#views-container').addClass 'sidebar-hidden'
+      , 2000
 
   toggleSidebar = () ->
     ($ '#views-container').toggleClass 'sidebar-hidden'
