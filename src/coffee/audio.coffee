@@ -1,7 +1,6 @@
 ((window, $, templates) ->
   'use strict'
 
-
   playNext = (e) ->
     player = e.data
     next = ($ '.playlist-list-item-current').next '.playlist-list-item'
@@ -16,6 +15,7 @@
     features = {
       toggleSidebarOnSelect: false
     }
+    @audioData = JSON.parse($("#audioData").html())
     @super.initialize.call(@, container, features)
     return
 
@@ -29,11 +29,30 @@
     }
     return
 
+  musicPlayer.updatePlayer = (item, autoPlay) ->
+    @super.updatePlayer.call(@, item, autoPlay)
+    @updateCover item.data('get-thumb-url'), @audioData.defaultThumbUrl
+    return
+
+  musicPlayer.updateCover = (url, defaultUrl) ->
+    options = @options
+    res = $.get url
+    res.done (data) ->
+      cover = $ options.overSelector
+      if data.url
+        cover.attr 'src', data.url
+        cover.addClass options.customCoverClass
+      else
+        cover.attr 'src', defaultUrl
+        cover.removeClass options.customCoverClass
+      return
+    return
+
   prepareAudio = () ->
     controls = $ '#audio-controls'
     if not controls.length
       return
-    musicPlayer.initialize $("#views-container")
+    musicPlayer.initialize $("#main-container")
     ($ musicPlayer.player).on 'ended', musicPlayer, playNext
     ($ '#audio-controls-albumart').on 'click', (e) ->
       e.preventDefault()

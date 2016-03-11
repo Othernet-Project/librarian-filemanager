@@ -16,7 +16,7 @@ import subprocess
 from bottle import request, abort, static_file, redirect
 from bottle_utils.ajax import roca_view
 from bottle_utils.csrf import csrf_protect, csrf_token
-from bottle_utils.html import urlunquote
+from bottle_utils.html import urlunquote, quoted_url
 from bottle_utils.i18n import lazy_gettext as _, i18n_url
 
 from librarian_content.library import metadata
@@ -31,6 +31,7 @@ from .helpers import (enrich_facets,
                       durify,
                       get_selected,
                       get_adjacent,
+                      get_thumb_path,
                       find_root,
                       aspectify)
 
@@ -230,13 +231,16 @@ def init_file_action(path=None):
     # Use 'generic' as default view
     view = request.query.get('view', 'generic')
     facets = get_facets(path)
-    enrich_facets(facets)
     defaults = dict(path=path,
                     view=view,
                     facets=facets)
     if view == 'generic':
         return show_files_view(path, defaults)
     else:
+        fsal = request.app.supervisor.exts.fsal
+        success, ignored, files = fsal.list_dir(path)
+        files = files if success else []
+        enrich_facets(facets, files=files)
         is_successful = facets is not None
         up = get_parent_path(path)
         defaults.update(up=up, is_successful=is_successful)
@@ -249,6 +253,8 @@ def show_files_view(path, defaults):
         return delete_path_confirm(path)
     elif action == 'open':
         return opener_detail(request.query.get('opener_id'), path=path)
+    elif action == 'thumb':
+        return retrieve_thumb_url(path, defaults)
 
     return show_file_list(path, defaults=defaults)
 
@@ -332,6 +338,27 @@ def opener_detail(opener_id, path=None):
                     path=path,
                     filename=os.path.basename(path),
                     meta=meta)
+
+
+def retrieve_thumb_url(path, defaults):
+    thumb_url = None
+    thumb_path = get_thumb_path(urlunquote(request.query.get('target')))
+    if thumb_path:
+        thumb_url = quoted_url('files:direct', path=thumb_path)
+    else:
+        facet_type = request.query.get('facet', 'generic')
+        try:
+            facet = defaults['facets'][facet_type]
+        except KeyError:
+            pass
+        else:
+            cover = facet.get('cover')
+            if cover:
+                cover_path = os.path.join(facet['path'], cover)
+                thumb_url = quoted_url('files:direct',
+                                       path=cover_path)
+
+    return dict(url=thumb_url)
 
 
 def routes(config):

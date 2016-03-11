@@ -66,12 +66,14 @@
         title = entry.get('title') or titlify(file)
         img_width = entry.get('width', 0)
         img_height = entry.get('height', 0)
+        size = entry.get('size', 0)
     %>
     <li
     class="gallery-list-item ${'gallery-list-item-current' if current else ''}"
     role="row"
     aria-selected="false"
     data-title="${title | h}"
+    data-file-size="${size}"
     data-direct-url="${direct_url}"
     data-url="${url}"
     data-img-width="${img_width}"

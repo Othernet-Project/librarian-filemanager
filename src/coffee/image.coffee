@@ -167,10 +167,10 @@
 
 
   prepareGallery = () ->
-    galleryContainer = $ '#views-container'
+    galleryContainer = $ '#gallery-container'
     if not galleryContainer.length
       return
-    gallery.initialize galleryContainer
+    gallery.initialize $ '#views-container'
     return
 
   $ prepareGallery

@@ -42,6 +42,11 @@
             </div>
             ${audio_control(audio_url)}
         </div>
+        <script type="application/json" id="audioData">
+          {
+            "defaultThumbUrl": "${assets.url + 'img/albumart-placeholder.png'}"
+          }
+        </script>
     % endif
 </%def>
 
@@ -58,12 +63,8 @@
 <%def name="sidebar_playlist_item_metadata(entry)">
     ${self.sidebar_playlist_item_metadata_desc(entry)}
     ${self.sidebar_playlist_item_metadata_author(entry)}
-    % if entry['album']:
-        ${self.sidebar_playlist_item_metadata_album(entry)}
-    % endif
-    % if entry['genre']:
-        ${self.sidebar_playlist_item_metadata_genre(entry)}
-    % endif
+    ${self.sidebar_playlist_item_metadata_album(entry)}
+    ${self.sidebar_playlist_item_metadata_genre(entry)}
     ${self.sidebar_playlist_item_metadata_duration(entry)}
 </%def>
 
@@ -75,10 +76,12 @@
     url = i18n_url('files:path', view=view, path=path, selected=file)
     meta_url = i18n_url('files:path', view=view, path=path, info=file)
     direct_url = h.quoted_url('files:direct', path=file_path)
+    get_thumb_url = i18n_url('files:path', path=path, target=file_path, action='thumb', facet='audio') 
     title = entry.get('title') or titlify(file)
     author = entry.get('author') or _('Unknown Artist')
     duration = entry.get('duration', 0)
     hduration = durify(duration)
+    size = entry.get('size', 0)
     %>
     <li
         class="playlist-list-item ${'playlist-list-item-current' if current else ''}"
@@ -89,7 +92,9 @@
         data-duration="${duration}"
         data-url="${url}"
         data-meta-url="${meta_url}"
-        data-direct-url="${direct_url}">
+        data-direct-url="${direct_url}"
+        data-get-thumb-url="${get_thumb_url}"
+        data-file-size="${size}">
         <a class="playlist-list-item-link" href="${url}">
             <span class="playlist-list-duration">${hduration}</span>
             <span class="playlist-list-title">${title | h} - ${author | h}</span>

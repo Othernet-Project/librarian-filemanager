@@ -172,11 +172,11 @@
   };
   prepareGallery = function() {
     var galleryContainer;
-    galleryContainer = $('#views-container');
+    galleryContainer = $('#gallery-container');
     if (!galleryContainer.length) {
       return;
     }
-    gallery.initialize(galleryContainer);
+    gallery.initialize($('#views-container'));
   };
   $(prepareGallery);
   window.onTabChange(prepareGallery);

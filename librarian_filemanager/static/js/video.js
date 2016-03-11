@@ -29,7 +29,7 @@
     if (!controls.length) {
       return;
     }
-    videoPlayer.initialize($('#views-container'));
+    videoPlayer.initialize($('#main-container'));
   };
   prepareVideo();
   window.onTabChange(prepareVideo);

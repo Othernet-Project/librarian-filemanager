@@ -2,10 +2,16 @@
   'use strict'
 
   currentItemClass = 'playlist-list-item-current'
+  coverClass = 'audio-controls-cover'
+  customCoverClass = 'audio-controls-custom-cover'
   selectors = {
     itemSelector: '#playlist-list .playlist-list-item',
     currentItemClass: currentItemClass,
     currentItemSelector: '.' + currentItemClass,
+    coverClass: coverClass,
+    coverSelector: '.' + coverClass,
+    customCoverClass: customCoverClass,
+    customCoverSelector: '.' + customCoverClass,
   }
 
   mediaPlayer =

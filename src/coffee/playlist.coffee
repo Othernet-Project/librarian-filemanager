@@ -6,7 +6,7 @@
   }
 
   Playlist = (container, options) ->
-    @options = $.extend {}. defaults, options
+    @options = $.extend {}, defaultOptions, options
     @items = container.find(@options.itemSelector)
     @items.on 'click', 'a', @onSelect.bind(@)
     current = container.find(@options.currentItemSelector).first()
