@@ -5,14 +5,17 @@
   window.mainContainer = mainContainer
 
   activateSidebar = () ->
+    if not templates.sidebarRetract?
+      return
     sidebar = $ '#views-sidebar'
     sidebar.addClass 'with-sidebar-handle'
     sidebar.prepend templates.sidebarRetract
     winWidth = ($ window).outerWidth()
     if winWidth < 740
       setTimeout () ->
-        ($ '#views-container').addClass 'sidebar-hidden'
+        toggleSidebar()
       , 2000
+    return
 
   toggleSidebar = () ->
     ($ '#views-container').toggleClass 'sidebar-hidden'

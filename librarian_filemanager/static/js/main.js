@@ -6,13 +6,16 @@
   window.mainContainer = mainContainer;
   activateSidebar = function() {
     var sidebar, winWidth;
+    if (templates.sidebarRetract == null) {
+      return;
+    }
     sidebar = $('#views-sidebar');
     sidebar.addClass('with-sidebar-handle');
     sidebar.prepend(templates.sidebarRetract);
     winWidth = ($(window)).outerWidth();
     if (winWidth < 740) {
-      return setTimeout(function() {
-        return ($('#views-container')).addClass('sidebar-hidden');
+      setTimeout(function() {
+        return toggleSidebar();
       }, 2000);
     }
   };

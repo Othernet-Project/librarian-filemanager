@@ -143,6 +143,8 @@
       title = current.data('title');
       imageUrl = current.data('direct-url');
       metaUrl = current.data('meta-url');
+      this.prevHandle.hide();
+      this.nextHandle.hide();
       this.currentImage.removeClass('zoomed');
       this.currentImage.attr({
         'src': imageUrl,
@@ -151,6 +153,8 @@
       });
       this.currentImage.on('load', (function(_this) {
         return function() {
+          _this.prevHandle.show();
+          _this.nextHandle.show();
           return _this.makeZoomable();
         };
       })(this));

@@ -140,6 +140,8 @@
       title = current.data 'title'
       imageUrl = current.data 'direct-url'
       metaUrl = current.data 'meta-url'
+      @prevHandle.hide()
+      @nextHandle.hide()
       @currentImage.removeClass 'zoomed'
       @currentImage.attr {
         'src': imageUrl
@@ -147,6 +149,8 @@
         'alt': title
       }
       @currentImage.on 'load', () =>
+        @prevHandle.show()
+        @nextHandle.show()
         @makeZoomable()
       @imageMetadata.load metaUrl
       previousUrl = previous.data('url')
