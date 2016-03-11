@@ -1898,12 +1898,12 @@ div.mejs-speed-button {
     transform: scale(1);
   }
   30% {
-    -moz-transform: scale(2) translateY(-50%);
-    transform: scale(2) translateY(-50%);
+    -moz-transform: scale(2) translateY(-40%);
+    transform: scale(2) translateY(-40%);
   }
   70% {
-    -moz-transform: scale(2) translateY(30%);
-    transform: scale(2) translateY(30%);
+    -moz-transform: scale(2.2) translateY(30%);
+    transform: scale(2.2) translateY(30%);
   }
   100% {
     -moz-transform: scale(1) translateY(0);
@@ -1916,12 +1916,12 @@ div.mejs-speed-button {
     transform: scale(1);
   }
   30% {
-    -webkit-transform: scale(2) translateY(-50%);
-    transform: scale(2) translateY(-50%);
+    -webkit-transform: scale(2) translateY(-40%);
+    transform: scale(2) translateY(-40%);
   }
   70% {
-    -webkit-transform: scale(2) translateY(30%);
-    transform: scale(2) translateY(30%);
+    -webkit-transform: scale(2.2) translateY(30%);
+    transform: scale(2.2) translateY(30%);
   }
   100% {
     -webkit-transform: scale(1) translateY(0);
@@ -1936,16 +1936,16 @@ div.mejs-speed-button {
     transform: scale(1);
   }
   30% {
-    -moz-transform: scale(2) translateY(-50%);
-    -ms-transform: scale(2) translateY(-50%);
-    -webkit-transform: scale(2) translateY(-50%);
-    transform: scale(2) translateY(-50%);
+    -moz-transform: scale(2) translateY(-40%);
+    -ms-transform: scale(2) translateY(-40%);
+    -webkit-transform: scale(2) translateY(-40%);
+    transform: scale(2) translateY(-40%);
   }
   70% {
-    -moz-transform: scale(2) translateY(30%);
-    -ms-transform: scale(2) translateY(30%);
-    -webkit-transform: scale(2) translateY(30%);
-    transform: scale(2) translateY(30%);
+    -moz-transform: scale(2.2) translateY(30%);
+    -ms-transform: scale(2.2) translateY(30%);
+    -webkit-transform: scale(2.2) translateY(30%);
+    transform: scale(2.2) translateY(30%);
   }
   100% {
     -moz-transform: scale(1) translateY(0);
@@ -1954,7 +1954,41 @@ div.mejs-speed-button {
     transform: scale(1) translateY(0);
   }
 }
-/* line 22, ../../../src/scss/partials/_audio.scss */
+@-moz-keyframes cd-spin {
+  from {
+    -moz-transform: rotateZ(0);
+    transform: rotateZ(0);
+  }
+  to {
+    -moz-transform: rotateZ(360deg);
+    transform: rotateZ(360deg);
+  }
+}
+@-webkit-keyframes cd-spin {
+  from {
+    -webkit-transform: rotateZ(0);
+    transform: rotateZ(0);
+  }
+  to {
+    -webkit-transform: rotateZ(360deg);
+    transform: rotateZ(360deg);
+  }
+}
+@keyframes cd-spin {
+  from {
+    -moz-transform: rotateZ(0);
+    -ms-transform: rotateZ(0);
+    -webkit-transform: rotateZ(0);
+    transform: rotateZ(0);
+  }
+  to {
+    -moz-transform: rotateZ(360deg);
+    -ms-transform: rotateZ(360deg);
+    -webkit-transform: rotateZ(360deg);
+    transform: rotateZ(360deg);
+  }
+}
+/* line 31, ../../../src/scss/partials/_audio.scss */
 .audio-controls {
   padding: 1rem;
   background: rgba(255, 255, 255, 0.75);
@@ -1965,7 +1999,7 @@ div.mejs-speed-button {
   bottom: 0;
   overflow-x: hidden;
 }
-/* line 32, ../../../src/scss/partials/_audio.scss */
+/* line 41, ../../../src/scss/partials/_audio.scss */
 .audio-controls .audio-controls-albumart {
   position: relative;
   width: 100%;
@@ -1976,35 +2010,44 @@ div.mejs-speed-button {
   cursor: pointer;
   padding: 5%;
 }
-/* line 42, ../../../src/scss/partials/_audio.scss */
+/* line 51, ../../../src/scss/partials/_audio.scss */
 .audio-controls .audio-controls-albumart:after {
   content: '';
   display: inline-block;
   height: 100%;
   vertical-align: middle;
 }
-/* line 49, ../../../src/scss/partials/_audio.scss */
+/* line 58, ../../../src/scss/partials/_audio.scss */
 .audio-controls .audio-controls-albumart img {
   max-width: 100%;
   max-height: 100%;
   vertical-align: middle;
-  -moz-perspective: 200%;
-  -webkit-perspective: 200%;
-  perspective: 200%;
-  -moz-transform-style: preserve-3d;
-  -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d;
+  -moz-animation-name: cd-spin;
+  -webkit-animation-name: cd-spin;
+  animation-name: cd-spin;
+  -moz-animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -moz-animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+}
+/* line 68, ../../../src/scss/partials/_audio.scss */
+.audio-controls .audio-controls-albumart img.audio-controls-custom-cover {
   -moz-animation-name: cover-animation;
   -webkit-animation-name: cover-animation;
   animation-name: cover-animation;
   -moz-animation-duration: 120s;
   -webkit-animation-duration: 120s;
   animation-duration: 120s;
-  -moz-animation-iteration-count: infinite;
-  -webkit-animation-iteration-count: infinite;
-  animation-iteration-count: infinite;
+  -moz-animation-timing-function: cubic-bezier(0.2, 0, 0.8, 1);
+  -webkit-animation-timing-function: cubic-bezier(0.2, 0, 0.8, 1);
+  animation-timing-function: cubic-bezier(0.2, 0, 0.8, 1);
 }
-/* line 60, ../../../src/scss/partials/_audio.scss */
+/* line 75, ../../../src/scss/partials/_audio.scss */
 .audio-controls .audio-controls-albumart .audio-controls-title {
   position: absolute;
   top: 0;
@@ -2014,17 +2057,17 @@ div.mejs-speed-button {
   color: white;
   text-align: left;
 }
-/* line 72, ../../../src/scss/partials/_audio.scss */
+/* line 87, ../../../src/scss/partials/_audio.scss */
 .audio-controls .audio-controls-albumart .audio-controls-title h2 {
   padding: 2rem 1rem 0.5rem;
   margin: 0;
 }
-/* line 77, ../../../src/scss/partials/_audio.scss */
+/* line 92, ../../../src/scss/partials/_audio.scss */
 .audio-controls .audio-controls-albumart .audio-controls-title p {
   padding: 0 1rem;
   font-style: italic;
 }
-/* line 84, ../../../src/scss/partials/_audio.scss */
+/* line 99, ../../../src/scss/partials/_audio.scss */
 .audio-controls .audio-controls-audio-wrapper {
   position: absolute;
   bottom: 1rem;

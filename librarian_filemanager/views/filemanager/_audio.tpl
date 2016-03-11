@@ -20,15 +20,17 @@
     if audio_facet['cover']:
         cover_path = th.join(audio_facet['path'], audio_facet['cover'])
         cover_url = h.quoted_url('files:direct', path=cover_path)
+        custom_cover = True
     else:
         cover_url = assets.url + 'img/albumart-placeholder.png'
+        custom_cover = False
     entries = audio_facet['playlist']
     selected_entry = get_selected(entries, selected)
     audio_url = h.quoted_url('files:direct', path=selected_entry['file_path'])
     %>
     <div class="audio-controls" id="audio-controls">
         <div class="audio-controls-albumart" id="audio-controls-albumart">
-            <img src="${cover_url}" class="audio-controls-cover">
+            <img src="${cover_url}" class="audio-controls-cover${' audio-controls-custom-cover' if custom_cover else ''}">
             <div class="audio-controls-title" id="audio-controls-title">
                 <h2>${selected_entry['title']}</h2>
                 <p>${selected_entry.get('author') or _('Unknown author')}</p>
