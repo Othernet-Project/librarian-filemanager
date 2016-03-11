@@ -23,6 +23,23 @@
     </p>
 </%def>
 
+<%def name="sidebar_playlist_video_dimensions(entry)">
+    <% 
+        # We use min(width, height) here to account for veritcally oriented 
+        # videos where width and height is flipped.
+        is_hd = min(entry['width'], entry['height']) >= 720 
+    %>
+    <p class="playlist-item-dimensions">
+        ## Translators, used as label for video dimensions in playlist's info 
+        ## panel.
+        <span class="label">${_('Dimensions:')}</span>
+        <span class="value">
+            <span>${entry['width']} &times; ${entry['height']}</span>
+            <span class="icon icon-video-${'hd' if is_hd else 'sd'}"></span>
+        </span>
+    </p>
+</%def>
+
 <%def name="sidebar_playlist_item_metadata(entry)">
     ${self.sidebar_playlist_item_metadata_desc(entry)}
     ${self.sidebar_playlist_item_metadata_author(entry)}

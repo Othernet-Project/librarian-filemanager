@@ -1223,22 +1223,30 @@ div.mejs-speed-button {
   font-size: 90%;
   text-transform: uppercase;
 }
+/* line 91, ../../../src/scss/partials/_playlist.scss */
+.playlist-metadata .value span {
+  vertical-align: middle;
+}
+/* line 95, ../../../src/scss/partials/_playlist.scss */
+.playlist-metadata .icon {
+  font-size: 150%;
+}
 
-/* line 92, ../../../src/scss/partials/_playlist.scss */
+/* line 100, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs {
   position: absolute;
   top: 0.5rem;
   right: 1rem;
 }
-/* line 97, ../../../src/scss/partials/_playlist.scss */
+/* line 105, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs .label {
   display: none;
 }
-/* line 101, ../../../src/scss/partials/_playlist.scss */
+/* line 109, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs .icon {
   font-size: 150%;
 }
-/* line 105, ../../../src/scss/partials/_playlist.scss */
+/* line 113, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs a {
   display: inline-block;
   color: gray;
@@ -1248,20 +1256,20 @@ div.mejs-speed-button {
   -webkit-transition: color 0.3s;
   transition: color 0.3s;
 }
-/* line 112, ../../../src/scss/partials/_playlist.scss */
+/* line 120, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs a.active {
   color: #333;
 }
-/* line 116, ../../../src/scss/partials/_playlist.scss */
+/* line 124, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs a:hover, .playlist-tabs a:focus {
   color: #089bd2;
 }
 
-/* line 124, ../../../src/scss/partials/_playlist.scss */
+/* line 132, ../../../src/scss/partials/_playlist.scss */
 .with-tabs .playlist-section {
   display: none;
 }
-/* line 128, ../../../src/scss/partials/_playlist.scss */
+/* line 136, ../../../src/scss/partials/_playlist.scss */
 .with-tabs .playlist-section-open {
   display: block;
 }
@@ -2221,11 +2229,11 @@ div.mejs-speed-button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* line 177, ../../../src/scss/partials/_icons.scss */
+/* line 179, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-play button ~ * {
   vertical-align: middle;
 }
-/* line 184, ../../../src/scss/partials/_icons.scss */
+/* line 186, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-play button:before {
   content: "";
 }
@@ -2243,11 +2251,11 @@ div.mejs-speed-button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* line 177, ../../../src/scss/partials/_icons.scss */
+/* line 179, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-pause button ~ * {
   vertical-align: middle;
 }
-/* line 184, ../../../src/scss/partials/_icons.scss */
+/* line 186, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-pause button:before {
   content: "";
 }
@@ -2265,11 +2273,11 @@ div.mejs-speed-button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* line 177, ../../../src/scss/partials/_icons.scss */
+/* line 179, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-fullscreen-button button ~ * {
   vertical-align: middle;
 }
-/* line 184, ../../../src/scss/partials/_icons.scss */
+/* line 186, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-fullscreen-button button:before {
   content: "";
 }
@@ -2287,11 +2295,11 @@ div.mejs-speed-button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* line 177, ../../../src/scss/partials/_icons.scss */
+/* line 179, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-volume-button button ~ * {
   vertical-align: middle;
 }
-/* line 184, ../../../src/scss/partials/_icons.scss */
+/* line 186, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-volume-button button:before {
   content: "";
 }
@@ -2330,11 +2338,11 @@ div.mejs-speed-button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* line 177, ../../../src/scss/partials/_icons.scss */
+/* line 179, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-unmute button ~ * {
   vertical-align: middle;
 }
-/* line 184, ../../../src/scss/partials/_icons.scss */
+/* line 186, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-unmute button:before {
   content: "";
 }
