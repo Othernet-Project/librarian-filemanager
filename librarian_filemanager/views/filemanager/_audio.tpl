@@ -17,16 +17,18 @@
 % else:
     <%
     audio_facet = facets['audio']
+    entries = audio_facet['playlist']
+    selected_entry = get_selected(entries, selected)
     cover = audio_facet.get('cover')
-    if cover:
-        cover_path = th.join(audio_facet['path'], cover)
-        cover_url = h.quoted_url('files:direct', path=cover_path)
+    cover_path = th.join(audio_facet['path'], cover) if cover else None
+    thumb_path = th.get_thumb_path(selected_entry['file_path'], default=cover_path)
+    if thumb_path:
+        cover_url = h.quoted_url('files:direct', path=thumb_path)
         custom_cover = True
     else:
         cover_url = assets.url + 'img/albumart-placeholder.png'
         custom_cover = False
-    entries = audio_facet['playlist']
-    selected_entry = get_selected(entries, selected)
+
     audio_url = h.quoted_url('files:direct', path=selected_entry['file_path'])
     %>
     <div class="audio-controls" id="audio-controls">

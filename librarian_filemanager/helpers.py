@@ -5,6 +5,7 @@ import fractions
 from bottle import request
 
 from librarian_content.library.facets.metadata import run_command
+from librarian_content.library.facets.processors import FacetProcessorBase
 from librarian_core.contrib.templates.decorators import template_helper
 
 
@@ -80,19 +81,65 @@ def determine_thumb_path(imgpath, thumbdir, extension):
     return os.path.join(imgdir, thumbdir, newname)
 
 
-def ffmpeg_cmd(src, dest, width, height, quality):
-    cmd = ["ffmpeg",
-           "-i",
-           src,
-           "-q:v",
-           str(quality),
-           "-vf",
-           "scale='if(gt(in_w,in_h),-1,{height})':'if(gt(in_w,in_h),{width},-1)',crop={width}:{height}".format(width=width, height=height),  # NOQA
-           dest]
-    return run_command(cmd, timeout=5, debug=True)
+def runnable(name, timeout=5, debug=True):
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            cmd = func(*args, **kwargs)
+            return run_command(cmd, timeout=timeout, debug=debug)
+        runnable.registry[name] = wrapper
+        return wrapper
+    return decorator
+runnable.registry = dict()
 
 
-def create_thumb(imgpath, thumbpath, size, quality, callback=None):
+@runnable('image')
+def ffmpeg_thumb(src, dest, width, height, quality, **kwargs):
+    return [
+        "ffmpeg",
+        "-i",
+        src,
+        "-q:v",
+        str(quality),
+        "-vf",
+        "scale='if(gt(in_w,in_h),-1,{height})':'if(gt(in_w,in_h),{width},-1)',crop={width}:{height}".format(width=width, height=height),  # NOQA
+        dest
+    ]
+
+
+@runnable('audio')
+def ffmpeg_audio(src, dest, **kwargs):
+    return [
+        "ffmpeg",
+        "-i",
+        src,
+        "-an",
+        "-vcodec",
+        "copy",
+        dest
+    ]
+
+
+@runnable('video')
+def ffmpeg_video(src, dest, skip_secs=3, **kwargs):
+    return [
+        "ffmpeg",
+        "-ss",
+        str(skip_secs),
+        "-i",
+        src,
+        "-vf",
+        "select=gt(scene\,0.5)",
+        "-frames:v",
+        "1",
+        "-vsync",
+        "vfr",
+        dest
+    ]
+
+
+def create_thumb(srcpath, thumbpath, size, quality, callback=None,
+                 default=None):
     if os.path.exists(thumbpath):
         return
 
@@ -101,9 +148,18 @@ def create_thumb(imgpath, thumbpath, size, quality, callback=None):
         os.makedirs(thumbdir)
 
     (width, height) = map(int, size.split('x'))
-    ffmpeg_cmd(imgpath, thumbpath, width, height, quality)
+    srctype = FacetProcessorBase.get_processor(srcpath).name
+    cmd_fn = runnable.registry[srctype]
+    (ret, _) = cmd_fn(srcpath,
+                      thumbpath,
+                      width=width,
+                      height=height,
+                      quality=quality)
+    result = thumbpath if ret == 0 else default
     if callback:
-        callback(imgpath, thumbpath)
+        callback(srcpath, result)
+
+    return result
 
 
 def thumb_exists(root, thumbpath):
@@ -117,19 +173,20 @@ def thumb_exists(root, thumbpath):
     return exists
 
 
-def thumb_created(cache, imgpath, thumbpath):
-    cache.set(thumbpath, True)
+def thumb_created(cache, srcpath, thumbpath):
+    if thumbpath:
+        cache.set(thumbpath, True)
 
 
 @template_helper
-def get_thumb_path(imgpath):
+def get_thumb_path(srcpath, default=None):
     try:
-        root = find_root(imgpath)
+        root = find_root(srcpath)
     except RuntimeError:
-        return imgpath
+        return srcpath
     else:
         config = request.app.config
-        thumbpath = determine_thumb_path(imgpath,
+        thumbpath = determine_thumb_path(srcpath,
                                          config['thumbs.dirname'],
                                          config['thumbs.extension'])
         if thumb_exists(root, thumbpath):
@@ -137,16 +194,16 @@ def get_thumb_path(imgpath):
 
         cache = request.app.supervisor.exts(onfail=None).cache
         callback = functools.partial(thumb_created, cache)
-        kwargs = dict(imgpath=os.path.join(root, imgpath),
+        kwargs = dict(srcpath=os.path.join(root, srcpath),
                       thumbpath=os.path.join(root, thumbpath),
                       size=config['thumbs.size'],
                       quality=config['thumbs.quality'],
-                      callback=callback)
+                      callback=callback,
+                      default=default)
         if config['thumbs.async']:
             tasks = request.app.supervisor.exts.tasks
             tasks.schedule(create_thumb, kwargs=kwargs)
-            return imgpath
+            return srcpath
 
-        create_thumb(**kwargs)
-        return thumbpath
+        return create_thumb(**kwargs)
 
