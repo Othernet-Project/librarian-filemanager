@@ -21,11 +21,12 @@ from bottle_utils.i18n import lazy_gettext as _, i18n_url
 
 from librarian_content.library import metadata
 from librarian_content.library.archive import Archive
+from librarian_content.library.facets.utils import get_facets
 from librarian_core.contrib.templates.decorators import template_helper
 from librarian_core.contrib.templates.renderer import template, view
 
 from .manager import Manager
-from .helpers import (get_facets,
+from .helpers import (enrich_facets,
                       title_name,
                       durify,
                       get_selected,
@@ -229,6 +230,7 @@ def init_file_action(path=None):
     # Use 'generic' as default view
     view = request.query.get('view', 'generic')
     facets = get_facets(path)
+    enrich_facets(facets)
     defaults = dict(path=path,
                     view=view,
                     facets=facets)

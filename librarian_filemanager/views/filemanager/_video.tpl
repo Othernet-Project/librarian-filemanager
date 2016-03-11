@@ -51,12 +51,12 @@
         url = i18n_url('files:path', view=view, path=path, selected=file)
         meta_url = i18n_url('files:path', view=view, path=path, info=file)
         direct_url = h.quoted_url('files:direct', path=file_path)
-        title = entry['title'] or titlify(entry['file'])
-        description = entry['description'] or _('No description')
-        duration = entry['duration']
+        title = entry.get('title') or titlify(file)
+        description = entry.get('description') or _('No description')
+        duration = entry.get('duration', 0)
         hduration = durify(duration)
-        width = entry['width']
-        height = entry['height']
+        width = entry.get('width', 0)
+        height = entry.get('height', 0)
     %>
     <li
     class="playlist-list-item ${'playlist-list-item-current' if current else ''}"
