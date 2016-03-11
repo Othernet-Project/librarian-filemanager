@@ -30,7 +30,8 @@ from .helpers import (get_facets,
                       durify,
                       get_selected,
                       get_adjacent,
-                      find_root)
+                      find_root,
+                      aspectify)
 
 
 EXPORTS = {
@@ -92,7 +93,8 @@ def show_view(path, view, defaults=dict()):
         selected = urlunquote(selected)
     data = defaults.copy()
     data.update(dict(selected=selected, titlify=title_name, durify=durify,
-                     get_selected=get_selected, get_adjacent=get_adjacent))
+                     get_selected=get_selected, get_adjacent=get_adjacent,
+                     aspectify=aspectify))
     return data
 
 
