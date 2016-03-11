@@ -47,11 +47,13 @@ $albumart-perspective: 300%;
     background: black;
     cursor: pointer;
     padding: 5%;
+    white-space: nowrap;
 
     &:after {
       content: '';
       display: inline-block;
       height: 100%;
+      width: 0;
       vertical-align: middle;
     }
 
