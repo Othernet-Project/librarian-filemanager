@@ -1235,7 +1235,7 @@ div.mejs-speed-button {
 /* line 100, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs {
   position: absolute;
-  top: 0.5rem;
+  top: 1rem;
   right: 1rem;
 }
 /* line 105, ../../../src/scss/partials/_playlist.scss */
@@ -1376,7 +1376,7 @@ div.mejs-speed-button {
 .views-sidebar-retract {
   display: inline-block;
   color: gray;
-  margin: 0.5rem 0.5rem 0;
+  margin: 1rem 0.5rem 0;
 }
 /* line 109, ../../../src/scss/partials/_main.scss */
 .views-sidebar-retract:hover {
