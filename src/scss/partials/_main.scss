@@ -110,6 +110,19 @@ $views-tab-cutoff: 840px;
     color: $o-accent;
   }
 
+  .sidebar-hidden & {
+    // Make the retract button cover the entire width and height of the sidebar
+    // when it's hidden (i.e., partially showing from the edge).
+    position: absolute;
+    margin: 0;
+    padding: 1rem 0.5rem 0;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+  }
+
   .icon {
     @include transition(transform $views-sidebar-anim);
     font-size: 220%;
