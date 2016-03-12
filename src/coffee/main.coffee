@@ -7,6 +7,7 @@
   activateSidebar = () ->
     if not templates.sidebarRetract?
       return
+    ($ '#views-container').data 'has-sidebar', yes
     sidebar = $ '#views-sidebar'
     sidebar.addClass 'with-sidebar-handle'
     sidebar.prepend templates.sidebarRetract
@@ -17,10 +18,27 @@
       , 2000
     return
 
+
   toggleSidebar = () ->
-    ($ '#views-container').toggleClass 'sidebar-hidden'
+    container = ($ '#views-container')
+    if not container.data 'has-sidebar'
+      return
+    container.toggleClass 'sidebar-hidden'
     ($ window).trigger 'views-sidebar-toggled'
     return
+
+
+  openSidebar = () ->
+    ($ '#views-container').removeClass 'sidebar-hidden'
+    ($ window).trigger 'views-sidebar-toggled'
+    return
+
+
+  closeSidebar = () ->
+    ($ '#views-container').addClass 'sidebar-hidden'
+    ($ window).trigger 'views-sidebar-toggled'
+    return
+
 
   window.loadContent = (url) ->
     res = $.get url
@@ -35,6 +53,7 @@
       alert templates.alertLoadError
     return res
 
+
   mainContainer.on 'click', '.views-tabs-tab-link', (e) ->
     e.preventDefault()
     e.stopPropagation()
@@ -47,25 +66,33 @@
       window.triggerTabChange()
       return
 
+
   window.onTabChange = (func) ->
     window.mainContainer.on 'filemanager:tabchanged', func
     return
+
 
   window.triggerTabChange = () ->
     window.mainContainer.trigger 'filemanager:tabchanged'
     return
 
+
   window.changeLocation = (url) ->
     window.history.pushState null, null, url
     return
+
 
   $(window).on 'popstate', (e) ->
     loadContent window.location
     return
 
+
   activateSidebar()
   mainContainer.on 'click', '.views-sidebar-retract', toggleSidebar
   ($ window).on 'views-sidebar-toggle', toggleSidebar
+  ($ window).on 'views-sidebar-close', closeSidebar
+  ($ window).on 'views-sidebar-open', openSidebar
+
 
   return
 ) this, this.jQuery, this.templates

@@ -51,13 +51,15 @@
       this.moveTo(index);
     },
     onSelect: function(e) {
-      var index, item;
+      var index, item, toggle, winW;
       e.preventDefault();
       e.stopPropagation();
       item = $(e.target).closest(this.options['itemSelector']);
       index = this.items.index(item);
       this.moveTo(index);
-      if (this.options.toggleSidebarOnSelect) {
+      toggle = this.options.toggleSidebarOnSelect;
+      winW = ($(window)).outerWidth();
+      if ((winW < 740 && toggle === 'narrow') || toggle === true) {
         ($(window)).trigger('views-sidebar-toggle');
       }
     }

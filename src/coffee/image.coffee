@@ -120,7 +120,7 @@
         itemSelector: '#playlist-list .gallery-list-item',
         currentItemClass: currentItemClass,
         currentItemSelector: '.' + currentItemClass,
-        toggleSidebarOnSelect: false,
+        toggleSidebarOnSelect: 'narrow',
         setCurrent: (current, previous) =>
           @onSetCurrent(current, previous)
       }

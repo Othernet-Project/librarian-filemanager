@@ -53,7 +53,9 @@
       item = $(e.target).closest(@options['itemSelector'])
       index = @items.index item
       @moveTo index
-      if @options.toggleSidebarOnSelect
+      toggle = @options.toggleSidebarOnSelect
+      winW = ($ window).outerWidth()
+      if (winW < 740 and toggle is 'narrow') or toggle is yes
         ($ window).trigger 'views-sidebar-toggle'
       return
   }
