@@ -1817,7 +1817,7 @@ div.mejs-speed-button {
 
 /* line 138, ../../../src/scss/partials/_image.scss */
 .views-sidebar-image .playlist-list {
-  padding: 1rem;
+  padding: 1rem 0 0 1rem;
 }
 /* line 141, ../../../src/scss/partials/_image.scss */
 .views-sidebar-image .playlist-list .gallery-list-item {
