@@ -2196,21 +2196,22 @@ div.mejs-speed-button {
 .mejs-container video {
   width: 100%;
   height: 100%;
+  background: black;
 }
-/* line 30, ../../../src/scss/partials/_player_skin.scss */
+/* line 31, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls {
   background: rgba(68, 68, 68, 0.9);
   height: 3rem;
   overflow: hidden;
 }
-/* line 35, ../../../src/scss/partials/_player_skin.scss */
+/* line 36, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-button {
   height: 3rem;
   width: 3rem;
   padding: 0;
   margin: 0;
 }
-/* line 41, ../../../src/scss/partials/_player_skin.scss */
+/* line 42, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-button button {
   font-size: 250%;
   color: #aaa;
@@ -2221,18 +2222,18 @@ div.mejs-speed-button {
   background: transparent;
   line-height: 100%;
 }
-/* line 51, ../../../src/scss/partials/_player_skin.scss */
+/* line 52, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-button button:hover, .mejs-container .mejs-controls .mejs-button button:focus {
   color: #089bd2;
 }
-/* line 58, ../../../src/scss/partials/_player_skin.scss */
+/* line 59, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-horizontal-volume-slider,
 .mejs-container .mejs-controls .mejs-time-rail {
   height: 100%;
   margin: 0;
   padding: 0;
 }
-/* line 65, ../../../src/scss/partials/_player_skin.scss */
+/* line 66, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-duration-container {
   margin: 0;
   padding: 0 0.5rem 0 1rem;
@@ -2241,7 +2242,7 @@ div.mejs-speed-button {
   font-size: 120%;
   color: #aaa;
 }
-/* line 74, ../../../src/scss/partials/_player_skin.scss */
+/* line 75, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-play button {
   font-family: "OIcons";
   font-weight: normal;
@@ -2263,7 +2264,7 @@ div.mejs-speed-button {
 .mejs-container .mejs-controls .mejs-play button:before {
   content: "";
 }
-/* line 78, ../../../src/scss/partials/_player_skin.scss */
+/* line 79, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-pause button {
   font-family: "OIcons";
   font-weight: normal;
@@ -2285,7 +2286,7 @@ div.mejs-speed-button {
 .mejs-container .mejs-controls .mejs-pause button:before {
   content: "";
 }
-/* line 82, ../../../src/scss/partials/_player_skin.scss */
+/* line 83, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-fullscreen-button button {
   font-family: "OIcons";
   font-weight: normal;
@@ -2307,7 +2308,7 @@ div.mejs-speed-button {
 .mejs-container .mejs-controls .mejs-fullscreen-button button:before {
   content: "";
 }
-/* line 87, ../../../src/scss/partials/_player_skin.scss */
+/* line 88, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-volume-button button {
   font-family: "OIcons";
   font-weight: normal;
@@ -2329,28 +2330,28 @@ div.mejs-speed-button {
 .mejs-container .mejs-controls .mejs-volume-button button:before {
   content: "";
 }
-/* line 91, ../../../src/scss/partials/_player_skin.scss */
+/* line 92, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-volume-button .mejs-volume-slider {
   width: 100%;
 }
-/* line 94, ../../../src/scss/partials/_player_skin.scss */
+/* line 95, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-volume-button .mejs-volume-slider .mejs-volume-total {
   width: 100%;
   left: 0;
   top: 0.4rem;
 }
-/* line 100, ../../../src/scss/partials/_player_skin.scss */
+/* line 101, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-volume-button .mejs-volume-slider .mejs-volume-handle {
   left: 0;
   width: 100%;
 }
-/* line 105, ../../../src/scss/partials/_player_skin.scss */
+/* line 106, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-volume-button .mejs-volume-slider .mejs-volume-current {
   left: 0;
   width: 100%;
   background: #089bd2;
 }
-/* line 113, ../../../src/scss/partials/_player_skin.scss */
+/* line 114, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-unmute button {
   font-family: "OIcons";
   font-weight: normal;
@@ -2372,7 +2373,7 @@ div.mejs-speed-button {
 .mejs-container .mejs-controls .mejs-unmute button:before {
   content: "";
 }
-/* line 117, ../../../src/scss/partials/_player_skin.scss */
+/* line 118, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-horizontal-volume-total {
   background: #5e5e5e;
   -moz-border-radius: 0;
@@ -2381,7 +2382,7 @@ div.mejs-speed-button {
   height: 2rem;
   top: 0.5rem;
 }
-/* line 124, ../../../src/scss/partials/_player_skin.scss */
+/* line 125, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-horizontal-volume-current {
   background: #089bd2;
   -moz-border-radius: 0;
@@ -2390,7 +2391,7 @@ div.mejs-speed-button {
   top: 0.5rem;
   height: 2rem;
 }
-/* line 131, ../../../src/scss/partials/_player_skin.scss */
+/* line 132, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-time-total {
   padding: 0;
   margin: 0.5rem 0;
@@ -2401,7 +2402,7 @@ div.mejs-speed-button {
   -webkit-border-radius: 0;
   border-radius: 0;
 }
-/* line 140, ../../../src/scss/partials/_player_skin.scss */
+/* line 141, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-time-float {
   position: absolute;
   top: 0;
@@ -2411,7 +2412,7 @@ div.mejs-speed-button {
   border-radius: 0;
   border: none;
 }
-/* line 148, ../../../src/scss/partials/_player_skin.scss */
+/* line 149, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-time-loaded,
 .mejs-container .mejs-controls .mejs-time-current {
   padding: 0;
@@ -2419,11 +2420,11 @@ div.mejs-speed-button {
   height: 2rem;
   background-image: none;
 }
-/* line 156, ../../../src/scss/partials/_player_skin.scss */
+/* line 157, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-time-loaded {
   background: #777777;
 }
-/* line 160, ../../../src/scss/partials/_player_skin.scss */
+/* line 161, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-time-current {
   background: #089bd2;
 }
