@@ -2256,13 +2256,17 @@ div.mejs-speed-button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* line 179, ../../../src/scss/partials/_icons.scss */
+/* line 187, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-play button ~ * {
   vertical-align: middle;
 }
-/* line 186, ../../../src/scss/partials/_icons.scss */
+/* line 191, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-play button:before {
-  content: "";
+  display: inline-block;
+}
+/* line 198, ../../../src/scss/partials/_icons.scss */
+.mejs-container .mejs-controls .mejs-play button:before {
+  content: "";
 }
 /* line 79, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-pause button {
@@ -2278,13 +2282,17 @@ div.mejs-speed-button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* line 179, ../../../src/scss/partials/_icons.scss */
+/* line 187, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-pause button ~ * {
   vertical-align: middle;
 }
-/* line 186, ../../../src/scss/partials/_icons.scss */
+/* line 191, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-pause button:before {
-  content: "";
+  display: inline-block;
+}
+/* line 198, ../../../src/scss/partials/_icons.scss */
+.mejs-container .mejs-controls .mejs-pause button:before {
+  content: "";
 }
 /* line 83, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-fullscreen-button button {
@@ -2300,13 +2308,17 @@ div.mejs-speed-button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* line 179, ../../../src/scss/partials/_icons.scss */
+/* line 187, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-fullscreen-button button ~ * {
   vertical-align: middle;
 }
-/* line 186, ../../../src/scss/partials/_icons.scss */
+/* line 191, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-fullscreen-button button:before {
-  content: "";
+  display: inline-block;
+}
+/* line 198, ../../../src/scss/partials/_icons.scss */
+.mejs-container .mejs-controls .mejs-fullscreen-button button:before {
+  content: "";
 }
 /* line 88, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-volume-button button {
@@ -2322,13 +2334,17 @@ div.mejs-speed-button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* line 179, ../../../src/scss/partials/_icons.scss */
+/* line 187, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-volume-button button ~ * {
   vertical-align: middle;
 }
-/* line 186, ../../../src/scss/partials/_icons.scss */
+/* line 191, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-volume-button button:before {
-  content: "";
+  display: inline-block;
+}
+/* line 198, ../../../src/scss/partials/_icons.scss */
+.mejs-container .mejs-controls .mejs-volume-button button:before {
+  content: "";
 }
 /* line 92, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-volume-button .mejs-volume-slider {
@@ -2365,13 +2381,17 @@ div.mejs-speed-button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* line 179, ../../../src/scss/partials/_icons.scss */
+/* line 187, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-unmute button ~ * {
   vertical-align: middle;
 }
-/* line 186, ../../../src/scss/partials/_icons.scss */
+/* line 191, ../../../src/scss/partials/_icons.scss */
 .mejs-container .mejs-controls .mejs-unmute button:before {
-  content: "";
+  display: inline-block;
+}
+/* line 198, ../../../src/scss/partials/_icons.scss */
+.mejs-container .mejs-controls .mejs-unmute button:before {
+  content: "";
 }
 /* line 118, ../../../src/scss/partials/_player_skin.scss */
 .mejs-container .mejs-controls .mejs-horizontal-volume-total {
