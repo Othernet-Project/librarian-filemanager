@@ -1,16 +1,15 @@
 <%inherit file="_playlist.tpl" />
 
 <div class='gallery-container' id="gallery-container">
-    % if not facets or not facets.has_type('image'):
+    % if 'image' not in facet_types:
         <span class="note">${_('No images to be shown.')}</span>
     % else:
         <%
-            entries = facets['image']['gallery']
-            selected_entry = get_selected(entries, selected)
-            previous, next = get_adjacent(entries, selected_entry)
-            previous_url = i18n_url('files:path', view=view, path=path, selected=previous['file'])
-            next_url = i18n_url('files:path', view=view, path=path, selected=next['file'])
-            direct_url = h.quoted_url('files:direct', path=selected_entry['file_path'])
+            selected_entry = get_selected(files, selected)
+            previous, next = get_adjacent(files, selected_entry)
+            previous_url = i18n_url('files:path', view=view, path=path, selected=previous.name)
+            next_url = i18n_url('files:path', view=view, path=path, selected=next.name)
+            direct_url = h.quoted_url('files:direct', path=selected_entry.rel_path)
         %>
         <div class="gallery-current-image" id="gallery-current-image">
             <img class="gallery-current-image-img" src='${direct_url}'/>
@@ -37,43 +36,42 @@
 </div>
 
 <%def name="sidebar()">
-    % if facets and facets.has_type('image'):
+    % if 'image' in facet_types:
         <%
-            entries = facets['image']['gallery']
-            selected_entry = get_selected(entries, selected)
+            selected_entry = get_selected(files, selected)
         %>
-        ${self.sidebar_playlist(entries, selected_entry)}
+        ${self.sidebar_playlist(files, selected_entry)}
     % endif
 </%def>
 
 <%def name="sidebar_playlist_item_metadata(entry)">
-    ${self.sidebar_playlist_item_metadata_desc(entry)}
-    ${self.sidebar_playlist_item_metadata_author(entry)}
-    ${self.sidebar_playlist_image_dimensions(entry)}
-    ${self.sidebar_playlist_aspect_ratio(entry)}
+    <% metadata = entry.facets %>
+    ${self.sidebar_playlist_item_metadata_desc(metadata)}
+    ${self.sidebar_playlist_item_metadata_author(metadata)}
+    ${self.sidebar_playlist_image_dimensions(metadata)}
+    ${self.sidebar_playlist_aspect_ratio(metadata)}
 </%def>
 
 
 <%def name="sidebar_playlist_item(entry, selected_entry)">
     <%
-        file = entry['file']
+        file = entry.name
         current = entry == selected_entry
-        file_path = entry['file_path']
+        file_path = entry.rel_path
         url = i18n_url('files:path', view=view, path=path, selected=file)
         meta_url = i18n_url('files:path', view=view, path=path, info=file)
         direct_url = h.quoted_url('files:direct', path=file_path)
         thumb_url = h.quoted_url('files:direct', path=th.get_thumb_path(file_path))
-        title = entry.get('title') or titlify(file)
-        img_width = entry.get('width', 0)
-        img_height = entry.get('height', 0)
-        size = entry.get('size', 0)
+        metadata = entry.facets
+        title = metadata.get('title') or titlify(file)
+        img_width = metadata.get('width', 0)
+        img_height = metadata.get('height', 0)
     %>
     <li
     class="gallery-list-item ${'gallery-list-item-current' if current else ''}"
     role="row"
     aria-selected="false"
     data-title="${title | h}"
-    data-file-size="${size}"
     data-direct-url="${direct_url}"
     data-url="${url}"
     data-img-width="${img_width}"

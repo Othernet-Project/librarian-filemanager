@@ -1,16 +1,16 @@
 <%def name="sidebar_playlist_item(entry, selected_entry)" />
 
-<%def name="sidebar_playlist_item_metadata_desc(entry)">
-    %if 'description' in entry:
+<%def name="sidebar_playlist_item_metadata_desc(metadata)">
+    %if 'description' in metadata:
         <p class="playlist-item-description">
-            ${entry.get('description') or _('No description')}
+            ${metadata.get('description') or _('No description')}
         </p>
     %endif
 </%def>
 
-<%def name="sidebar_playlist_item_metadata_author(entry)">
+<%def name="sidebar_playlist_item_metadata_author(metadata)">
     <p class="playlist-item-author">
-        ${entry.get('author') or _('Unknown author') | h}
+        ${metadata.get('author') or _('Unknown author') | h}
     </p>
 </%def>
 
@@ -21,28 +21,28 @@
     </p>
 </%def>
 
-<%def name="sidebar_playlist_item_metadata_genre(entry)">
+<%def name="sidebar_playlist_item_metadata_genre(metadata)">
     ## Translators, shown for audio files
-    ${self.sidebar_playlist_meta_line('genre', _('Genre:'), entry.get('genre') or _('Unknown genre'))}
+    ${self.sidebar_playlist_meta_line('genre', _('Genre:'), metadata.get('genre') or _('Unknown genre'))}
 </%def>
 
-<%def name="sidebar_playlist_item_metadata_album(entry)">
+<%def name="sidebar_playlist_item_metadata_album(metadata)">
     ## Translators, shown for audio files
-    ${self.sidebar_playlist_meta_line('album', _('Album:'), entry.get('album') or _('Unknown album'))}
+    ${self.sidebar_playlist_meta_line('album', _('Album:'), metadata.get('album') or _('Unknown album'))}
 </%def>
 
-<%def name="sidebar_playlist_item_metadata_duration(entry)">
+<%def name="sidebar_playlist_item_metadata_duration(metadata)">
     ## Translators, used as label for audio/video duration in playlist's info
     ## panel.
-    ${self.sidebar_playlist_meta_line('duration', _('Duration:'), durify(entry.get('duration', 0)))}
+    ${self.sidebar_playlist_meta_line('duration', _('Duration:'), durify(metadata.get('duration', 0)))}
 </%def>
 
-<%def name="sidebar_playlist_video_dimensions(entry)">
+<%def name="sidebar_playlist_video_dimensions(metadata)">
     <% 
         # We use min(width, height) here to account for veritcally oriented 
         # videos where width and height is flipped.
-        width = entry.get('width', 0)
-        height = entry.get('height', 0)
+        width = metadata.get('width', 0)
+        height = metadata.get('height', 0)
         is_hd = min(width, height) >= 720
     %>
 
@@ -57,10 +57,10 @@
     </p>
 </%def>
 
-<%def name="sidebar_playlist_image_dimensions(entry)">
+<%def name="sidebar_playlist_image_dimensions(metadata)">
     <%
-        width = entry.get('width', 0)
-        height = entry.get('height', 0)
+        width = metadata.get('width', 0)
+        height = metadata.get('height', 0)
         mpx = round(width * height / 1000000.0, 1)
     %>
     <p class="playlist-item-dimensions">
@@ -73,24 +73,26 @@
     </p>
 </%def>
 
-<%def name="sidebar_playlist_aspect_ratio(entry)">
+<%def name="sidebar_playlist_aspect_ratio(metadata)">
     ## Translators, used as label for image/video aspect ratio (e.g., 4:3,
     ## 16:9) in playlist's info panel.
-    ${self.sidebar_playlist_meta_line('aspect', _('Aspect ratio:'), aspectify(entry.get('width', 0), entry.get('height', 0)))}
+    ${self.sidebar_playlist_meta_line('aspect', _('Aspect ratio:'), aspectify(metadata.get('width', 0), metadata.get('height', 0)))}
 </%def>
 
 <%def name="sidebar_playlist_item_metadata(entry)">
-    ${self.sidebar_playlist_item_metadata_desc(entry)}
-    ${self.sidebar_playlist_item_metadata_author(entry)}
+    <% metadata = entry.facets %>
+    ${self.sidebar_playlist_item_metadata_desc(metadata)}
+    ${self.sidebar_playlist_item_metadata_author(metadata)}
 </%def>
 
 <%def name="sidebar_playlist_item_details(entry)">
+    <% metadata = entry.facets %>
     <h2 class="playlist-item-title">
-        ${entry.get('title') or titlify(entry['file']) | h}
+        ${metadata.get('title') or titlify(entry.name) | h}
     </h2>
     ${self.sidebar_playlist_item_metadata(entry)}
     <p class="playlist-metadata-buttons">
-        <a href="${url('files:direct', path=h.urlquote(entry['file_path']))}" class="button" target="_blank">
+        <a href="${url('files:direct', path=h.urlquote(entry.rel_path))}" class="button" target="_blank">
             <span class="icon icon-download"></span>
             <span class="label">
                 ${_('Download')}

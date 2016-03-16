@@ -12,13 +12,12 @@
     </div>
 </%def>
 
-% if not facets or not facets.has_type('video'):
+% if 'video' not in facet_types:
 <span class="note">${_('No video files to be played.')}</span>
 % else:
 <%
-  entries = facets['video']['clips']
-  selected_entry = get_selected(entries, selected)
-  video_url = h.quoted_url('files:direct', path=selected_entry['file_path'])
+  selected_entry = get_selected(files, selected)
+  video_url = h.quoted_url('files:direct', path=selected_entry.rel_path)
 %>
 <div class="video-controls" id="video-controls">
     ${video_control(video_url)}
@@ -26,38 +25,38 @@
 % endif
 
 <%def name="sidebar()">
-    %if facets and facets.has_type('video'):
+    %if 'video' in facet_types:
         <%
-        entries = facets['video']['clips']
-        selected_entry = get_selected(entries, selected)
+        selected_entry = get_selected(files, selected)
         %>
-        ${self.sidebar_playlist(entries, selected_entry)}
+        ${self.sidebar_playlist(files, selected_entry)}
     %endif
 </%def>
 
 <%def name="sidebar_playlist_item_metadata(entry)">
-    ${self.sidebar_playlist_item_metadata_desc(entry)}
-    ${self.sidebar_playlist_item_metadata_author(entry)}
-    ${self.sidebar_playlist_item_metadata_duration(entry)}
-    ${self.sidebar_playlist_video_dimensions(entry)}
-    ${self.sidebar_playlist_aspect_ratio(entry)}
+    <% metadata = entry.facets %>
+    ${self.sidebar_playlist_item_metadata_desc(metadata)}
+    ${self.sidebar_playlist_item_metadata_author(metadata)}
+    ${self.sidebar_playlist_item_metadata_duration(metadata)}
+    ${self.sidebar_playlist_video_dimensions(metadata)}
+    ${self.sidebar_playlist_aspect_ratio(metadata)}
 </%def>
 
 <%def name="sidebar_playlist_item(entry, selected_entry)">
     <%
-        file = entry['file']
-        current = entry['file'] == selected_entry['file']
-        file_path = entry['file_path']
+        file = entry.name
+        current = entry.name == selected_entry.name
+        file_path = entry.rel_path
         url = i18n_url('files:path', view=view, path=path, selected=file)
         meta_url = i18n_url('files:path', view=view, path=path, info=file)
         direct_url = h.quoted_url('files:direct', path=file_path)
-        title = entry.get('title') or titlify(file)
-        description = entry.get('description') or _('No description')
-        duration = entry.get('duration', 0)
+        metadata = entry.facets
+        title = metadata.get('title') or titlify(file)
+        description = metadata.get('description') or _('No description')
+        duration = metadata.get('duration', 0)
         hduration = durify(duration)
-        width = entry.get('width', 0)
-        height = entry.get('height', 0)
-        size = entry.get('size', 0)
+        width = metadata.get('width', 0)
+        height = metadata.get('height', 0)
     %>
     <li
     class="playlist-list-item ${'playlist-list-item-current' if current else ''}"
@@ -68,7 +67,6 @@
     data-duration="${duration}"
     data-width="${width}"
     data-height="${height}"
-    data-file-size="${size}"
     data-url="${url}"
     data-meta-url="${meta_url}"
     data-direct-url="${direct_url}">

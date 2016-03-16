@@ -26,13 +26,9 @@ def get_default_views():
     yield FACET_VIEW_MAPPINGS[0]
 
 
-def get_views(facets):
-    if not facets:
-        for view in get_default_views():
-            yield view
-        return
+def get_views(facet_types):
     for name, label in FACET_VIEW_MAPPINGS:
-        if facets.has_type(name):
+        if name in facet_types:
             yield (name, label)
 %>
 
@@ -64,7 +60,7 @@ def get_views(facets):
                 <span class="label">${_('Go up one level')}</span>
             </a>
         % endif
-        <% views = get_default_views() if is_search else get_views(facets) %>
+        <% views = get_default_views() if is_search else get_views(facet_types) %>
         % for name, label in views:
             <%
             view_url = i18n_url('files:path', path=path, view=name)

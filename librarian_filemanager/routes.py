@@ -8,10 +8,12 @@ This software is free software licensed under the terms of GPLv3. See COPYING
 file that comes with the source code, or http://www.gnu.org/licenses/gpl.txt.
 """
 
-import functools
-import logging
 import os
+import logging
+import functools
 import subprocess
+
+from itertools import izip_longest, imap
 
 from bottle import request, abort, static_file, redirect
 from bottle_utils.ajax import roca_view
@@ -21,13 +23,14 @@ from bottle_utils.i18n import lazy_gettext as _, i18n_url
 
 from librarian_content.library import metadata
 from librarian_content.library.archive import Archive
-from librarian_content.library.facets.utils import get_facets
 from librarian_core.contrib.templates.decorators import template_helper
 from librarian_core.contrib.templates.renderer import template, view
+from librarian_content.library.facets.utils import (get_facets,
+                                                    get_facet_types,
+                                                    is_facet_valid)
 
 from .manager import Manager
-from .helpers import (enrich_facets,
-                      title_name,
+from .helpers import (title_name,
                       durify,
                       get_selected,
                       get_adjacent,
@@ -62,7 +65,12 @@ def go_to_parent(path):
 
 
 @roca_view('filemanager/main', 'filemanager/_main', template_func=template)
-def show_file_list(path=None, defaults=dict()):
+def show_file_list(path=None, defaults=None):
+    return get_file_list(path, defaults)
+
+
+def get_file_list(path=None, defaults=None):
+    defaults = defaults or {}
     try:
         query = urlunquote(request.params['p'])
     except KeyError:
@@ -99,36 +107,52 @@ def show_list_view(path, view, defaults):
     if selected:
         selected = urlunquote(selected)
     data = defaults.copy()
-    data.update(dict(selected=selected))
+    paths = (f.rel_path for f in data['files'])
+    data['facet_types'] = get_facet_types(paths)
+    if view != 'generic':
+        is_search = data.get('is_search', False)
+        is_successful = data.get('is_successful', True)
+        if not is_search and is_successful:
+            files = filter(lambda f: is_facet_valid(f.rel_path, view),
+                           data['files'])
+            facets_list = get_facets(imap(lambda f: f.rel_path, files),
+                                     facet_type=view)
+            for f, facets in izip_longest(files, facets_list):
+                f.facets = facets
+            data['files'] = files
+    data['selected'] = selected
     return data
 
 
 @roca_view('filemanager/info', 'filemanager/_info', template_func=template)
-def show_info_view(path, view, defaults):
+def show_info_view(path, view, meta, defaults):
+    file_path = os.path.join(path, meta)
+    success, fso = request.app.supervisor.exts.fsal.get_fso(file_path)
+    if not success:
+        # There is no such file
+        abort(404)
+    try:
+        facets = list(get_facets((file_path,), facet_type=view))[0]
+    except IndexError:
+        abort(404)
+    fso.facets = facets
+    defaults['entry'] = fso
     return defaults
 
 
-def filter_facet_item(facets, view, item_path):
-    facet = facets[view][FACET_MAPPING[view]]
-    return filter(lambda x: x['file'] == item_path, facet)[0]
-
-
 def show_view(path, view, defaults):
-    meta = request.query.get('info')
     # Add all helpers
     defaults.update(dict(titlify=title_name, durify=durify,
                          get_selected=get_selected, get_adjacent=get_adjacent,
                          aspectify=aspectify))
+
+    defaults.update(get_file_list(path))
+    meta = request.query.get('info')
     if meta:
         meta = urlunquote(meta)
-        try:
-            entry = filter_facet_item(defaults['facets'], view, meta)
-        except (KeyError, IndexError):
-            # There is no such facet or no such item in the facet
-            abort(404)
-        defaults.update(dict(entry=entry))
-        return show_info_view(path, view, defaults)
-    return show_list_view(path, view, defaults)
+        return show_info_view(path, view, meta, defaults)
+    else:
+        return show_list_view(path, view, defaults)
 
 
 def direct_file(path):
@@ -230,25 +254,15 @@ def init_file_action(path=None):
         path = '.'
     # Use 'generic' as default view
     view = request.query.get('view', 'generic')
-    facets = get_facets(path)
     defaults = dict(path=path,
-                    view=view,
-                    facets=facets)
-    if view == 'generic':
-        return show_files_view(path, defaults)
-    else:
-        fsal = request.app.supervisor.exts.fsal
-        success, ignored, files = fsal.list_dir(path)
-        files = files if success else []
-        enrich_facets(facets, files=files)
-        is_successful = facets is not None
-        up = get_parent_path(path)
-        defaults.update(up=up, is_successful=is_successful)
-        return show_view(path, view, defaults)
-
-
-def show_files_view(path, defaults):
+                    view=view)
     action = request.query.get('action')
+    if action:
+        return show_files_view(path, action, defaults)
+    return show_view(path, view, defaults)
+
+
+def show_files_view(path, action, defaults):
     if action == 'delete':
         return delete_path_confirm(path)
     elif action == 'open':
