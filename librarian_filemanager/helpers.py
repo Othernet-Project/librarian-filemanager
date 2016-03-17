@@ -5,8 +5,8 @@ from itertools import ifilter
 
 from bottle import request
 
-from librarian_content.library.facets.processors import FacetProcessorBase
 from librarian_core.contrib.templates.decorators import template_helper
+from librarian_content.library.facets.processors import FacetProcessorBase
 
 
 def get_file(files, path):

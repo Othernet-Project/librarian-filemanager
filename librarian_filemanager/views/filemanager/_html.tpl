@@ -1,8 +1,8 @@
-% if not facets or not facets.has_type('html'):
+% if 'html' not in facet_types:
     <span class="note">${_('No documents to be shown.')}</span>
 % else:
 <%
-full_path = '/'.join([facets['html']['path'], facets['html']['index']])
+full_path = th.join(path, index)
 %>
 
 <div class="views-reader">

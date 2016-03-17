@@ -27,7 +27,8 @@ from librarian_core.contrib.templates.decorators import template_helper
 from librarian_core.contrib.templates.renderer import template, view
 from librarian_content.library.facets.utils import (get_facets,
                                                     get_facet_types,
-                                                    is_facet_valid)
+                                                    is_facet_valid,
+                                                    find_html_index)
 
 from .manager import Manager
 from .helpers import (title_name,
@@ -107,12 +108,14 @@ def show_list_view(path, view, defaults):
     if selected:
         selected = urlunquote(selected)
     data = defaults.copy()
-    paths = (f.rel_path for f in data['files'])
+    paths = [f.rel_path for f in data['files']]
     data['facet_types'] = get_facet_types(paths)
-    if view != 'generic':
-        is_search = data.get('is_search', False)
-        is_successful = data.get('is_successful', True)
-        if not is_search and is_successful:
+    is_search = data.get('is_search', False)
+    is_successful = data.get('is_successful', True)
+    if not is_search and is_successful:
+        if view == 'html':
+            data['index'] = find_html_index(paths)
+        elif view != 'generic':
             files = filter(lambda f: is_facet_valid(f.rel_path, view),
                            data['files'])
             facets_list = get_facets(imap(lambda f: f.rel_path, files),
