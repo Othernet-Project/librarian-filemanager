@@ -23,8 +23,8 @@
       elemW = el[0].naturalWidth
       elemH = el[0].naturalHeight
     else
-      elemW = el.outernetWidth()
-      elemH = el.outernetHeight()
+      elemW = el.outerWidth()
+      elemH = el.outerHeight()
     elemXpos = x * elemW
     elemYpos = y * elemH
     left = centerX - elemXpos
