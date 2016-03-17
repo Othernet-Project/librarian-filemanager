@@ -91,12 +91,14 @@ def get_views(facets):
     % endif
 </div>
 
-<script type="text/template" id="sidebarRetract">
-    <a class="views-sidebar-retract" href="javascript:void(0);" data-alt-label="${_('Show')}">
-        <span class="icon icon-expand-right"></span>
-        <span class="label">${_('Hide')}</span>
-    </a>
-</script>
+% if view_has_sidebar:
+    <script type="text/template" id="sidebarRetract">
+        <a class="views-sidebar-retract" href="javascript:void(0);" data-alt-label="${_('Show')}">
+            <span class="icon icon-expand-right"></span>
+            <span class="label">${_('Hide')}</span>
+        </a>
+    </script>
+% endif
 
 <script type="text/template" id="unknownAuthor">
     ${_('Unknown author')}
