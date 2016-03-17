@@ -2,7 +2,7 @@
     <span class="note">${_('No documents to be shown.')}</span>
 % else:
 <%
-full_path = th.join(path, index)
+full_path = th.join(path, index_file)
 %>
 
 <div class="views-reader">
