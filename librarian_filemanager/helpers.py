@@ -36,7 +36,7 @@ def aspectify(w, h):
 
 
 def get_selected(collection, selected=None):
-    selected_entries = list(filter(lambda f: f.rel_path == selected,
+    selected_entries = list(filter(lambda f: f.name == selected,
                                    collection))
     return selected_entries[0] if selected_entries else collection[0]
 
