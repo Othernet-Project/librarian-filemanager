@@ -5,30 +5,12 @@ from itertools import ifilter
 
 from bottle import request
 
-from librarian_content.library.facets.processors import FacetProcessorBase
 from librarian_core.contrib.templates.decorators import template_helper
-
-
-def enrich_facets(facets, files):
-    add_info(facets, files)
+from librarian_content.library.facets.processors import FacetProcessorBase
 
 
 def get_file(files, path):
     return next(ifilter(lambda f: f.rel_path == path, files), None)
-
-
-def add_info(data, files):
-    if hasattr(data, 'items'):
-        if 'path' in data and 'file' in data:
-            data['file_path'] = os.path.join(data['path'], data['file'])
-            f = get_file(files, data['file_path'])
-            data['size'] = f.size if f else 0
-        else:
-            for _, value in data.items():
-                add_info(value, files)
-    elif isinstance(data, list):
-        for item in data:
-            add_info(item, files)
 
 
 def title_name(path):
@@ -54,13 +36,12 @@ def aspectify(w, h):
 
 
 def get_selected(collection, selected=None):
-    selected_entries = list(filter(lambda e: e['file'] == selected,
+    selected_entries = list(filter(lambda f: f.name == selected,
                                    collection))
     return selected_entries[0] if selected_entries else collection[0]
 
 
 def get_adjacent(collection, current, loop=True):
-    collection = list(collection)
     current_idx = collection.index(current)
     if loop:
         previous_idx = current_idx - 1

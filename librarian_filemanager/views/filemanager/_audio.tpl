@@ -13,16 +13,12 @@
 </%def>
 
 <%def name="view_main()">
-    % if not facets or not facets.has_type('audio'):
+    % if 'audio' not in facet_types:
         <span class="note">${_('No music files to be played.')}</span>
     % else:
         <%
-        audio_facet = facets['audio']
-        entries = audio_facet['playlist']
-        selected_entry = get_selected(entries, selected)
-        cover = audio_facet.get('cover')
-        cover_path = th.join(audio_facet['path'], cover) if cover else None
-        thumb_path = th.get_thumb_path(selected_entry['file_path'], default=cover_path)
+        selected_entry = get_selected(files, selected)
+        thumb_path = th.get_thumb_path(selected_entry.rel_path, default=None)
         if thumb_path:
             cover_url = h.quoted_url('files:direct', path=thumb_path)
             custom_cover = True
@@ -30,14 +26,15 @@
             cover_url = assets.url + 'img/albumart-placeholder.png'
             custom_cover = False
 
-        audio_url = h.quoted_url('files:direct', path=selected_entry['file_path'])
+        audio_url = h.quoted_url('files:direct', path=selected_entry.rel_path)
+        metadata = selected_entry.facets
         %>
         <div class="audio-controls" id="audio-controls">
             <div class="audio-controls-albumart" id="audio-controls-albumart">
                 <img src="${cover_url}" class="audio-controls-cover${' audio-controls-custom-cover' if custom_cover else ''}">
                 <div class="audio-controls-title" id="audio-controls-title">
-                    <h2>${selected_entry.get('title', _('Unknown title'))}</h2>
-                    <p>${selected_entry.get('author') or _('Unknown author')}</p>
+                    <h2>${metadata.get('title') or titlify(metadata.get('file'))}</h2>
+                    <p>${metadata.get('author', _('Unknown author'))}</p>
                 </div>
             </div>
             ${audio_control(audio_url)}
@@ -51,37 +48,38 @@
 </%def>
 
 <%def name="sidebar()">
-    % if facets and facets.has_type('audio'):
+    % if 'audio' in facet_types:
         <%
-        entries = facets['audio']['playlist']
-        selected_entry = get_selected(entries, selected)
+        selected_entry = get_selected(files, selected)
         %>
-        ${self.sidebar_playlist(entries, selected_entry)}
+        ${self.sidebar_playlist(files, selected_entry)}
     % endif
 </%def>
 
 <%def name="sidebar_playlist_item_metadata(entry)">
-    ${self.sidebar_playlist_item_metadata_desc(entry)}
-    ${self.sidebar_playlist_item_metadata_author(entry)}
-    ${self.sidebar_playlist_item_metadata_album(entry)}
-    ${self.sidebar_playlist_item_metadata_genre(entry)}
-    ${self.sidebar_playlist_item_metadata_duration(entry)}
+    <% metadata = entry.facets %>
+    ${self.sidebar_playlist_item_metadata_desc(metadata)}
+    ${self.sidebar_playlist_item_metadata_author(metadata)}
+    ${self.sidebar_playlist_item_metadata_album(metadata)}
+    ${self.sidebar_playlist_item_metadata_genre(metadata)}
+    ${self.sidebar_playlist_item_metadata_duration(metadata)}
 </%def>
 
 <%def name="sidebar_playlist_item(entry, selected_entry)">
     <%
-    file = entry['file']
-    current = entry['file'] == selected_entry['file']
-    file_path = entry['file_path']
+    file = entry.name
+    current = entry.name == selected_entry.name
+    file_path = entry.rel_path
     url = i18n_url('files:path', view=view, path=path, selected=file)
     meta_url = i18n_url('files:path', view=view, path=path, info=file)
     direct_url = h.quoted_url('files:direct', path=file_path)
-    get_thumb_url = i18n_url('files:path', path=path, target=file_path, action='thumb', facet='audio') 
-    title = entry.get('title') or titlify(file)
-    author = entry.get('author') or _('Unknown Artist')
-    duration = entry.get('duration', 0)
+    get_thumb_url = i18n_url('files:path', path=path, target=file_path, action='thumb', facet='audio')
+    metadata = entry.facets
+    title = metadata.get('title') or titlify(file)
+    author = metadata.get('author') or _('Unknown Artist')
+    duration = metadata.get('duration', 0)
     hduration = durify(duration)
-    size = entry.get('size', 0)
+    size = metadata.get('size', 0)
     %>
     <li
         class="playlist-list-item ${'playlist-list-item-current' if current else ''}"
