@@ -33,15 +33,13 @@ class DirInfo(CDFObject):
         for language, info in data.items():
             to_write = dict(path=self.path, language=language)
             to_write.update(info)
-            query = db.Replace(self.TABLE_NAME,
-                               constraints=['path', 'language'],
-                               cols=to_write.keys())
+            query = db.Replace(self.TABLE_NAME, cols=to_write.keys())
             db.execute(query, to_write)
 
     def delete(self):
         db = self.supervisor.exts.databases[self.DATABASE_NAME]
-        query = db.Delete(self.TABLE_NAME, where='path = %s')
-        db.query(query, self.path)
+        query = db.Delete(self.TABLE_NAME, where='path = ?')
+        db.execute(query, self.path)
         self.supervisor.exts.cache.delete(self.get_cache_key(self.path))
 
     def read_file(self):
