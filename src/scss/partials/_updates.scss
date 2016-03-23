@@ -1,0 +1,15 @@
+@import "base";
+
+.file-list {
+  padding-top: 1rem;
+  background-color: white;
+  .file-list-changelog {
+    padding: 1rem;
+    font-size: 150%;
+    background-color: $o-dark-material;
+  }
+}
+
+.options {
+  padding: 1rem;
+}
