@@ -17,6 +17,25 @@ ICON_MAPPINGS = {
     'image/jpeg': 'file-image',
 }
 
+EXTENSION_VIEW_MAPPING = {
+    'jpg': 'image',
+    'jpeg': 'image',
+    'jpe': 'image',
+    'png': 'image',
+    'gif': 'image',
+    'html': 'html',
+    'htm': 'html',
+    'xhtml': 'html',
+    'mp3': 'audio',
+    'wav': 'audio',
+    'ogg': 'audio',
+    'mp4': 'video',
+    'wmv': 'video',
+    'webm': 'video',
+    'flv': 'video',
+    'ogv': 'video',
+}
+
 
 def get_file(files, path):
     return next(ifilter(lambda f: f.rel_path == path, files), None)
@@ -146,6 +165,19 @@ def get_folder_name(fsobj):
 @template_helper
 def get_file_icon(fsobj):
     return ICON_MAPPINGS.get(fsobj.mimetype, 'file')
+
+
+@template_helper
+def get_view_path(fsobj):
+    """
+    Return a view URL with specified file preselected.
+    """
+    ext = fsobj.rel_path.rsplit('.', 1)[-1]
+    view = EXTENSION_VIEW_MAPPING.get(ext)
+    if not view:
+        return i18n_url('files:direct', path=fsobj.rel_path)
+    parent = fsobj.rel_path.rsplit('/', 1)[0]
+    return i18n_url('files:path', path=parent, view=view, selected=fsobj.name)
 
 
 @template_helper
