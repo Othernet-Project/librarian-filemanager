@@ -15,6 +15,8 @@ ICON_MAPPINGS = {
     'text/plain': 'file-text',
     'image/png': 'file-image',
     'image/jpeg': 'file-image',
+    'audio/mpeg': 'file-audio',
+    'video/mp4': 'file-video',
 }
 
 EXTENSION_VIEW_MAPPING = {
