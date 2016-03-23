@@ -124,7 +124,7 @@
                 ${self.file_parent_folder(parent_url)}
             % endif
             ${self.file_download(f.rel_path)}
-            % if not is_search:
+            % if with_controls:
                 % if request.user.is_superuser:
                     ${self.file_delete(f.rel_path)}
                 % endif
