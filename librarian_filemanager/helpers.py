@@ -107,11 +107,6 @@ def thumb_created(cache, srcpath, thumbpath):
 
 
 @template_helper
-def pjoin(*args):
-    return '/'.join(args)
-
-
-@template_helper
 def get_folder_cover(fsobj):
     cover = fsobj.dirinfo.get(request.locale, 'cover', None)
     if cover:
@@ -195,6 +190,8 @@ def get_file_thumb(fsobj):
             thumb = get_thumb_path(fsobj.rel_path)
         except Exception:
             pass
+    else:
+        thumb = None
     if not thumb:
         # No thumb for this file, so let's try an icon
         return get_file_icon(fsobj), False
