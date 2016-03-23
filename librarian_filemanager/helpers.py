@@ -107,6 +107,11 @@ def thumb_created(cache, srcpath, thumbpath):
 
 
 @template_helper
+def join(*args):
+    return '/'.join(args)
+
+
+@template_helper
 def get_folder_cover(fsobj):
     cover = fsobj.dirinfo.get(request.locale, 'cover', None)
     if cover:
