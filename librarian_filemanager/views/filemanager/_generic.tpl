@@ -82,7 +82,8 @@
             else:
                 icon_url = None
             # Set folder target URL and icon name
-            dpath = i18n_url('files:path', path=d.rel_path, view=default_view)
+            varg = {'view': default_view} if default_view else {}
+            dpath = i18n_url('files:path', path=d.rel_path, **varg)
             icon_name = VIEW_ICON_MAPPING.get(default_view, 'folder')
             %>
             <li class="file-list-item file-list-directory" role="row" aria-selected="false" tabindex>
