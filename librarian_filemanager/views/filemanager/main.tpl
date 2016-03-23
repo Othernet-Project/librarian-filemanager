@@ -50,7 +50,7 @@ ${_('Files')}
     </script>
 
     <script type="text/template" id="spinnerIcon">
-        <span class="file-list-icon icon icon-spinning-loader"></span>
+        <span class="icon icon-spinning-loader"></span>
     </script>
 
     <script type="text/template" id="alertLoadError">

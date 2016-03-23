@@ -3,7 +3,6 @@
 
   UP = 38
   DOWN = 40
-  openerLinkSelector = '.opener-link'
   searchInput = $ '#files-multisearch #p'
   body = $ document.body
   mainPanel = $ "##{window.o.pageVars.mainPanelId}"
@@ -34,26 +33,9 @@
     return
 
 
-  # Opener support
-
   mainPanel.on 'click', '.file-list-link', (e) ->
     elem = $ @
-    openerListUrl = elem.data 'opener'
     isDir = elem.data('type') is 'directory'
-
-    if !!openerListUrl
-      e.preventDefault()
-      e.stopPropagation()
-      res = $.modalContent openerListUrl, successTemplate: modalDialogTemplate
-      res.done (data) ->
-        links = $ openerLinkSelector
-        links.click (e) ->
-          linkEl = $ @
-          openerUrl = linkEl.attr 'href'
-          $.modalContent openerUrl, fullScreen: true
-          e.preventDefault()
-          e.stopPropagation()
-      return
 
     if elem.data('type') is 'directory'
       e.preventDefault()
@@ -64,16 +46,14 @@
       # Show spinner
       originalIcon = icon.html()
       spinner = $ spinnerIcon
-      icon.after spinner
-      icon.hide()
+      icon.html spinner
 
       res = loadContent url
       res.done () ->
         window.history.pushState null, null, url
         setPath elem.data 'relpath'
       res.always () ->
-        icon.show()
-        spinner.remove()
+        icon.html originalIcon
 
     return
 
