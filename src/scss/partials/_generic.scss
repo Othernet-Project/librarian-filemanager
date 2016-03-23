@@ -1,3 +1,4 @@
+@import "compass/css3";
 @import "base";
 
 .file-list {
@@ -9,58 +10,72 @@
 
     // Basic geometry
     position: relative;
+    height: 64px;
 
     &:last-child {
       border-bottom: 0;
-      @include border-bottom-left-radius($o-clickable-target-corner-radius);
-      @include border-bottom-right-radius($o-clickable-target-corner-radius);
     }
 
-    &:first-child {
-      @include border-top-right-radius($o-clickable-target-corner-radius);
+    .file-list-link {
+      display: block;
+      color: $o-base-text-color;
     }
 
-    .file-list-name {
-      // Basic geometry
-      display: inline-block;
-      overflow: hidden;
-      max-width: 80%;
-
-      // Styling
-      @include ellipsis;
-    }
+    //
+    //  +----------------+----------------+--------------------+
+    //  | file-list-icon | file-list-name | file-list-controls |
+    //  +----------------+----------------+--------------------+
+    //
 
     .file-list-icon {
-      // Basic geometry
-      display: inline-block;
-      width: 32px;
+      position: absolute;
+      display: block;
+      top: 0;
+      left: 0;
+      width: 64px;
+      height: 64px;
 
-      // Icon size
-      font-size: 180%;
+      span {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        @include background-size(cover);
+      }
 
-      img {
-        width: 32px;
-        height: 32px;
-        vertical-align: middle;
+      .icon {
+        text-align: center;
+        line-height: 64px;
+        font-size: 200%;
+        color: lighten($o-base-text-color, 10);
+        background: $o-negative-base;
       }
     }
 
-    a.file-list-link {
-      // Typography
-      font-size: 120%;
-      text-decoration: none;
+    .file-list-info {
+      display: block;
+      position: absolute;
+      left: 64px;
+      top: 0;
+      right: 0;
+      height: 64px;
 
-      // Basic geometry
-      display: inline-block;
-      padding: 1rem;
-      width: 100%;
+      @include valign('.file-list-info-inner');
 
-      // Styling
-      color: $o-base-text-color;
+      .file-list-info-inner {
+        padding: 0 1rem;
+        width: 100%;
+      }
 
-      &:hover,
-      &:focus {
-        color: $o-accent;
+      .file-list-name {
+        display: block;
+        @include ellipsis;
+        font-size: 110%;
+      }
+    }
+
+    .with-controls {
+      .file-list-info {
+        right: 4rem;
       }
     }
   }

@@ -8,3 +8,20 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+@mixin valign($child) {
+  white-space: nowrap;
+
+  &:after {
+    content: '';
+    height: 100%;
+    width: 0;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  #{$child} {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}

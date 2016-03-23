@@ -9,6 +9,14 @@ from bottle_utils.i18n import i18n_url
 from librarian_core.contrib.templates.decorators import template_helper
 from librarian_content.library.facets.processors import FacetProcessorBase
 
+ICON_MAPPINGS = {
+    'text/x-python': 'file-xml',
+    'text/html': 'file-text-image',
+    'text/plain': 'file-text',
+    'image/png': 'file-image',
+    'image/jpeg': 'file-image',
+}
+
 
 def get_file(files, path):
     return next(ifilter(lambda f: f.rel_path == path, files), None)
@@ -96,6 +104,48 @@ def get_folder_cover(fsobj):
     fsobj.dirinfo.set('cover', 'cover.jpg')
     fsobj.dirinfo.store()
     return i18n_url('files:direct', path=default_cover)
+
+
+@template_helper
+def get_folder_icon(fsobj):
+    """
+    Return folder icon or icon URL and a flag that tells us whether icon is a
+    URL or not
+    """
+    icon = fsobj.dirinfo.get(request.locale, 'icon', None)
+    if icon:
+        # Dirinfo has an icon, so let's use that
+        return i18n_url('files:direct', path=fsobj.other_path(icon)), True
+    # Since dirinfo does not have an icon for us, we'll see if there's an icon
+    # for a view
+    view = fsobj.dirinfo.get(request.locale, 'view', 'generic')
+    return 'folder' if view == 'generic' else view, False
+
+
+@template_helper
+def get_folder_view_url(fsobj):
+    """
+    Returns the url of the default view for specified folder.
+    """
+    default_view = fsobj.dirinfo.get(request.locale, 'view', None)
+    varg = {'view': default_view} if default_view else {}
+    return i18n_url('files:path', path=fsobj.rel_path, **varg)
+
+
+@template_helper
+def get_folder_name(fsobj):
+    """
+    Return folder title, name, or filesystem name, whichever is present in the
+    dirinfo.
+    """
+    title = fsobj.dirinfo.get(request.locale, 'title', None)
+    name = fsobj.dirinfo.get(request.locale, 'name', None)
+    return title or name or fsobj.name
+
+
+@template_helper
+def get_file_icon(fsobj):
+    return ICON_MAPPINGS.get(fsobj.mimetype, 'file')
 
 
 @template_helper
