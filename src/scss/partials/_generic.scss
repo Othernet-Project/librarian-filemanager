@@ -123,6 +123,14 @@
     display: none;
   }
 
+  button {
+    vertical-align: middle;
+
+    .icon {
+      vertical-align: top;
+    }
+  }
+
   .icon {
     font-size: 200%;
   }
