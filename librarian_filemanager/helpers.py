@@ -4,6 +4,7 @@ import fractions
 from itertools import ifilter
 
 from bottle import request
+from bottle_utils.i18n import i18n_url
 
 from librarian_core.contrib.templates.decorators import template_helper
 from librarian_content.library.facets.processors import FacetProcessorBase
@@ -74,6 +75,27 @@ def thumb_exists(root, thumbpath):
 def thumb_created(cache, srcpath, thumbpath):
     if thumbpath:
         cache.set(thumbpath, True)
+
+
+@template_helper
+def pjoin(*args):
+    return '/'.join(args)
+
+
+@template_helper
+def get_folder_cover(fsobj):
+    cover = fsobj.dirinfo.get(request.locale, 'cover', None)
+    if cover:
+        # There is a cover image
+        cover_path = pjoin(fsobj.rel_path, cover)
+        return i18n_url('files:direct', path=cover_path)
+    # Look for default cover
+    default_cover = pjoin(fsobj.rel_path, 'cover.jpg')
+    if not request.app.supervisor.exts.fsal.exists(default_cover):
+        return
+    fsobj.dirinfo.set('cover', 'cover.jpg')
+    fsobj.dirinfo.store()
+    return i18n_url('files:direct', path=default_cover)
 
 
 @template_helper
