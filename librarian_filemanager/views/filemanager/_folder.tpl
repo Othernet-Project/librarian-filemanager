@@ -98,7 +98,9 @@
             >
             ${self.thumb_block(th.get_file_icon(f), 'icon')}
             <%self:file_info_inner>
-                ${h.to_unicode(f.name) | h}
+                <span class="file-list-name">
+                    ${h.to_unicode(f.name) | h}
+                </span>
             </%self:file_info_inner>
         </a>
         % if is_search:

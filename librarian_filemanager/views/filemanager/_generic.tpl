@@ -31,7 +31,6 @@
 
         % for f in files:
             ${folder.file(f, not is_search)}
-            </li>
         % endfor
     % endif
 </ul>

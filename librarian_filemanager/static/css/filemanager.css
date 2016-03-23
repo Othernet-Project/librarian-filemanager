@@ -1569,8 +1569,8 @@ div.mejs-speed-button {
   font-size: 110%;
 }
 /* line 77, ../../../src/scss/partials/_generic.scss */
-.file-list .file-list-item .with-controls .file-list-info {
-  right: 4rem;
+.file-list .file-list-item.with-controls .file-list-info {
+  right: 80px;
 }
 /* line 83, ../../../src/scss/partials/_generic.scss */
 .file-list .file-list-description {
