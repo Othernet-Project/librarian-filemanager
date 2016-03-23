@@ -87,10 +87,10 @@ def get_folder_cover(fsobj):
     cover = fsobj.dirinfo.get(request.locale, 'cover', None)
     if cover:
         # There is a cover image
-        cover_path = pjoin(fsobj.rel_path, cover)
+        cover_path = fsobj.other_path(cover)
         return i18n_url('files:direct', path=cover_path)
     # Look for default cover
-    default_cover = pjoin(fsobj.rel_path, 'cover.jpg')
+    default_cover = fsobj.other_path('cover.jpg')
     if not request.app.supervisor.exts.fsal.exists(default_cover):
         return
     fsobj.dirinfo.set('cover', 'cover.jpg')
