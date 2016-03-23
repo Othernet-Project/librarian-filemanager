@@ -4,7 +4,9 @@ import fractions
 from itertools import ifilter
 
 from bottle import request
+from bottle_utils.i18n import lazy_gettext as _
 
+from librarian_core.utils import utcnow
 from librarian_core.contrib.templates.decorators import template_helper
 from librarian_content.library.facets.processors import FacetProcessorBase
 
@@ -106,3 +108,26 @@ def get_thumb_path(srcpath, default=None):
             return srcpath
 
         return proc_cls.create_thumb(**kwargs)
+
+
+@template_helper
+def ago(dt, days_only=False):
+    diff = utcnow().date() - dt
+    periods = (
+        (diff.days / 365, _("year"), _("years")),
+        (diff.days / 30, _("month"), _("months")),
+        (diff.days / 7, _("week"), _("weeks")),
+        (diff.days, _("day"), _("days")),
+    )
+    if not days_only:
+        periods += (
+            (diff.seconds / 3600, _("hour"), _("hours")),
+            (diff.seconds / 60, _("minute"), _("minutes")),
+            (diff.seconds, _("second"), _("seconds")),
+        )
+    for (period, singular, plural) in periods:
+        if period:
+            unit = singular if period == 1 else plural
+            return _("{period} {unit} ago").format(period=period, unit=unit)
+
+    return _("Today") if days_only else _("Just now")
