@@ -7,6 +7,12 @@
         'image/png': 'file-image',
         'image/jpeg': 'file-image',
     }
+    VIEW_ICON_MAPPING = {
+        'html': 'html',
+        'audio': 'audio',
+        'video': 'video',
+        'image': 'image',
+    }
     DEFAULT_ICON = 'file'
 %>
 
@@ -65,35 +71,24 @@
 
         % for d in dirs:
             <%
-            dpath = i18n_url('files:path', path=d.rel_path)
-            custom_icon = d.dirinfo.get(request.locale, 'icon', None)
+            # Get basic dirinfo metadata
             name = d.dirinfo.get(request.locale, 'name', d.name)
+            description = d.dirinfo.get(request.locale, 'description', None)
+            default_view = d.dirinfo.get(request.locale, 'view', None)
+            custom_icon = d.dirinfo.get(request.locale, 'icon', None)
+            # Set folder icon
             if custom_icon:
                 icon_url = h.quoted_url('files:direct', path=d.other_path(custom_icon))
             else:
                 icon_url = None
-            description = d.dirinfo.get(request.locale, 'description', None)
-            if d.contentinfo:
-                query = h.QueryDict()
-                query.add_qparam(path=d.rel_path)
-                for content_type in d.contentinfo.content_type_names:
-                    query.add_qparam(content_type=content_type)
-                openers_url = i18n_url('opener:list') + query.to_qs()
-                ctypes = d.contentinfo.content_type_names
-                if len(ctypes) > 1:
-                    icon_name = 'multi-type'
-                else:
-                    icon_name = ctypes[0]
-                icon_url = None  # Disable custom icon if content type is used
-            else:
-                icon_name = 'folder'
-                openers_url = ''
+            # Set folder target URL and icon name
+            dpath = i18n_url('files:path', path=d.rel_path, view=default_view)
+            icon_name = VIEW_ICON_MAPPING.get(default_view, 'folder')
             %>
             <li class="file-list-item file-list-directory" role="row" aria-selected="false" tabindex>
             <a
                 href="${dpath}"
                 data-action-url="${dpath}"
-                data-opener="${openers_url}"
                 data-relpath="${d.rel_path | h.urlquote}"
                 data-type="directory"
                 class="file-list-link"
