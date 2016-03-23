@@ -1,9 +1,6 @@
 @import "base";
 
 .file-list {
-  padding-top: 1rem;
-  background-color: white;
-
   .file-list-item {
     // Styling
     background: $o-thin-overlay-material;
@@ -75,12 +72,6 @@
     // Basic geometry
     display: block;
     padding-left: $o-clickable-target-size;
-  }
-
-  .file-list-changelog {
-    padding: 1rem;
-    font-size: 150%;
-    background-color: $o-dark-material;
   }
 
   .file-list-file.file-list-search-result {
@@ -178,8 +169,4 @@
       }
     }
   }
-}
-
-.options {
-  padding: 1rem;
 }

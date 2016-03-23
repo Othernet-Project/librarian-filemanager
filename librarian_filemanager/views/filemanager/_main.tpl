@@ -7,6 +7,7 @@ _ = lambda x: x
 
 FACET_VIEW_MAPPINGS = (
     ('generic', _('Browse')),
+    ('updates', _('Updates')),
     ('image', _('Gallery')),
     ('audio', _('Listen')),
     ('video', _('Watch')),
@@ -15,6 +16,7 @@ FACET_VIEW_MAPPINGS = (
 
 FACET_ICON_MAPPING = {
     'generic': 'list',
+    'updates': 'list',
     'image': 'gallery',
     'audio': 'listen',
     'video': 'watch',
