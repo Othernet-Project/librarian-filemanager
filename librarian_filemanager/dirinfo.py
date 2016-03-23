@@ -26,6 +26,10 @@ class DirInfo(CDFObject):
             else:
                 return default if value is None else value
 
+    def set(self, key, value, language=NO_LANGUAGE):
+        self._data.setdefault(language, {})
+        self._data[language][key] = value
+
     def store(self):
         """Store dirinfo data structure in database."""
         db = self.supervisor.exts.databases[self.DATABASE_NAME]
