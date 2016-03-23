@@ -90,6 +90,9 @@ def get_file_list(path=None, defaults=None):
         (is_successful, dirs, files, meta) = manager.list(query)
         relpath = '.' if not is_successful else query
 
+    is_changelog = request.params.get('changelog', False)
+    if is_changelog:
+        files = sorted(files, key=lambda x: x.create_date, reverse=True)
     up = get_parent_path(query)
     data = defaults.copy()
     data.update(dict(path=relpath,
@@ -98,6 +101,7 @@ def get_file_list(path=None, defaults=None):
                      up=up,
                      is_search=is_search,
                      is_successful=is_successful,
+                     is_changelog=is_changelog,
                      openers=request.app.supervisor.exts.openers))
     return data
 

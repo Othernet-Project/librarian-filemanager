@@ -61,76 +61,86 @@
 
     % else:
 
-        ## Directories
+        % if not is_changelog:
 
-        % for d in dirs:
-            <%
-            dpath = i18n_url('files:path', path=d.rel_path)
-            custom_icon = d.dirinfo.get(request.locale, 'icon', None)
-            name = d.dirinfo.get(request.locale, 'name', d.name)
-            if custom_icon:
-                icon_url = h.quoted_url('files:direct', path=d.other_path(custom_icon))
-            else:
-                icon_url = None
-            description = d.dirinfo.get(request.locale, 'description', None)
-            if d.contentinfo:
-                query = h.QueryDict()
-                query.add_qparam(path=d.rel_path)
-                for content_type in d.contentinfo.content_type_names:
-                    query.add_qparam(content_type=content_type)
-                openers_url = i18n_url('opener:list') + query.to_qs()
-                ctypes = d.contentinfo.content_type_names
-                if len(ctypes) > 1:
-                    icon_name = 'multi-type'
+            ## Directories
+
+            % for d in dirs:
+                <%
+                dpath = i18n_url('files:path', path=d.rel_path)
+                custom_icon = d.dirinfo.get(request.locale, 'icon', None)
+                name = d.dirinfo.get(request.locale, 'name', d.name)
+                if custom_icon:
+                    icon_url = h.quoted_url('files:direct', path=d.other_path(custom_icon))
                 else:
-                    icon_name = ctypes[0]
-                icon_url = None  # Disable custom icon if content type is used
-            else:
-                icon_name = 'folder'
-                openers_url = ''
-            %>
-            <li class="file-list-item file-list-directory" role="row" aria-selected="false" tabindex>
-            <a
-                href="${dpath}"
-                data-action-url="${dpath}"
-                data-opener="${openers_url}"
-                data-relpath="${d.rel_path | h.urlquote}"
-                data-type="directory"
-                class="file-list-link"
-                >
-                % if icon_url:
+                    icon_url = None
+                description = d.dirinfo.get(request.locale, 'description', None)
+                if d.contentinfo:
+                    query = h.QueryDict()
+                    query.add_qparam(path=d.rel_path)
+                    for content_type in d.contentinfo.content_type_names:
+                        query.add_qparam(content_type=content_type)
+                    openers_url = i18n_url('opener:list') + query.to_qs()
+                    ctypes = d.contentinfo.content_type_names
+                    if len(ctypes) > 1:
+                        icon_name = 'multi-type'
+                    else:
+                        icon_name = ctypes[0]
+                    icon_url = None  # Disable custom icon if content type is used
+                else:
+                    icon_name = 'folder'
+                    openers_url = ''
+                %>
+                <li class="file-list-item file-list-directory" role="row" aria-selected="false" tabindex>
+                <a
+                    href="${dpath}"
+                    data-action-url="${dpath}"
+                    data-opener="${openers_url}"
+                    data-relpath="${d.rel_path | h.urlquote}"
+                    data-type="directory"
+                    class="file-list-link"
+                    >
+                    % if icon_url:
                     <span class="file-list-icon file-list-custom-icon">
                         ## Deliberately not supplying alt
                         <img src="${icon_url}">
                     </span>
-                % else:
-                    ${self.file_list_icon(icon_name)}
-                % endif
-                <%self:file_list_name>
-                    % if icon_url:
-                        <span class="icon icon-folder"></span>
+                    % else:
+                        ${self.file_list_icon(icon_name)}
                     % endif
-                    <span>${name}</span>
-                </%self:file_list_name>
-                % if description:
-                    <span class="file-list-description">
-                        ${description | h}
+                    <%self:file_list_name>
+                        % if icon_url:
+                            <span class="icon icon-folder"></span>
+                        % endif
+                        <span>${name}</span>
+                    </%self:file_list_name>
+                    % if description:
+                        <span class="file-list-description">
+                            ${description | h}
+                        </span>
+                    % endif
+                </a>
+                % if not is_search:
+                    <span class="file-list-controls">
+                        % if is_super:
+                            ${self.file_delete(d.rel_path)}
+                        % endif
                     </span>
                 % endif
-            </a>
-            % if not is_search:
-                <span class="file-list-controls">
-                    % if is_super:
-                        ${self.file_delete(d.rel_path)}
-                    % endif
-                </span>
-            % endif
-            </li>
-        % endfor
+                </li>
+            % endfor
+        % endif
 
         ## Files
 
+        <% current_date = None %>
         % for f in files:
+            % if is_changelog and current_date != f.create_date.date():
+            <% current_date = f.create_date.date() %>
+            <li class="file-list-changelog" role="row" aria-selected="false" tabindex>
+                <span>${th.ago(f.create_date.date(), days_only=True)}</span>
+            </li>
+            % endif
             <li class="file-list-item file-list-file${' file-list-search-result' if is_search else ''}" role="row" aria-selected="false" tabindex>
             <%
             fpath = h.quoted_url('files:direct', path=f.rel_path)

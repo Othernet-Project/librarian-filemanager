@@ -128,12 +128,12 @@
   width: 100px;
   height: 100px;
   margin: -50px 0 0 -50px;
-  background: url('../img/bigplay.svg?1458025866') no-repeat;
+  background: url('../img/bigplay.svg?1457726743') no-repeat;
 }
 
 /* line 128, ../../../src/scss/partials/_mediaelement.scss */
 .no-svg .mejs-overlay-button {
-  background-image: url('../img/bigplay.png?1458025866');
+  background-image: url('../img/bigplay.png?1457726743');
 }
 
 /* line 132, ../../../src/scss/partials/_mediaelement.scss */
@@ -150,7 +150,7 @@
   height: 80px;
   margin: -40px 0 0 -40px;
   background: #333;
-  background: url('../img/background.png?1458025866');
+  background: url('../img/background.png?1457726743');
   background: rgba(0, 0, 0, 0.9);
   background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzg4ODg4OCIgc3RvcC1vcGFjaXR5PSIwLjkiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDAwMDAiIHN0b3Atb3BhY2l0eT0iMC45Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
   background-size: 100%;
@@ -165,7 +165,7 @@
   display: block;
   width: 80px;
   height: 80px;
-  background: transparent url('../img/loading.gif?1458025866') 50% 50% no-repeat;
+  background: transparent url('../img/loading.gif?1457726743') 50% 50% no-repeat;
 }
 
 /* End: LAYERS */
@@ -178,7 +178,7 @@
   padding: 0;
   bottom: 0;
   left: 0;
-  background: url('../img/background.png?1458025866');
+  background: url('../img/background.png?1457726743');
   background: rgba(0, 0, 0, 0.7);
   background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzg4ODg4OCIgc3RvcC1vcGFjaXR5PSIwLjciLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDAwMDAiIHN0b3Atb3BhY2l0eT0iMC43Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
   background-size: 100%;
@@ -219,12 +219,12 @@
   height: 16px;
   width: 16px;
   border: 0;
-  background: transparent url('../img/controls.svg?1458025866') no-repeat;
+  background: transparent url('../img/controls.svg?1457726743') no-repeat;
 }
 
 /* line 203, ../../../src/scss/partials/_mediaelement.scss */
 .no-svg .mejs-controls .mejs-button button {
-  background-image: url('../img/controls.png?1458025866');
+  background-image: url('../img/controls.png?1457726743');
 }
 
 /* :focus for accessibility */
@@ -1488,14 +1488,19 @@ div.mejs-speed-button {
   display: none;
 }
 
-/* line 4, ../../../src/scss/partials/_generic.scss */
+/* line 3, ../../../src/scss/partials/_generic.scss */
+.file-list {
+  padding-top: 1rem;
+  background-color: white;
+}
+/* line 7, ../../../src/scss/partials/_generic.scss */
 .file-list .file-list-item {
   background: rgba(255, 255, 255, 0.75);
   border-bottom: 1px solid #ddd;
   overflow: hidden;
   position: relative;
 }
-/* line 13, ../../../src/scss/partials/_generic.scss */
+/* line 16, ../../../src/scss/partials/_generic.scss */
 .file-list .file-list-item:last-child {
   border-bottom: 0;
   -moz-border-radius-bottomleft: 0.3rem;
@@ -1505,13 +1510,13 @@ div.mejs-speed-button {
   -webkit-border-bottom-right-radius: 0.3rem;
   border-bottom-right-radius: 0.3rem;
 }
-/* line 19, ../../../src/scss/partials/_generic.scss */
+/* line 22, ../../../src/scss/partials/_generic.scss */
 .file-list .file-list-item:first-child {
   -moz-border-radius-topright: 0.3rem;
   -webkit-border-top-right-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
 }
-/* line 23, ../../../src/scss/partials/_generic.scss */
+/* line 26, ../../../src/scss/partials/_generic.scss */
 .file-list .file-list-item .file-list-name {
   display: inline-block;
   overflow: hidden;
@@ -1520,19 +1525,19 @@ div.mejs-speed-button {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-/* line 33, ../../../src/scss/partials/_generic.scss */
+/* line 36, ../../../src/scss/partials/_generic.scss */
 .file-list .file-list-item .file-list-icon {
   display: inline-block;
   width: 32px;
   font-size: 180%;
 }
-/* line 41, ../../../src/scss/partials/_generic.scss */
+/* line 44, ../../../src/scss/partials/_generic.scss */
 .file-list .file-list-item .file-list-icon img {
   width: 32px;
   height: 32px;
   vertical-align: middle;
 }
-/* line 48, ../../../src/scss/partials/_generic.scss */
+/* line 51, ../../../src/scss/partials/_generic.scss */
 .file-list .file-list-item a.file-list-link {
   font-size: 120%;
   text-decoration: none;
@@ -1541,45 +1546,51 @@ div.mejs-speed-button {
   width: 100%;
   color: #333;
 }
-/* line 61, ../../../src/scss/partials/_generic.scss */
+/* line 64, ../../../src/scss/partials/_generic.scss */
 .file-list .file-list-item a.file-list-link:hover, .file-list .file-list-item a.file-list-link:focus {
   color: #089bd2;
 }
-/* line 68, ../../../src/scss/partials/_generic.scss */
+/* line 71, ../../../src/scss/partials/_generic.scss */
 .file-list .file-list-description {
   font-size: 90%;
   display: block;
   padding-left: 3rem;
 }
-/* line 78, ../../../src/scss/partials/_generic.scss */
+/* line 80, ../../../src/scss/partials/_generic.scss */
+.file-list .file-list-changelog {
+  padding: 1rem;
+  font-size: 150%;
+  background-color: #ddd;
+}
+/* line 87, ../../../src/scss/partials/_generic.scss */
 .file-list .file-list-file.file-list-search-result a.file-list-link {
   width: 30%;
 }
 @media only screen and (max-width: 1024px) {
-  /* line 78, ../../../src/scss/partials/_generic.scss */
+  /* line 87, ../../../src/scss/partials/_generic.scss */
   .file-list .file-list-file.file-list-search-result a.file-list-link {
     width: 50%;
   }
 }
 @media only screen and (max-width: 640px) {
-  /* line 78, ../../../src/scss/partials/_generic.scss */
+  /* line 87, ../../../src/scss/partials/_generic.scss */
   .file-list .file-list-file.file-list-search-result a.file-list-link {
     width: 100%;
   }
 }
-/* line 90, ../../../src/scss/partials/_generic.scss */
+/* line 99, ../../../src/scss/partials/_generic.scss */
 .file-list .file-list-file.file-list-search-result::after {
   content: '';
   display: block;
   clear: both;
 }
-/* line 99, ../../../src/scss/partials/_generic.scss */
+/* line 108, ../../../src/scss/partials/_generic.scss */
 .file-list a.file-list-search-result {
   float: left;
   width: auto;
   vertical-align: middle;
 }
-/* line 106, ../../../src/scss/partials/_generic.scss */
+/* line 115, ../../../src/scss/partials/_generic.scss */
 .file-list a.file-list-parent-folder {
   width: 70%;
   font-size: 100%;
@@ -1588,19 +1599,19 @@ div.mejs-speed-button {
   text-overflow: ellipsis;
 }
 @media only screen and (max-width: 1024px) {
-  /* line 106, ../../../src/scss/partials/_generic.scss */
+  /* line 115, ../../../src/scss/partials/_generic.scss */
   .file-list a.file-list-parent-folder {
     width: 50%;
   }
 }
 @media only screen and (max-width: 640px) {
-  /* line 106, ../../../src/scss/partials/_generic.scss */
+  /* line 115, ../../../src/scss/partials/_generic.scss */
   .file-list a.file-list-parent-folder {
     display: none;
   }
 }
 
-/* line 121, ../../../src/scss/partials/_generic.scss */
+/* line 130, ../../../src/scss/partials/_generic.scss */
 .file-list-controls {
   position: absolute;
   right: 0;
@@ -1610,7 +1621,7 @@ div.mejs-speed-button {
   white-space: nowrap;
   display: inline-block;
 }
-/* line 131, ../../../src/scss/partials/_generic.scss */
+/* line 140, ../../../src/scss/partials/_generic.scss */
 .file-list-controls:after {
   content: '';
   display: inline-block;
@@ -1618,20 +1629,20 @@ div.mejs-speed-button {
   height: 100%;
   vertical-align: middle;
 }
-/* line 139, ../../../src/scss/partials/_generic.scss */
+/* line 148, ../../../src/scss/partials/_generic.scss */
 .file-list-controls .file-list-control {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 144, ../../../src/scss/partials/_generic.scss */
+/* line 153, ../../../src/scss/partials/_generic.scss */
 .file-list-controls .label {
   display: none;
 }
-/* line 148, ../../../src/scss/partials/_generic.scss */
+/* line 157, ../../../src/scss/partials/_generic.scss */
 .file-list-controls .icon {
   font-size: 200%;
 }
-/* line 152, ../../../src/scss/partials/_generic.scss */
+/* line 161, ../../../src/scss/partials/_generic.scss */
 .file-list-controls a {
   color: #999999;
   -moz-transition: color 0.5s;
@@ -1639,15 +1650,15 @@ div.mejs-speed-button {
   -webkit-transition: color 0.5s;
   transition: color 0.5s;
 }
-/* line 156, ../../../src/scss/partials/_generic.scss */
+/* line 165, ../../../src/scss/partials/_generic.scss */
 .file-list-controls a:hover, .file-list-controls a:focus {
   color: #089bd2;
 }
-/* line 163, ../../../src/scss/partials/_generic.scss */
+/* line 172, ../../../src/scss/partials/_generic.scss */
 .file-list-controls .file-list-delete button {
   color: #999999;
 }
-/* line 166, ../../../src/scss/partials/_generic.scss */
+/* line 175, ../../../src/scss/partials/_generic.scss */
 .file-list-controls .file-list-delete button:hover, .file-list-controls .file-list-delete button:focus {
   color: #cc3737;
 }
@@ -1921,7 +1932,7 @@ div.mejs-speed-button {
 .mejs-oskin .mejs-controls .mejs-prev button {
   width: 40px;
   height: 40px;
-  background: transparent url('../img/controls-wmp-playlist.png?1458025866') no-repeat 0 -40px;
+  background: transparent url('../img/controls-wmp-playlist.png?1457726743') no-repeat 0 -40px;
   margin: 0;
   padding: 0;
 }
@@ -1929,7 +1940,7 @@ div.mejs-speed-button {
 .mejs-oskin .mejs-controls .mejs-next button {
   width: 40px;
   height: 40px;
-  background: transparent url('../img/controls-wmp-playlist.png?1458025866') no-repeat;
+  background: transparent url('../img/controls-wmp-playlist.png?1457726743') no-repeat;
   margin: 0;
   padding: 0;
 }
