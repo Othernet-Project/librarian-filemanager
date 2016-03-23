@@ -26,6 +26,16 @@
     </a>
 </%def>
 
+<%def name="file_parent_folder(path)">
+    <a href="${path}" class="file-list-control">
+        <span class="icon icon-folder-right"></span>
+        <span class="label">
+            ## Translators, link to containing folder of a file in search results
+            ${_('Open containing folder')}
+        </span>
+    </a>
+</%def>
+
 <%def name="file_info_inner()">
     <span class="file-list-info">
         <span class="file-list-info-inner">
@@ -43,8 +53,8 @@
     cover_url = th.get_folder_cover(d)
     icon, icon_is_url = th.get_folder_icon(d)
     %>
-    <li class="file-list-item file-list-directory" role="row" aria-selected="false" tabindex>
-        <a href="${dpath}" data-type="directory" class="file-list-link${' with-controls' if with_controls else ''}">
+    <li class="file-list-item file-list-directory${' with-controls' if with_controls else ''}" role="row" aria-selected="false" tabindex>
+        <a href="${dpath}" data-type="directory" class="file-list-link">
             ## COVER/ICON
             % if cover_url:
                 ${self.thumb_block(cover_url, 'cover')}
@@ -78,55 +88,43 @@
     </li>
 </%def>
 
-<%def name="file(f, with_controls=False)">
+<%def name="file(f, with_controls=False, is_search=False)">
     <%
     fpath = h.quoted_url('files:direct', path=f.rel_path)
     apath = i18n_url('files:path', path=f.rel_path)
-    list_openers_url = i18n_url('opener:list') + h.set_qparam(path=f.rel_path).to_qs()
     parent_url = th.get_parent_url(f.rel_path)
     %>
     ## FIXME: fpath doesn't lead to download, what's the download URL?
-    <li class="file-list-item file-list-file${' with-controls' if with_controls else ''}" role="row" aria-selected="false" tabindex>
+    <li class="file-list-item file-list-file${' with-controls' if with_controls else ''}${' file-list-search-result' if is_search else ''}" role="row" aria-selected="false" tabindex>
         <a
             href="${fpath}"
-            data-action-url="${apath}"
-            data-opener="${list_openers_url}"
             data-relpath="${f.rel_path | h.urlquote}"
             data-mimetype="${(f.mimetype or '') | h}"
             data-type="file"
-            class="file-list-link${' file-list-search-result' if is_search else ''}"
+            class="file-list-link"
             >
             ${self.thumb_block(th.get_file_icon(f), 'icon')}
             <%self:file_info_inner>
                 <span class="file-list-name">
                     ${h.to_unicode(f.name) | h}
                 </span>
-            </%self:file_info_inner>
-        </a>
-        % if is_search:
-            <a
-                href="${parent_url}"
-                data-action-url="${parent_url}"
-                data-type="directory"
-                class="file-list-search-result file-list-parent-folder"
-                >
-                <span>
-                    <span class="icon icon-folder"></span>
-                    <span>
-                        ## Translators, link to containing folder of a file
-                        ## in the search results. {} is a placeholder for
-                        ## the folder name.
+                % if is_search:
+                    <span class="file-list-description">
                         ${_(u"in {}").format(esc(f.parent))}
                     </span>
-                </span>
-            </a>
-        % else:
-            <span class="file-list-controls">
-                ${self.file_download(f.rel_path)}
+                % endif
+            </%self:file_info_inner>
+        </a>
+        <span class="file-list-controls">
+            % if is_search:
+                ${self.file_parent_folder(parent_url)}
+            % endif
+            ${self.file_download(f.rel_path)}
+            % if not is_search:
                 % if request.user.is_superuser:
                     ${self.file_delete(f.rel_path)}
                 % endif
-            </span>
-        % endif
+            % endif
+        </span>
     </li>
 </%def>

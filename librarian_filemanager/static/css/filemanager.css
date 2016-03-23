@@ -1568,66 +1568,24 @@ div.mejs-speed-button {
   text-overflow: ellipsis;
   font-size: 110%;
 }
-/* line 77, ../../../src/scss/partials/_generic.scss */
-.file-list .file-list-item.with-controls .file-list-info {
-  right: 80px;
-}
-/* line 83, ../../../src/scss/partials/_generic.scss */
-.file-list .file-list-description {
+/* line 76, ../../../src/scss/partials/_generic.scss */
+.file-list .file-list-item .file-list-description {
   font-size: 90%;
   display: block;
-  padding-left: 3rem;
-}
-/* line 93, ../../../src/scss/partials/_generic.scss */
-.file-list .file-list-file.file-list-search-result a.file-list-link {
-  width: 30%;
-}
-@media only screen and (max-width: 1024px) {
-  /* line 93, ../../../src/scss/partials/_generic.scss */
-  .file-list .file-list-file.file-list-search-result a.file-list-link {
-    width: 50%;
-  }
-}
-@media only screen and (max-width: 640px) {
-  /* line 93, ../../../src/scss/partials/_generic.scss */
-  .file-list .file-list-file.file-list-search-result a.file-list-link {
-    width: 100%;
-  }
-}
-/* line 105, ../../../src/scss/partials/_generic.scss */
-.file-list .file-list-file.file-list-search-result::after {
-  content: '';
-  display: block;
-  clear: both;
-}
-/* line 114, ../../../src/scss/partials/_generic.scss */
-.file-list a.file-list-search-result {
-  float: left;
-  width: auto;
-  vertical-align: middle;
-}
-/* line 121, ../../../src/scss/partials/_generic.scss */
-.file-list a.file-list-parent-folder {
-  width: 70%;
-  font-size: 100%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-@media only screen and (max-width: 1024px) {
-  /* line 121, ../../../src/scss/partials/_generic.scss */
-  .file-list a.file-list-parent-folder {
-    width: 50%;
-  }
+/* line 86, ../../../src/scss/partials/_generic.scss */
+.file-list .file-list-item.with-controls .file-list-info {
+  right: 48px;
 }
-@media only screen and (max-width: 640px) {
-  /* line 121, ../../../src/scss/partials/_generic.scss */
-  .file-list a.file-list-parent-folder {
-    display: none;
-  }
+/* line 92, ../../../src/scss/partials/_generic.scss */
+.file-list .file-list-item.file-list-file.with-controls .file-list-info {
+  right: 80px;
 }
 
-/* line 136, ../../../src/scss/partials/_generic.scss */
+/* line 99, ../../../src/scss/partials/_generic.scss */
 .file-list-controls {
   position: absolute;
   right: 0;
@@ -1637,7 +1595,7 @@ div.mejs-speed-button {
   white-space: nowrap;
   display: inline-block;
 }
-/* line 146, ../../../src/scss/partials/_generic.scss */
+/* line 109, ../../../src/scss/partials/_generic.scss */
 .file-list-controls:after {
   content: '';
   display: inline-block;
@@ -1645,20 +1603,20 @@ div.mejs-speed-button {
   height: 100%;
   vertical-align: middle;
 }
-/* line 154, ../../../src/scss/partials/_generic.scss */
+/* line 117, ../../../src/scss/partials/_generic.scss */
 .file-list-controls .file-list-control {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 159, ../../../src/scss/partials/_generic.scss */
+/* line 122, ../../../src/scss/partials/_generic.scss */
 .file-list-controls .label {
   display: none;
 }
-/* line 163, ../../../src/scss/partials/_generic.scss */
+/* line 126, ../../../src/scss/partials/_generic.scss */
 .file-list-controls .icon {
   font-size: 200%;
 }
-/* line 167, ../../../src/scss/partials/_generic.scss */
+/* line 130, ../../../src/scss/partials/_generic.scss */
 .file-list-controls a {
   color: #999999;
   -moz-transition: color 0.5s;
@@ -1666,15 +1624,15 @@ div.mejs-speed-button {
   -webkit-transition: color 0.5s;
   transition: color 0.5s;
 }
-/* line 171, ../../../src/scss/partials/_generic.scss */
+/* line 134, ../../../src/scss/partials/_generic.scss */
 .file-list-controls a:hover, .file-list-controls a:focus {
   color: #089bd2;
 }
-/* line 178, ../../../src/scss/partials/_generic.scss */
+/* line 141, ../../../src/scss/partials/_generic.scss */
 .file-list-controls .file-list-delete button {
   color: #999999;
 }
-/* line 181, ../../../src/scss/partials/_generic.scss */
+/* line 144, ../../../src/scss/partials/_generic.scss */
 .file-list-controls .file-list-delete button:hover, .file-list-controls .file-list-delete button:focus {
   color: #cc3737;
 }

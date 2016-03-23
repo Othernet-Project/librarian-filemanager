@@ -30,7 +30,7 @@
         ## Files
 
         % for f in files:
-            ${folder.file(f, not is_search)}
+            ${folder.file(f, not is_search, is_search)}
         % endfor
     % endif
 </ul>
