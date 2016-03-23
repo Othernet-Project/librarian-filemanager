@@ -117,6 +117,12 @@ def show_list_view(path, view, defaults):
     if not is_search and is_successful:
         if view == 'html':
             data['index_file'] = find_html_index(paths)
+        elif view == 'updates':
+            manager = Manager(request.app.supervisor)
+            span = request.app.config['changelog.span']
+            (_, _, files, _) = manager.list_descendants(path, span)
+            data['files'] = sorted(files,
+                                   key=lambda x: x.create_date, reverse=True)
         elif view != 'generic':
             files = filter(lambda f: is_facet_valid(f.rel_path, view),
                            data['files'])
