@@ -1663,6 +1663,11 @@ div.mejs-speed-button {
   color: #cc3737;
 }
 
+/* line 183, ../../../src/scss/partials/_generic.scss */
+.options {
+  padding: 1rem;
+}
+
 @-moz-keyframes fade-out {
   from {
     opacity: 1;

@@ -40,6 +40,16 @@
     </a>
 </%def>
 
+<%def name="sidebar()">
+    <div class="options">
+        % if is_changelog:
+        <a href="${i18n_url(request.path)}">${_("Normal")}</a>
+        % else:
+        <a href="${i18n_url(request.path) + h.set_qparam(changelog=1).to_qs()}">${_("Changelog")}</a>
+        % endif
+    </div>
+</%def>
+
 <% is_super = request.user.is_superuser %>
 
 <ul class="file-list" id="file-list" role="grid" aria-multiselectable="true">
