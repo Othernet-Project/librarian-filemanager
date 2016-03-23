@@ -97,6 +97,7 @@
         fpath = th.get_view_path(f)
         apath = i18n_url('files:path', path=f.rel_path)
         parent_url = th.get_parent_url(f.rel_path)
+        icon, is_thumb = th.get_file_thumb(f)
     %>
     <li class="file-list-item file-list-file${' with-controls' if with_controls else ''}${' file-list-search-result' if is_search else ''}" role="row" aria-selected="false" tabindex>
         <a
@@ -106,7 +107,7 @@
             data-type="file"
             class="file-list-link"
             >
-            ${self.thumb_block(th.get_file_icon(f), 'icon')}
+            ${self.thumb_block(icon, 'cover' if is_thumb else 'icon')}
             <%self:file_info_inner>
                 <span class="file-list-name">
                     ${h.to_unicode(f.name) | h}

@@ -183,6 +183,26 @@ def get_view_path(fsobj):
 
 
 @template_helper
+def get_file_thumb(fsobj):
+    """
+    Return icon name or thumbnail URL and flag that tells us if returned value
+    is an URL.
+    """
+    ext = fsobj.rel_path.rsplit('.', 1)[-1]
+    thumb = None
+    if EXTENSION_VIEW_MAPPING.get(ext) == 'image':
+        try:
+            thumb = get_thumb_path(fsobj.rel_path)
+        except Exception:
+            pass
+    if not thumb:
+        # No thumb for this file, so let's try an icon
+        return get_file_icon(fsobj), False
+    else:
+        return i18n_url('files:direct', path=thumb), True
+
+
+@template_helper
 def get_thumb_path(srcpath, default=None):
     try:
         root = find_root(srcpath)
