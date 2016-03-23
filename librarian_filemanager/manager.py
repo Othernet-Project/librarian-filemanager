@@ -16,7 +16,7 @@ class Manager(object):
         self.META_FILES = [DirInfo.FILENAME] + conf['library.metadata']
 
     def get_dirinfos(self, paths):
-        return DirInfo.from_db(self.supervisor, paths)
+        return DirInfo.from_db(self.supervisor, paths, immediate=True)
 
     def get_contentinfos(self, paths):
         return metadata.Meta.from_db(self.supervisor, paths)

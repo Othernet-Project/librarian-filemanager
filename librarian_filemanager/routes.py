@@ -25,11 +25,13 @@ from librarian_content.library import metadata
 from librarian_content.library.archive import Archive
 from librarian_core.contrib.templates.decorators import template_helper
 from librarian_core.contrib.templates.renderer import template, view
-from librarian_content.library.facets.utils import (get_facets,
+from librarian_content.library.facets.utils import (get_archive,
+                                                    get_facets,
                                                     get_facet_types,
                                                     is_facet_valid,
                                                     find_html_index)
 
+from .dirinfo import DirInfo
 from .manager import Manager
 from .helpers import (title_name,
                       durify,
@@ -73,7 +75,7 @@ def show_file_list(path=None, defaults=None):
 def get_file_list(path=None, defaults=None):
     defaults = defaults or {}
     try:
-        query = urlunquote(request.params['p'])
+        query = urlunquote(request.params['p']).strip()
     except KeyError:
         query = path or '.'
         is_search = False
@@ -156,6 +158,21 @@ def show_view(path, view, defaults):
         return show_info_view(path, view, meta, defaults)
     else:
         return show_list_view(path, view, defaults)
+
+
+def search_content(query, lang=None):
+    supervisor = request.app.supervisor
+    if not lang:
+        default_lang = request.user.options.get('content_language', None)
+        lang = request.params.get('language', default_lang)
+    content_type = request.params.get('content_type', None)
+    dirinfos = DirInfo.search(supervisor, terms=query, language=lang)
+    facets = search_facets(terms=query, facet_type=content_type)
+    return dirinfos, facets
+
+
+def search_facets(terms, facet_type=None):
+    return get_archive().search(terms, facet_type=facet_type)
 
 
 def direct_file(path):

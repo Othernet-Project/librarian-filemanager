@@ -5,6 +5,7 @@ import re
 from bottle_utils.common import to_unicode
 
 from librarian_content.library.base import CDFObject
+from librarian_core.exts import ext_container as exts
 
 
 class DirInfo(CDFObject):
@@ -14,6 +15,7 @@ class DirInfo(CDFObject):
     FILENAME = '.dirinfo'
     ENTRY_REGEX = re.compile(r'(\w+)\[(\w+)\]')
     NO_LANGUAGE = ''
+    TEXT_KEYS = ('name', 'description', 'publisher', 'keywords')
 
     def get(self, language, key, default=None):
         try:
@@ -45,7 +47,7 @@ class DirInfo(CDFObject):
     def delete(self):
         db = self.supervisor.exts.databases[self.DATABASE_NAME]
         query = db.Delete(self.TABLE_NAME, where='path = %s')
-        db.query(query, self.path)
+        db.execute(query, (self.path,))
         self.supervisor.exts.cache.delete(self.get_cache_key(self.path))
 
     def read_file(self):
@@ -71,6 +73,20 @@ class DirInfo(CDFObject):
                 self._data = dict()
                 msg = ".dirinfo reading of {0} failed.".format(self.path)
                 logging.exception(msg)
+
+    @classmethod
+    def search(cls, supervisor, terms=None, language=None):
+        db = exts.databases[cls.DATABASE_NAME]
+        q = db.Select(sets=cls.TABLE_NAME, what='path')
+        if language:
+            q.where += 'language=%(language)s'
+        if terms:
+            q.where += ' OR '.join(
+                '{} ILIKE %(terms)s'.format(key) for key in cls.TEXT_KEYS)
+            terms = '%' + terms.lower() + '%'
+        rows = db.fetchiter(q, dict(language=language, terms=terms))
+        paths = (r['path'] for r in rows)
+        return cls.from_db(supervisor, paths).itervalues()
 
     @classmethod
     def fetch(cls, db, paths):
