@@ -28,7 +28,7 @@ class Manager(object):
         mimetype, encoding = mimetypes.guess_type(fs_obj.rel_path)
         fs_obj.mimetype = mimetype
         fs_obj.parent = to_unicode(
-            os.path.basename(os.path.dirname(fs_obj.path)))
+            os.path.basename(os.path.dirname(fs_obj.rel_path)))
         return fs_obj
 
     def _process_listing(self, dirs, unfiltered_files):
