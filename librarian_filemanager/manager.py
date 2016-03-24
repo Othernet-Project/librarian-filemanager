@@ -8,11 +8,11 @@ from .dirinfo import DirInfo
 
 class Manager(object):
 
+    META_FILES = DirInfo.FILENAME
+
     def __init__(self, supervisor):
         self.supervisor = supervisor
         self.fsal_client = self.supervisor.exts.fsal
-        conf = supervisor.config
-        self.META_FILES = [DirInfo.FILENAME] + conf['library.metadata']
 
     def get_dirinfos(self, paths):
         return DirInfo.from_db(self.supervisor, paths, immediate=True)
@@ -37,7 +37,7 @@ class Manager(object):
         self._extend_dirs(dirs)
         for fs_obj in unfiltered_files:
             self._extend_file(fs_obj)
-            if fs_obj.name in self.META_FILES:
+            if fs_obj.name == self.META_FILES:
                 meta[fs_obj.name] = fs_obj
             else:
                 files.append(fs_obj)
