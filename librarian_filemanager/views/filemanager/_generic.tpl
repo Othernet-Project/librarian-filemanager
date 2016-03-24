@@ -17,10 +17,10 @@
             </div>
         % endif
         <div class="file-list-current-info file-list-current-block">
-            <h2>${name}</h2>
+            <h2>${name | h}</h2>
             % if desc:
                 <p class="file-list-current-description">
-                    ${desc}
+                    ${desc | h}
                 </p>
             % endif
             <p class="file-list-current-stats">
