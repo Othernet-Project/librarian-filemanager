@@ -402,6 +402,7 @@ def retrieve_thumb_url(path, defaults):
 
 
 def routes(config):
+    skip_plugins = config['app.skip_plugins']
     return (
         ('files:list', init_file_action,
          'GET', '/files/', dict(unlocked=True)),
@@ -410,7 +411,7 @@ def routes(config):
         ('files:action', handle_file_action,
          'POST', '/files/<path:path>', dict(unlocked=True)),
         ('files:direct', direct_file,
-         'GET', '/direct/<path:path>', dict(unlocked=True)),
+         'GET', '/direct/<path:path>', dict(unlocked=True, skip=skip_plugins)),
         ('opener:list', opener_list,
          'GET', '/openers/', dict(unlocked=True)),
         ('opener:detail', opener_detail,
