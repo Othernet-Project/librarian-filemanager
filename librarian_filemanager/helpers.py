@@ -182,7 +182,7 @@ def get_view_path(fsobj):
     view = EXTENSION_VIEW_MAPPING.get(ext)
     if not view:
         return quoted_url('files:direct', path=fsobj.rel_path)
-    parent = os.path.basename(fsobj.rel_path) or '.'
+    parent = os.path.dirname(fsobj.rel_path) or '.'
     return i18n_url('files:path', path=parent, view=view, selected=fsobj.name)
 
 
