@@ -6,6 +6,7 @@ import fractions
 from itertools import ifilter
 
 from bottle import request
+from bottle_utils.html import quoted_url
 from bottle_utils.i18n import i18n_url
 from bottle_utils.i18n import lazy_gettext as _, lazy_ngettext as ngettext
 
@@ -121,14 +122,14 @@ def get_folder_cover(fsobj):
     if cover:
         # There is a cover image
         cover_path = fsobj.other_path(cover)
-        return i18n_url('files:direct', path=cover_path)
+        return quoted_url('files:direct', path=cover_path)
     # Look for default cover
     default_cover = fsobj.other_path('cover.jpg')
     if not request.app.supervisor.exts.fsal.exists(default_cover):
         return
     fsobj.dirinfo.set('cover', 'cover.jpg')
     fsobj.dirinfo.store()
-    return i18n_url('files:direct', path=default_cover)
+    return quoted_url('files:direct', path=default_cover)
 
 
 @template_helper
@@ -140,7 +141,7 @@ def get_folder_icon(fsobj):
     icon = fsobj.dirinfo.get(request.locale, 'icon', None)
     if icon:
         # Dirinfo has an icon, so let's use that
-        return i18n_url('files:direct', path=fsobj.other_path(icon)), True
+        return quoted_url('files:direct', path=fsobj.other_path(icon)), True
     # Since dirinfo does not have an icon for us, we'll see if there's an icon
     # for a view
     view = fsobj.dirinfo.get(request.locale, 'view', 'generic')
@@ -181,7 +182,7 @@ def get_view_path(fsobj):
     ext = fsobj.rel_path.rsplit('.', 1)[-1]
     view = EXTENSION_VIEW_MAPPING.get(ext)
     if not view:
-        return i18n_url('files:direct', path=fsobj.rel_path)
+        return quoted_url('files:direct', path=fsobj.rel_path)
     parent = fsobj.rel_path.rsplit('/', 1)[0]
     return i18n_url('files:path', path=parent, view=view, selected=fsobj.name)
 
@@ -205,7 +206,7 @@ def get_file_thumb(fsobj):
         # No thumb for this file, so let's try an icon
         return get_file_icon(fsobj), False
     else:
-        return i18n_url('files:direct', path=thumb), True
+        return quoted_url('files:direct', path=thumb), True
 
 
 @template_helper
