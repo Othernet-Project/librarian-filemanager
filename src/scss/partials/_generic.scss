@@ -12,6 +12,15 @@
     position: relative;
     height: 64px;
 
+    &.file-list-empty {
+      height: auto;
+      padding: 2rem 0;
+
+      .note {
+        background: transparent;
+      }
+    }
+
     &:last-child {
       border-bottom: 0;
     }

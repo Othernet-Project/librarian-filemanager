@@ -1497,15 +1497,24 @@ div.mejs-speed-button {
   height: 64px;
 }
 /* line 15, ../../../src/scss/partials/_generic.scss */
+.file-list .file-list-item.file-list-empty {
+  height: auto;
+  padding: 2rem 0;
+}
+/* line 19, ../../../src/scss/partials/_generic.scss */
+.file-list .file-list-item.file-list-empty .note {
+  background: transparent;
+}
+/* line 24, ../../../src/scss/partials/_generic.scss */
 .file-list .file-list-item:last-child {
   border-bottom: 0;
 }
-/* line 19, ../../../src/scss/partials/_generic.scss */
+/* line 28, ../../../src/scss/partials/_generic.scss */
 .file-list .file-list-item .file-list-link {
   display: block;
   color: #333;
 }
-/* line 30, ../../../src/scss/partials/_generic.scss */
+/* line 39, ../../../src/scss/partials/_generic.scss */
 .file-list .file-list-item .file-list-icon {
   position: absolute;
   display: block;
@@ -1514,7 +1523,7 @@ div.mejs-speed-button {
   width: 64px;
   height: 64px;
 }
-/* line 38, ../../../src/scss/partials/_generic.scss */
+/* line 47, ../../../src/scss/partials/_generic.scss */
 .file-list .file-list-item .file-list-icon span {
   display: inline-block;
   width: 100%;
@@ -1524,7 +1533,7 @@ div.mejs-speed-button {
   -webkit-background-size: cover;
   background-size: cover;
 }
-/* line 45, ../../../src/scss/partials/_generic.scss */
+/* line 54, ../../../src/scss/partials/_generic.scss */
 .file-list .file-list-item .file-list-icon .icon {
   text-align: center;
   line-height: 64px;
@@ -1532,7 +1541,7 @@ div.mejs-speed-button {
   color: #4d4d4d;
   background: #fff;
 }
-/* line 54, ../../../src/scss/partials/_generic.scss */
+/* line 63, ../../../src/scss/partials/_generic.scss */
 .file-list .file-list-item .file-list-info {
   display: block;
   position: absolute;
@@ -1555,12 +1564,12 @@ div.mejs-speed-button {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 64, ../../../src/scss/partials/_generic.scss */
+/* line 73, ../../../src/scss/partials/_generic.scss */
 .file-list .file-list-item .file-list-info .file-list-info-inner {
   padding: 0 1rem;
   width: 100%;
 }
-/* line 69, ../../../src/scss/partials/_generic.scss */
+/* line 78, ../../../src/scss/partials/_generic.scss */
 .file-list .file-list-item .file-list-info .file-list-name {
   display: block;
   overflow: hidden;
@@ -1568,7 +1577,7 @@ div.mejs-speed-button {
   text-overflow: ellipsis;
   font-size: 110%;
 }
-/* line 76, ../../../src/scss/partials/_generic.scss */
+/* line 85, ../../../src/scss/partials/_generic.scss */
 .file-list .file-list-item .file-list-description {
   font-size: 90%;
   display: block;
@@ -1576,16 +1585,16 @@ div.mejs-speed-button {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-/* line 86, ../../../src/scss/partials/_generic.scss */
+/* line 95, ../../../src/scss/partials/_generic.scss */
 .file-list .file-list-item.with-controls .file-list-info {
   right: 48px;
 }
-/* line 92, ../../../src/scss/partials/_generic.scss */
+/* line 101, ../../../src/scss/partials/_generic.scss */
 .file-list .file-list-item.file-list-file.with-controls .file-list-info {
   right: 80px;
 }
 
-/* line 99, ../../../src/scss/partials/_generic.scss */
+/* line 108, ../../../src/scss/partials/_generic.scss */
 .file-list-controls {
   position: absolute;
   right: 0;
@@ -1595,7 +1604,7 @@ div.mejs-speed-button {
   white-space: nowrap;
   display: inline-block;
 }
-/* line 109, ../../../src/scss/partials/_generic.scss */
+/* line 118, ../../../src/scss/partials/_generic.scss */
 .file-list-controls:after {
   content: '';
   display: inline-block;
@@ -1603,28 +1612,28 @@ div.mejs-speed-button {
   height: 100%;
   vertical-align: middle;
 }
-/* line 117, ../../../src/scss/partials/_generic.scss */
+/* line 126, ../../../src/scss/partials/_generic.scss */
 .file-list-controls .file-list-control {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 122, ../../../src/scss/partials/_generic.scss */
+/* line 131, ../../../src/scss/partials/_generic.scss */
 .file-list-controls .label {
   display: none;
 }
-/* line 126, ../../../src/scss/partials/_generic.scss */
+/* line 135, ../../../src/scss/partials/_generic.scss */
 .file-list-controls button {
   vertical-align: middle;
 }
-/* line 129, ../../../src/scss/partials/_generic.scss */
+/* line 138, ../../../src/scss/partials/_generic.scss */
 .file-list-controls button .icon {
   vertical-align: top;
 }
-/* line 134, ../../../src/scss/partials/_generic.scss */
+/* line 143, ../../../src/scss/partials/_generic.scss */
 .file-list-controls .icon {
   font-size: 200%;
 }
-/* line 138, ../../../src/scss/partials/_generic.scss */
+/* line 147, ../../../src/scss/partials/_generic.scss */
 .file-list-controls a {
   color: #999999;
   -moz-transition: color 0.5s;
@@ -1632,15 +1641,15 @@ div.mejs-speed-button {
   -webkit-transition: color 0.5s;
   transition: color 0.5s;
 }
-/* line 142, ../../../src/scss/partials/_generic.scss */
+/* line 151, ../../../src/scss/partials/_generic.scss */
 .file-list-controls a:hover, .file-list-controls a:focus {
   color: #089bd2;
 }
-/* line 149, ../../../src/scss/partials/_generic.scss */
+/* line 158, ../../../src/scss/partials/_generic.scss */
 .file-list-controls .file-list-delete button {
   color: #999999;
 }
-/* line 152, ../../../src/scss/partials/_generic.scss */
+/* line 161, ../../../src/scss/partials/_generic.scss */
 .file-list-controls .file-list-delete button:hover, .file-list-controls .file-list-delete button:focus {
   color: #cc3737;
 }
