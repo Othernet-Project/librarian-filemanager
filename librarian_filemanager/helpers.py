@@ -1,3 +1,5 @@
+from __future__ import division
+
 import os
 import functools
 import fractions
@@ -5,7 +7,7 @@ from itertools import ifilter
 
 from bottle import request
 from bottle_utils.i18n import i18n_url
-from bottle_utils.i18n import lazy_gettext as _
+from bottle_utils.i18n import lazy_gettext as _, lazy_ngettext as ngettext
 
 from librarian_core.utils import utcnow
 from librarian_core.contrib.templates.decorators import template_helper
@@ -238,24 +240,56 @@ def get_thumb_path(srcpath, default=None):
         return proc_cls.create_thumb(**kwargs)
 
 
+def divround(a, b):
+    return round(a / b)
+
+
 @template_helper
 def ago(dt, days_only=False):
+    # It may appear as if there's quite a bit of redundancy here, but it all
+    # boils down to the need to mark translations using ngettext. We can't be
+    # too 'progammatic' about this because various languages have different
+    # numeber of plural forms and different rules about plural calculations.
+    # Because of this, we sacrifice DRY for tranlsator-friendly strings.
     diff = utcnow().date() - dt
-    periods = (
-        (diff.days / 365, _("year"), _("years")),
-        (diff.days / 30, _("month"), _("months")),
-        (diff.days / 7, _("week"), _("weeks")),
-        (diff.days, _("day"), _("days")),
-    )
-    if not days_only:
-        periods += (
-            (diff.seconds / 3600, _("hour"), _("hours")),
-            (diff.seconds / 60, _("minute"), _("minutes")),
-            (diff.seconds, _("second"), _("seconds")),
-        )
-    for (period, singular, plural) in periods:
-        if period:
-            unit = singular if period == 1 else plural
-            return _("{period} {unit} ago").format(period=period, unit=unit)
+    divdays = functools.partial(divround, diff.days)
+    period = divdays(365)
+    if period:
+        return ngettext("{number} year ago",
+                        "{number} years ago",
+                        period).format(number=period)
+    period = divdays(30)
+    if period:
+        return ngettext("{number} mont ago",
+                        "{number} months ago",
+                        period).format(number=period)
+    period = divdays(7)
+    if period:
+        return ngettext("{number} week ago",
+                        "{number} weeks ago",
+                        period).format(number=period)
+    if diff.days > 1:
+        return ngettext("{number} day ago",
+                        "{number} days ago",
+                        diff.days).format(number=diff.days)
+    if diff.days == 1:
+        return _('yesterday')
+    if days_only:
+        return _('Today')
 
-    return _("Today") if days_only else _("Just now")
+    divsecs = functools.partial(divround, diff.seconds)
+    period = divsecs(3600)
+    if period:
+        return ngettext("{number} hour ago",
+                        "{number} hours ago",
+                        period).format(number=period)
+    period = divsecs(60)
+    if period:
+        return ngettext("{number} minute ago",
+                        "{number} minutes ago",
+                        period).format(number=period)
+    if diff.seconds > 5:
+        return ngettext("{number} second ago",
+                        "{number} seconds ago",
+                        diff.seconds).format(number=diff.seconds)
+    return _('just now')
