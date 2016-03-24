@@ -9,7 +9,7 @@
   text-overflow: ellipsis;
 }
 
-@mixin valign($child) {
+@mixin valign($child, $align: middle) {
   white-space: nowrap;
 
   &:after {
@@ -17,11 +17,11 @@
     height: 100%;
     width: 0;
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: $align;
   }
 
   #{$child} {
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: $align;
   }
 }

@@ -89,10 +89,11 @@ def get_file_list(path=None, defaults=None):
     else:
         (is_successful, dirs, files, meta) = manager.list(query)
         relpath = '.' if not is_successful else query
-
+    current = manager.get(path)
     up = get_parent_path(query)
     data = defaults.copy()
     data.update(dict(path=relpath,
+                     current=current,
                      dirs=dirs,
                      files=files,
                      up=up,
@@ -335,7 +336,6 @@ def retrieve_thumb_url(path, defaults):
 
 
 def routes(config):
-    skip_plugins = config['app.skip_plugins']
     return (
         ('files:list', init_file_action,
          'GET', '/files/', dict(unlocked=True)),
@@ -344,5 +344,5 @@ def routes(config):
         ('files:action', handle_file_action,
          'POST', '/files/<path:path>', dict(unlocked=True)),
         ('files:direct', direct_file,
-         'GET', '/direct/<path:path>', dict(unlocked=True, skip=skip_plugins)),
+         'GET', '/direct/<path:path>', dict(unlocked=True)),
     )

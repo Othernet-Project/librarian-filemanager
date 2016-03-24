@@ -164,9 +164,8 @@ def get_folder_name(fsobj):
     Return folder title, name, or filesystem name, whichever is present in the
     dirinfo.
     """
-    title = fsobj.dirinfo.get(request.locale, 'title', None)
     name = fsobj.dirinfo.get(request.locale, 'name', None)
-    return title or name or fsobj.name
+    return name or fsobj.name
 
 
 @template_helper
