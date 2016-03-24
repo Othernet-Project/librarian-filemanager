@@ -21,8 +21,6 @@ from bottle_utils.csrf import csrf_protect, csrf_token
 from bottle_utils.html import urlunquote, quoted_url
 from bottle_utils.i18n import lazy_gettext as _, i18n_url
 
-from librarian_content.library import metadata
-from librarian_content.library.archive import Archive
 from librarian_core.contrib.templates.decorators import template_helper
 from librarian_core.contrib.templates.renderer import template, view
 from librarian_content.library.facets.utils import (get_archive,
@@ -99,8 +97,7 @@ def get_file_list(path=None, defaults=None):
                      files=files,
                      up=up,
                      is_search=is_search,
-                     is_successful=is_successful,
-                     openers=request.app.supervisor.exts.openers))
+                     is_successful=is_successful))
     return data
 
 
@@ -291,8 +288,6 @@ def init_file_action(path=None):
 def show_files_view(path, action, defaults):
     if action == 'delete':
         return delete_path_confirm(path)
-    elif action == 'open':
-        return opener_detail(request.query.get('opener_id'), path=path)
     elif action == 'thumb':
         return retrieve_thumb_url(path, defaults)
 
@@ -316,68 +311,6 @@ def handle_file_action(path):
         return template('exec_result', ret=ret, out=out, err=err)
     else:
         abort(400)
-
-
-def opener_list():
-    openers = request.app.supervisor.exts.openers
-    manager = Manager(request.app.supervisor)
-    path = urlunquote(request.query.get('path', ''))
-    name = os.path.basename(path)
-    is_folder = manager.isdir(path)
-    content_types = request.query.getall('content_type')
-    if content_types:
-        opener_ids = []
-        for ct in content_types:
-            opener_ids.extend(openers.filter_by(content_type=ct))
-    else:
-        (_, ext) = os.path.splitext(name)
-        opener_ids = openers.filter_by(extension=ext.strip('.'))
-
-    context = dict(opener_ids=opener_ids,
-                   openers=request.app.supervisor.exts.openers,
-                   path=path,
-                   name=name,
-                   is_folder=is_folder)
-
-    if request.is_xhr:
-        return template('opener/_opener_list', **context)
-
-    # for non-ajax requests, if there are no openers available, use the generic
-    # opener automatically
-    if not opener_ids:
-        if not is_folder:
-            # the selected path is a file, just trigger the download
-            return direct_file(path)
-        # redirect to show the contents of the folder
-        redirect(i18n_url('files:path', path=path))
-    # show list of openers
-    return template('opener/opener_list', **context)
-
-
-def opener_detail(opener_id, path=None):
-    path = path or urlunquote(request.query.get('path', ''))
-    opener = request.app.supervisor.exts.openers.get(opener_id)
-    conf = request.app.config
-    archive = Archive.setup(conf['library.backend'],
-                            request.app.supervisor.exts.fsal,
-                            request.db.content,
-                            contentdir=conf['library.contentdir'],
-                            meta_filenames=conf['library.metadata'])
-    content = archive.get_single(path)
-    meta = metadata.Meta(request.app.supervisor,
-                         path,
-                         data=content) if content else None
-    opener_html = opener(path)
-    if request.is_xhr:
-        return opener_html
-
-    return template('opener/opener_detail',
-                    opener_id=opener_id,
-                    openers=request.app.supervisor.exts.openers,
-                    opener_html=opener_html,
-                    path=path,
-                    filename=os.path.basename(path),
-                    meta=meta)
 
 
 def retrieve_thumb_url(path, defaults):
@@ -412,8 +345,4 @@ def routes(config):
          'POST', '/files/<path:path>', dict(unlocked=True)),
         ('files:direct', direct_file,
          'GET', '/direct/<path:path>', dict(unlocked=True, skip=skip_plugins)),
-        ('opener:list', opener_list,
-         'GET', '/openers/', dict(unlocked=True)),
-        ('opener:detail', opener_detail,
-         'GET', '/openers/<opener_id>/', dict(unlocked=True)),
     )
