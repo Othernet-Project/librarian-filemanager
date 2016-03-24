@@ -8,25 +8,43 @@ This software is free software licensed under the terms of GPLv3. See COPYING
 file that comes with the source code, or http://www.gnu.org/licenses/gpl.txt.
 """
 
-import functools
-import logging
 import os
+import logging
+import functools
 import subprocess
+
+from itertools import izip_longest, imap
 
 from bottle import request, abort, static_file, redirect
 from bottle_utils.ajax import roca_view
 from bottle_utils.csrf import csrf_protect, csrf_token
-from bottle_utils.html import urlunquote
+from bottle_utils.html import urlunquote, quoted_url
 from bottle_utils.i18n import lazy_gettext as _, i18n_url
 
-from librarian_content.library import metadata
-from librarian_content.library.archive import Archive
 from librarian_core.contrib.templates.decorators import template_helper
 from librarian_core.contrib.templates.renderer import template, view
+from librarian_content.facets.utils import (get_archive,
+                                            get_facets,
+                                            get_facet_types,
+                                            is_facet_valid,
+                                            find_html_index)
 
+from .dirinfo import DirInfo
 from .manager import Manager
+from .helpers import (title_name,
+                      durify,
+                      get_selected,
+                      get_adjacent,
+                      get_thumb_path,
+                      find_root,
+                      aspectify)
 
 
+FACET_MAPPING = {
+    'video': 'clips',
+    'image': 'gallery',
+    'audio': 'playlist',
+}
 EXPORTS = {
     'routes': {'required_by': ['librarian_core.contrib.system.routes.routes']}
 }
@@ -47,10 +65,15 @@ def go_to_parent(path):
     redirect(get_parent_url(path))
 
 
-@roca_view('filemanager/list', 'filemanager/_list', template_func=template)
-def show_file_list(path=None):
+@roca_view('filemanager/main', 'filemanager/_main', template_func=template)
+def show_file_list(path=None, defaults=None):
+    return get_file_list(path, defaults)
+
+
+def get_file_list(path=None, defaults=None):
+    defaults = defaults or {}
     try:
-        query = urlunquote(request.params['p'])
+        query = urlunquote(request.params['p']).strip()
     except KeyError:
         query = path or '.'
         is_search = False
@@ -66,22 +89,105 @@ def show_file_list(path=None):
     else:
         (is_successful, dirs, files, meta) = manager.list(query)
         relpath = '.' if not is_successful else query
-
+    current = manager.get(path)
     up = get_parent_path(query)
-    return dict(path=relpath,
-                dirs=dirs,
-                files=files,
-                up=up,
-                is_search=is_search,
-                is_successful=is_successful,
-                openers=request.app.supervisor.exts.openers)
+    data = defaults.copy()
+    data.update(dict(path=relpath,
+                     current=current,
+                     dirs=dirs,
+                     files=files,
+                     up=up,
+                     is_search=is_search,
+                     is_successful=is_successful))
+    return data
+
+
+@roca_view('filemanager/main', 'filemanager/_main', template_func=template)
+def show_list_view(path, view, defaults):
+    selected = request.query.get('selected', None)
+    if selected:
+        selected = urlunquote(selected)
+    data = defaults.copy()
+    paths = [f.rel_path for f in data['files']]
+    data['facet_types'] = get_facet_types(paths)
+    is_search = data.get('is_search', False)
+    is_successful = data.get('is_successful', True)
+    if not is_search and is_successful:
+        if view == 'html':
+            data['index_file'] = find_html_index(paths)
+        elif view == 'updates':
+            manager = Manager(request.app.supervisor)
+            span = request.app.config['changelog.span']
+            (_, _, files, _) = manager.list_descendants(path, span)
+            data['files'] = sorted(files,
+                                   key=lambda x: x.create_date, reverse=True)
+        elif view != 'generic':
+            files = filter(lambda f: is_facet_valid(f.rel_path, view),
+                           data['files'])
+            facets_list = get_facets(imap(lambda f: f.rel_path, files),
+                                     facet_type=view)
+            for f, facets in izip_longest(files, facets_list):
+                f.facets = facets
+            data['files'] = files
+    data['selected'] = selected
+    return data
+
+
+@roca_view('filemanager/info', 'filemanager/_info', template_func=template)
+def show_info_view(path, view, meta, defaults):
+    file_path = os.path.join(path, meta)
+    success, fso = request.app.supervisor.exts.fsal.get_fso(file_path)
+    if not success:
+        # There is no such file
+        abort(404)
+    try:
+        facets = list(get_facets((file_path,), facet_type=view))[0]
+    except IndexError:
+        abort(404)
+    fso.facets = facets
+    defaults['entry'] = fso
+    return defaults
+
+
+def show_view(path, view, defaults):
+    # Add all helpers
+    defaults.update(dict(titlify=title_name, durify=durify,
+                         get_selected=get_selected, get_adjacent=get_adjacent,
+                         aspectify=aspectify))
+
+    defaults.update(get_file_list(path))
+    meta = request.query.get('info')
+    if meta:
+        meta = urlunquote(meta)
+        return show_info_view(path, view, meta, defaults)
+    else:
+        return show_list_view(path, view, defaults)
+
+
+def search_content(query, lang=None):
+    supervisor = request.app.supervisor
+    if not lang:
+        default_lang = request.user.options.get('content_language', None)
+        lang = request.params.get('language', default_lang)
+    content_type = request.params.get('content_type', None)
+    dirinfos = DirInfo.search(supervisor, terms=query, language=lang)
+    facets = search_facets(terms=query, facet_type=content_type)
+    return dirinfos, facets
+
+
+def search_facets(terms, facet_type=None):
+    return get_archive().search(terms, facet_type=facet_type)
 
 
 def direct_file(path):
     path = urlunquote(path)
-    return static_file(path,
-                       root=request.app.config['library.contentdir'],
-                       download=request.params.get('filename', False))
+    try:
+        root = find_root(path)
+    except RuntimeError:
+        abort(404, _("File not found."))
+
+    download = request.params.get('filename', False)
+    return static_file(path, root=root, download=download)
 
 
 def guard_already_removed(func):
@@ -165,15 +271,28 @@ def run_path(path):
     return ret, out, err
 
 
-def init_file_action(path):
-    path = urlunquote(path)
+def init_file_action(path=None):
+    if path:
+        path = urlunquote(path)
+    else:
+        path = '.'
+    # Use 'generic' as default view
+    view = request.query.get('view', 'generic')
+    defaults = dict(path=path,
+                    view=view)
     action = request.query.get('action')
+    if action:
+        return show_files_view(path, action, defaults)
+    return show_view(path, view, defaults)
+
+
+def show_files_view(path, action, defaults):
     if action == 'delete':
         return delete_path_confirm(path)
-    elif action == 'open':
-        return opener_detail(request.query.get('opener_id'), path=path)
+    elif action == 'thumb':
+        return retrieve_thumb_url(path, defaults)
 
-    return show_file_list(path)
+    return show_file_list(path, defaults=defaults)
 
 
 def handle_file_action(path):
@@ -195,71 +314,30 @@ def handle_file_action(path):
         abort(400)
 
 
-def opener_list():
-    openers = request.app.supervisor.exts.openers
-    manager = Manager(request.app.supervisor)
-    path = urlunquote(request.query.get('path', ''))
-    name = os.path.basename(path)
-    is_folder = manager.isdir(path)
-    content_types = request.query.getall('content_type')
-    if content_types:
-        opener_ids = []
-        for ct in content_types:
-            opener_ids.extend(openers.filter_by(content_type=ct))
+def retrieve_thumb_url(path, defaults):
+    thumb_url = None
+    thumb_path = get_thumb_path(urlunquote(request.query.get('target')))
+    if thumb_path:
+        thumb_url = quoted_url('files:direct', path=thumb_path)
     else:
-        (_, ext) = os.path.splitext(name)
-        opener_ids = openers.filter_by(extension=ext.strip('.'))
+        facet_type = request.query.get('facet', 'generic')
+        try:
+            facet = defaults['facets'][facet_type]
+        except KeyError:
+            pass
+        else:
+            cover = facet.get('cover')
+            if cover:
+                cover_path = os.path.join(facet['path'], cover)
+                thumb_url = quoted_url('files:direct',
+                                       path=cover_path)
 
-    context = dict(opener_ids=opener_ids,
-                   openers=request.app.supervisor.exts.openers,
-                   path=path,
-                   name=name,
-                   is_folder=is_folder)
-
-    if request.is_xhr:
-        return template('opener/_opener_list', **context)
-
-    # for non-ajax requests, if there are no openers available, use the generic
-    # opener automatically
-    if not opener_ids:
-        if not is_folder:
-            # the selected path is a file, just trigger the download
-            return direct_file(path)
-        # redirect to show the contents of the folder
-        redirect(i18n_url('files:path', path=path))
-    # show list of openers
-    return template('opener/opener_list', **context)
-
-
-def opener_detail(opener_id, path=None):
-    path = path or urlunquote(request.query.get('path', ''))
-    opener = request.app.supervisor.exts.openers.get(opener_id)
-    conf = request.app.config
-    archive = Archive.setup(conf['library.backend'],
-                            request.app.supervisor.exts.fsal,
-                            request.db.content,
-                            contentdir=conf['library.contentdir'],
-                            meta_filenames=conf['library.metadata'])
-    content = archive.get_single(path)
-    meta = metadata.Meta(request.app.supervisor,
-                         path,
-                         data=content) if content else None
-    opener_html = opener(path)
-    if request.is_xhr:
-        return opener_html
-
-    return template('opener/opener_detail',
-                    opener_id=opener_id,
-                    openers=request.app.supervisor.exts.openers,
-                    opener_html=opener_html,
-                    path=path,
-                    filename=os.path.basename(path),
-                    meta=meta)
+    return dict(url=thumb_url)
 
 
 def routes(config):
     return (
-        ('files:list', show_file_list,
+        ('files:list', init_file_action,
          'GET', '/files/', dict(unlocked=True)),
         ('files:path', init_file_action,
          'GET', '/files/<path:path>', dict(unlocked=True)),
@@ -267,8 +345,4 @@ def routes(config):
          'POST', '/files/<path:path>', dict(unlocked=True)),
         ('files:direct', direct_file,
          'GET', '/direct/<path:path>', dict(unlocked=True)),
-        ('opener:list', opener_list,
-         'GET', '/openers/', dict(unlocked=True)),
-        ('opener:detail', opener_detail,
-         'GET', '/openers/<opener_id>/', dict(unlocked=True)),
     )

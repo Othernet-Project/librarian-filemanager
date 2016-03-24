@@ -4,7 +4,8 @@ import re
 
 from bottle_utils.common import to_unicode
 
-from librarian_content.library.base import CDFObject
+from librarian_content.facets.base import CDFObject
+from librarian_core.exts import ext_container as exts
 
 
 class DirInfo(CDFObject):
@@ -14,6 +15,16 @@ class DirInfo(CDFObject):
     FILENAME = '.dirinfo'
     ENTRY_REGEX = re.compile(r'(\w+)\[(\w+)\]')
     NO_LANGUAGE = ''
+    TEXT_KEYS = ('name', 'description', 'publisher', 'keywords', 'cover')
+    FIELDS = (
+        'name',
+        'description',
+        'icon',
+        'cover',
+        'publisher',
+        'keywords',
+        'view',
+    )
 
     def get(self, language, key, default=None):
         try:
@@ -26,10 +37,24 @@ class DirInfo(CDFObject):
             else:
                 return default if value is None else value
 
+    def set(self, key, value, language=NO_LANGUAGE):
+        self._data.setdefault(language, {})
+        self._data[language][key] = value
+
+    def clean_data(self):
+        cleaned = {}
+        for lang in self._data:
+            cleaned[lang] = {}
+            for k, v in self._data[lang].items():
+                if k not in self.FIELDS:
+                    continue  # ignore keys we cannot store
+                cleaned[lang][k] = v
+        return cleaned
+
     def store(self):
         """Store dirinfo data structure in database."""
         db = self.supervisor.exts.databases[self.DATABASE_NAME]
-        data = self._data or {self.NO_LANGUAGE: {}}
+        data = self.clean_data() or {self.NO_LANGUAGE: {}}
         for language, info in data.items():
             to_write = dict(path=self.path, language=language)
             to_write.update(info)
@@ -67,6 +92,20 @@ class DirInfo(CDFObject):
                 self._data = dict()
                 msg = ".dirinfo reading of {0} failed.".format(self.path)
                 logging.exception(msg)
+
+    @classmethod
+    def search(cls, supervisor, terms=None, language=None):
+        db = exts.databases[cls.DATABASE_NAME]
+        q = db.Select(sets=cls.TABLE_NAME, what='path')
+        if language:
+            q.where += 'language=%(language)s'
+        if terms:
+            q.where += ' OR '.join(
+                '{} ILIKE %(terms)s'.format(key) for key in cls.TEXT_KEYS)
+            terms = '%' + terms.lower() + '%'
+        rows = db.fetchiter(q, dict(language=language, terms=terms))
+        paths = (r['path'] for r in rows)
+        return cls.from_db(supervisor, paths).itervalues()
 
     @classmethod
     def fetch(cls, db, paths):
