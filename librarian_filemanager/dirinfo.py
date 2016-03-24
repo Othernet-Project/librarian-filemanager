@@ -4,7 +4,7 @@ import re
 
 from bottle_utils.common import to_unicode
 
-from librarian_content.library.base import CDFObject
+from librarian_content.facets.base import CDFObject
 from librarian_core.exts import ext_container as exts
 
 

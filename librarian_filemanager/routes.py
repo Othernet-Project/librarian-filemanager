@@ -23,11 +23,11 @@ from bottle_utils.i18n import lazy_gettext as _, i18n_url
 
 from librarian_core.contrib.templates.decorators import template_helper
 from librarian_core.contrib.templates.renderer import template, view
-from librarian_content.library.facets.utils import (get_archive,
-                                                    get_facets,
-                                                    get_facet_types,
-                                                    is_facet_valid,
-                                                    find_html_index)
+from librarian_content.facets.utils import (get_archive,
+                                            get_facets,
+                                            get_facet_types,
+                                            is_facet_valid,
+                                            find_html_index)
 
 from .dirinfo import DirInfo
 from .manager import Manager

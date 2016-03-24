@@ -12,7 +12,7 @@ from bottle_utils.i18n import lazy_gettext as _, lazy_ngettext as ngettext
 
 from librarian_core.utils import utcnow
 from librarian_core.contrib.templates.decorators import template_helper
-from librarian_content.library.facets.processors import FacetProcessorBase
+from librarian_content.facets.processors import FacetProcessorBase
 
 ICON_MAPPINGS = {
     'text/x-python': 'file-xml',
