@@ -15,7 +15,16 @@ class DirInfo(CDFObject):
     FILENAME = '.dirinfo'
     ENTRY_REGEX = re.compile(r'(\w+)\[(\w+)\]')
     NO_LANGUAGE = ''
-    TEXT_KEYS = ('name', 'description', 'publisher', 'keywords')
+    TEXT_KEYS = ('name', 'description', 'publisher', 'keywords', 'cover')
+    FIELDS = (
+        'name',
+        'description',
+        'icon',
+        'cover',
+        'publisher',
+        'keywords',
+        'view',
+    )
 
     def get(self, language, key, default=None):
         try:
@@ -32,10 +41,20 @@ class DirInfo(CDFObject):
         self._data.setdefault(language, {})
         self._data[language][key] = value
 
+    def clean_data(self):
+        cleaned = {}
+        for lang in self._data:
+            cleaned[lang] = {}
+            for k, v in self._data[lang].items():
+                if k not in self.FIELDS:
+                    continue  # ignore keys we cannot store
+                cleaned[lang][k] = v
+        return cleaned
+
     def store(self):
         """Store dirinfo data structure in database."""
         db = self.supervisor.exts.databases[self.DATABASE_NAME]
-        data = self._data or {self.NO_LANGUAGE: {}}
+        data = self.clean_data() or {self.NO_LANGUAGE: {}}
         for language, info in data.items():
             to_write = dict(path=self.path, language=language)
             to_write.update(info)
