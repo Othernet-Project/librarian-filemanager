@@ -1,7 +1,6 @@
 import os
 import mimetypes
 
-from librarian_content.library import metadata
 from bottle_utils.common import to_unicode
 
 from .dirinfo import DirInfo
@@ -18,16 +17,11 @@ class Manager(object):
     def get_dirinfos(self, paths):
         return DirInfo.from_db(self.supervisor, paths, immediate=True)
 
-    def get_contentinfos(self, paths):
-        return metadata.Meta.from_db(self.supervisor, paths)
-
     def _extend_dirs(self, dirs):
         dirpaths = [fs_obj.rel_path for fs_obj in dirs]
         dirinfos = self.get_dirinfos(dirpaths)
-        contentinfos = self.get_contentinfos(dirpaths)
         for fs_obj in dirs:
             fs_obj.dirinfo = dirinfos[fs_obj.rel_path]
-            fs_obj.contentinfo = contentinfos.get(fs_obj.rel_path)
         return dirs
 
     def _extend_file(self, fs_obj):
@@ -48,6 +42,16 @@ class Manager(object):
             else:
                 files.append(fs_obj)
         return (dirs, files, meta)
+
+    def get(self, path):
+        success, fso = self.fsal_client.get_fso(path)
+        if not success:
+            return None
+        if fso.is_dir():
+            self._extend_dirs([fso])
+        else:
+            self._extend_file([fso])
+        return fso
 
     def list(self, path):
         (success, dirs, files) = self.fsal_client.list_dir(path)
