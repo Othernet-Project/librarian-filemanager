@@ -50,7 +50,7 @@ class Manager(object):
         if fso.is_dir():
             self._extend_dirs([fso])
         else:
-            self._extend_file([fso])
+            self._extend_file(fso)
         return fso
 
     def list(self, path):
