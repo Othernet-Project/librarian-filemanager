@@ -1,15 +1,13 @@
 @import "base";
+  
+.file-list-changelog {
+  padding: 2.5rem 0.5rem;
+  margin: 0;
 
-.file-list {
-  padding-top: 1rem;
-  background-color: white;
-  .file-list-changelog {
-    padding: 1rem;
-    font-size: 150%;
-    background-color: $o-dark-material;
-  }
-}
-
-.options {
-  padding: 1rem;
+  font-size: 150%;
+  background: $o-thin-overlay-material;
+  border-bottom: $o-separator-border;
+  text-transform: uppercase;
+  text-align: center;
+  color: lighten($o-base-text-color, 20);
 }

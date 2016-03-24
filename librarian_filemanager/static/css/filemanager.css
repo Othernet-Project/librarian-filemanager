@@ -2443,18 +2443,13 @@ div.mejs-speed-button {
 }
 
 /* line 3, ../../../src/scss/partials/_updates.scss */
-.file-list {
-  padding-top: 1rem;
-  background-color: white;
-}
-/* line 6, ../../../src/scss/partials/_updates.scss */
-.file-list .file-list-changelog {
-  padding: 1rem;
+.file-list-changelog {
+  padding: 2.5rem 0.5rem;
+  margin: 0;
   font-size: 150%;
-  background-color: #ddd;
-}
-
-/* line 13, ../../../src/scss/partials/_updates.scss */
-.options {
-  padding: 1rem;
+  background: rgba(255, 255, 255, 0.75);
+  border-bottom: 1px solid #ddd;
+  text-transform: uppercase;
+  text-align: center;
+  color: #666666;
 }

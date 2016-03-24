@@ -2,7 +2,7 @@
 
 <% is_super = request.user.is_superuser %>
 
-<ul class="file-list" id="file-list" role="grid" aria-multiselectable="true">
+<ul class="file-list file-list-updates" id="file-list" role="grid" aria-multiselectable="true">
 
     ## *** FOLDER LISTING ***
 
