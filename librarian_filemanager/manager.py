@@ -88,7 +88,7 @@ class Manager(object):
         return (success, dirs, files, meta)
 
     def list_descendants(self, path, span, show_hidden=False):
-        (success, dirs, files) = self.fsal_client.list_descendants(path, span)
+        (success, count, dirs, files) = self.fsal_client.list_descendants(path, span)
         if not show_hidden:
             dirs = nohidden(dirs)
             files = nohidden(files)
