@@ -32,6 +32,6 @@
     % endif
 </ul>
 
-<p class="pager">
+<p class="file-list-pager pager">
 ${ui_pager.pager_links(pager, _('Previous'), _('Next'))}
 </p>
