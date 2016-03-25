@@ -260,7 +260,7 @@ def ago(dt, days_only=False):
                         period).format(number=period)
     period = divdays(30)
     if period:
-        return ngettext("{number} mont ago",
+        return ngettext("{number} month ago",
                         "{number} months ago",
                         period).format(number=period)
     period = divdays(7)
