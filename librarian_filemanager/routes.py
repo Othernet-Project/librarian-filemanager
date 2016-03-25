@@ -122,13 +122,8 @@ def show_list_view(path, view, defaults):
             data['files'] = sorted(files,
                                    key=lambda x: x.create_date, reverse=True)
         elif view != 'generic':
-            files = filter(lambda f: is_facet_valid(f.rel_path, view),
-                           data['files'])
-            facets_list = get_facets(imap(lambda f: f.rel_path, files),
-                                     facet_type=view)
-            for f, facets in izip_longest(files, facets_list):
-                f.facets = facets
-            data['files'] = files
+            data['files'] = filter(
+                lambda f: is_facet_valid(f.rel_path, view), data['files'])
     data['selected'] = selected
     return data
 
