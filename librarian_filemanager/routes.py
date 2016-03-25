@@ -56,9 +56,10 @@ def get_parent_path(path):
 
 
 @template_helper
-def get_parent_url(path):
+def get_parent_url(path, view=None):
     parent_path = get_parent_path(path)
-    return i18n_url('files:path', path=parent_path)
+    vargs = {'view': view} if view else {}
+    return i18n_url('files:path', path=parent_path, **vargs)
 
 
 def go_to_parent(path):
@@ -112,10 +113,16 @@ def show_list_view(path, view, defaults):
     data['facet_types'] = get_facet_types(paths)
     is_search = data.get('is_search', False)
     is_successful = data.get('is_successful', True)
+    original_view = data.get('original_view')
     if not is_search and is_successful:
-        if view == 'html':
+        # If no view was specified and we have an index file, then
+        # we switch to the reader tab
+        if view == 'html' or not original_view:
             data['index_file'] = find_html_index(paths)
-        elif view == 'updates':
+            view = 'html' if data['index_file'] else view
+            data['view'] = view
+
+        if view == 'updates':
             manager = Manager(request.app.supervisor)
             span = request.app.config['changelog.span']
             (_, _, files, _) = manager.list_descendants(path, span)
@@ -277,9 +284,11 @@ def init_file_action(path=None):
     else:
         path = '.'
     # Use 'generic' as default view
-    view = request.query.get('view', 'generic')
+    original_view = request.query.get('view')
+    view = original_view or 'generic'
     defaults = dict(path=path,
-                    view=view)
+                    view=view,
+                    original_view=original_view)
     action = request.query.get('action')
     if action:
         return show_files_view(path, action, defaults)
