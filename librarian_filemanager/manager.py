@@ -87,13 +87,17 @@ class Manager(object):
         (dirs, files, meta) = self._process_listing(dirs, files)
         return (success, dirs, files, meta)
 
-    def list_descendants(self, path, span, show_hidden=False):
-        (success, count, dirs, files) = self.fsal_client.list_descendants(path, span)
+    def list_descendants(self, path, show_hidden=False, **kwargs):
+        (success,
+         count,
+         dirs,
+         files) = self.fsal_client.list_descendants(path, **kwargs)
         if not show_hidden:
             dirs = nohidden(dirs)
             files = nohidden(files)
+
         (dirs, files, meta) = self._process_listing(dirs, files)
-        return (success, dirs, files, meta)
+        return (success, count, dirs, files, meta)
 
     def search(self, query, show_hidden=False):
         (dirs, files, is_match) = self.fsal_client.search(query)

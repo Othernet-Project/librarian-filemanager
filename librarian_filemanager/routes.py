@@ -13,14 +13,13 @@ import logging
 import functools
 import subprocess
 
-from itertools import izip_longest, imap
-
 from bottle import request, abort, static_file, redirect
 from bottle_utils.ajax import roca_view
 from bottle_utils.csrf import csrf_protect, csrf_token
 from bottle_utils.html import urlunquote, quoted_url
 from bottle_utils.i18n import lazy_gettext as _, i18n_url
 
+from librarian_core.contrib.cache.decorators import cached
 from librarian_core.contrib.templates.decorators import template_helper
 from librarian_core.contrib.templates.renderer import template, view
 from librarian_content.facets.utils import (get_archive,
@@ -28,6 +27,7 @@ from librarian_content.facets.utils import (get_archive,
                                             get_facet_types,
                                             is_facet_valid,
                                             find_html_index)
+from librarian_ui.paginator import Paginator
 
 from .dirinfo import DirInfo
 from .manager import Manager
@@ -74,7 +74,7 @@ def show_file_list(path=None, defaults=None):
 def get_file_list(path=None, defaults=None):
     defaults = defaults or {}
     try:
-        query = urlunquote(request.params['p']).strip()
+        query = urlunquote(request.params['q']).strip()
     except KeyError:
         query = path or '.'
         is_search = False
@@ -105,6 +105,35 @@ def get_file_list(path=None, defaults=None):
     return data
 
 
+@cached(prefix='descendants', timeout=300)
+def get_descendant_count(path, span):
+    manager = Manager(request.app.supervisor)
+    (_, count, _, _, _) = manager.list_descendants(path,
+                                                   count=True,
+                                                   span=span,
+                                                   entry_type=0)
+    return count
+
+
+def get_descendants(path):
+    span = request.app.config['changelog.span']
+    count = get_descendant_count(path, span)
+    manager = Manager(request.app.supervisor)
+    # parse pagination params
+    page = Paginator.parse_page(request.params)
+    per_page = Paginator.parse_per_page(request.params)
+    pager = Paginator(count, page, per_page)
+    (offset, limit) = pager.items
+    (_, _, _, files, _) = manager.list_descendants(path,
+                                                   offset=offset,
+                                                   limit=limit,
+                                                   order='-create_time',
+                                                   span=span,
+                                                   entry_type=0,
+                                                   show_hidden=False)
+    return dict(pager=pager, files=files)
+
+
 @roca_view('filemanager/main', 'filemanager/_main', template_func=template)
 def show_list_view(path, view, defaults):
     selected = request.query.get('selected', None)
@@ -125,12 +154,7 @@ def show_list_view(path, view, defaults):
             data['view'] = view
 
         if view == 'updates':
-            manager = Manager(request.app.supervisor)
-            span = request.app.config['changelog.span']
-            (_, _, files, _) = manager.list_descendants(path, span,
-                                                        show_hidden=False)
-            data['files'] = sorted(files,
-                                   key=lambda x: x.create_date, reverse=True)
+            data.update(get_descendants(path))
         elif view != 'generic':
             data['files'] = filter(
                 lambda f: is_facet_valid(f.rel_path, view), data['files'])

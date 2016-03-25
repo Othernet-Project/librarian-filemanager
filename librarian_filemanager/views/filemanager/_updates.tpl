@@ -1,3 +1,4 @@
+<%namespace name="ui_pager" file="/ui/pager.tpl"/>
 <%namespace name="folder", file="_folder.tpl"/>
 
 <% is_super = request.user.is_superuser %>
@@ -30,3 +31,7 @@
 
     % endif
 </ul>
+
+<p class="pager">
+${ui_pager.pager_links(pager, _('Previous'), _('Next'))}
+</p>

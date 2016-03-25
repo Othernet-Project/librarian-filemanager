@@ -15,14 +15,14 @@ ${_('Files')}
 <%block name="menubar_panel">
     <form id="files-multisearch" class="o-multisearch o-panel">
         <div class="o-panel">
-            <label for="p" class="o-multisearch-label">
+            <label for="q" class="o-multisearch-label">
                 ## Translators, used as label for search field, appears before the text box
                 ${_('Search in folders:')}
             </label>
         </div>
         <div class="o-panel">
             ## Translators, used in file search box
-            ${forms.text('p', _('Folder path or search keywords'), value=None if is_search else (esc(h.urlunquote(path)) if path != '.' else ''))}
+            ${forms.text('q', _('Folder path or search keywords'), value=None if is_search else (esc(h.urlunquote(path)) if path != '.' else ''))}
         </div>
         <div class="o-panel">
             <button id="files-multisearch-button" type="submit" class="o-multisearch-button">
