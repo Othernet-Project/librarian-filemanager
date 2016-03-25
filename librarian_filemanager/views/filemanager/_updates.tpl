@@ -25,7 +25,7 @@
                     <span>${th.ago(f.create_date.date(), days_only=True)}</span>
                 </h3>
             % endif
-            ${folder.file(f, True, True)}
+            ${folder.file(f, with_controls=True, is_search=True, use_meta=True)}
         % endfor
 
     % endif

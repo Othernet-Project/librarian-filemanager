@@ -88,7 +88,7 @@
     </li>
 </%def>
 
-<%def name="file(f, with_controls=False, is_search=False)">
+<%def name="file(f, with_controls=False, is_search=False, use_meta=False)">
     <%
         # FIXME: For some reason known only to gods of programming, the 
         # following line, which otherwise appears completely useless, **MUST** 
@@ -99,6 +99,8 @@
         parent_view = 'generic' if is_search else None
         parent_url = th.get_parent_url(f.rel_path, parent_view)
         icon, is_thumb = th.get_file_thumb(f)
+        title = f.facets.get('title')
+        desc = f.facets.get('description')
     %>
     <li class="file-list-item file-list-file${' with-controls' if with_controls else ''}${' file-list-search-result' if is_search else ''}" role="row" aria-selected="false" tabindex>
         <a
@@ -111,12 +113,22 @@
             ${self.thumb_block(icon, 'cover' if is_thumb else 'icon')}
             <%self:file_info_inner>
                 <span class="file-list-name">
-                    ${h.to_unicode(f.name) | h}
+                    % if use_meta:
+                        ${title or h.to_unicode(f.name) | h}
+                    % else:
+                        ${h.to_unicode(f.name) | h}
+                    % endif
                 </span>
                 % if is_search and f.parent:
                     <span class="file-list-description">
                         ${_(u"in {}").format(esc(f.parent))}
                     </span>
+                % else:
+                    % if title:
+                        <span class="file-list-description">
+                            ${title | h}
+                        </span>
+                    % endif
                 % endif
             </%self:file_info_inner>
         </a>

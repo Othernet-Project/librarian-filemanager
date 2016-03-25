@@ -59,7 +59,7 @@
         ## Files
 
         % for f in files:
-            ${folder.file(f, not is_search, is_search)}
+            ${folder.file(f, with_controls=not is_search, is_search=is_search)}
         % endfor
     % endif
 </ul>

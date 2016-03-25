@@ -1,7 +1,10 @@
 import os
 import mimetypes
+from itertools import imap, izip_longest
 
 from bottle_utils.common import to_unicode
+
+from librarian_content.facets.utils import get_facets
 
 from .dirinfo import DirInfo
 
@@ -17,6 +20,9 @@ class Manager(object):
     def get_dirinfos(self, paths):
         return DirInfo.from_db(self.supervisor, paths, immediate=True)
 
+    def get_facets(self, files):
+        return get_facets(imap(lambda f: f.rel_path, files))
+
     def _extend_dirs(self, dirs):
         dirpaths = [fs_obj.rel_path for fs_obj in dirs]
         dirinfos = self.get_dirinfos(dirpaths)
@@ -31,6 +37,12 @@ class Manager(object):
             os.path.basename(os.path.dirname(fs_obj.rel_path)))
         return fs_obj
 
+    def _extend_files(self, files):
+        facets = self.get_facets(files)
+        for f, facets in izip_longest(files, facets):
+            f.facets = facets
+        return files
+
     def _process_listing(self, dirs, unfiltered_files):
         meta = {}
         files = []
@@ -41,7 +53,7 @@ class Manager(object):
                 meta[fs_obj.name] = fs_obj
             else:
                 files.append(fs_obj)
-        return (dirs, files, meta)
+        return (dirs, self._extend_files(files), meta)
 
     def get(self, path):
         success, fso = self.fsal_client.get_fso(path)
