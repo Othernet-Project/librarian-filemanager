@@ -273,7 +273,7 @@ def ago(dt, days_only=False):
                         "{number} days ago",
                         diff.days).format(number=diff.days)
     if diff.days == 1:
-        return _('yesterday')
+        return _('Yesterday')
     if days_only:
         return _('Today')
 
