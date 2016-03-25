@@ -81,14 +81,16 @@ def get_file_list(path=None, defaults=None):
     else:
         is_search = True
 
+    show_hidden = request.params.get('hidden', 'no') == 'yes'
+
     manager = Manager(request.app.supervisor)
     if is_search:
-        (dirs, files, meta, is_match) = manager.search(query)
+        (dirs, files, meta, is_match) = manager.search(query, show_hidden)
         relpath = '.' if not is_match else query
         is_search = not is_match
         is_successful = True  # search is always successful
     else:
-        (is_successful, dirs, files, meta) = manager.list(query)
+        (is_successful, dirs, files, meta) = manager.list(query, show_hidden)
         relpath = '.' if not is_successful else query
     current = manager.get(path)
     up = get_parent_path(query)
@@ -125,7 +127,8 @@ def show_list_view(path, view, defaults):
         if view == 'updates':
             manager = Manager(request.app.supervisor)
             span = request.app.config['changelog.span']
-            (_, _, files, _) = manager.list_descendants(path, span)
+            (_, _, files, _) = manager.list_descendants(path, span,
+                                                        show_hidden=False)
             data['files'] = sorted(files,
                                    key=lambda x: x.create_date, reverse=True)
         elif view != 'generic':
