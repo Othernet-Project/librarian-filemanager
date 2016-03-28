@@ -149,7 +149,7 @@ def show_list_view(path, view, defaults):
         # If no view was specified and we have an index file, then
         # we switch to the reader tab
         if view == 'html' or not original_view:
-            data['index_file'] = find_html_index(paths)
+            data['index_file'] = find_html_index(paths, any_html=False)
             view = 'html' if data['index_file'] else view
             data['view'] = view
 
