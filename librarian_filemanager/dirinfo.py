@@ -78,7 +78,7 @@ class DirInfo(CDFObject):
         if fsal.exists(info_file_path):
             try:
                 with fsal.open(info_file_path, 'r') as info_file:
-                    info = info_file.readlines()
+                    info = [to_unicode(line) for line in info_file.readlines()]
 
                 for line in info:
                     key, value = line.split('=')
@@ -89,7 +89,7 @@ class DirInfo(CDFObject):
                         language = self.NO_LANGUAGE
 
                     self._data.setdefault(language, {})
-                    self._data[language][key] = to_unicode(value).strip()
+                    self._data[language][key] = value.strip()
             except Exception:
                 self._data = dict()
                 msg = ".dirinfo reading of {0} failed.".format(self.path)
