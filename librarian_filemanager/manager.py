@@ -28,6 +28,7 @@ class Manager(object):
     def __init__(self, supervisor):
         self.supervisor = supervisor
         self.fsal_client = self.supervisor.exts.fsal
+        self.config = supervisor.config
 
     def get_dirinfos(self, paths):
         return DirInfo.from_db(self.supervisor, paths, immediate=True)
@@ -88,6 +89,8 @@ class Manager(object):
         return (success, dirs, files, meta)
 
     def list_descendants(self, path, show_hidden=False, **kwargs):
+        kwargs.setdefault('ignored_paths', []).extend(
+            self.config.get('changelog.ignored_paths', []))
         (success,
          count,
          dirs,
