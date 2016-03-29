@@ -202,6 +202,11 @@ $views-tab-cutoff: 840px;
     background: $o-accent;
     color: $o-negative-base;
 
+    &:hover,
+    &:focus {
+      background: $o-dp-background;
+    }
+
     .icon {
       font-size: 150%;
     }

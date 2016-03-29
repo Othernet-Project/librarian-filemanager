@@ -1485,10 +1485,14 @@ div.mejs-speed-button {
   color: #fff;
 }
 /* line 205, ../../../src/scss/partials/_main.scss */
+.views-tabs-strip .views-tabs-special:hover, .views-tabs-strip .views-tabs-special:focus {
+  background: #444;
+}
+/* line 210, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-special .icon {
   font-size: 150%;
 }
-/* line 209, ../../../src/scss/partials/_main.scss */
+/* line 214, ../../../src/scss/partials/_main.scss */
 .views-tabs-strip .views-tabs-special .label {
   display: none;
 }
