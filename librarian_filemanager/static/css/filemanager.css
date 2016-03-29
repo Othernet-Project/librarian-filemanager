@@ -1137,53 +1137,41 @@ div.mejs-speed-button {
  */
 /* line 9, ../../../src/scss/partials/_playlist.scss */
 .playlist-list .playlist-list-item {
-  background: #c4c4c4;
   overflow: hidden;
   margin: 0 0 0.5rem;
-  -moz-transition: background 0.5s;
-  -o-transition: background 0.5s;
-  -webkit-transition: background 0.5s;
-  transition: background 0.5s;
 }
-/* line 16, ../../../src/scss/partials/_playlist.scss */
-.playlist-list .playlist-list-item:hover, .playlist-list .playlist-list-item:focus {
-  background: #089bd2;
-}
-/* line 20, ../../../src/scss/partials/_playlist.scss */
-.playlist-list .playlist-list-item:hover a, .playlist-list .playlist-list-item:focus a {
-  color: white;
-}
-/* line 25, ../../../src/scss/partials/_playlist.scss */
+/* line 13, ../../../src/scss/partials/_playlist.scss */
 .playlist-list .playlist-list-item a {
   width: 100%;
-  display: inline-block;
+  height: 100%;
+  display: block;
   color: #333;
+  background: #c4c4c4;
   padding: 0.3rem 0.5rem;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  -moz-transition: color 0.5s;
-  -o-transition: color 0.5s;
-  -webkit-transition: color 0.5s;
-  transition: color 0.5s;
+  -moz-transition: color 0.5s, background 0.5s;
+  -o-transition: color 0.5s, background 0.5s;
+  -webkit-transition: color 0.5s, background 0.5s;
+  transition: color 0.5s, background 0.5s;
 }
-/* line 34, ../../../src/scss/partials/_playlist.scss */
-.playlist-list .playlist-list-item.playlist-list-item-current {
-  background: rgba(255, 255, 255, 0.75);
+/* line 23, ../../../src/scss/partials/_playlist.scss */
+.playlist-list .playlist-list-item a:hover, .playlist-list .playlist-list-item a:focus {
+  background: #089bd2;
+  color: white;
 }
-/* line 37, ../../../src/scss/partials/_playlist.scss */
+/* line 31, ../../../src/scss/partials/_playlist.scss */
 .playlist-list .playlist-list-item.playlist-list-item-current a {
+  color: #333;
   cursor: default;
-}
-/* line 41, ../../../src/scss/partials/_playlist.scss */
-.playlist-list .playlist-list-item.playlist-list-item-current:hover, .playlist-list .playlist-list-item.playlist-list-item-current:focus {
   background: rgba(255, 255, 255, 0.75);
 }
-/* line 45, ../../../src/scss/partials/_playlist.scss */
-.playlist-list .playlist-list-item.playlist-list-item-current:hover a, .playlist-list .playlist-list-item.playlist-list-item-current:focus a {
-  color: #333;
+/* line 36, ../../../src/scss/partials/_playlist.scss */
+.playlist-list .playlist-list-item.playlist-list-item-current a:hover, .playlist-list .playlist-list-item.playlist-list-item-current a:focus {
+  color: #089bd2;
 }
-/* line 52, ../../../src/scss/partials/_playlist.scss */
+/* line 44, ../../../src/scss/partials/_playlist.scss */
 .playlist-list .playlist-list-duration {
   display: inline-block;
   text-align: right;
@@ -1191,62 +1179,62 @@ div.mejs-speed-button {
   margin-right: 0.5rem;
 }
 
-/* line 60, ../../../src/scss/partials/_playlist.scss */
+/* line 52, ../../../src/scss/partials/_playlist.scss */
 .playlist-metadata {
   margin-bottom: 2rem;
 }
-/* line 63, ../../../src/scss/partials/_playlist.scss */
+/* line 55, ../../../src/scss/partials/_playlist.scss */
 .playlist-metadata h2 {
   margin: 1rem 0 0.5rem;
   padding: 0 1rem 0.5rem;
   font-size: 120%;
   border-bottom-color: #aaaaaa;
 }
-/* line 70, ../../../src/scss/partials/_playlist.scss */
+/* line 62, ../../../src/scss/partials/_playlist.scss */
 .playlist-metadata p {
   margin: 0 0 1rem;
   padding: 0 1rem;
 }
-/* line 75, ../../../src/scss/partials/_playlist.scss */
+/* line 67, ../../../src/scss/partials/_playlist.scss */
 .playlist-metadata .playlist-metadata-buttons {
   border-top: 1px solid #aaa;
   padding-top: 1rem;
   margin-top: 1rem;
 }
-/* line 81, ../../../src/scss/partials/_playlist.scss */
+/* line 73, ../../../src/scss/partials/_playlist.scss */
 .playlist-metadata .playlist-item-author {
   font-style: italic;
 }
-/* line 85, ../../../src/scss/partials/_playlist.scss */
+/* line 77, ../../../src/scss/partials/_playlist.scss */
 .playlist-metadata .label {
   display: inline-block;
   font-size: 90%;
   text-transform: uppercase;
 }
-/* line 91, ../../../src/scss/partials/_playlist.scss */
+/* line 83, ../../../src/scss/partials/_playlist.scss */
 .playlist-metadata .value span {
   vertical-align: middle;
 }
-/* line 95, ../../../src/scss/partials/_playlist.scss */
+/* line 87, ../../../src/scss/partials/_playlist.scss */
 .playlist-metadata .icon {
   font-size: 150%;
 }
 
-/* line 100, ../../../src/scss/partials/_playlist.scss */
+/* line 92, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs {
   position: absolute;
   top: 1rem;
   right: 1rem;
 }
-/* line 105, ../../../src/scss/partials/_playlist.scss */
+/* line 97, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs .label {
   display: none;
 }
-/* line 109, ../../../src/scss/partials/_playlist.scss */
+/* line 101, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs .icon {
   font-size: 150%;
 }
-/* line 113, ../../../src/scss/partials/_playlist.scss */
+/* line 105, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs a {
   display: inline-block;
   color: gray;
@@ -1256,20 +1244,20 @@ div.mejs-speed-button {
   -webkit-transition: color 0.3s;
   transition: color 0.3s;
 }
-/* line 120, ../../../src/scss/partials/_playlist.scss */
+/* line 112, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs a.active {
   color: #333;
 }
-/* line 124, ../../../src/scss/partials/_playlist.scss */
+/* line 116, ../../../src/scss/partials/_playlist.scss */
 .playlist-tabs a:hover, .playlist-tabs a:focus {
   color: #089bd2;
 }
 
-/* line 132, ../../../src/scss/partials/_playlist.scss */
+/* line 124, ../../../src/scss/partials/_playlist.scss */
 .with-tabs .playlist-section {
   display: none;
 }
-/* line 136, ../../../src/scss/partials/_playlist.scss */
+/* line 128, ../../../src/scss/partials/_playlist.scss */
 .with-tabs .playlist-section-open {
   display: block;
 }
