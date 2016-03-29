@@ -24,6 +24,7 @@
     controls.mediaelementplayer {
       features: ['playpause', 'progress', 'duration', 'volume'],
       success: (mediaElement) =>
+        mediaElement.play()
         @onPlayerReady mediaElement
         return
     }

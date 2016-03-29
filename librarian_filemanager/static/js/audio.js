@@ -28,6 +28,7 @@
       features: ['playpause', 'progress', 'duration', 'volume'],
       success: (function(_this) {
         return function(mediaElement) {
+          mediaElement.play();
           _this.onPlayerReady(mediaElement);
         };
       })(this)
