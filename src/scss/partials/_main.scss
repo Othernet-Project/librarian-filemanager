@@ -165,6 +165,12 @@ $views-tab-cutoff: 840px;
     height: 2rem;
     margin: 0 0.2rem;
 
+    &:focus,
+    &:hover {
+      background: $o-accent;
+      color: $o-negative-base;
+    }
+
     background-color: darken($o-material, 20);
     color: $o-base-text-color;
 

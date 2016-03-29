@@ -100,6 +100,23 @@
     .file-list-link {
       display: block;
       color: $o-base-text-color;
+      height: 100%;
+
+      &:hover,
+      &:focus {
+        background: $o-accent;
+        color: $o-negative-base;
+
+        .file-list-icon {
+          background: lighten($o-accent, 30);
+        }
+
+        & + .file-list-controls {
+          button, a {
+            color: $o-negative-base;
+          }
+        }
+      }
     }
 
     //
