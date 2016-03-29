@@ -216,7 +216,11 @@ def get_thumb_path(srcpath, default=None):
         return srcpath
     else:
         config = request.app.config
-        proc_cls = FacetProcessorBase.get_processor(srcpath)
+        processors = FacetProcessorBase.get_processors(srcpath)
+        try:
+            proc_cls = filter(lambda p: p.name != 'generic', processors)[0]
+        except IndexError:
+            return None
         thumbpath = proc_cls.determine_thumb_path(srcpath,
                                                   config['thumbs.dirname'],
                                                   config['thumbs.extension'])
