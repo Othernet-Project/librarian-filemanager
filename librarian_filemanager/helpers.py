@@ -241,7 +241,7 @@ def get_thumb_path(srcpath, default=None):
 
 
 def divround(a, b):
-    return round(a / b)
+    return int(round(a / b))
 
 
 @template_helper
