@@ -7,7 +7,7 @@
 
     ## *** FOLDER LISTING ***
 
-    % if (not dirs) and (not files):
+    % if not files:
 
         ## If the listing is empty, then only the empty listing li is shown
         <li class="file-list-empty file-list-item">
@@ -32,6 +32,8 @@
     % endif
 </ul>
 
-<p class="file-list-pager pager">
-${ui_pager.pager_links(pager, _('Previous'), _('Next'))}
-</p>
+% if files:
+    <p class="file-list-pager pager">
+        ${ui_pager.pager_links(pager, _('Previous'), _('Next'))}
+    </p>
+% endif
