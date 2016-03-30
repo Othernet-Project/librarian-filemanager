@@ -69,7 +69,7 @@ def get_views(facet_types):
             current = name == view
             icon = FACET_ICON_MAPPING[name]
             %>
-            <a class="views-tabs-strip-tab ${'views-tabs-tab-current' if current else ''}" href="${view_url}" role="tab">
+            <a class="views-tabs-strip-tab ${'views-tabs-tab-current' if current else ''}" href="${view_url}" role="tab" data-view="${name}">
                 <span class="icon icon-${icon}"></span>
                 <span class="views-tabs-tab-label label">${_(label)}</span>
             </a>
