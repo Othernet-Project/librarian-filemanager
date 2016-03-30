@@ -39,6 +39,8 @@
     ($ window).trigger 'views-sidebar-toggled'
     return
 
+  updateState = () ->
+    mainContainer.data 'view', ($ '.views-tabs-tab-current').data 'view'
 
   window.loadContent = (url) ->
     res = $.get url
@@ -46,13 +48,13 @@
       mainContainer.html data
       (mainContainer.find 'a').first().focus()
       activateSidebar()
+      updateState()
       window.triggerTabChange()
       return
     res.fail () ->
       # FIXME: Do not use alert, load a failure template into main view
       alert templates.alertLoadError
     return res
-
 
   mainContainer.on 'click', '.views-tabs-tab-link', (e) ->
     e.preventDefault()
@@ -86,7 +88,7 @@
     loadContent window.location
     return
 
-
+  updateState()
   activateSidebar()
   mainContainer.on 'click', '.views-sidebar-retract', toggleSidebar
   ($ window).on 'views-sidebar-toggle', toggleSidebar
