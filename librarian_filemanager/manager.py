@@ -3,9 +3,10 @@ import re
 import mimetypes
 from itertools import imap, izip_longest
 
+from bottle import request
 from bottle_utils.common import to_unicode
 
-from librarian_content.facets.utils import get_facets
+from librarian_content.facets.utils import get_facets, get_archive
 
 from .dirinfo import DirInfo
 
@@ -19,6 +20,13 @@ def nohidden(fsos):
     for fso in fsos:
         if not RE_PATH_WITH_HIDDEN.match(fso.rel_path):
             yield fso
+
+
+def unique_results(*iterables):
+    results = set()
+    for it in iterables:
+        results |= set(it)
+    return list(results)
 
 
 class Manager(object):
@@ -37,9 +45,10 @@ class Manager(object):
         return get_facets(imap(lambda f: f.rel_path, files))
 
     def _extend_dirs(self, dirs):
-        dirpaths = [fs_obj.rel_path for fs_obj in dirs]
+        plain_dirs = [fso for fso in dirs if not hasattr(fso, 'dirinfo')]
+        dirpaths = [fs_obj.rel_path for fs_obj in plain_dirs]
         dirinfos = self.get_dirinfos(dirpaths)
-        for fs_obj in dirs:
+        for fs_obj in plain_dirs:
             fs_obj.dirinfo = dirinfos[fs_obj.rel_path]
         return dirs
 
@@ -51,8 +60,9 @@ class Manager(object):
         return fs_obj
 
     def _extend_files(self, files):
-        facets = self.get_facets(files)
-        for f, facets in izip_longest(files, facets):
+        plain_files = [fso for fso in files if not hasattr(fso, 'facets')]
+        facets = self.get_facets(plain_files)
+        for f, facets in izip_longest(plain_files, facets):
             f.facets = facets
         return files
 
@@ -104,11 +114,42 @@ class Manager(object):
 
     def search(self, query, show_hidden=False):
         (dirs, files, is_match) = self.fsal_client.search(query)
+        if not is_match:
+            facets_results = self.search_facets(query)
+            dirinfo_results = self.search_dirinfos(query)
+            files = unique_results(files, facets_results)
+            dirs = unique_results(dirs, dirinfo_results)
         if not show_hidden:
             dirs = nohidden(dirs)
             files = nohidden(files)
         (dirs, files, meta) = self._process_listing(dirs, files)
         return (dirs, files, meta, is_match)
+
+    def search_facets(self, query, facet_type=None):
+        facets = get_archive().search(query, facet_type=facet_type)
+        files = []
+        for f in facets:
+            path = os.path.join(f['path'], f['file'])
+            success, fso = self.fsal_client.get_fso(path)
+            if not success:
+                continue
+            fso.facets = f
+            files.append(fso)
+        return files
+
+    def search_dirinfos(self, query):
+        default_lang = request.user.options.get('content_language', None)
+        lang = request.params.get('language', default_lang)
+        dirinfos = DirInfo.search(
+            self.supervisor, terms=query, language=lang)
+        dirs = []
+        for d in dirinfos:
+            success, fso = self.fsal_client.get_fso(d.path)
+            if not success:
+                continue
+            fso.dirinfo = d
+            dirs.append(fso)
+        return dirs
 
     def isdir(self, path):
         return self.fsal_client.isdir(path)
