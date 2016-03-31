@@ -86,12 +86,14 @@ def get_file_list(path=None, defaults=None):
         (dirs, files, meta, is_match) = manager.search(query, show_hidden)
         relpath = '.' if not is_match else query
         is_search = not is_match
-        is_successful = True  # search is always successful
+        success = True  # search is always successful
     else:
-        (is_successful, dirs, files, meta) = manager.list(query, show_hidden)
-        relpath = '.' if not is_successful else query
-    current = manager.get(path)
-    up = get_parent_path(query)
+        (success, dirs, files, meta) = manager.list(query, show_hidden)
+        if not success:
+            abort(404)
+        relpath = query
+    current = manager.get(relpath)
+    up = get_parent_path(relpath)
     data = defaults.copy()
     data.update(dict(path=relpath,
                      current=current,
@@ -99,7 +101,7 @@ def get_file_list(path=None, defaults=None):
                      files=files,
                      up=up,
                      is_search=is_search,
-                     is_successful=is_successful))
+                     is_successful=success))
     return data
 
 
