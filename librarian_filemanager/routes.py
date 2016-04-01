@@ -9,9 +9,7 @@ file that comes with the source code, or http://www.gnu.org/licenses/gpl.txt.
 """
 
 import os
-import logging
 import functools
-import subprocess
 
 from bottle import request, abort, static_file, redirect
 from bottle_utils.ajax import roca_view
@@ -46,7 +44,6 @@ FACET_MAPPING = {
 EXPORTS = {
     'routes': {'required_by': ['librarian_core.contrib.system.routes.routes']}
 }
-SHELL = '/bin/sh'
 
 
 def get_parent_path(path):
@@ -62,11 +59,6 @@ def get_parent_url(path, view=None):
 
 def go_to_parent(path):
     redirect(get_parent_url(path))
-
-
-@roca_view('filemanager/main', 'filemanager/_main', template_func=template)
-def show_file_list(path=None, defaults=None):
-    return get_file_list(path, defaults)
 
 
 def get_file_list(path=None, defaults=None):
@@ -187,10 +179,8 @@ def show_view(path, view, defaults):
     defaults.update(get_file_list(path))
     meta = request.query.get('info')
     if meta:
-        meta = urlunquote(meta)
-        return show_info_view(path, view, meta, defaults)
-    else:
-        return show_list_view(path, view, defaults)
+        return show_info_view(path, view, urlunquote(meta), defaults)
+    return show_list_view(path, view, defaults)
 
 
 def direct_file(path):
@@ -273,63 +263,6 @@ def rename_path(path):
     go_to_parent(path)
 
 
-def run_path(path):
-    path = os.path.join(request.app.config['library.contentdir'], path)
-    callargs = [SHELL, path]
-    proc = subprocess.Popen(callargs,
-                            stdin=subprocess.PIPE,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE)
-    out, err = proc.communicate()
-    ret = proc.returncode
-    return ret, out, err
-
-
-def init_file_action(path=None):
-    if path:
-        path = urlunquote(path)
-    else:
-        path = '.'
-    # Use 'generic' as default view
-    original_view = request.query.get('view')
-    view = original_view or 'generic'
-    defaults = dict(path=path,
-                    view=view,
-                    original_view=original_view)
-    action = request.query.get('action')
-    if action:
-        return show_files_view(path, action, defaults)
-    return show_view(path, view, defaults)
-
-
-def show_files_view(path, action, defaults):
-    if action == 'delete':
-        return delete_path_confirm(path)
-    elif action == 'thumb':
-        return retrieve_thumb_url(path, defaults)
-
-    return show_file_list(path, defaults=defaults)
-
-
-def handle_file_action(path):
-    path = urlunquote(path)
-    action = request.forms.get('action')
-    if action == 'rename':
-        return rename_path(path)
-    elif action == 'delete':
-        return delete_path(path)
-    elif action == 'exec':
-        if os.path.splitext(path)[1] != '.sh':
-            # For now we only support running BASH scripts
-            abort(400)
-        logging.info("Running script '%s'", path)
-        ret, out, err = run_path(path)
-        logging.debug("Script '%s' finished with return code %s", path, ret)
-        return template('exec_result', ret=ret, out=out, err=err)
-    else:
-        abort(400)
-
-
 def retrieve_thumb_url(path, defaults):
     thumb_url = None
     thumb_path = get_thumb_path(urlunquote(request.query.get('target')))
@@ -349,6 +282,36 @@ def retrieve_thumb_url(path, defaults):
                                        path=cover_path)
 
     return dict(url=thumb_url)
+
+
+def init_file_action(path=None):
+    if path:
+        path = urlunquote(path)
+    else:
+        path = '.'
+    # Use 'generic' as default view
+    original_view = request.query.get('view')
+    view = original_view or 'generic'
+    defaults = dict(path=path,
+                    view=view,
+                    original_view=original_view)
+    action = request.query.get('action')
+    if action == 'delete':
+        return delete_path_confirm(path)
+    elif action == 'thumb':
+        return retrieve_thumb_url(path, defaults)
+    return show_view(path, view, defaults)
+
+
+def handle_file_action(path):
+    path = urlunquote(path)
+    action = request.forms.get('action')
+    if action == 'rename':
+        return rename_path(path)
+    elif action == 'delete':
+        return delete_path(path)
+    else:
+        abort(400)
 
 
 def routes(config):
