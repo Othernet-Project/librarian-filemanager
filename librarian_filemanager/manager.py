@@ -1,12 +1,13 @@
 import os
 import re
 import mimetypes
-from itertools import imap, izip_longest
+from itertools import izip_longest
 
 from bottle import request
 from bottle_utils.common import to_unicode
 
-from librarian_content.facets.utils import get_facets, get_archive
+from librarian_content.facets.utils import (
+    get_facets, get_dir_facets, get_archive)
 
 from .dirinfo import DirInfo
 
@@ -42,7 +43,10 @@ class Manager(object):
         return DirInfo.from_db(self.supervisor, paths, immediate=True)
 
     def get_facets(self, files):
-        return get_facets(imap(lambda f: f.rel_path, files))
+        return get_facets(f.rel_path for f in files)
+
+    def get_dir_facets(self, path, files):
+        return get_dir_facets(path, (f.name for f in files))
 
     def _extend_dirs(self, dirs):
         plain_dirs = [fso for fso in dirs if not hasattr(fso, 'dirinfo')]
@@ -59,14 +63,23 @@ class Manager(object):
             os.path.basename(os.path.dirname(fs_obj.rel_path)))
         return fs_obj
 
-    def _extend_files(self, files):
+    def _extend_files(self, files, limit=None):
+        """
+        Extend files with facet data. The optional ``limit`` argument is a
+        directory path, which changes the way facets are looked up. When
+        ``limit`` is specified, facets are looked up by directory path, rather
+        than full path, which speeds the query up.
+        """
         plain_files = [fso for fso in files if not hasattr(fso, 'facets')]
-        facets = self.get_facets(plain_files)
+        if limit:
+            facets = self.get_dir_facets(limit, plain_files)
+        else:
+            facets = self.get_facets(plain_files)
         for f, facets in izip_longest(plain_files, facets):
             f.facets = facets
         return files
 
-    def _process_listing(self, dirs, unfiltered_files):
+    def _process_listing(self, dirs, unfiltered_files, limit=None):
         dirs = list(dirs)
         unfiltered_files = list(unfiltered_files)
         meta = {}
@@ -78,7 +91,7 @@ class Manager(object):
                 meta[fs_obj.name] = fs_obj
             else:
                 files.append(fs_obj)
-        return (dirs, self._extend_files(files), meta)
+        return (dirs, self._extend_files(files, limit), meta)
 
     def get(self, path):
         success, fso = self.fsal_client.get_fso(path)
@@ -95,7 +108,7 @@ class Manager(object):
         if not show_hidden:
             dirs = nohidden(dirs)
             files = nohidden(files)
-        (dirs, files, meta) = self._process_listing(dirs, files)
+        (dirs, files, meta) = self._process_listing(dirs, files, limit=path)
         return (success, dirs, files, meta)
 
     def list_descendants(self, path, show_hidden=False, **kwargs):
