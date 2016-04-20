@@ -19,8 +19,13 @@
     </form>
 </%def>
 
-<%def name="file_download(path)">
-    <a href="${url('files:direct', path=h.urlquote(path))}" class="file-list-control">
+<%def name="file_download(file_object)">
+    <a
+        href="${h.quoted_url('files:direct', path=file_object.rel_path)}"
+        data-relpath="${file_object.rel_path | h.urlquote}"
+        data-type="download"
+        class="file-list-download file-list-control"
+        >
         <span class="icon icon-download-outline"></span>
         <span class="label">${_('Download')}</span>
     </a>
@@ -54,7 +59,7 @@
     icon, icon_is_url = th.get_folder_icon(d)
     %>
     <li class="file-list-item file-list-directory${' with-controls' if with_controls else ''}" role="row" aria-selected="false" tabindex>
-        <a href="${dpath}" data-type="directory" class="file-list-link">
+        <a href="${dpath}" data-type="directory" data-relpath="${d.rel_path}" class="file-list-link">
             ## COVER/ICON
             % if cover_url:
                 ${self.thumb_block(cover_url, 'cover')}
@@ -136,7 +141,7 @@
             % if is_search:
                 ${self.file_parent_folder(parent_url)}
             % endif
-            ${self.file_download(f.rel_path)}
+            ${self.file_download(f)}
             % if with_controls:
                 % if request.user.is_superuser:
                     ${self.file_delete(f.rel_path)}

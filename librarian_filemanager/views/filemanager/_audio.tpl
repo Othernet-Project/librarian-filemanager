@@ -70,6 +70,7 @@
     file = entry.name
     current = entry.name == selected_entry.name
     file_path = entry.rel_path
+    mimetype = entry.mimetype or ''
     url = i18n_url('files:path', view=view, path=path, selected=file)
     meta_url = i18n_url('files:path', view=view, path=path, info=file)
     direct_url = h.quoted_url('files:direct', path=file_path)
@@ -88,6 +89,9 @@
         data-title="${title | h}"
         data-author="${author | h}"
         data-duration="${duration}"
+        data-mimetype="${mimetype | h}"
+        data-type="file"
+        data-relpath="${file_path | h.urlquote}"
         data-url="${url}"
         data-meta-url="${meta_url}"
         data-direct-url="${direct_url}"
