@@ -1,20 +1,15 @@
 <%namespace name="current_view" file="_${context['view']}.tpl"/>
 
-<%!
+<%
 # Mappings between facets and view urls
 
-# We use 'gettext' for the fake gettext, because overriding any global variable
-# here propagates to all parts of the template. A proper fix for this would be
-# FIXME to move this outside of template.
-gettext = lambda x: x
-
 FACET_VIEW_MAPPINGS = (
-    ('generic', gettext('Browse')),
-    ('image', gettext('Gallery')),
-    ('audio', gettext('Listen')),
-    ('video', gettext('Watch')),
-    ('html', gettext('Read')),
-    ('updates', gettext('Updates')),
+    ('generic', _('Browse')),
+    ('image', _('Gallery')),
+    ('audio', _('Listen')),
+    ('video', _('Watch')),
+    ('html', _('Read')),
+    ('updates', _('Updates')),
 )
 
 FACET_ICON_MAPPING = {
@@ -74,7 +69,7 @@ def get_views(facet_types):
             %>
             <a class="views-tabs-strip-tab ${'views-tabs-tab-current' if current else ''}" href="${view_url}" role="tab" data-view="${name}">
                 <span class="icon icon-${icon}"></span>
-                <span class="views-tabs-tab-label label">${_(label)}</span>
+                <span class="views-tabs-tab-label label">${label}</span>
             </a>
         % endfor
     </nav>
