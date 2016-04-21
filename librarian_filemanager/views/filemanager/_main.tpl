@@ -3,15 +3,18 @@
 <%!
 # Mappings between facets and view urls
 
-_ = lambda x: x
+# We use 'gettext' for the fake gettext, because overriding any global variable
+# here propagates to all parts of the template. A proper fix for this would be
+# FIXME to move this outside of template.
+gettext = lambda x: x
 
 FACET_VIEW_MAPPINGS = (
-    ('generic', _('Browse')),
-    ('image', _('Gallery')),
-    ('audio', _('Listen')),
-    ('video', _('Watch')),
-    ('html', _('Read')),
-    ('updates', _('Updates')),
+    ('generic', gettext('Browse')),
+    ('image', gettext('Gallery')),
+    ('audio', gettext('Listen')),
+    ('video', gettext('Watch')),
+    ('html', gettext('Read')),
+    ('updates', gettext('Updates')),
 )
 
 FACET_ICON_MAPPING = {
@@ -34,7 +37,7 @@ def get_views(facet_types):
             yield (name, label)
 %>
 
-<% 
+<%
     view_has_sidebar = hasattr(current_view, 'sidebar')
 %>
 
