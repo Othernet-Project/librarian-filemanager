@@ -6,6 +6,7 @@ from itertools import izip_longest
 from bottle import request
 from bottle_utils.common import to_unicode
 
+from librarian_content.facets.archive import ROOT_PATH
 from librarian_content.facets.utils import (
     get_facets, get_dir_facets, get_archive)
 
@@ -38,6 +39,8 @@ class Manager(object):
         self.supervisor = supervisor
         self.fsal_client = self.supervisor.exts.fsal
         self.config = supervisor.config
+        whitelist = [ROOT_PATH] + self.config.get('fsal.whitelist', [])
+        self.fsal_client.set_whitelist(whitelist)
 
     def get_dirinfos(self, paths):
         return DirInfo.from_db(self.supervisor, paths, immediate=True)
