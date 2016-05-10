@@ -39,8 +39,9 @@ class Manager(object):
         self.supervisor = supervisor
         self.fsal_client = self.supervisor.exts.fsal
         self.config = supervisor.config
-        whitelist = [ROOT_PATH] + self.config.get('fsal.whitelist', [])
-        self.fsal_client.set_whitelist(whitelist)
+        whitelist = self.config.get('fsal.whitelist', [])
+        if whitelist:
+            self.fsal_client.set_whitelist([ROOT_PATH] + whitelist)
 
     def get_dirinfos(self, paths):
         return DirInfo.from_db(self.supervisor, paths, immediate=True)
