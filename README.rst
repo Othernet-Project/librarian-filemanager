@@ -2,6 +2,9 @@
 librarian-filemanager
 =====================
 
+**END OF LIFE:** This package has been merged into the development branch of
+the librarian package and will not be maintained anymore.
+
 The filemanager component provides a GUI for browsing and managing the content
 library (similar to conventional file managers), and an API for registering
 openers of specific content types, which are librarian_'s equivalent of file
