@@ -6,6 +6,7 @@ from itertools import izip_longest
 from bottle import request
 from bottle_utils.common import to_unicode
 
+from librarian_content.facets.archive import ROOT_PATH
 from librarian_content.facets.utils import (
     get_facets, get_dir_facets, get_archive)
 
@@ -38,6 +39,9 @@ class Manager(object):
         self.supervisor = supervisor
         self.fsal_client = self.supervisor.exts.fsal
         self.config = supervisor.config
+        whitelist = self.config.get('fsal.whitelist', [])
+        if whitelist:
+            self.fsal_client.set_whitelist([ROOT_PATH] + whitelist)
 
     def get_dirinfos(self, paths):
         return DirInfo.from_db(self.supervisor, paths, immediate=True)
@@ -59,8 +63,7 @@ class Manager(object):
     def _extend_file(self, fs_obj):
         mimetype, encoding = mimetypes.guess_type(fs_obj.rel_path)
         fs_obj.mimetype = mimetype
-        fs_obj.parent = to_unicode(
-            os.path.basename(os.path.dirname(fs_obj.rel_path)))
+        fs_obj.parent_name = to_unicode(os.path.basename(fs_obj.parent))
         return fs_obj
 
     def _extend_files(self, files, limit=None):

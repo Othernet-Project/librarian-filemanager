@@ -126,7 +126,7 @@
                 </span>
                 % if is_search and f.parent:
                     <span class="file-list-description">
-                        ${_(u"in {}").format(esc(f.parent))}
+                        ${_(u"in {}").format(esc(f.parent_name))}
                     </span>
                 % else:
                     % if title:

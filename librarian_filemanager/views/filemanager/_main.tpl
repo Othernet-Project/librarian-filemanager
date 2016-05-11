@@ -1,9 +1,7 @@
 <%namespace name="current_view" file="_${context['view']}.tpl"/>
 
-<%!
+<%
 # Mappings between facets and view urls
-
-_ = lambda x: x
 
 FACET_VIEW_MAPPINGS = (
     ('generic', _('Browse')),
@@ -34,7 +32,7 @@ def get_views(facet_types):
             yield (name, label)
 %>
 
-<% 
+<%
     view_has_sidebar = hasattr(current_view, 'sidebar')
 %>
 
@@ -71,7 +69,7 @@ def get_views(facet_types):
             %>
             <a class="views-tabs-strip-tab ${'views-tabs-tab-current' if current else ''}" href="${view_url}" role="tab" data-view="${name}">
                 <span class="icon icon-${icon}"></span>
-                <span class="views-tabs-tab-label label">${_(label)}</span>
+                <span class="views-tabs-tab-label label">${label}</span>
             </a>
         % endfor
     </nav>
