@@ -21,7 +21,7 @@
 
 <%def name="file_download(file_object)">
     <a
-        href="${h.quoted_url('files:direct', path=file_object.rel_path)}"
+        href="${h.quoted_url('files:direct', path=file_object.rel_path, dl=1)}"
         data-relpath="${file_object.rel_path | h.urlquote}"
         data-type="download"
         class="file-list-download file-list-control"
