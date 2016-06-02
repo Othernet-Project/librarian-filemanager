@@ -124,9 +124,9 @@
                         ${h.to_unicode(f.name) | h}
                     % endif
                 </span>
-                % if is_search and f.parent:
+                % if is_search and f.parent_name:
                     <span class="file-list-description">
-                        ${_(u"in {}").format(esc(f.parent))}
+                        ${_(u"in {}").format(esc(f.parent_name))}
                     </span>
                 % else:
                     % if title:
