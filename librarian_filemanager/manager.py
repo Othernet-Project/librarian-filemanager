@@ -59,7 +59,7 @@ class Manager(object):
     def _extend_file(self, fs_obj):
         mimetype, encoding = mimetypes.guess_type(fs_obj.rel_path)
         fs_obj.mimetype = mimetype
-        fs_obj.parent = to_unicode(
+        fs_obj.parent_name = to_unicode(
             os.path.basename(os.path.dirname(fs_obj.rel_path)))
         return fs_obj
 
