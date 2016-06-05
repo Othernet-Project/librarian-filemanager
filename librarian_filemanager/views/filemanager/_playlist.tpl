@@ -38,8 +38,8 @@
 </%def>
 
 <%def name="sidebar_playlist_video_dimensions(metadata)">
-    <% 
-        # We use min(width, height) here to account for veritcally oriented 
+    <%
+        # We use min(width, height) here to account for veritcally oriented
         # videos where width and height is flipped.
         width = metadata.get('width', 0)
         height = metadata.get('height', 0)
@@ -64,7 +64,7 @@
         mpx = round(width * height / 1000000.0, 1)
     %>
     <p class="playlist-item-dimensions">
-        ## Translators, used as label for image dimensions in playlist's info 
+        ## Translators, used as label for image dimensions in playlist's info
         ## panel.
         <span class="label">${_('Dimensions:')}</span>
         <span class="value">
@@ -92,7 +92,7 @@
     </h2>
     ${self.sidebar_playlist_item_metadata(entry)}
     <p class="playlist-metadata-buttons">
-        <a href="${url('files:direct', path=h.urlquote(entry.rel_path))}" class="button" target="_blank">
+        <a href="${url('files:direct', path=h.urlquote(entry.rel_path), dl=1)}" class="button">
             <span class="icon icon-download"></span>
             <span class="label">
                 ${_('Download')}
