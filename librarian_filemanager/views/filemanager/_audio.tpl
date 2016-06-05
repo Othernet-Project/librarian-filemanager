@@ -33,7 +33,7 @@
             <div class="audio-controls-albumart" id="audio-controls-albumart">
                 <img src="${cover_url}" class="audio-controls-cover${' audio-controls-custom-cover' if custom_cover else ''}">
                 <div class="audio-controls-title" id="audio-controls-title">
-                    <h2>${metadata.get('title') or titlify(metadata.get('file'))}</h2>
+                    <h2>${metadata.get('title') or titlify(selected_entry.name)}</h2>
                     <p>${metadata.get('author', _('Unknown author'))}</p>
                 </div>
             </div>
